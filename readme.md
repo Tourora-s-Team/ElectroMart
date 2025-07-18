@@ -28,3 +28,4 @@
 - Dự án sử dụng mô hình MVC: Model - View - Controller.
 - Tách biệt `public/` giúp bảo mật, chỉ expose phần cần thiết cho web server.
 - `core/router.php` và `routes/` giúp ứng dụng mở rộng quy mô dễ dàng.
+- Các file `example.php` - chỉ có tác dụng để push folder lên github (Bỏ qua và không thao tác trên các file này).
