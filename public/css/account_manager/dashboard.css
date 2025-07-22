@@ -1,0 +1,121 @@
+/* Common css */
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-row-sb {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: white;
+    color: #007bff;
+    border: #007bff 1px solid;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.container {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.container::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Account Navigation */
+.account_nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-container, .right-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.right-container {
+    text-align: right;
+}
+
+.left-container .logo {
+    width: 100px;
+    height: auto;
+
+}
+
+.right-container .avatar {
+    width: 64px;
+    height: auto;
+    border-radius: 50%;
+    margin-left: 12px;
+}
+
+#account-manager {
+    padding: 20px;
+}
+
+#account-manager .navigation-button {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.navigation-button .nav-btn {
+    border: none;
+    margin: 8px 0;
+    padding: 20px 15px;
+    border-radius: 8px;
+    color: #4d545a;
+    font-family: Roboto, sans-serif;
+    background-color: white;
+    text-align: left;
+    border: 1px solid white;
+}
+
+.navigation-button .nav-btn:hover {
+    cursor: pointer;
+    background-color: #f5f3f3;
+}
+
+.navigation-button button i {
+    margin-right: 10px;
+}
+
+.navigation-button .active {
+    color: #007bff;  
+    background-color: #EFF6FF;
+    border: 1px solid #007bff;
+}

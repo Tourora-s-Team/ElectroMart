@@ -1,0 +1,56 @@
+#account-info {
+    border-radius: 12px;
+    background-color: #ffffff;
+}
+
+#account-info .subheader {
+    padding: 16px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.subheader .subheader__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #343a40;
+}
+
+#account-info .account-details {
+    padding: 16px;
+}
+
+.account-details .grid-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.account-details .input-group {
+    margin: 0 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-details .grid-form .input-group label {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.account-details .grid-form .input-group input{
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #495057;
+}
+
+.account-details .form-actions {
+    float: right;
+    margin: 16px 0;
+}
+
+.account-details .member-details{
+    margin: 16px 0;
+    font-size: 14px;
+    color: #495057;
+}

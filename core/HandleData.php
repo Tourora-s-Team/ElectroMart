@@ -1,5 +1,5 @@
 <?php
-    require_once '../../config/Database.php';
+    require_once __DIR__ . '/../config/Database.php';
 
     class HandleData extends Database {
         private $db;
@@ -13,7 +13,8 @@
             $conn = $this->db->connectDB();
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ?: [];
         }
 
         // Hàm thực thi không trả về dữ liệu

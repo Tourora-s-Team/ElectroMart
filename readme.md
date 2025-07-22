@@ -5,8 +5,6 @@
 📦ElectroMart
 ┣ 📂app
 ┃ ┣ 📂controllers → Chứa controller xử lý logic nghiệp vụ
-┃ ┃ ┣ 📂client → Controller cho frontend (user)
-┃ ┃ ┣ 📂server → Controller cho backend (admin/server)
 ┃ ┃ ┗ 📜example.php → Controller ví dụ
 ┃ ┣ 📂models → Các lớp Model tương tác với CSDL
 ┃ ┗ 📂views → Giao diện người dùng (HTML/PHP)
