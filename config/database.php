@@ -23,6 +23,7 @@
             }
         }
 
-    }
+}
+// Khai báo lớp Database
 
 ?>
