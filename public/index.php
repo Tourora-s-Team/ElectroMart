@@ -16,7 +16,7 @@ require_once ROOT_PATH . '/routes/HomeSuggestion.php';
 
 // Dispatch route
 try {
-    $router->dispatch($_SERVER['QUERY_STRING']);
+    $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 } catch (Exception $e) {
     // Xử lý lỗi routing
     echo $e->getMessage();

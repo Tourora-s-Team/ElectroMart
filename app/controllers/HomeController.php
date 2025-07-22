@@ -8,6 +8,7 @@ class HomeController
         extract($data);
         require_once ROOT_PATH . '/app/views/' . $view . '.php';
     }
+
     public function index()
     {
         $productModels = new Product();

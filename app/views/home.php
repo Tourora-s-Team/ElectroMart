@@ -19,6 +19,7 @@
                 <!-- Vòng lặp mảng hiển thị sản phẩm và ảnh Thumb -->
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
+                        <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
                         <a href="/product/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
                                 <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
