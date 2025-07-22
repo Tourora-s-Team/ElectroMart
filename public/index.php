@@ -1,14 +1,15 @@
 <?php
+define('ROOT_PATH', dirname(__DIR__));
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../core/router.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
-
 $router = new Router();
 
 // Required routes
 require_once __DIR__ . '/../routes/account_manager.php';
+require_once ROOT_PATH . '/routes/HomeSuggestion.php';
 
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

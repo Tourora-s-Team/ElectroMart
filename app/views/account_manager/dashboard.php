@@ -14,8 +14,8 @@
 
     <div class="right-container">
         <div>
-            <p class="customer-name"><?= $customerData["FullName"] ?></p>
-            <p class="loyalty-point"><?= $customerData["LoyaltyPoint"] ?> Points</p>
+            <p class="customer-name"><?= $customerData[0]["FullName"] ?></p>
+            <p class="loyalty-point"><?= $customerData[0]["LoyaltyPoint"] ?> Points</p>
         </div>
         <img src="<?= $_ENV['IMG_PATH'] . 'avatar_default.png' ?>" alt="Avatar" class="avatar">
     </div>

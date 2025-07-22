@@ -15,15 +15,15 @@
             <div class="grid-form">
                 <div class="input-group ">
                     <label for="name">Họ và tên:</label>
-                    <input type="text" id="name" name="name" value="<?= $customerData["FullName"] ?>">
+                    <input type="text" id="name" name="name" value="<?= $customerData[0]["FullName"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="<?= $userData["Email"] ?>">
+                    <input type="email" id="email" name="email" value="<?= $userData[0]["Email"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="phone">Số điện thoại:</label>
-                    <input type="tel" id="phone" name="phone" value="<?= $userData["Phonenumber"] ?>">
+                    <input type="tel" id="phone" name="phone" value="<?= $userData[0]["Phonenumber"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="date-of-birth">Ngày sinh:</label>
@@ -48,6 +48,6 @@
 <script>
     flatpickr("#date-of-birth", {
         dateFormat: "d/m/Y", // định dạng hiển thị
-        defaultDate: "<?= date('d-m-Y', strtotime($customerData['BirthDate'])) ?>" // giữ định dạng chuẩn d-m-Y
+        defaultDate: "<?= date('d-m-Y', strtotime($customerData[0]['BirthDate'])) ?>" // giữ định dạng chuẩn d-m-Y
     });
 </script>
