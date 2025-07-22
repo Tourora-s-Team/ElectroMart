@@ -1,10 +1,10 @@
 <?php
     class Database {
-        private $servername = "localhost";
-        private $username = "root";
-        private $password = "";
-        private $dbname = "electromart";
-    
+        private $servername = $_ENV['DB_HOST'];
+        private $username = $_ENV['DB_USER'];
+        private $password = $_ENV['DB_PASS'];
+        private $dbname = $_ENV['DB_NAME'];
+
         function connectDB() {
             try {
                 $conn = new PDO("mysql:host=$this->servername;dbname=$this->dbname;charset=utf8", $this->username, $this->password);
