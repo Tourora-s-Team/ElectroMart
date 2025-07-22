@@ -1,3 +1,9 @@
+<!-- Thư viện định dạng ngày tháng -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<?php
+    require_once __DIR__ . "/./dashboard.php";
+?>
 <div id="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Thông tin tài khoản</h1>
@@ -9,19 +15,19 @@
             <div class="grid-form">
                 <div class="input-group ">
                     <label for="name">Họ và tên:</label>
-                    <input type="text" id="name" name="name" value="John Doe">
+                    <input type="text" id="name" name="name" value="<?= $customerData["FullName"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="john.doe@example.com">
+                    <input type="email" id="email" name="email" value="<?= $userData["Email"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="phone">Số điện thoại:</label>
-                    <input type="tel" id="phone" name="phone" value="123456789">
+                    <input type="tel" id="phone" name="phone" value="<?= $userData["Phonenumber"] ?>">
                 </div>
                 <div class="input-group">
                     <label for="date-of-birth">Ngày sinh:</label>
-                    <input type="date" id="date-of-birth" name="date-of-birth" value="1990-01-01">
+                    <input type="text" id="date-of-birth" name="date-of-birth">
                 </div>
             </div>
 
@@ -38,3 +44,10 @@
         </div>
     </div>
 </div>
+
+<script>
+    flatpickr("#date-of-birth", {
+        dateFormat: "d/m/Y", // định dạng hiển thị
+        defaultDate: "<?= date('d-m-Y', strtotime($customerData['BirthDate'])) ?>" // giữ định dạng chuẩn d-m-Y
+    });
+</script>

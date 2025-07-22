@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . "/../../core/HandleData.php");
 class Customer
 {
     private $customerID;
@@ -8,15 +9,15 @@ class Customer
     private $birthDate;
     private $loyaltyPoint;
 
-    function __construct($customerID, $userID, $fullName, $gender, $birthDate, $loyaltyPoint)
-    {
-        $this->customerID = $customerID;
-        $this->userID = $userID;
-        $this->fullName = $fullName;
-        $this->gender = $gender;
-        $this->birthDate = $birthDate;
-        $this->loyaltyPoint = $loyaltyPoint;
-    }
+    // function __construct($customerID, $userID, $fullName, $gender, $birthDate, $loyaltyPoint)
+    // {
+    //     $this->customerID = $customerID;
+    //     $this->userID = $userID;
+    //     $this->fullName = $fullName;
+    //     $this->gender = $gender;
+    //     $this->birthDate = $birthDate;
+    //     $this->loyaltyPoint = $loyaltyPoint;
+    // }
 
     public function getCustomerID()
     {
@@ -33,15 +34,11 @@ class Customer
         return $this->loyaltyPoint;
     }
 
-    public function getCustomerInfo()
+    public function getCustomerData($userId)
     {
-        return [
-            'customerID' => $this->customerID,
-            'userID' => $this->userID,
-            'fullName' => $this->fullName,
-            'gender' => $this->gender,
-            'birthDate' => $this->birthDate,
-            'loyaltyPoint' => $this->loyaltyPoint
-        ];
+        $handleData = new HandleData();
+        $sql = "SELECT FullName, BirthDate, LoyaltyPoint FROM customer WHERE UserID = " . $userId;
+        $res = $handleData->getData($sql);
+        return $res;
     }
 }

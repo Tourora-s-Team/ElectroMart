@@ -1,5 +1,7 @@
 <?php
-class User {
+require_once(__DIR__ . "/../../core/HandleData.php");
+class User
+{
     private $userID;
     private $userName;
     private $password;
@@ -8,30 +10,46 @@ class User {
     private $role;
     private $isActive;
 
-    function __construct($userID, $userName, $password, $phoneNumber, $email, $role, $isActive = true) {
-        $this->userID = $userID;
-        $this->userName = $userName;
-        $this->password = $password;
-        $this->phoneNumber = $phoneNumber;
-        $this->email = $email;
-        $this->role = $role;
-        $this->isActive = $isActive;
-    }
+    // function __construct($userID, $userName, $password, $phoneNumber, $email, $role, $isActive = true) {
+    //     $this->userID = $userID;
+    //     $this->userName = $userName;
+    //     $this->password = $password;
+    //     $this->phoneNumber = $phoneNumber;
+    //     $this->email = $email;
+    //     $this->role = $role;
+    //     $this->isActive = $isActive;
+    // }
 
-    public function getUserID() {
+    public function getUserID()
+    {
         return $this->userID;
     }
 
-    public function getUserName() {
+    public function getUserName()
+    {
         return $this->userName;
     }
 
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
-    public function getRole() {
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+    public function getRole()
+    {
         return $this->role;
+    }
+
+    public function getUserData($userId)
+    {
+        $sql = "SELECT Email, Phonenumber from users WHERE UserID = " . $userId;
+        $handleData = new HandleData();
+        $data = $handleData->getData($sql);
+        return $data;
     }
 }
 ?>

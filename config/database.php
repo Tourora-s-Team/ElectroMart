@@ -1,9 +1,16 @@
 <?php
     class Database {
-        private $servername = $_ENV['DB_HOST'];
-        private $username = $_ENV['DB_USER'];
-        private $password = $_ENV['DB_PASS'];
-        private $dbname = $_ENV['DB_NAME'];
+        private $servername;
+        private $username;
+        private $password;
+        private $dbname;
+
+        public function __construct() {
+        $this->servername = $_ENV['DB_HOST'] ?? 'localhost';
+        $this->username = $_ENV['DB_USER'] ?? 'root';
+        $this->password = $_ENV['DB_PASS'] ?? '';
+        $this->dbname = $_ENV['DB_NAME'] ?? 'electromart';
+    }
 
         function connectDB() {
             try {

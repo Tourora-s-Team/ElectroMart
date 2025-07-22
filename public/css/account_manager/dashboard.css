@@ -79,25 +79,21 @@
 }
 
 #account-manager {
-    display: flex;
-    align-items: flex-start; 
-    justify-content: flex-start; 
-    gap: 20px; 
     padding: 20px;
 }
 
-#account-manager .navigation-left {
+#account-manager .navigation-button {
     display: flex;
-    flex-direction: column;
-    width: 250px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     background-color: #fff;
-    padding: 12px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.navigation-left .nav-left-btn {
+.navigation-button .nav-btn {
     border: none;
     margin: 8px 0;
     padding: 20px 15px;
@@ -109,21 +105,17 @@
     border: 1px solid white;
 }
 
-.navigation-left .nav-left-btn:hover {
+.navigation-button .nav-btn:hover {
     cursor: pointer;
     background-color: #f5f3f3;
 }
 
-.navigation-left button i {
+.navigation-button button i {
     margin-right: 10px;
 }
 
-.navigation-left .active {
+.navigation-button .active {
     color: #007bff;  
     background-color: #EFF6FF;
     border: 1px solid #007bff;
-}
-#account-manager .main-content {
-    flex: 1;
-    padding: 0 20px;
 }

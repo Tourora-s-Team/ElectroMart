@@ -1,21 +1,25 @@
 <?php
-require_once( __DIR__ . "/../models/User.php");
-require_once( __DIR__ . "/../models/Customer.php");
+require_once(__DIR__ . "/../models/User.php");
+require_once(__DIR__ . "/../models/Customer.php");
 class AccountController
 {
     public function info()
     {
-        $filePath = __DIR__ . '/../views/account_manager/dashboard.php';
+        // Tạo các đối tượng User và Customer để lấy thông tin
+        $user = new User();
+        $customer = new Customer();
+        // $userInfo = user->getUserInfo($_SESSION['userID']);
+        // Hiện tại chưa có chức năng đăng nhập nên mặc định lấy userId = 1
+        $userData = $user->getUserData(2);
 
-        if (file_exists($filePath)) {
-            require_once($filePath);
-        } else {
-            echo "File not found!";
-        }
+        $customerData = $customer->getCustomerData(2);
+
+
+        require_once(__DIR__ . "/../views/account_manager/account_info.php");
     }
+    public function orderHistory()
+    {
 
-    public function orderHistory() {
-        
     }
 }
 ?>
