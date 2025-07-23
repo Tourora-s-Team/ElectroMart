@@ -1,13 +1,15 @@
 <!-- Thư viện định dạng ngày tháng -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <?php
     require_once __DIR__ . "/./dashboard.php";
 ?>
-<div id="account-info">
+<!-- File css: account_info.css -->
+<div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Thông tin tài khoản</h1>
-        <button class="subheader__btn-edit btn"><i class="fa-regular fa-pen-to-square"></i>Chỉnh sửa</button>
+        <button id="edit-info-btn" class="subheader__btn-edit btn"><i class="fa-regular fa-pen-to-square"></i>Chỉnh sửa</button>
     </div>
 
     <div class="account-details">
@@ -44,6 +46,8 @@
         </div>
     </div>
 </div>
+
+<?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
 
 <script>
     flatpickr("#date-of-birth", {

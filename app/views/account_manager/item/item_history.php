@@ -7,7 +7,7 @@
         display: inline-block;
     }
 
-    #history-item {
+    .history-item {
         background-color: #fff;
         border-radius: 8px;
         padding: 20px;
@@ -53,7 +53,7 @@
         margin: 12px 0;
     }
 </style>
-<div id="history-item">
+<div class="history-item">
     <div class="item-header flex-row-sb">
         <div class="summary">
             <p class="summary__order-id">Mã đơn hàng</p>

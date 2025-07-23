@@ -1,5 +1,6 @@
+<link rel="stylesheet" href="/electromart/public/css/style.css">
+
 </main>
-    
     <footer class="footer">
         <div class="container">
             <div class="footer-content">

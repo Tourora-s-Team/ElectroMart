@@ -45,6 +45,10 @@
   clear: both;
 }
 
+body {
+    background-color: #F4F8FE;
+}
+
 /* Account Navigation */
 .account_nav {
     display: flex;
