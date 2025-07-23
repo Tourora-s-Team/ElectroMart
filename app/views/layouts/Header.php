@@ -15,14 +15,14 @@
         <div class="container">
             <div class="header-top">
                 <div class="logo">
-                    <a href="/">
+                    <a href="public">
                         <i class="fas fa-bolt"></i>
                         ElectroMart
                     </a>
                 </div>
 
                 <div class="search-box">
-                    <form action="/search" method="GET">
+                    <form action="public/search" method="GET">
                         <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..."
                             value="<?php echo $_GET['q'] ?? ''; ?>">
                         <button type="submit"><i class="fas fa-search"></i></button>
@@ -30,21 +30,21 @@
                 </div>
 
                 <div class="header-actions">
-                    <a href="/cart" class="cart-icon">
+                    <a href="public/cart" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
-                    <a href="/login" class="login-btn">Đăng nhập</a>
+                    <a href="public/login" class="login-btn">Đăng nhập</a>
                 </div>
             </div>
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="/">Trang chủ</a></li>
-                    <li><a href="/search?q=">Tất cả sản phẩm</a></li>
-                    <li><a href="/categories">Danh mục</a></li>
-                    <li><a href="/deals">Khuyến mãi</a></li>
-                    <li><a href="/about">Về chúng tôi</a></li>
+                    <li><a href="public">Trang chủ</a></li>
+                    <li><a href="public/search">Tất cả sản phẩm</a></li>
+                    <li><a href="public/categories">Danh mục</a></li>
+                    <li><a href="public/deals">Khuyến mãi</a></li>
+                    <li><a href="public/about">Về chúng tôi</a></li>
                 </ul>
             </nav>
         </div>

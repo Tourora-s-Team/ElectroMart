@@ -25,6 +25,13 @@ class HandleData extends Database
         $conn = $this->db->connectDB();
         $conn->query($sql);
     }
+    public function getDataWithParams($sql, $params = [])
+    {
+        $conn = $this->db->connectDB();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

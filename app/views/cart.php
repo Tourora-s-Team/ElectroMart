@@ -8,7 +8,7 @@
             <div class="cart-content">
                 <div class="cart-items">
                     <?php foreach ($cartItems as $item): ?>
-                        <div class="cart-item" data-item-id="<?php echo $item['CartItemID']; ?>">
+                        <div class="cart-item" data-item-id="<?php echo $item[0]['CartItemID']; ?>">
                             <div class="item-image">
                                 <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>" 
                                      alt="<?php echo htmlspecialchars($item['ProductName']); ?>">
@@ -21,7 +21,7 @@
                             
                             <div class="item-quantity">
                                 <button class="quantity-btn minus" data-action="decrease">-</button>
-                                <input type="number" class="quantity-input" value="<?php echo $item['Quantity']; ?>" min="1">
+                                <input type="text" class="quantity-input" value="<?php echo $item['Quantity']; ?>" min="1">
                                 <button class="quantity-btn plus" data-action="increase">+</button>
                             </div>
                             
@@ -30,7 +30,7 @@
                             </div>
                             
                             <div class="item-actions">
-                                <button class="remove-btn" data-item-id="<?php echo $item['CartItemID']; ?>">
+                                <button class="remove-btn" data-item-id="<?php echo $item[0]['CartItemID']; ?>">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>

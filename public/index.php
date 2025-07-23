@@ -10,6 +10,8 @@ $router = new Router();
 // Required routes
 require_once __DIR__ . '/../routes/account_manager.php';
 require_once ROOT_PATH . '/routes/HomeSuggestion.php';
+require_once ROOT_PATH . '/routes/cart.php';
+require_once ROOT_PATH . '/routes/search.php';
 
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
