@@ -8,7 +8,8 @@ $dotenv->load();
 $router = new Router();
 
 // Required routes
-require_once __DIR__ . '/../routes/account_manager.php';
+require_once ROOT_PATH . '/routes/account_manager.routes.php';
+require_once ROOT_PATH . '/routes/auth.routes.php';
 require_once ROOT_PATH . '/routes/HomeSuggestion.php';
 
 
@@ -25,7 +26,7 @@ $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'main.css' ?>">
     <!-- Import Font Awesome -->
-    <script src="https://kit.fontawesome.com/f6aadf5dfa.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/electromart/public/fontawesome/css/all.min.css">
 </head>
 
 <body>

@@ -34,11 +34,18 @@ class Customer
         return $this->loyaltyPoint;
     }
 
-    public function getCustomerData($userId)
+    public function getCustomerById($userId)
     {
         $handleData = new HandleData();
         $sql = "SELECT FullName, BirthDate, LoyaltyPoint FROM customer WHERE UserID = " . $userId;
         $res = $handleData->getData($sql);
         return $res;
+    }
+
+    public function createCustomer($userID, $fullName, $gender, $birthDate)
+    {
+        $handleData = new HandleData();
+        $sql = "INSERT INTO customer (UserID, FullName, Gender, BirthDate) VALUES ('$userID', '$fullName', '$gender', '$birthDate')";
+        $handleData->execData($sql);
     }
 }

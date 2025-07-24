@@ -1,55 +1,51 @@
 <?php
 require_once(__DIR__ . "/../models/User.php");
 require_once(__DIR__ . "/../models/Customer.php");
+
 class AccountController
 {
+    private $user;
+    private $customer;
+    private $userData;
+    private $customerData;
+
+    public function __construct()
+    {
+        $this->user = new User();
+        $this->customer = new Customer();
+
+        // Giả sử userId = 2 khi chưa có đăng nhập
+        $userId = 2;
+        $this->userData = $this->user->getUserData($userId);
+        $this->customerData = $this->customer->getCustomerById($userId);
+    }
+
     public function info()
     {
-       // Tạo các đối tượng User và Customer để lấy thông tin
-        $user = new User();
-        $customer = new Customer();
-        // $userInfo = user->getUserInfo($_SESSION['userID']);
-        // Hiện tại chưa có chức năng đăng nhập nên mặc định lấy userId = 1
-        $userData = $user->getUserData(2);
-        $customerData = $customer->getCustomerData(2);
-        
+        $userData = $this->userData;
+        $customerData = $this->customerData;
         require_once(__DIR__ . "/../views/account_manager/account_info.php");
     }
+
     public function orderHistory()
     {
-        // Tạo các đối tượng User và Customer để lấy thông tin
-        $user = new User();
-        $customer = new Customer();
-        // $userInfo = user->getUserInfo($_SESSION['userID']);
-        // Hiện tại chưa có chức năng đăng nhập nên mặc định lấy userId = 1
-        $userData = $user->getUserData(2);
-        $customerData = $customer->getCustomerData(2);
+        $userData = $this->userData;
+        $customerData = $this->customerData;
         require_once(__DIR__ . "/../views/account_manager/order_history.php");
     }
 
     public function shippingAddress()
     {
-        // Tạo các đối tượng User và Customer để lấy thông tin
-        $user = new User();
-        $customer = new Customer();
-        // $userInfo = user->getUserInfo($_SESSION['userID']);
-        // Hiện tại chưa có chức năng đăng nhập nên mặc định lấy userId = 1
-        $userData = $user->getUserData(2);
-        $customerData = $customer->getCustomerData(2);
+        $userData = $this->userData;
+        $customerData = $this->customerData;
         require_once(__DIR__ . "/../views/account_manager/shipping_address.php");
     }
 
     public function security()
     {
-        // Tạo các đối tượng User và Customer để lấy thông tin
-        $user = new User();
-        $customer = new Customer();
-        // $userInfo = user->getUserInfo($_SESSION['userID']);
-        // Hiện tại chưa có chức năng đăng nhập nên mặc định lấy userId = 1
-        $userData = $user->getUserData(2);
-        $customerData = $customer->getCustomerData(2);
+        $userData = $this->userData;
+        $customerData = $this->customerData;
         require_once(__DIR__ . "/../views/account_manager/security.php");
     }
-
 }
 ?>

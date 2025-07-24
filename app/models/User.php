@@ -1,5 +1,6 @@
 <?php
 require_once(__DIR__ . "/../../core/HandleData.php");
+
 class User
 {
     private $userID;
@@ -9,16 +10,6 @@ class User
     private $email;
     private $role;
     private $isActive;
-
-    // function __construct($userID, $userName, $password, $phoneNumber, $email, $role, $isActive = true) {
-    //     $this->userID = $userID;
-    //     $this->userName = $userName;
-    //     $this->password = $password;
-    //     $this->phoneNumber = $phoneNumber;
-    //     $this->email = $email;
-    //     $this->role = $role;
-    //     $this->isActive = $isActive;
-    // }
 
     public function getUserID()
     {
@@ -51,5 +42,37 @@ class User
         $data = $handleData->getData($sql);
         return $data;
     }
+
+    public function getUserIdByEmail($email)
+    {
+        $sql = "SELECT UserID FROM users WHERE Email = '$email'";
+        $handleData = new HandleData();
+        $data = $handleData->getData($sql);
+        return $data ? $data[0]['UserID'] : null;
+    }
+    public function getUserByEmail($email)
+    {
+        $sql = "SELECT UserID, Email, PhoneNumber, Role FROM users WHERE Email = '$email'";
+        $handleData = new HandleData();
+        $data = $handleData->getData($sql);
+        return $data ? $data[0] : null;
+    }
+
+    public function createUser($name, $email, $phone, $password, $birthdate)
+    {
+        $handleData = new HandleData();
+        $sql = "INSERT INTO users (Email, PhoneNumber, Password, Role, isActive) VALUES ('$email', '$phone', '$password', 'customer', 1)";
+        $handleData->execData($sql);
+    }
+
+    public function authenticate($loginInfo, $password)
+    {
+        $sql = "SELECT Email, PhoneNumber, Password, Role FROM users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";
+        $handleData = new HandleData();
+        $data = $handleData->getData($sql);
+        return $data;
+    }
+
+
 }
 ?>
