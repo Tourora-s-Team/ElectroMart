@@ -26,7 +26,7 @@ $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
     <title>Electro Mart</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'main.css' ?>">
+    <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'base.css' ?>">
     <!-- Import Font Awesome -->
     <link rel="stylesheet" href="/electromart/public/fontawesome/css/all.min.css">
 </head>

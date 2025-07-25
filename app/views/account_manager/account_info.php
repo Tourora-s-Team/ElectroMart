@@ -14,7 +14,7 @@ require_once __DIR__ . "/./account_navbar.php";
     </div>
 
     <div class="account-details">
-        <form id="form-info" action="" method="post" class="container">
+        <form id="form-info" action="" method="post" class="container-form">
             <fieldset disabled>
                 <div class="grid-form">
                     <div class="input-group ">

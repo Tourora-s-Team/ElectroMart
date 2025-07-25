@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="/electromart/public/css/style.css">
+<link rel="stylesheet" href="/electromart/public/css/base.css">
+<link rel="stylesheet" href="/electromart/public/css/components/footer.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </main>
     <footer class="footer">

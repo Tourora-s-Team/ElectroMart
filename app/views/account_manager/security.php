@@ -7,7 +7,7 @@ require_once __DIR__ . "/./account_navbar.php";
         <h1 class="subheader__title">Cài đặt bảo mật</h1>
     </div>
     <div class="account-details">
-        <form action="" method="post" class="container">
+        <form action="" method="post" class="container-form">
             <div class="collunm-form">
                 <div class="input-group ">
                     <label for="current-pass">Mật khẩu hiện tại:</label>
