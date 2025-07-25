@@ -14,7 +14,7 @@ require_once __DIR__ . "/./account_navbar.php";
     </div>
 
     <div class="account-details">
-        <form action="" method="post" class="container">
+        <form id="form-info" action="" method="post" class="container">
             <fieldset disabled>
                 <div class="grid-form">
                     <div class="input-group ">
@@ -83,6 +83,7 @@ require_once __DIR__ . "/./account_navbar.php";
 
 
     const submitButton = document.getElementById('submit-info');
+
     document.getElementById('edit-info-btn').addEventListener('click', function () {
         const fieldset = document.querySelector('.account-details fieldset');
         fieldset.disabled = !fieldset.disabled; // Chuyển đổi trạng thái disabled
@@ -100,5 +101,27 @@ require_once __DIR__ . "/./account_navbar.php";
         }
     });
 
+    submitButton.addEventListener('click', function (e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
+        const fieldset = document.querySelector('.account-details fieldset');
+        fieldset.disabled = true; // Vô hiệu hóa trường nhập liệu sau khi lưu
 
+        this.classList.add("hidden");
+        document.getElementById('edit-info-btn').innerHTML = "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa";
+
+        const fullName = document.getElementById('name').value;
+        const gender = document.getElementById('gender').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const dateOfBirth = document.getElementById('date-of-birth').value;
+
+        if (!fullName || !email || !phone || !dateOfBirth) {
+            showToast("Vui lòng điền đầy đủ thông tin.", 'error');
+            return;
+        }
+
+        const form = document.getElementById('form-info');
+        form.submit();
+    });
 </script>
+<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>

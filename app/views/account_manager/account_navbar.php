@@ -42,7 +42,7 @@
             xuất</button>
     </nav>
 </section>
-
+<div id="toast-container"></div>
 <script>
     function toggleActive(el) {
         // Bỏ active khỏi tất cả button
