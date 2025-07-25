@@ -11,9 +11,9 @@
                 <?php endif; ?>
             </h2>
             
-            <div class="search-meta">
+            <!-- <div class="search-meta">
                 Tìm thấy <?php echo count($products); ?> sản phẩm
-            </div>
+            </div> -->
         </div>
         
         <div class="search-filters">
@@ -42,14 +42,14 @@
                                 <h3><?php echo htmlspecialchars($product['ProductName']); ?></h3>
                                 <div class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></div>
                                 <div class="product-price"><?php echo number_format($product['Price'], 0, ',', '.'); ?>đ</div>
-                                <div class="product-rating">
+                                <!-- <div class="product-rating">
                                     <div class="stars">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                             <i class="fas fa-star <?php echo $i <= $product['Rating'] ? 'active' : ''; ?>"></i>
                                         <?php endfor; ?>
                                     </div>
                                     <span class="rating-text">(<?php echo $product['Rating']; ?>)</span>
-                                </div>
+                                </div> -->
                                 <div class="product-stock">
                                     Còn lại: <?php echo $product['StockQuantity']; ?> sản phẩm
                                 </div>
@@ -73,7 +73,7 @@
                     <div class="no-products-content">
                         <i class="fas fa-search"></i>
                         <h3>Không tìm thấy sản phẩm nào</h3>
-                        <p>Thử tìm kiếm với từ khóa khác hoặc <a href="/">quay lại trang chủ</a></p>
+                        <p>Thử tìm kiếm với từ khóa khác hoặc <a href="public">quay lại trang chủ</a></p>
                     </div>
                 </div>
             <?php endif; ?>

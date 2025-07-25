@@ -11,6 +11,8 @@ $router = new Router();
 require_once ROOT_PATH . '/routes/account_manager.routes.php';
 require_once ROOT_PATH . '/routes/auth.routes.php';
 require_once ROOT_PATH . '/routes/HomeSuggestion.php';
+require_once ROOT_PATH . '/routes/cart.php';
+require_once ROOT_PATH . '/routes/search.php';
 
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

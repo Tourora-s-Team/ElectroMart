@@ -5,12 +5,12 @@
         <div class="hero-content">
             <h1>Linh kiện điện tử chất lượng cao</h1>
             <p>Khám phá hàng ngàn sản phẩm từ các thương hiệu uy tín</p>
-            <a href="/search" class="cta-btn">Mua sắm ngay</a>
+            <a href="#product-section" class="cta-btn">Mua sắm ngay</a>
         </div>
     </div>
 </section>
 
-<section class="featured-products">
+<section class="featured-products" id="product-section">
     <div class="container">
         <h2>Sản phẩm nổi bật</h2>
 
@@ -91,3 +91,16 @@
 </section>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
+
+<script>
+    // Thêm hiệu ứng cuộn mượt mà khi nhấn vào nút "Mua sắm ngay"
+    document.querySelector('.cta-btn').addEventListener('click', function(e) {
+        e.preventDefault(); // Ngừng hành động mặc định của liên kết
+        
+        // Cuộn mượt mà tới section với id="product-section"
+        document.querySelector('#product-section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+</script>
