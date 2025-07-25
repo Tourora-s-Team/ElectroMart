@@ -37,7 +37,7 @@ class Customer
     public function getCustomerById($userId)
     {
         $handleData = new HandleData();
-        $sql = "SELECT FullName, BirthDate, LoyaltyPoint FROM customer WHERE UserID = " . $userId;
+        $sql = "SELECT FullName, Gender, BirthDate, LoyaltyPoint FROM customer WHERE UserID = " . $userId;
         $res = $handleData->getData($sql);
         return $res;
     }

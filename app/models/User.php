@@ -37,7 +37,7 @@ class User
 
     public function getUserData($userId)
     {
-        $sql = "SELECT Email, Phonenumber from users WHERE UserID = " . $userId;
+        $sql = "SELECT Email, Phonenumber, CreateAt from users WHERE UserID = " . $userId;
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data;

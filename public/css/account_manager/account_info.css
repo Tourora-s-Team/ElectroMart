@@ -34,6 +34,10 @@
     flex-direction: column;
 }
 
+.account-details fieldset {
+    border: none;
+}
+
 .account-details .collunm-form .input-group {
     margin-top: 12px;
 }
@@ -50,7 +54,8 @@
     margin-bottom: 8px;
 }
 
-.account-details .input-group input{
+.account-details .input-group input,
+.account-details .input-group select{
     padding: 12px;
     border: 1px solid #ced4da;
     border-radius: 4px;

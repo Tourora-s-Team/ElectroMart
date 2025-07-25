@@ -1,5 +1,5 @@
 <?php
-    require_once __DIR__ . "/./dashboard.php";
+    require_once __DIR__ . "/./account_navbar.php";
 ?>
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/shipping_address.css' ?>">
 
