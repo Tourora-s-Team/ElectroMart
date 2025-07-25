@@ -45,6 +45,10 @@
   clear: both;
 }
 
+.hidden {
+    display: none;
+}
+
 body {
     background-color: #F4F8FE;
 }

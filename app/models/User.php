@@ -37,7 +37,7 @@ class User
 
     public function getUserData($userId)
     {
-        $sql = "SELECT Email, Phonenumber from users WHERE UserID = " . $userId;
+        $sql = "SELECT Email, Phonenumber, CreateAt from users WHERE UserID = " . $userId;
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data;
@@ -67,7 +67,7 @@ class User
 
     public function authenticate($loginInfo, $password)
     {
-        $sql = "SELECT Email, PhoneNumber, Password, Role FROM users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";
+        $sql = "SELECT * FROM users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data;
