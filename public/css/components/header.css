@@ -1,0 +1,151 @@
+/* Header Styles */
+.header {
+    background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.logo a {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 32px;
+}
+
+.search-box {
+    flex: 1;
+    max-width: 500px;
+    margin: 0 30px;
+}
+
+.search-box form {
+    display: flex;
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.search-box button {
+    padding: 12px 20px;
+    background: #1976D2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-box button:hover {
+    background: #1565C0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.cart-icon {
+    position: relative;
+    color: white;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #E53E3E;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.login-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Navigation */
+.main-nav {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 30px;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Header */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .search-box {
+        margin: 0;
+        max-width: 100%;
+    }
+
+    .main-nav ul {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
