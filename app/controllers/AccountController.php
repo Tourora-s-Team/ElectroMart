@@ -15,7 +15,7 @@ class AccountController
         $this->customer = new Customer();
 
         // Lấy userId từ session, nếu không có thì null
-        $userId = $_SESSION['user_id'] ?? null;
+        $userId = $_SESSION['user'][0]['UserID'] ?? null;
         if ($userId != null) {
             $this->userData = $this->user->getUserData($userId);
             $this->customerData = $this->customer->getCustomerById($userId);
@@ -38,6 +38,7 @@ class AccountController
 
     public function info()
     {   
+
         // Gọi hàm để kiểm tra tình trạng đăng nhập
         if ($this->isUserLoggedIn() === false) {
             return;

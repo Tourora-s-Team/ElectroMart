@@ -1,4 +1,9 @@
 <?php
+// Sử dụng session để quản lý trạng thái người dùng
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 define('ROOT_PATH', dirname(__DIR__));
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../core/router.php';
