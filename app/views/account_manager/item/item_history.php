@@ -56,8 +56,8 @@
 <div class="history-item">
     <div class="item-header flex-row-sb">
         <div class="summary">
-            <p class="summary__order-id">Mã đơn hàng</p>
-            <p class="summary__date">01/01/2025</p>
+            <p class="summary__order-id"><?= $orderHistory[0]['OrderID']?></p>
+            <p class="summary__date"><?= $orderHistory[0]['OrderDate']?></p>
         </div>
         <div class="summary__status">
             <span class="status status--completed"><i class="fa-solid fa-circle-check"></i>Đã hoàn thành</span>

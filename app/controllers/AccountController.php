@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../models/Customer.php");
 
 class AccountController
 {
+    private $userID;
     private $user;
     private $customer;
     private $userData;
@@ -11,6 +12,7 @@ class AccountController
 
     public function __construct()
     {
+        $this->userID = $_SESSION["user"][0]["UserID"];
         $this->user = new User();
         $this->customer = new Customer();
 
@@ -38,50 +40,65 @@ class AccountController
 
     public function info()
     {   
-
         // Gọi hàm để kiểm tra tình trạng đăng nhập
         if ($this->isUserLoggedIn() === false) {
             return;
         }
         $userData = $this->userData;
         $customerData = $this->customerData;
+        $this->userData = $this->user->getUserData($this->userID);
+        $this->customerData = $this->customer->getCustomerById($this->userID);
         require_once(__DIR__ . "/../views/account_manager/account_info.php");
     }
 
     public function updateInfo()
     {
-        $userData = $this->userData;
-        $customerData = $this->customerData;
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $gender = $_POST['gender'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
             $dateOfBirth = $_POST['date-of-birth'];
-
+            $birthDateFormatted = DateTime::createFromFormat('d/m/Y', $dateOfBirth)->format('Y-m-d');
+            
+            
             // Cập nhật thông tin người dùng
-            $this->user->updateUser($userData[0]['UserID'], $email, $phone);
-            $this->customer->updateCustomer($customerData[0]['CustomerID'], $name, $gender, $dateOfBirth);
+            $this->user->updateUser($this->userID, $email, $phone);
+            $this->customer->updateCustomer($this->userID, $name, $gender, $birthDateFormatted);
 
             // Sau khi cập nhật, lấy lại dữ liệu mới
-            $this->userData = $this->user->getUserData($userData[0]['UserID']);
-            $this->customerData = $this->customer->getCustomerById($customerData[0]['CustomerID']);
+            $this->userData = $this->user->getUserData($this->userID);
+            $this->customerData = $this->customer->getCustomerById($this->userID);
+            header("Location: /electromart/public/account/info");
+            exit();
         }
     }
 
     public function orderHistory()
-    {
-        $userData = $this->userData;
+    { 
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
         $customerData = $this->customerData;
+
+        require_once(__DIR__ . "/../models/Order.php");
+        $orderModel = new Order();
+        $orderHistory = $orderModel->getAllOrdersByUserId($this->userID);
+
+        $orderCount = count($orderHistory);
         require_once(__DIR__ . "/../views/account_manager/order_history.php");
+        if ($orderCount == 0) {
+            $orderHistory = null; 
+        }
     }
 
     public function shippingAddress()
     {
-        $userData = $this->userData;
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
         $customerData = $this->customerData;
-        require_once(__DIR__ . "/../views/account_manager/shipping_address.php");
+        require_once(__DIR__ . "/../views/account_manager/receiver_info.php");
     }
 
     public function security()

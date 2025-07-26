@@ -14,6 +14,13 @@ class Order {
         return $result;
     }
 
+    public function getAllOrdersByUserId($userId) {
+        $handleData = new HandleData();
+        $sql = "SELECT * FROM orders WHERE UserID = :userId";
+        $params = [':userId' => $userId];
+        $result = $handleData->getDataWithParams($sql, $params);
+        return $result;
+    }
 }
 
 ?>
