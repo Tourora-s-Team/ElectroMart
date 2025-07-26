@@ -33,7 +33,7 @@ class HandleData extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function execUpdateData($sql, $params = [])
+    public function execDataWithParams($sql, $params = [])
     {
         try {
             $conn = $this->db->connectDB();

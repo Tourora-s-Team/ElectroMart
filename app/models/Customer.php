@@ -59,6 +59,6 @@ class Customer
             ':birthDate' => $birthDate,
             ':userID' => $userID
         ];
-        return $handleData->execUpdateData($sql, $params);
+        return $handleData->execDataWithParams($sql, $params);
     }
 }

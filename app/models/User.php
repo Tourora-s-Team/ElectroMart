@@ -66,7 +66,8 @@ class User
     }
 
     // Update thông tin user
-    public function updateUser($userId, $email, $phone) {
+    public function updateUser($userId, $email, $phone)
+    {
         $handleData = new HandleData();
         $sql = "UPDATE users SET Email = :email, PhoneNumber = :phone WHERE UserID = :userId";
 
@@ -76,7 +77,7 @@ class User
             ':userId' => $userId
         ];
 
-        return $handleData->execUpdateData($sql, $params);
+        return $handleData->execDataWithParams($sql, $params);
     }
 
     public function authenticate($loginInfo, $password)
