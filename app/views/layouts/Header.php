@@ -40,7 +40,33 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
-                    <a href="public/login" class="login-btn">Đăng nhập</a>
+                    <!-- Hiển thị tên người dùng -->
+                    <?php
+                    require_once ROOT_PATH . '/app/models/Customer.php';
+                    $fullName = 'Khách hàng';
+
+                    if (!empty($_SESSION['user'][0]['UserID'])) {
+                        $customerModel = new Customer();
+                        $res = $customerModel->getCustomerById($_SESSION['user'][0]['UserID']);
+
+                        if (!empty($res) && isset($res[0]['FullName'])) {
+                            $fullName = $res[0]['FullName'];
+                        }
+                    }
+                    ?>
+                    <a href="public/account/info" class="profile-btn">
+                        <i class="fas fa-user"></i>
+                        <?php echo $fullName; ?>
+
+                    </a>
+                    <!-- Hiển thị nút đăng nhập hoặc đăng xuất -->
+                    <?php if (!empty($_SESSION['user'][0]['UserID'])): ?>
+                        <a href="public/account/signout" class="login-btn">Đăng xuất</a>
+                    <?php endif; ?>
+                    <?php if (empty($_SESSION['user'][0]['UserID'])): ?>
+                        <a href="public/account/signin" class="login-btn">Đăng nhập</a>
+                    <?php endif; ?>
+
                 </div>
             </div>
 

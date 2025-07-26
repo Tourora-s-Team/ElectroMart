@@ -3,13 +3,7 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Linh kiện điện tử chất lượng cao
-                <?php
-                echo '<pre>';
-                print_r($_SESSION['user']);
-                echo '</pre>';
-                ?>
-            </h1>
+            <h1>Linh kiện điện tử chất lượng cao </h1>
             <p>Khám phá hàng ngàn sản phẩm từ các thương hiệu uy tín</p>
             <a href="#product-section" class="cta-btn">Mua sắm ngay</a>
         </div>
@@ -26,7 +20,7 @@
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
-                        <a href="/product/<?php echo $product['ProductID']; ?>">
+                        <a href="product/detail/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
                                 <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">

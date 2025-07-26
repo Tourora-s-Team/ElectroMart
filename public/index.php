@@ -13,6 +13,8 @@ require_once ROOT_PATH . '/routes/auth.routes.php';
 require_once ROOT_PATH . '/routes/home.routes.php';
 require_once ROOT_PATH . '/routes/cart.routes.php';
 require_once ROOT_PATH . '/routes/search.routes.php';
+require_once ROOT_PATH . '/routes/product_detail.routes.php';
+
 
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
