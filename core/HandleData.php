@@ -19,12 +19,14 @@ class HandleData extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Hàm thực thi không trả về dữ liệu
+    // Hàm thực thi INSERT, UPDATE, DELETE không tham số
     public function execData($sql)
     {
         $conn = $this->db->connectDB();
         $conn->query($sql);
     }
+
+    // Hàm thực thi trả về dữ liệu với tham số
     public function getDataWithParams($sql, $params = [])
     {
         $conn = $this->db->connectDB();
@@ -33,6 +35,7 @@ class HandleData extends Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // Hàm thực thi INSERT, UPDATE, DELETE với tham số. Trả về false nếu có lỗi xảy ra.
     public function execDataWithParams($sql, $params = [])
     {
         try {
@@ -41,7 +44,7 @@ class HandleData extends Database
             $stmt->execute($params);
             return true;
         } catch (PDOException $e) {
-            return false; // Trả về false nếu có lỗi xảy ra
+            return false;
         }
     }
 
