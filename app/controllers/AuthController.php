@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../models/User.php");
 require_once(__DIR__ . "/../models/Customer.php");
-session_start();
+
 class AuthController
 {
     private $userModel;
@@ -81,6 +81,24 @@ class AuthController
                 header("Location: /electromart/public/account/signup");
             }
         }
+    }
+    public function signOut(): never
+    {
+
+        session_start();
+
+        // Xóa thông tin user trong session
+        unset($_SESSION['user']);
+
+        // Hoặc xóa toàn bộ session nếu bạn không cần giữ gì khác
+        $_SESSION = [];
+        session_destroy();
+
+        // Chuyển về trang chủ
+        header("Location: /electromart/public/home");
+        exit();
+
+
     }
 }
 
