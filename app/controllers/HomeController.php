@@ -1,5 +1,6 @@
 <?php
 require_once ROOT_PATH . '/app/models/Product.php';
+session_start();
 
 class HomeController
 {

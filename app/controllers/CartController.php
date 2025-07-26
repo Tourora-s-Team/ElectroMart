@@ -13,8 +13,15 @@ class CartController
     {
         $cartModels = new Cart();
 
+        // Check if the user is logged in and has a cart
+        if (!isset($_SESSION['user']['UserID'])) {
+            // Redirect to login or show an error
+            header('Location: /electromart/public/account/signin');
+            exit;
+        }
+
         // Danh sách sản phẩm trong giỏ hàng
-        $cartItems = $cartModels->getAllProductCart();
+        $cartItems = $cartModels->getProductCart($_SESSION['user']['UserID']);
         $this->view('/cart', [
             'title' => 'Giỏ hàng của bạn',
             'cartItems' => $cartItems,

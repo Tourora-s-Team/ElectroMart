@@ -1,7 +1,8 @@
 <?php
 require_once ROOT_PATH . '/core/HandleData.php';
-    class Search{
-        function __construct()
+class Search
+{
+    function __construct()
     {
 
     }
@@ -17,13 +18,14 @@ require_once ROOT_PATH . '/core/HandleData.php';
         return $result;
     }
 
-    function execSearch($keyword){
+    function execSearch($keyword)
+    {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
             FROM product p
             LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
             WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)
-            AND (p.ProductName LIKE :keyword OR p.Brand LIKE :keyword)";    
+            AND (p.ProductName LIKE :keyword OR p.Brand LIKE :keyword)";
     }
-    }
+}
 ?>
