@@ -35,14 +35,18 @@
     margin-right: 8px;
 }
 
-.container {
+.container-form {
     border-bottom: 1px solid #dee2e6;
 }
 
-.container::after {
+.container-form::after {
   content: "";
   display: table;
   clear: both;
+}
+
+.hidden {
+    display: none;
 }
 
 body {

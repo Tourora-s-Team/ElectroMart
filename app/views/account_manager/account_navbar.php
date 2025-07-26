@@ -1,6 +1,5 @@
-
 <!-- Thành phần dùng chung của các trang trong account_manager -->
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/dashboard.css' ?>">
+<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_navbar.css' ?>">
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_info.css' ?>">
 
 <section class="account_nav">
@@ -43,7 +42,7 @@
             xuất</button>
     </nav>
 </section>
-
+<div id="toast-container"></div>
 <script>
     function toggleActive(el) {
         // Bỏ active khỏi tất cả button
