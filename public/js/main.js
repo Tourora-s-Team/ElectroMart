@@ -331,3 +331,15 @@ function showToast(message, type) {
         toast.remove();
     }, 4000);
 }
+
+// Email validation
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+// Phone validation (Vietnamese phone numbers)
+function validatePhone(phone) {
+    const re = /^(0[3|5|7|8|9])+([0-9]{8})$/;
+    return re.test(phone);
+}

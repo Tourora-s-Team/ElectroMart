@@ -32,6 +32,19 @@ class HandleData extends Database
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function execUpdateData($sql, $params = [])
+    {
+        try {
+            $conn = $this->db->connectDB();
+            $stmt = $conn->prepare($sql);
+            $stmt->execute($params);
+            return true;
+        } catch (PDOException $e) {
+            return false; // Trả về false nếu có lỗi xảy ra
+        }
+    }
+
 }
 
 ?>

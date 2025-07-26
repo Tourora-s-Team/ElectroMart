@@ -48,4 +48,17 @@ class Customer
         $sql = "INSERT INTO customer (UserID, FullName, Gender, BirthDate) VALUES ('$userID', '$fullName', '$gender', '$birthDate')";
         $handleData->execData($sql);
     }
+
+    public function updateCustomer($userID, $fullName, $gender, $birthDate)
+    {
+        $handleData = new HandleData();
+        $sql = "UPDATE customer SET FullName = :fullName, Gender = :gender, BirthDate = :birthDate WHERE UserID = :userID";
+        $params = [
+            ':fullName' => $fullName,
+            ':gender' => $gender,
+            ':birthDate' => $birthDate,
+            ':userID' => $userID
+        ];
+        return $handleData->execUpdateData($sql, $params);
+    }
 }

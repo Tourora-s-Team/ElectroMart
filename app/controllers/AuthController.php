@@ -28,10 +28,20 @@ class AuthController
             $password = $_POST['password'];
 
             $userData = $this->userModel->authenticate($loginInfo, $password);
-
+            // Tách thành mảng
+            $roles = explode(',', $userData[0]['Role']);
+            
             if ($userData) {
                 $_SESSION['user'] = $userData;
-                header("Location: /electromart/public/home");
+                if (in_array('Seller', $roles)) {
+                    header("Location: /electromart/public/admin/dashboard");
+                } elseif (in_array('Customer', $roles)) {
+                    $customerModel = new Customer();
+                    $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
+                    $_SESSION['customer'] = $customerData;
+                    header("Location: /electromart/public/home");
+                }
+
                 $_SESSION['login_success'] = "Đăng nhập thành công.";
                 exit();
             } else {
