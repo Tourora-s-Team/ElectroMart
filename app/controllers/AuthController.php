@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__ . "/../models/User.php");
 require_once(__DIR__ . "/../models/Customer.php");
-session_start();
+
 class AuthController
 {
     private $userModel;
@@ -28,10 +28,20 @@ class AuthController
             $password = $_POST['password'];
 
             $userData = $this->userModel->authenticate($loginInfo, $password);
-
+            // Tách thành mảng
+            $roles = explode(',', $userData[0]['Role']);
+            
             if ($userData) {
                 $_SESSION['user'] = $userData;
-                header("Location: /electromart/public/home");
+                if (in_array('Seller', $roles)) {
+                    header("Location: /electromart/public/admin/dashboard");
+                } elseif (in_array('Customer', $roles)) {
+                    $customerModel = new Customer();
+                    $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
+                    $_SESSION['customer'] = $customerData;
+                    header("Location: /electromart/public/home");
+                }
+
                 $_SESSION['login_success'] = "Đăng nhập thành công.";
                 exit();
             } else {
@@ -71,6 +81,24 @@ class AuthController
                 header("Location: /electromart/public/account/signup");
             }
         }
+    }
+    public function signOut(): never
+    {
+
+        session_start();
+
+        // Xóa thông tin user trong session
+        unset($_SESSION['user']);
+
+        // Hoặc xóa toàn bộ session nếu bạn không cần giữ gì khác
+        $_SESSION = [];
+        session_destroy();
+
+        // Chuyển về trang chủ
+        header("Location: /electromart/public/home");
+        exit();
+
+
     }
 }
 

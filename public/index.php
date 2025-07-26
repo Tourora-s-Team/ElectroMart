@@ -1,4 +1,9 @@
 <?php
+// Sử dụng session để quản lý trạng thái người dùng
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 define('ROOT_PATH', dirname(__DIR__));
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../core/router.php';
@@ -13,6 +18,8 @@ require_once ROOT_PATH . '/routes/auth.routes.php';
 require_once ROOT_PATH . '/routes/home.routes.php';
 require_once ROOT_PATH . '/routes/cart.routes.php';
 require_once ROOT_PATH . '/routes/search.routes.php';
+require_once ROOT_PATH . '/routes/product_detail.routes.php';
+
 
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);

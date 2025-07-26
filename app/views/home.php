@@ -3,7 +3,7 @@
 <section class="hero">
     <div class="container">
         <div class="hero-content">
-            <h1>Linh kiện điện tử chất lượng cao</h1>
+            <h1>Linh kiện điện tử chất lượng cao </h1>
             <p>Khám phá hàng ngàn sản phẩm từ các thương hiệu uy tín</p>
             <a href="#product-section" class="cta-btn">Mua sắm ngay</a>
         </div>
@@ -20,7 +20,7 @@
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
-                        <a href="/product/<?php echo $product['ProductID']; ?>">
+                        <a href="product/detail/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
                                 <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
@@ -94,9 +94,9 @@
 
 <script>
     // Thêm hiệu ứng cuộn mượt mà khi nhấn vào nút "Mua sắm ngay"
-    document.querySelector('.cta-btn').addEventListener('click', function(e) {
+    document.querySelector('.cta-btn').addEventListener('click', function (e) {
         e.preventDefault(); // Ngừng hành động mặc định của liên kết
-        
+
         // Cuộn mượt mà tới section với id="product-section"
         document.querySelector('#product-section').scrollIntoView({
             behavior: 'smooth',

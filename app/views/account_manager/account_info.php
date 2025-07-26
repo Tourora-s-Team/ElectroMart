@@ -14,7 +14,7 @@ require_once __DIR__ . "/./account_navbar.php";
     </div>
 
     <div class="account-details">
-        <form id="form-info" action="" method="post" class="container-form">
+        <form id="form-info" action="/electromart/public/account/update-info" method="post" class="container-form">
             <fieldset disabled>
                 <div class="grid-form">
                     <div class="input-group ">
@@ -74,11 +74,18 @@ require_once __DIR__ . "/./account_navbar.php";
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
 
 <script>
-    document.getElementById('gender').value = "<?= $customerData[0]['Gender'] ?>";
+    const initialData = {
+        name: <?= json_encode($customerData[0]['FullName']) ?>,
+        gender: <?= json_encode($customerData[0]['Gender']) ?>,
+        email: <?= json_encode($userData[0]['Email']) ?>,
+        phone: <?= json_encode($userData[0]['Phonenumber']) ?>,
+        birthDate: <?= date('d-m-Y', strtotime($customerData[0]['BirthDate'])) ?>
+    };
+    document.getElementById('gender').value = initialData.gender;
 
     flatpickr("#date-of-birth", {
         dateFormat: "d/m/Y", // định dạng hiển thị
-        defaultDate: "<?= date('d-m-Y', strtotime($customerData[0]['BirthDate'])) ?>" // giữ định dạng chuẩn d-m-Y
+        defaultDate: initialData.birthDate
     });
 
 
@@ -96,18 +103,22 @@ require_once __DIR__ . "/./account_navbar.php";
         }
         this.innerHTML = fieldset.disabled ? "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa" : "<i class='fa-solid fa-xmark'></i>Hủy";
 
-        if (this.innerHTML.includes("Hủy")) {
-            document.getElementById('cancel-edit-info').click();
+        if (this.innerHTML.includes("Chỉnh sửa")) {
+            document.getElementById('name').value = initialData.name;
+            document.getElementById('gender').value = initialData.gender;
+            document.getElementById('email').value = initialData.email;
+            document.getElementById('phone').value = initialData.phone;
+            flatpickr("#date-of-birth", {
+                dateFormat: "d/m/Y", // định dạng hiển thị
+                defaultDate: initialData.birthDate
+            });
         }
     });
 
     submitButton.addEventListener('click', function (e) {
         e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
         const fieldset = document.querySelector('.account-details fieldset');
-        fieldset.disabled = true; // Vô hiệu hóa trường nhập liệu sau khi lưu
-
-        this.classList.add("hidden");
-        document.getElementById('edit-info-btn').innerHTML = "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa";
+        
 
         const fullName = document.getElementById('name').value;
         const gender = document.getElementById('gender').value;
@@ -120,8 +131,21 @@ require_once __DIR__ . "/./account_navbar.php";
             return;
         }
 
+        if (!validateEmail(email)) {
+            showToast("Email không hợp lệ.", 'error');
+            return;
+        }
+
+        if (!validatePhone(phone)) {
+            showToast("Số điện thoại không hợp lệ.", 'error');
+            return;
+        }
+
         const form = document.getElementById('form-info');
         form.submit();
+        fieldset.disabled = true; // Vô hiệu hóa trường nhập liệu sau khi lưu
+        this.classList.add("hidden");
+        document.getElementById('edit-info-btn').innerHTML = "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa";
     });
 </script>
 <script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>

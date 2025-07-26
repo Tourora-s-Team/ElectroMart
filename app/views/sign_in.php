@@ -70,5 +70,5 @@
 </main>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
 <script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
+<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
