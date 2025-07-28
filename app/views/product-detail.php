@@ -148,7 +148,7 @@
                         <i class="fas fa-comments"></i>
                         Chat ngay
                     </button>
-                    <a href="/shop/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
+                    <a href="public/shop-detail/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
                         <i class="fas fa-store"></i>
                         Xem shop
                     </a>

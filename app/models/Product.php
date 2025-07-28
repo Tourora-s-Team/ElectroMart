@@ -144,18 +144,7 @@ class Product
 
     }
 
-    // cập nhật đánh giá của shop
-    // public function updateRatingShop($shopId)
-    // {
-    //     $sql = "SELECT AVG(RatingProduct) AS avg_rating FROM PRODUCT WHERE ShopID = :shopId";
-    //     $stmt = $this->db->prepare($sql);
-    //     $stmt->execute(['shopId' => $shopId]);
-    //     $avg = $stmt->fetchColumn();
 
-    //     $updateSql = "UPDATE SHOP SET RatingShop = :avg WHERE ShopID = :shopId";
-    //     $updateStmt = $this->db->prepare($updateSql);
-    //     $updateStmt->execute(['avg' => $avg, 'shopId' => $shopId]);
-    // }
 
 }
 ?>

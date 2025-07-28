@@ -19,6 +19,7 @@ require_once ROOT_PATH . '/routes/home.routes.php';
 require_once ROOT_PATH . '/routes/cart.routes.php';
 require_once ROOT_PATH . '/routes/search.routes.php';
 require_once ROOT_PATH . '/routes/product_detail.routes.php';
+require_once ROOT_PATH . '/routes/shop_detail.routes.php';
 
 
 
