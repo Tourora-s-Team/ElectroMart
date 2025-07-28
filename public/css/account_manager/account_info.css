@@ -68,7 +68,7 @@
     color: #495057;
 }
 
-@media (max-width: 468px) {
+@media (max-width: 520px) {
     .account-details .layout-form {
         display: flex;
         flex-direction: column;

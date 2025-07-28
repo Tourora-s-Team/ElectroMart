@@ -21,7 +21,9 @@ require_once ROOT_PATH . '/routes/search.routes.php';
 require_once ROOT_PATH . '/routes/product_detail.routes.php';
 require_once ROOT_PATH . '/routes/address.routes.php';
 
-
+require_once ROOT_PATH . '/routes/admin/orders_manager.routes.php';
+require_once ROOT_PATH . '/routes/admin/products_manager.routes.php';
+require_once ROOT_PATH . '/routes/admin/financial_manager.routes.php';
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 ?>
