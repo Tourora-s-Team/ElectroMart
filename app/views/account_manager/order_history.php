@@ -10,7 +10,7 @@ require_once __DIR__ . "/./account_navbar.php";
     <div class="history-list">
         <?php
         if ($orderHistory != null) {
-            for ($i = 0; $i < $oderCount; $i++) {
+            for ($i = 0; $i < $orderCount; $i++) {
                 include __DIR__ . '/./item/item_history.php';
             }
         } else {

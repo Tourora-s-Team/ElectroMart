@@ -2,14 +2,16 @@
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_navbar.css' ?>">
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_info.css' ?>">
 
-<section class="account_nav">
+<?php
+require_once __DIR__ . "/../layouts/Header.php";
+?>
+<!-- <section class="account_nav">
     <div class="left-container">
-        <a href="/electromart/public/">
-            <img src="<?= $_ENV['IMG_PATH'] . 'logo_electro_mart.png' ?>" alt="ElectricMart Logo" class="logo">
-        </a>
-        <div>
-            <h1>Quản lý tài khoản</h1>
-            <p class="fontsize-16">ElectroMart - Linh kiện, thiết bị điện tử chất lượng cao.</p>
+        <div class="logo">
+            <a href="/electromart/public/">
+                <i class="fas fa-bolt"></i>
+                ElectroMart
+            </a>
         </div>
     </div>
 
@@ -20,7 +22,7 @@
         </div>
         <img src="<?= $_ENV['IMG_PATH'] . 'avatar_default.png' ?>" alt="Avatar" class="avatar">
     </div>
-</section>
+</section> -->
 
 <section id="account-manager" class="dashboard">
     <nav class="navigation-button">
@@ -28,8 +30,8 @@
                 class="far fa-user"></i>Thông tin tài khoản</button>
         <button class="nav-btn fontsize-16" data-action="order-history"
             onclick="toggleActive(this); goToAction(this)"><i class="fas fa-box"></i>Lịch sử mua hàng</button>
-        <button class="nav-btn fontsize-16" data-action="shipping-address"
-            onclick="toggleActive(this); goToAction(this)"><i class="fas fa-map-marker-alt"></i>Địa chỉ giao
+        <button class="nav-btn fontsize-16" data-action="receiver-info"
+            onclick="toggleActive(this); goToAction(this)"><i class="fas fa-map-marker-alt"></i>Địa chỉ nhận
             hàng</button>
         <button class="nav-btn fontsize-16" data-action="security" onclick="toggleActive(this); goToAction(this)"><i
                 class="fas fa-lock"></i>Bảo
@@ -65,4 +67,4 @@
     }
 
 </script>
-
+<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>

@@ -149,4 +149,3 @@ require_once __DIR__ . "/./account_navbar.php";
         document.getElementById('edit-info-btn').innerHTML = "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa";
     });
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
