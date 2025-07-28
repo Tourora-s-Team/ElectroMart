@@ -65,6 +65,21 @@ class User
         $handleData->execData($sql);
     }
 
+    // Update thông tin user
+    public function updateUser($userId, $email, $phone)
+    {
+        $handleData = new HandleData();
+        $sql = "UPDATE users SET Email = :email, PhoneNumber = :phone WHERE UserID = :userId";
+
+        $params = [
+            ':email' => $email,
+            ':phone' => $phone,
+            ':userId' => $userId
+        ];
+
+        return $handleData->execDataWithParams($sql, $params);
+    }
+
     public function authenticate($loginInfo, $password)
     {
         $sql = "SELECT * FROM users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";

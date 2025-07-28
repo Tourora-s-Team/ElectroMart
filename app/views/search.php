@@ -10,12 +10,12 @@
                     Tất cả sản phẩm
                 <?php endif; ?>
             </h2>
-            
+
             <!-- <div class="search-meta">
                 Tìm thấy <?php echo count($products); ?> sản phẩm
             </div> -->
         </div>
-        
+
         <div class="search-filters">
             <div class="filter-group">
                 <label>Sắp xếp:</label>
@@ -27,17 +27,17 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="product-grid">
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
-                        <a href="/product/<?php echo $product['ProductID']; ?>">
+                        <a href="public/product-detail/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
-                                <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>" 
-                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
+                                <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                    alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                             </div>
-                            
+
                             <div class="product-info">
                                 <h3><?php echo htmlspecialchars($product['ProductName']); ?></h3>
                                 <div class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></div>
@@ -60,7 +60,7 @@
                                 <?php endif; ?>
                             </div>
                         </a>
-                        
+
                         <div class="product-actions">
                             <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
                                 <i class="fas fa-shopping-cart"></i> Thêm vào giỏ

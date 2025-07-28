@@ -103,5 +103,5 @@
         dateFormat: "d/m/Y", // định dạng hiển thị
     });
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
 <script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
+<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>

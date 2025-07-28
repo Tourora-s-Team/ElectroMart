@@ -1,6 +1,6 @@
 <?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
 
-<link rel="stylesheet" href="/public/css/components/shopdetail.css">
+<link rel="stylesheet" href="/electromart/public/css/components/shopdetail.css">
 
 <section class="shop-detail">
     <div class="container">
@@ -28,11 +28,11 @@
 
                 <div class="shop-stats">
                     <div class="stat-item">
-                        <div class="stat-number"><?php echo count($products); ?></div>
+                        <div class="stat-number"><?php echo htmlspecialchars($countProduct); ?></div>
                         <div class="stat-label">Sản phẩm</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">4.8</div>
+                        <div class="stat-number"><?php echo htmlspecialchars(round($shop['RatingShop'], 1)); ?></div>
                         <div class="stat-label">Đánh giá</div>
                     </div>
                     <div class="stat-item">
@@ -72,7 +72,7 @@
             <!-- Products Section -->
             <div id="products" class="content-section active">
                 <div class="section-header">
-                    <h2>Tất cả sản phẩm (<?php echo count($products); ?>)</h2>
+                    <h2>Tất cả sản phẩm (<?php echo $countProduct; ?>)</h2>
                     <div class="product-filters">
                         <select class="filter-select">
                             <option value="newest">Mới nhất</option>
@@ -83,11 +83,11 @@
                     </div>
                 </div>
 
-                <?php if (!empty($products)): ?>
+                <?php if (!empty($product)): ?>
                     <div class="products-grid">
-                        <?php foreach ($products as $product): ?>
+                        <?php foreach ($product as $product): ?>
                             <div class="product-card">
-                                <a href="/product/<?php echo $product['ProductID']; ?>">
+                                <a href="public/product-detail/<?php echo $product['ProductID']; ?>">
                                     <div class="product-image">
                                         <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                             alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
@@ -109,10 +109,11 @@
                                                 <div class="stars">
                                                     <?php for ($i = 1; $i <= 5; $i++): ?>
                                                         <i
-                                                            class="fas fa-star <?php echo $i <= $product['Rating'] ? 'active' : ''; ?>"></i>
+                                                            class="fas fa-star <?php echo $i <= round($product['RatingProduct'], 1) ? 'active' : ''; ?>"></i>
                                                     <?php endfor; ?>
                                                 </div>
-                                                <span class="rating-text"><?php echo $product['Rating']; ?></span>
+                                                <span
+                                                    class="rating-text"><?php echo htmlspecialchars(round($product['RatingProduct'], 1)); ?></span>
                                             </div>
                                             <span class="sold-count">Đã bán <?php echo rand(10, 500); ?></span>
                                         </div>
@@ -133,6 +134,7 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
+
                 <?php else: ?>
                     <div class="no-products">
                         <div class="no-products-content">

@@ -4,7 +4,7 @@
 
 <section class="account_nav">
     <div class="left-container">
-        <a href="/electromart/public/index.php">
+        <a href="/electromart/public/">
             <img src="<?= $_ENV['IMG_PATH'] . 'logo_electro_mart.png' ?>" alt="ElectricMart Logo" class="logo">
         </a>
         <div>
@@ -37,7 +37,7 @@
         <button class="nav-btn fontsize-16" data-action="favorites" onclick="toggleActive(this); goToAction(this)"><i
                 class="fas fa-heart"></i>Yêu
             thích</button>
-        <button class="nav-btn fontsize-16" data-action="logout" onclick="toggleActive(this); goToAction(this)"><i
+        <button class="nav-btn fontsize-16" data-action="signout" onclick="toggleActive(this); goToAction(this)"><i
                 class="fas fa-sign-out-alt"></i>Đăng
             xuất</button>
     </nav>
