@@ -20,7 +20,7 @@
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
-                        <a href="product/detail/<?php echo $product['ProductID']; ?>">
+                        <a href="public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
                                 <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
