@@ -29,8 +29,8 @@ class AccountController
 
     private function isUserLoggedIn()
     {
-        // Nếu người dùng chưa đăng nhập thì chuyển hướng đến trang đăng nhập và trả về false
-        if ($this->userData == null) {
+        // Nếu người dùng chưa đăng nhập hoặc đang truy cập với quyền admin thì chuyển hướng đến trang đăng nhập và trả về false
+        if ($this->userData == null || in_array($_SESSION["user"][0]["Role"], ['Admin'])) {
             header("Location: /electromart/public/account/signin");
             return false;
         }
