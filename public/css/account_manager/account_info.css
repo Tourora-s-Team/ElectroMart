@@ -21,18 +21,12 @@
     padding: 16px;
 }
 
-/* Layout: grid */
-.account-details .grid-form {
+.account-details .layout-form {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
 }
 
-/* Layout: collunm */
-.account-details .collunm-form {
-    display: flex;
-    flex-direction: column;
-}
 
 .account-details fieldset {
     border: none;
@@ -55,7 +49,7 @@
 }
 
 .account-details .input-group input,
-.account-details .input-group select{
+.account-details .input-group select {
     padding: 12px;
     border: 1px solid #ced4da;
     border-radius: 4px;
@@ -68,8 +62,24 @@
     margin: 16px 0;
 }
 
-.account-details .member-details{
+.account-details .member-details {
     margin: 16px 0;
     font-size: 14px;
     color: #495057;
+}
+
+@media (max-width: 468px) {
+    .account-details .layout-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .account-details .input-group {
+        width: 90%;
+    }
+
+    #nav-menu {
+        width: 60%;
+    }
+
 }

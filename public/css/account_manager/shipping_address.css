@@ -1,7 +1,0 @@
-#shipping-address {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 25px;
-    padding-top: 32px;
-    background-color: #F4F8FE;
-}

@@ -16,7 +16,7 @@ require_once __DIR__ . "/./account_navbar.php";
     <div class="account-details">
         <form id="form-info" action="/electromart/public/account/update-info" method="post" class="container-form">
             <fieldset disabled>
-                <div class="grid-form">
+                <div class="layout-form">
                     <div class="input-group ">
                         <label for="name">Họ và tên:</label>
                         <input type="text" id="name" name="name" value="<?= $customerData[0]["FullName"] ?>">
@@ -74,12 +74,13 @@ require_once __DIR__ . "/./account_navbar.php";
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
 
 <script>
+    // json_encode() trong PHP là một hàm dùng để chuyển đổi dữ liệu PHP thành định dạng JSON
     const initialData = {
         name: <?= json_encode($customerData[0]['FullName']) ?>,
         gender: <?= json_encode($customerData[0]['Gender']) ?>,
         email: <?= json_encode($userData[0]['Email']) ?>,
         phone: <?= json_encode($userData[0]['Phonenumber']) ?>,
-        birthDate: <?= date('d-m-Y', strtotime($customerData[0]['BirthDate'])) ?>
+        birthDate: <?= json_encode(date('d-m-Y', strtotime($customerData[0]['BirthDate']))) ?>
     };
     document.getElementById('gender').value = initialData.gender;
 
@@ -148,4 +149,3 @@ require_once __DIR__ . "/./account_navbar.php";
         document.getElementById('edit-info-btn').innerHTML = "<i class='fa-regular fa-pen-to-square'></i>Chỉnh sửa";
     });
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>

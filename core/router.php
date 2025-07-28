@@ -5,6 +5,7 @@ class Router
     private $routes = [
         'GET' => [],
         'POST' => [],
+        'DELETE' => []
     ];
 
     // Đăng ký route GET
@@ -17,6 +18,11 @@ class Router
     public function post($path, $action)
     {
         $this->routes['POST'][$this->normalize($path)] = $action;
+    }
+
+    public function delete($path, $action)
+    {
+        $this->routes['DELETE'][$this->normalize($path)] = $action;
     }
 
     // Hàm điều phối (dispatch)

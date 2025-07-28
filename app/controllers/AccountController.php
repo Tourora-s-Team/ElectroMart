@@ -4,6 +4,7 @@ require_once(__DIR__ . "/../models/Customer.php");
 
 class AccountController
 {
+    private $userID;
     private $user;
     private $customer;
     private $userData;
@@ -11,6 +12,7 @@ class AccountController
 
     public function __construct()
     {
+        $this->userID = $_SESSION["user"][0]["UserID"];
         $this->user = new User();
         $this->customer = new Customer();
 
@@ -19,8 +21,7 @@ class AccountController
         if ($userId != null) {
             $this->userData = $this->user->getUserData($userId);
             $this->customerData = $this->customer->getCustomerById($userId);
-        }
-        else {
+        } else {
             $this->userData = null;
             $this->customerData = null;
         }
@@ -37,51 +38,250 @@ class AccountController
     }
 
     public function info()
-    {   
-
+    {
         // Gọi hàm để kiểm tra tình trạng đăng nhập
         if ($this->isUserLoggedIn() === false) {
             return;
         }
         $userData = $this->userData;
         $customerData = $this->customerData;
+        $this->userData = $this->user->getUserData($this->userID);
+        $this->customerData = $this->customer->getCustomerById($this->userID);
         require_once(__DIR__ . "/../views/account_manager/account_info.php");
     }
 
     public function updateInfo()
     {
-        $userData = $this->userData;
-        $customerData = $this->customerData;
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $gender = $_POST['gender'];
             $email = $_POST['email'];
             $phone = $_POST['phone'];
             $dateOfBirth = $_POST['date-of-birth'];
+            $birthDateFormatted = DateTime::createFromFormat('d/m/Y', $dateOfBirth)->format('Y-m-d');
+
 
             // Cập nhật thông tin người dùng
-            $this->user->updateUser($userData[0]['UserID'], $email, $phone);
-            $this->customer->updateCustomer($customerData[0]['CustomerID'], $name, $gender, $dateOfBirth);
+            $this->user->updateUser($this->userID, $email, $phone);
+            $this->customer->updateCustomer($this->userID, $name, $gender, $birthDateFormatted);
 
             // Sau khi cập nhật, lấy lại dữ liệu mới
-            $this->userData = $this->user->getUserData($userData[0]['UserID']);
-            $this->customerData = $this->customer->getCustomerById($customerData[0]['CustomerID']);
+            $this->userData = $this->user->getUserData($this->userID);
+            $this->customerData = $this->customer->getCustomerById($this->userID);
+            header("Location: /electromart/public/account/info");
+            exit();
         }
     }
 
     public function orderHistory()
     {
-        $userData = $this->userData;
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
         $customerData = $this->customerData;
+
+        require_once(__DIR__ . "/../models/Order.php");
+        $orderModel = new Order();
+        $orderHistory = $orderModel->getAllOrdersByUserId($this->userID);
+
+        $orderCount = count($orderHistory);
+        if ($orderCount == 0) {
+            $orderHistory = null;
+        }
         require_once(__DIR__ . "/../views/account_manager/order_history.php");
     }
 
-    public function shippingAddress()
+    public function receiverInfo()
     {
-        $userData = $this->userData;
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+        require_once(__DIR__ . "/../models/Receiver.php");
+
+        // Lấy danh sách người nhận hàng
+        $receiverModel = new Receiver();
+        $receiverList = $receiverModel->getAllReceiversByUserId($this->userID);
+
         $customerData = $this->customerData;
-        require_once(__DIR__ . "/../views/account_manager/shipping_address.php");
+
+        if (empty($receiverList)) {
+            $receiverList = null; // Nếu không có người nhận nào, gán là null
+        }
+        require_once(__DIR__ . "/../views/account_manager/receiver_info.php");
+    }
+
+    public function getReceiver($id)
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+        header('Content-Type: application/json; charset=utf-8');
+        require_once(__DIR__ . "/../models/Receiver.php");
+        $receiverModel = new Receiver();
+
+        // Lấy người nhận hàng theo ID
+        $receiver = $receiverModel->getReceiverById($id);
+
+        if ($receiver) {
+            http_response_code(200);
+            echo json_encode($receiver);
+        } else {
+            http_response_code(404);
+            echo json_encode(['message' => 'Receiver not found']);
+        }
+        exit();
+    }
+    public function addReceiver()
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/Receiver.php");
+        $receiverModel = new Receiver();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /electromart/public/account/receiver-info");
+            exit();
+        }
+
+        // Lấy dữ liệu từ form
+        $receiverName = $_POST['ReceiverName'] ?? '';
+        $contactNumber = $_POST['ContactNumber'] ?? '';
+        $addressDetail = $_POST['AddressDetail'] ?? '';
+        $street = $_POST['Street'] ?? '';
+        $ward = $_POST['Ward'] ?? '';
+        $city = $_POST['City'] ?? '';
+        $country = $_POST['Country'] ?? 'Vietnam';
+        $note = $_POST['note'] ?? '';
+
+        // Thêm người nhận hàng mới
+        $result = $receiverModel->addReceiver([
+            'UserId' => $this->userID,
+            'ReceiverName' => $receiverName,
+            'ContactNumber' => $contactNumber,
+            'AddressDetail' => $addressDetail,
+            'Street' => $street,
+            'Ward' => $ward,
+            'City' => $city,
+            'Country' => $country,
+            'Note' => $note,
+            'isDefault' => 0
+        ]);
+
+        if ($result) {
+            $_SESSION['message'] = "Thêm dữ liệu người nhận thành công.";
+            $_SESSION['status_type'] = "success";
+            header("Location: /electromart/public/account/receiver-info");
+            exit();
+        } else {
+            $_SESSION['message'] = "Cập nhật dữ liệu người nhận thất bại.";
+            $_SESSION['status_type'] = "error";
+        }
+    }
+
+    public function updateReceiver()
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/Receiver.php");
+        $receiverModel = new Receiver();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: /electromart/public/account/receiver-info");
+            exit();
+        }
+
+        // Lấy dữ liệu từ form
+        $receiverID = $_POST['ReceiverID'] ?? '';
+        $receiverName = $_POST['ReceiverName'] ?? '';
+        $contactNumber = $_POST['ContactNumber'] ?? '';
+        $addressDetail = $_POST['AddressDetail'] ?? '';
+        $street = $_POST['Street'] ?? '';
+        $ward = $_POST['Ward'] ?? '';
+        $city = $_POST['City'] ?? '';
+        $country = $_POST['Country'] ?? 'Vietnam';
+        $note = $_POST['note'] ?? '';
+
+        if (!empty($receiverID)) {
+            $res = $receiverModel->updateReceiver($receiverID, [
+                'UserId' => $this->userID,
+                'ReceiverName' => $receiverName,
+                'ContactNumber' => $contactNumber,
+                'AddressDetail' => $addressDetail,
+                'Street' => $street,
+                'Ward' => $ward,
+                'City' => $city,
+                'Country' => $country,
+                'Note' => $note
+            ]);
+
+            if ($res) {
+                $_SESSION['message'] = "Cập nhật dữ liệu người nhận thành công.";
+                $_SESSION['status_type'] = "success";
+                header("Location: /electromart/public/account/receiver-info");
+                exit();
+            }
+        } else {
+            $_SESSION['message'] = "Cập nhật dữ liệu người nhận thất bại.";
+            $_SESSION['status_type'] = "error";
+        }
+
+
+    }
+
+    public function deleteReceiver($id)
+    {
+        // Ngăn không cho output HTML khác
+        ob_clean();
+
+        if (!$this->isUserLoggedIn()) {
+            header('Content-Type: application/json; charset=utf-8');
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            exit();
+        }
+
+        header('Content-Type: application/json; charset=utf-8');
+        require_once(__DIR__ . "/../models/Receiver.php");
+        $receiverModel = new Receiver();
+
+        // Xóa người nhận hàng theo ID
+        $result = $receiverModel->deleteReceiverById($id);
+
+        if ($result) {
+            http_response_code(200);
+            echo json_encode(['message' => 'Receiver deleted successfully']);
+        } else {
+            http_response_code(500);
+            echo json_encode(['message' => 'Failed to delete receiver']);
+        }
+        exit();
+    }
+
+    public function setDefaultReceiver($receiverID)
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/Receiver.php");
+        $receiverModel = new Receiver();
+
+        // Cập nhật người nhận hàng mặc định
+        $result = $receiverModel->setDefaultReceiver($this->userID, $receiverID);
+
+        if ($result) {
+            $_SESSION['message'] = "Đặt địa chỉ mặc định thành công.";
+            $_SESSION['status_type'] = "success";
+        } else {
+            $_SESSION['message'] = "Đặt địa chỉ mặc định thất bại.";
+            $_SESSION['status_type'] = "error";
+        }
+        header("Location: /electromart/public/account/receiver-info");
+        exit();
     }
 
     public function security()

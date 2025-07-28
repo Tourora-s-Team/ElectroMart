@@ -40,18 +40,26 @@
 }
 
 .container-form::after {
-  content: "";
-  display: table;
-  clear: both;
+    content: "";
+    display: table;
+    clear: both;
 }
 
 .hidden {
     display: none;
 }
 
+.toggle-btn-mobile {
+    display: none;
+    justify-content: right;
+    flex-direction: row;
+}
+
 body {
     background-color: #F4F8FE;
 }
+
+
 
 /* Account Navigation */
 .account_nav {
@@ -59,35 +67,22 @@ body {
     justify-content: space-between;
     align-items: center;
     height: auto;
+    color: white;
+    background-color: #FD7131;
     padding: 10px 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.left-container, .right-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.right-container {
-    text-align: right;
-}
-
-.left-container .logo {
-    width: 100px;
-    height: auto;
-
-}
-
-.right-container .avatar {
-    width: 64px;
-    height: auto;
-    border-radius: 50%;
-    margin-left: 12px;
-}
-
 #account-manager {
-    padding: 20px;
+    padding: 10px 20px 0;
+}
+
+.nav-toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+.nav-toggle-btn.active i {
+    transform: rotate(90deg);
 }
 
 #account-manager .navigation-button {
@@ -99,6 +94,8 @@ body {
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    align-content: flex-start;
+    margin-bottom: 16px;
 }
 
 .navigation-button .nav-btn {
@@ -111,6 +108,7 @@ body {
     background-color: white;
     text-align: left;
     border: 1px solid white;
+    transition: background-color 0.2s ease;
 }
 
 .navigation-button .nav-btn:hover {
@@ -122,8 +120,74 @@ body {
     margin-right: 10px;
 }
 
-.navigation-button .active {
-    color: #007bff;  
-    background-color: #EFF6FF;
-    border: 1px solid #007bff;
+/* --- Responsive Modal Menu Slide from Right --- */
+@media (max-width: 768px) {
+    .toggle-btn-mobile {
+        display: flex !important;
+        justify-content: flex-end;
+        padding: 10px 0;
+    }
+
+    .nav-toggle-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        padding: 10px;
+        z-index: 1;
+    }
+
+    /* Modal container for nav */
+    #nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+        transition: right 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        padding: 20px 16px;
+        z-index: 1001;
+    }
+
+    #nav-menu.active {
+        right: 0;
+    }
+
+    /* Overlay */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 1000;
+        display: none;
+    }
+
+    .nav-overlay.active {
+        display: block;
+    }
+
+    .nav-btn {
+        width: 100%;
+        text-align: left;
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* Close icon inside nav (optional) */
+    .nav-close-btn {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        font-size: 24px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
 }
+
