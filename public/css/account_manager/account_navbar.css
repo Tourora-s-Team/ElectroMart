@@ -95,7 +95,7 @@ body {
     overflow: hidden;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     align-content: flex-start;
-    height: 100%;
+    margin-bottom: 16px;
 }
 
 .navigation-button .nav-btn {
@@ -109,7 +109,6 @@ body {
     text-align: left;
     border: 1px solid white;
     transition: background-color 0.2s ease;
-    max-height: 40px;
 }
 
 .navigation-button .nav-btn:hover {
