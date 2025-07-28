@@ -1,31 +1,35 @@
 <?php
 require_once ROOT_PATH . '/app/models/Orders.php';
+require_once ROOT_PATH . '/app/controllers/BaseAdminController.php';
 
-class AdminOrdersController
+class AdminOrdersController extends BaseAdminController
 {
     private $orderModel;
 
     public function __construct()
     {
+        parent::__construct();
         $this->orderModel = new Orders();
     }
 
     public function index()
     {
-        $filters = [
-            'status' => $_GET['status'] ?? '',
-            'fromDate' => $_GET['fromDate'] ?? '',
-            'toDate' => $_GET['toDate'] ?? '',
-            'userID' => $_GET['userID'] ?? ''
-        ];
+        
+            $filters = [
+                'status' => $_GET['status'] ?? '',
+                'fromDate' => $_GET['fromDate'] ?? '',
+                'toDate' => $_GET['toDate'] ?? '',
+                'userID' => $_GET['userID'] ?? ''
+            ];
 
-        $orders = $this->orderModel->getAllOrders($filters);
-        $stats = $this->orderModel->getOrderStats($filters);
-        $this->loadView('OrdersFE', [
-            'orders' => $orders,
-            'stats' => $stats,
-            'filters' => $filters
-        ]);
+            $orders = $this->orderModel->getAllOrders($filters);
+            $stats = $this->orderModel->getOrderStats($filters);
+            $this->loadView('OrdersFE', [
+                'orders' => $orders,
+                'stats' => $stats,
+                'filters' => $filters
+            ]);
+       
     }
 
     public function view($orderId)
@@ -69,7 +73,7 @@ class AdminOrdersController
             return 0;
         }
     }
-
+    
     public function loadView($view, $data = [])
     {
         extract($data);

@@ -1,12 +1,14 @@
 <?php
 require_once ROOT_PATH . '/app/models/ProductManager.php';
+require_once ROOT_PATH . '/app/controllers/BaseAdminController.php';
 
-class AdminProductsController
+class AdminProductsController extends BaseAdminController
 {
     private $productModel;
 
     public function __construct()
     {
+        parent::__construct(); // Kiểm tra quyền admin
         $this->productModel = new Product1();
     }
 
@@ -19,13 +21,14 @@ class AdminProductsController
         $products = $this->productModel->getAllProductsWithImages($search, $sortBy, $sortOrder);
         $totalProducts = $this->productModel->getProductCount();
 
-        $pageTitle = "Quản lý sản phẩm";
-        $currentPage = 'products';
-        $activeTab = 'products';
-        $pageSubtitle = 'Danh sách sản phẩm hiện có';
-        include '../app/views/layouts/HeaderOrders.php';
-        include '../app/views/admin/ProductsFE.php';
-        include '../app/views/layouts/FooterOrders.php';
+        $this->loadAdminView('../app/views/admin/ProductsFE.php', [
+            'products' => $products,
+            'totalProducts' => $totalProducts,
+            'pageTitle' => "Quản lý sản phẩm",
+            'currentPage' => 'products',
+            'activeTab' => 'products',
+            'pageSubtitle' => 'Danh sách sản phẩm hiện có'
+        ]);
     }
     // Lấy sản phẩm theo ID
     public function get($id)

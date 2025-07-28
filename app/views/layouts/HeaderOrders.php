@@ -51,6 +51,13 @@
                             <span>Phân tích dữ liệu</span>
                         </a>
                     </li>
+                    <li
+                        class="nav-item <?php echo (isset($activeTab) && $activeTab === 'signout') ? 'active' : ''; ?>">
+                        <a href="/electromart/public/account/signout" class="nav-link">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>

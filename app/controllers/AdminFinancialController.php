@@ -1,12 +1,14 @@
 <?php
 require_once ROOT_PATH . '/app/models/FinancialManager.php';
+require_once ROOT_PATH . '/app/controllers/BaseAdminController.php';
 
-class AdminFinancialController
+class AdminFinancialController extends BaseAdminController
 {
     private $financialModel;
 
     public function __construct()
     {
+        parent::__construct(); // Kiểm tra quyền admin
         $this->financialModel = new Financial();
     }
 
@@ -21,14 +23,17 @@ class AdminFinancialController
         $totalRevenue = $this->financialModel->getTotalRevenue($month, $year, $shopID);
         $availableYears = $this->financialModel->getAvailableYears();
 
-        $pageTitle = "Quản lý tài chính ";
-        $currentPage = 'financial';
-        $activeTab = 'finance';
-        $pageSubtitle = ' Quản lý và theo dõi doanh thu của bạn';
-        $title = "ElectroMart - Quản lý tài chính";
-        include '../app/views/layouts/HeaderOrders.php';
-        include '../app/views/admin/FinancialFE.php';
-        include '../app/views/layouts/FooterOrders.php';
+        $this->loadAdminView('../app/views/admin/FinancialFE.php', [
+            'revenueData' => $revenueData,
+            'chartData' => $chartData,
+            'totalRevenue' => $totalRevenue,
+            'availableYears' => $availableYears,
+            'pageTitle' => "Quản lý tài chính ",
+            'currentPage' => 'financial',
+            'activeTab' => 'finance',
+            'pageSubtitle' => ' Quản lý và theo dõi doanh thu của bạn',
+            'title' => "ElectroMart - Quản lý tài chính"
+        ]);
     }
 
 

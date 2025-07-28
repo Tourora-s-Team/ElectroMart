@@ -33,9 +33,9 @@ class AuthController
             
             if ($userData) {
                 $_SESSION['user'] = $userData;
-                if (in_array('Seller', $roles)) {
-                    header("Location: /electromart/public/admin/dashboard");
-                } elseif (in_array('Customer', $roles)) {
+                if (in_array('Admin', $roles)) {
+                    header("Location: /electromart/public/admin/orders");
+                } elseif (in_array('Customer', $roles) || in_array('Seller', $roles)) {
                     $customerModel = new Customer();
                     $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
                     $_SESSION['customer'] = $customerData;
@@ -97,8 +97,15 @@ class AuthController
         // Chuyển về trang chủ
         header("Location: /electromart/public/home");
         exit();
+    }
 
-
+    public function authenticateAdminRole()
+    {
+        if (isset($_SESSION['user'])) {
+            $roles = explode(',', $_SESSION['user'][0]['Role']);
+            return in_array('Admin', $roles);
+        }
+        return false;
     }
 }
 
