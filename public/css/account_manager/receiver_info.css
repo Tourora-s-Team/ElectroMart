@@ -16,7 +16,7 @@
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 19;
 }
 
 .modal {
@@ -27,6 +27,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     animation: slideDown 0.3s ease;
     position: relative;
+    z-index: 20;
 }
 
 @keyframes slideDown {

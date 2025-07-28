@@ -16,7 +16,7 @@ require_once __DIR__ . "/./account_navbar.php";
     <div class="account-details">
         <form id="form-info" action="/electromart/public/account/update-info" method="post" class="container-form">
             <fieldset disabled>
-                <div class="grid-form">
+                <div class="layout-form">
                     <div class="input-group ">
                         <label for="name">Họ và tên:</label>
                         <input type="text" id="name" name="name" value="<?= $customerData[0]["FullName"] ?>">
