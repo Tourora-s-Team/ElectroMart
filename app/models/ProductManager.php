@@ -1,17 +1,21 @@
 <?php
 require_once ROOT_PATH . '/core/HandleData.php';
 
-class Product1
+class ProductManager extends HandleData
 {
     private $pdo;
-
     public function __construct()
     {
         $database = new Database();
         $this->pdo = $database->connectDB();
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== Thêm dòng này
     }
-
+    public function lockProductById($productId)
+    {
+        $sql = "UPDATE Product SET IsActive = 0 WHERE ProductID = :productId";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['productId' => $productId]);
+    }
     public function getAllProductsWithImages($search = '', $sortBy = 'StockQuantity', $sortOrder = 'ASC')
     {
         $sql = "SELECT 
@@ -21,6 +25,7 @@ class Product1
                     p.StockQuantity,
                     p.Brand,
                     p.Price,
+                    p.IsActive,
                     pi.ImageURL
                 FROM Product p
                 LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID";
@@ -53,19 +58,11 @@ class Product1
     }
 
 
-    public function deleteByID($productID)
+    public function deleteProduct($id)
     {
-        $sql1 = "DELETE FROM OrderDetail WHERE ProductID = ?";
-        $stmt1 = $this->pdo->prepare($sql1);
-        $stmt1->execute([$productID]);
-
-        $sql2 = "DELETE FROM CartItem WHERE ProductID = ?";
-        $stmt2 = $this->pdo->prepare($sql2);
-        $stmt2->execute([$productID]);
-
-        $sql3 = "DELETE FROM Product WHERE ProductID = ?";
-        $stmt3 = $this->pdo->prepare($sql3);
-        return $stmt3->execute([$productID]);
+        $sql = "DELETE FROM Product WHERE ProductID = :id";
+        $params = [':id' => $id];
+        return $this->execDataWithParams($sql, $params);
     }
 
 
@@ -81,12 +78,12 @@ class Product1
             empty($data['Brand']) ||
             empty($data['CategoryID']) ||
             empty($data['ShopID'])
+
         ) {
             throw new Exception("Thiếu dữ liệu bắt buộc cho sản phẩm.");
         }
 
         try {
-            // 1. Thêm vào bảng Product
             $stmt = $this->pdo->prepare("
             INSERT INTO Product (
                 ProductName, Description, Price, StockQuantity, Brand,
@@ -147,8 +144,7 @@ class Product1
 
     public function getAllProducts()
     {
-        $sql = "SELECT ProductID, ProductName, Description, StockQuantity, Brand, Price FROM product";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare("SELECT * FROM Product");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

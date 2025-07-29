@@ -9,7 +9,7 @@ class AdminProductsController extends BaseAdminController
     public function __construct()
     {
         parent::__construct(); // Kiểm tra quyền admin
-        $this->productModel = new Product1();
+        $this->productModel = new ProductManager();
     }
 
     public function index()
@@ -36,26 +36,6 @@ class AdminProductsController extends BaseAdminController
         echo json_encode($this->productModel->getById($id));
     }
 
-
-
-    public function delete($id)
-    {
-        require_once ROOT_PATH . '/app/models/ProductManager.php'; // Gọi model Product
-        $product = new Product1(); // Gọi model
-        $product->deleteByID($id); // Xoá sản phẩm theo ID
-        // Có thể redirect hoặc in ra thông báo
-        if ($product) {
-            echo "Deleted successfully";
-        } else {
-            echo "Failed to delete";
-        }
-        header('Location: /electromart/public/admin/products'); // Quay lại danh sách sản phẩm
-        exit;
-    }
-
-
-
-
     // Thêm hoặc cập nhật sản phẩm
 
     public function save()
@@ -69,7 +49,7 @@ class AdminProductsController extends BaseAdminController
             $imageUrl = $_POST['ImageURL'] ?? '';
 
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
             $result = $productModel->insert([
                 'ProductName' => $name,
                 'CategoryID' => $category,
@@ -100,7 +80,7 @@ class AdminProductsController extends BaseAdminController
 
 
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
 
             $result = $productModel->updateProduct($data);
 
@@ -111,6 +91,19 @@ class AdminProductsController extends BaseAdminController
         }
     }
 
+    public function delete($id)
+    {
+        $productManager = new ProductManager();
+        $result = $productManager->deleteProduct($id);
+
+        if ($result) {
+            http_response_code(200);
+            echo "Deleted successfully";
+        } else {
+            http_response_code(500);
+            echo "Failed to delete product";
+        }
+    }
 
 
 
@@ -125,11 +118,12 @@ class AdminProductsController extends BaseAdminController
             'Brand' => $_POST['Brand'] ?? '',
             'ImageURL' => $_POST['ImageURL'] ?? '',
             'ShopID' => $_POST['ShopID'] ?? null,
-            'CategoryID' => $_POST['CategoryID'] ?? null
+            'CategoryID' => $_POST['CategoryID'] ?? null,
+            'IsActive' => $_POST['IsActive'] ?? 1
         ];
 
         require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
+        $productModel = new ProductManager();
 
         try {
             $result = $productModel->insert($data);
@@ -154,7 +148,7 @@ class AdminProductsController extends BaseAdminController
     public function exportTxt()
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
+        $productModel = new ProductManager();
         $products = $productModel->getAllProducts();
 
         // Gửi header để tải file
@@ -179,7 +173,17 @@ class AdminProductsController extends BaseAdminController
         exit;
     }
 
-
+    public function lockProduct()
+    {
+        if (isset($_GET['id'])) {
+            $productId = $_GET['id'];
+            $productModel = new ProductManager(); // Gọi class Product
+            $productModel->lockProductById($productId); // <-- Gọi đúng method này
+            http_response_code(200);
+        } else {
+            http_response_code(400);
+        }
+    }
 
     public function search()
     {

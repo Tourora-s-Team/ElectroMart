@@ -45,10 +45,10 @@
                         </a>
                     </li>
                     <li
-                        class="nav-item <?php echo (isset($activeTab) && $activeTab === 'dashboard') ? 'active' : ''; ?>">
-                        <a href="/dashboard" class="nav-link">
+                        class="nav-item <?php echo (isset($activeTab) && $activeTab === 'user_manager') ? 'active' : ''; ?>">
+                        <a href="/electromart/public/admin/user_manager" class="nav-link">
                             <i class="fas fa-chart-bar"></i>
-                            <span>Phân tích dữ liệu</span>
+                            <span>Quản lý người dùng</span>
                         </a>
                     </li>
                     <li
@@ -74,13 +74,13 @@
                         </p>
                     </div>
                     <?php if (isset($activeTab) && $activeTab === 'orders'): ?>
-                            <div class="header-right">
-                                <div class="stats-summary">
-                                    <p class="stats-label">Tổng đơn hàng hôm nay</p>
-                                    <p class="stats-value" id="todayOrderCount">
-                                        <?php echo isset($todayOrderCount) ? $todayOrderCount : '0'; ?></p>
-                                </div>
+                        <div class="header-right">
+                            <div class="stats-summary">
+                                <p class="stats-label">Tổng đơn hàng hôm nay</p>
+                                <p class="stats-value" id="todayOrderCount">
+                                    <?php echo isset($todayOrderCount) ? $todayOrderCount : '0'; ?></p>
                             </div>
                         </div>
-                <?php endif; ?>
+                </div>
+            <?php endif; ?>
             </header>

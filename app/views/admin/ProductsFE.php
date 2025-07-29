@@ -78,7 +78,10 @@
                         <td><?= htmlspecialchars($product['Brand']) ?></td>
                         <td class="price"><?= number_format($product['Price'], 0, ',', '.') ?> VNĐ</td>
                         <td class="edit">
-                            <button onclick='editProduct(<?php echo json_encode($product); ?>)'>✏️Sửa</button>
+                            <button onclick="editProduct(<?= json_encode($product) ?>)">✏️Sửa</button>
+                            <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️Xoá</button>
+                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i>Khoá sản phẩm
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -198,6 +201,8 @@
         </div>
         <form id="editProductForm">
             <input type="hidden" id="product_id1" name="ProductID">
+            <input type="hidden" id="isactive" name="IsActive">
+
             <div class="form-group">
                 <label for="product_name">Tên sản phẩm *</label>
                 <input type="text" id="editProductName" name="ProductName" required>

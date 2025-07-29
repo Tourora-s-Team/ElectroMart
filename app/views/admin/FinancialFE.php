@@ -52,7 +52,6 @@
 
     <!-- Revenue Data Table -->
     <div class="table-container">
-        <h3>Chi tiết doanh thu</h3>
         <table class="orders-table">
             <thead>
                 <tr>

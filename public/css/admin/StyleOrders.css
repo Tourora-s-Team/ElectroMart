@@ -3,6 +3,7 @@
 /* Admin Container */
 .admin-container {
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
 }
 
@@ -749,11 +750,13 @@
 
 /* === Reset & Layout === */
 body {
-    font-family: var(--font-main);
-    background-color: var(--bg-white);
-    color: var(--text-dark);
+    font-family: apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    color: #333;
+    background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    line-height : 1,6;
+    
 }
 
 .main-content {

@@ -28,8 +28,10 @@ class Router
     // Hàm điều phối (dispatch)
     public function dispatch($method, $uri)
     {
+
         $uri = $this->normalize($uri);
         $routes = $this->routes[$method] ?? [];
+        $method = strtoupper($method); // Bổ sung dòng này
 
         foreach ($routes as $route => $action) {
             $pattern = preg_replace('/\{[a-zA-Z_]+\}/', '([a-zA-Z0-9-_]+)', $route);
@@ -78,4 +80,3 @@ class Router
         return rtrim($uri, '/') ?: '/';
     }
 }
-?>

@@ -4,4 +4,5 @@ $router->post('/electromart/public/admin/products/update', 'AdminProductsControl
 $router->post('/electromart/public/admin/products/add', 'AdminProductsController@add');
 $router->post('/electromart/public/admin/products/save', 'AdminProductsController@save');
 $router->get('/electromart/public/admin/products/export-txt', 'AdminProductsController@exportTxt');
-?>
+$router->post('/electromart/public/admin/products/lock', 'AdminProductsController@lockProduct');
+$router->post('/electromart/public/admin/products/delete/{id}', 'AdminProductsController@delete');

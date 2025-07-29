@@ -86,7 +86,7 @@ class Orders extends HandleData
                     VALUES ('{$data['OrderID']}', '{$data['OrderDate']}', '{$data['Status']}', 
                             {$data['ShippingFee']}, {$data['TotalAmount']}, '{$data['UserID']}')";
 
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error creating order: " . $e->getMessage());
@@ -117,7 +117,7 @@ class Orders extends HandleData
 
             $sql = "UPDATE {$this->table} SET " . implode(', ', $updateFields) . " WHERE OrderID = '$orderId'";
 
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error updating order: " . $e->getMessage());
@@ -129,7 +129,7 @@ class Orders extends HandleData
     {
         try {
             $sql = "DELETE FROM {$this->table} WHERE OrderID = '$orderId'";
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error deleting order: " . $e->getMessage());
@@ -296,7 +296,7 @@ class Orders extends HandleData
                     GROUP BY MONTH(OrderDate) 
                     ORDER BY month";
 
-            return $this->read($sql);
+            return $this->getDataWithParams($sql);
         } catch (Exception $e) {
             throw new Exception("Error getting monthly statistics: " . $e->getMessage());
         }

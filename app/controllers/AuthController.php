@@ -28,6 +28,9 @@ class AuthController
             $password = $_POST['password'];
 
             $userData = $this->userModel->authenticate($loginInfo, $password);
+            // Kiểm tra xem tài khoản có bị khoá hay không
+            // Truy vấn để lấy IsActive từ database
+
             // Tách thành mảng
             $roles = explode(',', $userData[0]['Role']);
 
@@ -113,6 +116,3 @@ class AuthController
         return false;
     }
 }
-
-
-?>

@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 // Sử dụng session để quản lý trạng thái người dùng
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -20,11 +23,16 @@ require_once ROOT_PATH . '/routes/cart.routes.php';
 require_once ROOT_PATH . '/routes/search.routes.php';
 require_once ROOT_PATH . '/routes/product_detail.routes.php';
 require_once ROOT_PATH . '/routes/address.routes.php';
+<<<<<<< HEAD
 require_once ROOT_PATH . '/routes/shop_detail.routes.php';
 
+=======
+>>>>>>> Update:AdminUserController
 require_once ROOT_PATH . '/routes/admin/orders_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/products_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/financial_manager.routes.php';
+require_once ROOT_PATH . '/routes/admin/user_manager.routes.php';
+
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 ?>

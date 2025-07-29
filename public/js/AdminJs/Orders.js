@@ -142,78 +142,7 @@ class OrderManager {
         this.showSuccessMessage(`Đã xóa đơn hàng ${orderId} thành công`);
     }
 
-    showOrderDetailsModal(order) {
-        const modal = this.createModal('Thông tin chi tiết đơn hàng', `
-            <div class="order-details">
-                <div class="detail-row">
-                    <span class="detail-label">Mã đơn hàng:</span>
-                    <span class="detail-value">${this.escapeHtml(order.OrderID)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Ngày đặt:</span>
-                    <span class="detail-value">${this.formatDate(new Date(order.OrderDate))}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Trạng thái:</span>
-                    <span class="status-badge status-${order.Status.toLowerCase()}">${this.escapeHtml(order.Status)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Phí ship:</span>
-                    <span class="detail-value">${this.formatCurrency(order.ShippingFee)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Tổng tiền:</span>
-                    <span class="detail-value font-semibold">${this.formatCurrency(order.TotalAmount)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">User ID:</span>
-                    <span class="detail-value">${this.escapeHtml(order.UserID)}</span>
-                </div>
-            </div>
-        `);
 
-        document.body.appendChild(modal);
-    }
-
-    showEditOrderModal(order) {
-        const modal = this.createModal('Chỉnh sửa đơn hàng', `
-            <form class="edit-order-form" onsubmit="orderManager.saveOrderChanges(event, '${order.OrderID}')">
-                <div class="form-group">
-                    <label>Mã đơn hàng:</label>
-                    <input type="text" value="${this.escapeHtml(order.OrderID)}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Trạng thái:</label>
-                    <select name="status" required>
-                        <option value="Pending" ${order.Status === 'Pending' ? 'selected' : ''}>Chờ xử lý</option>
-                        <option value="Processing" ${order.Status === 'Processing' ? 'selected' : ''}>Đang xử lý</option>
-                        <option value="Completed" ${order.Status === 'Completed' ? 'selected' : ''}>Hoàn thành</option>
-                        <option value="Cancelled" ${order.Status === 'Cancelled' ? 'selected' : ''}>Đã hủy</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Phí ship:</label>
-                    <input type="number" name="shippingFee" value="${order.ShippingFee}" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Tổng tiền:</label>
-                    <input type="number" name="totalAmount" value="${order.TotalAmount}" min="0" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i>
-                        Lưu thay đổi
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="orderManager.closeModal(this.closest('.modal'))">
-                        <i class="fas fa-times"></i>
-                        Hủy
-                    </button>
-                </div>
-            </form>
-        `);
-
-        document.body.appendChild(modal);
-    }
 
 
     saveOrderChanges(event, orderId) {
@@ -421,25 +350,29 @@ class OrderManager {
     }
 }
 function deleteProduct(id) {
-    if (confirm(`Bạn có chắc muốn xoá sản phẩm ID: ${id}?`)) {
+    if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này?")) {
         fetch(`/electromart/public/admin/products/delete/${id}`, {
-            method: 'GET'
+            method: 'POST', // ✅ sửa từ GET thành POST
+            headers: {
+                'Content-Type': 'application/json'
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message || "Xoá thành công!");
-                    location.reload();
-                } else {
-                    alert(data.message || "Xoá thất bại!");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi khi xoá:", error);
-                alert("Đã xảy ra lỗi khi xoá sản phẩm.");
-            });
+        .then(response => {
+            if (response.ok) {
+                alert("Xoá thành công!");
+                location.reload();
+            } else {
+                alert("Xoá thất bại. Mã lỗi: " + response.status);
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi:", error);
+        });
     }
 }
+
+
+
 function showEditProductModal(product) {
     // Gán dữ liệu vào form
     document.getElementById('editProductName').value = product.ProductName;
@@ -451,9 +384,27 @@ function showEditProductModal(product) {
     console.log(document.querySelectorAll('#product_id').length);
     // Gán ProductID
     document.getElementById('product_id1').value = product.ProductID;
+    
     // Mở modal
     document.getElementById('editProductModal').style.display = 'block';
 }
+
+    
+    function lockProduct(productId) {
+        if (confirm("Bạn có muốn khoá sản phẩm không?")) {
+            fetch(`/electromart/public/admin/products/lock?id=${productId}`, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Sản phẩm đã bị khoá.");
+                    location.reload();
+                } else {
+                    alert("Có lỗi xảy ra khi khoá sản phẩm.");
+                }
+            });
+        }
+    }
 
 
 function closeEditProductModal() {
@@ -461,7 +412,6 @@ function closeEditProductModal() {
 }
 document.getElementById("editProductForm").addEventListener("submit", function (e) {
     e.preventDefault();
-
     const form = e.target;
     const formData = new FormData(form);
     for (let [key, value] of formData.entries()) {
@@ -490,34 +440,13 @@ document.getElementById("editProductForm").addEventListener("submit", function (
 });
 
 function editProduct(product) {
+    if (parseInt(product.IsActive) === 0) {
+        alert("Sản phẩm đã bị khoá và không thể chỉnh sửa.");
+        return;
+    }
     showEditProductModal(product);
 }
 
-
-
-// function editProduct(id) {
-//     fetch(`/electromart/public/admin/products/get/${id}`)
-//         .then(response => response.json())
-//         .then(product => {
-//             // Gán dữ liệu vào các input
-//             document.getElementById('product_id').value = product.ProductID; // gán ID để biết là đang sửa
-//             document.getElementById('product_name').value = product.ProductName;
-//             document.getElementById('product_type').value = product.Description;
-//             document.getElementById('stock_quantity').value = product.StockQuantity;
-//             document.getElementById('price').value = product.Price;
-//             document.getElementById('brand').value = product.Brand;
-//             document.getElementById('image_url').value = product.ImageURL;
-//             document.getElementById('ShopIDSelect').value = product.ShopID;
-//             document.querySelector("select[name='CategoryID']").value = product.CategoryID;
-
-//             // Đổi tiêu đề và nút
-//             document.querySelector("#addProductModal .modal-header h2").textContent = "Sửa sản phẩm";
-//             document.querySelector("#addProductForm button[type='submit']").innerHTML = `<i class="fas fa-save"></i> Lưu thay đổi`;
-
-//             // Mở modal
-//             showAddProductModal();
-//         });
-// }
 
 
 document.getElementById("addProductForm").addEventListener("submit", function (e) {
@@ -731,51 +660,7 @@ function updateTableDisplay() {
     }, 200);
 }
 
-function createOrderRow(order) {
-    const row = document.createElement('tr');
-    row.className = 'order-row';
-    row.setAttribute('data-order-id', order.OrderID);
 
-    row.innerHTML = `
-        <td class="order-id">
-            <span class="font-medium">${escapeHtml(order.OrderID)}</span>
-        </td>
-        <td class="order-date">
-            <span class="timestamp" data-date="${order.OrderDate}">
-                ${formatDate(new Date(order.OrderDate))}
-            </span>
-        </td>
-        <td class="order-status">
-            <span class="status-badge status-${order.Status.toLowerCase()}">
-                ${escapeHtml(order.Status)}
-            </span>
-        </td>
-        <td class="shipping-fee">
-            <span class="currency">${formatCurrency(order.ShippingFee)}</span>
-        </td>
-        <td class="total-amount">
-            <span class="currency font-semibold">${formatCurrency(order.TotalAmount)}</span>
-        </td>
-        <td class="user-id">
-            <span>${escapeHtml(order.UserID)}</span>
-        </td>
-        <td class="actions">
-            <div class="action-buttons">
-                <button class="btn-icon btn-view" onclick="viewOrder('${order.OrderID}')" data-tooltip="Xem chi tiết">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button class="btn-icon btn-edit" onclick="editOrder('${order.OrderID}')" data-tooltip="Chỉnh sửa">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon btn-delete" onclick="deleteOrder('${order.OrderID}')" data-tooltip="Xóa">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </td>
-    `;
-
-    return row;
-}
 
 function updateStats() {
     const totalOrders = document.getElementById('totalOrders');
@@ -814,20 +699,6 @@ function viewOrder(orderId) {
 function editOrder(orderId) {
     console.log('Editing order:', orderId);
     showNotification('Chỉnh sửa đơn hàng: ' + orderId, 'info');
-}
-
-function deleteOrder(orderId) {
-    if (confirm(`Bạn có chắc chắn muốn xóa đơn hàng ${orderId}?`)) {
-        console.log('Deleting order:', orderId);
-        showNotification('Đã xóa đơn hàng: ' + orderId, 'success');
-
-        // Remove from current display
-        const row = document.querySelector(`[data-order-id="${orderId}"]`);
-        if (row) {
-            row.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(() => row.remove(), 300);
-        }
-    }
 }
 
 function openAddOrderModal() {
@@ -956,27 +827,6 @@ function initializeTableSorting() {
 function sortTable(columnIndex) {
     console.log('Sorting by column:', columnIndex);
     // TODO: Implement table sorting functionality
-}
-function deleteProduct(id) {
-    if (confirm(`Bạn có chắc muốn xoá sản phẩm ID: ${id}?`)) {
-        fetch(`/electromart/public/admin/products/delete/${id}`, {
-            method: 'GET'
-        })
-
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message || "Xoá thành công!");
-                    location.reload(); // làm mới bảng sản phẩm
-                } else {
-                    alert(data.message || "Xoá thất bại!");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi khi xoá:", error);
-                alert("Đã xảy ra lỗi khi xoá sản phẩm.");
-            });
-    }
 }
 
 
