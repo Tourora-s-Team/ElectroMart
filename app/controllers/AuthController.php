@@ -30,20 +30,26 @@ class AuthController
             $userData = $this->userModel->authenticate($loginInfo, $password);
             // Tách thành mảng
             $roles = explode(',', $userData[0]['Role']);
-            
-            if ($userData) {
-                $_SESSION['user'] = $userData;
-                if (in_array('Admin', $roles)) {
-                    header("Location: /electromart/public/admin/orders");
-                } elseif (in_array('Customer', $roles) || in_array('Seller', $roles)) {
-                    $customerModel = new Customer();
-                    $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
-                    $_SESSION['customer'] = $customerData;
-                    header("Location: /electromart/public/home");
-                }
 
-                $_SESSION['login_success'] = "Đăng nhập thành công.";
-                exit();
+            if ($userData) {
+                if ($userData[0]['isActive'] == 0) {
+                    $_SESSION['login_error'] = 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.';
+                    header("Location: /electromart/public/account/signin");
+                    exit();
+                } else {
+                    $_SESSION['user'] = $userData;
+                    if (in_array('Admin', $roles)) {
+                        header("Location: /electromart/public/admin/orders");
+                    } elseif (in_array('Customer', $roles) || in_array('Seller', $roles)) {
+                        $customerModel = new Customer();
+                        $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
+                        $_SESSION['customer'] = $customerData;
+                        header("Location: /electromart/public/home");
+                    }
+
+                    $_SESSION['login_success'] = "Đăng nhập thành công.";
+                    exit();
+                }
             } else {
                 $_SESSION['login_error'] = 'Thông tin đăng nhập không chính xác.';
                 header("Location: /electromart/public/account/signin");
