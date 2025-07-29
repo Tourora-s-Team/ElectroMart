@@ -14,12 +14,16 @@
                         <?php $total += $item['Price'] * $item['Quantity']; ?>
                         <div class="cart-item" data-item-id="<?php echo $item[0]['CartID']; ?>">
                             <div class="item-image">
-                                <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
-                                    alt="<?php echo htmlspecialchars($item['ProductName']); ?>">
+                                <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
+                                    <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                        alt="<?php echo htmlspecialchars($item['ProductName']); ?>">
+                                </a>
                             </div>
 
                             <div class="item-info">
-                                <h3><?php echo htmlspecialchars($item['ProductName']); ?></h3>
+                                <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
+                                    <h3><?php echo htmlspecialchars($item['ProductName']); ?></h3>
+                                </a>
                                 <div class="item-price"><?php echo number_format($item['Price'], 0, ',', '.'); ?>đ</div>
                             </div>
                             <form id="form_update_quantity_<?php echo $item['ProductID']; ?>"
