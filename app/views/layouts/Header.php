@@ -1,7 +1,9 @@
 <?php
 require_once ROOT_PATH . '/app/models/Customer.php';
 
-$fullName = $_SESSION['customer'][0]['FullName'];
+if (!empty($_SESSION)) {
+    $fullName = $_SESSION['customer'][0]['FullName'];
+}
 
 ?>
 <!DOCTYPE html>
