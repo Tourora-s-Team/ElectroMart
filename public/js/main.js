@@ -1,4 +1,3 @@
-console.log('main.js đã được tải!');
 
 // ElectroMart JavaScript.
 //       Đảm bảo toàn bộ HTML đã tải xong trước khi JS thao tác với DOM

@@ -1,15 +1,8 @@
 <?php
 require_once ROOT_PATH . '/app/models/Customer.php';
-$fullName = 'Khách hàng';
 
-if (!empty($_SESSION['user'][0]['UserID'])) {
-    $customerModel = new Customer();
-    $res = $customerModel->getCustomerById($_SESSION['user'][0]['UserID']);
+$fullName = $_SESSION['customer'][0]['FullName'];
 
-    if (!empty($res) && isset($res[0]['FullName'])) {
-        $fullName = $res[0]['FullName'];
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="vi">
