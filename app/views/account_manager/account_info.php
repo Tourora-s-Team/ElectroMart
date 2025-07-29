@@ -82,12 +82,13 @@ require_once __DIR__ . "/./account_navbar.php";
         phone: <?= json_encode($userData[0]['Phonenumber']) ?>,
         birthDate: <?= json_encode(date('d-m-Y', strtotime($customerData[0]['BirthDate']))) ?>
     };
+
     document.getElementById('gender').value = initialData.gender;
 
     flatpickr("#date-of-birth", {
         dateFormat: "d/m/Y", // định dạng hiển thị
         defaultDate: initialData.birthDate
-    });
+    })
 
 
     const submitButton = document.getElementById('submit-info');
@@ -119,7 +120,7 @@ require_once __DIR__ . "/./account_navbar.php";
     submitButton.addEventListener('click', function (e) {
         e.preventDefault(); // Ngăn chặn hành động mặc định của nút submit
         const fieldset = document.querySelector('.account-details fieldset');
-        
+
 
         const fullName = document.getElementById('name').value;
         const gender = document.getElementById('gender').value;

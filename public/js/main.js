@@ -322,8 +322,15 @@ function showToast(message, type) {
     toast.classList.add('toast');
     toast.classList.add(type);
 
+    // Thêm biểu tượng tùy theo loại thông báo
     // Có thể thay đổi màu theo type nếu muốn (error, success, etc.)
-    toast.textContent = message;
+    if (type == "error") {
+        toast.innerHTML = "<i class='fas fa-exclamation'></i>" + message;
+
+    }else {
+        toast.innerHTML = "<i class='fas fa-check'></i>" + message;
+    }
+
     toastContainer.appendChild(toast);
 
     // Tự động xóa sau 4s
@@ -342,4 +349,18 @@ function validateEmail(email) {
 function validatePhone(phone) {
     const re = /^(0[3|5|7|8|9])+([0-9]{8})$/;
     return re.test(phone);
+}
+
+// Toggle password visibility
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const button = input.nextElementSibling;
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+    } else {
+        input.type = 'password';
+        button.innerHTML = '<i class="fa-solid fa-eye"></i>';
+    }
 }

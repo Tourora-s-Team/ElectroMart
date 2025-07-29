@@ -68,6 +68,14 @@ class AccountController
             // Sau khi cập nhật, lấy lại dữ liệu mới
             $this->userData = $this->user->getUserData($this->userID);
             $this->customerData = $this->customer->getCustomerById($this->userID);
+            $_SESSION['message'] = "Cập nhật thông tin tài khoản thành công";
+            $_SESSION['status_type'] = "success";
+            header("Location: /electromart/public/account/info");
+            exit();
+        }
+        else {
+            $_SESSION['message'] = "Cập nhật thông tin tài khoản thất bại.";
+            $_SESSION['status_type'] = "error";
             header("Location: /electromart/public/account/info");
             exit();
         }
@@ -286,9 +294,42 @@ class AccountController
 
     public function security()
     {
-        $userData = $this->userData;
-        $customerData = $this->customerData;
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
         require_once(__DIR__ . "/../views/account_manager/security.php");
+    }
+
+    public function changePassword()
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $currentPassword = $_POST['current_password'];
+            $newPassword = $_POST['new_password'];
+            $confirmPassword = $_POST['confirm_password'];
+
+            // Kiểm tra mật khẩu hiện tại
+            if ($this->user->checkPassword($this->userID, $currentPassword)) {
+                // Kiểm tra mật khẩu mới và xác nhận
+                if ($newPassword === $confirmPassword) {
+                    // Cập nhật mật khẩu
+                    $this->user->updatePassword($this->userID, $newPassword);
+                    $_SESSION['message'] = "Đổi mật khẩu thành công.";
+                    $_SESSION['status_type'] = "success";
+                } else {
+                    $_SESSION['message'] = "Mật khẩu mới và xác nhận không khớp.";
+                    $_SESSION['status_type'] = "error";
+                }
+            } else {
+                $_SESSION['message'] = "Mật khẩu hiện tại không đúng.";
+                $_SESSION['status_type'] = "error";
+            }
+            header("Location: /electromart/public/account/security");
+            exit();
+        }
     }
 }
 ?>

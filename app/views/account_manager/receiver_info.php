@@ -2,17 +2,7 @@
 require_once __DIR__ . "/./account_navbar.php";
 ?>
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/receiver_info.css' ?>">
-<div id="toast-container"></div>
-<div id="toast-container"></div>
-<?php if (!empty($_SESSION['message'])): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            showToast("<?= addslashes($_SESSION['message']) ?>", '<?= $_SESSION['status_type'] ?>');
-        });
-    </script>
-<?php endif;
-unset($_SESSION['message']);
-unset($_SESSION['status_type']); ?>
+
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Địa chỉ giao hàng</h1>

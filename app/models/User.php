@@ -88,6 +88,27 @@ class User
         return $data;
     }
 
+    public function checkPassword($userId, $password)
+    {
+        $sql = "SELECT * FROM users WHERE UserID = :userId AND Password = :password";
+        $handleData = new HandleData();
+        $params = [
+            ':userId' => $userId,
+            ':password' => $password
+        ];
+        $data = $handleData->getDataWithParams($sql, $params);
+        return !empty($data);
+    }
 
+    public function updatePassword($userId, $newPassword)
+    {
+        $sql = "UPDATE users SET Password = :newPassword WHERE UserID = :userId";
+        $handleData = new HandleData();
+        $params = [
+            ':newPassword' => $newPassword,
+            ':userId' => $userId
+        ];
+        return $handleData->execDataWithParams($sql, $params);
+    }
 }
 ?>

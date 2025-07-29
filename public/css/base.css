@@ -53,6 +53,11 @@ body {
     font-size: 0.875rem;
 }
 
+.toast i {
+    margin-right: 8px;
+    font-size: 24px;
+}
+
 .toast.error {
     background-color: #ef4444;
 

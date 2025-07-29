@@ -3,7 +3,6 @@ $router->get('/electromart/public/account/info', 'AccountController@info');
 $router->post('/electromart/public/account/update-info', 'AccountController@updateInfo');
 
 $router->get('/electromart/public/account/order-history', 'AccountController@orderHistory');
-$router->get('/electromart/public/account/security', 'AccountController@security');
 
 // Receiver management routes
 $router->get('/electromart/public/account/receiver-info', 'AccountController@receiverInfo');
@@ -12,5 +11,9 @@ $router->get('/electromart/public/account/get-receiver/{id}', 'AccountController
 $router->post('/electromart/public/account/update-receiver', 'AccountController@updateReceiver');
 $router->delete('/electromart/public/account/delete-receiver/{id}', 'AccountController@deleteReceiver');
 $router->post('/electromart/public/account/set-default-receiver/{id}', 'AccountController@setDefaultReceiver');
+
+// Security settings route
+$router->get('/electromart/public/account/security', 'AccountController@security');
+$router->post('/electromart/public/account/change-password', 'AccountController@changePassword');
 
 ?>

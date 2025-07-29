@@ -3,7 +3,18 @@
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_info.css' ?>">
 
 <?php require_once __DIR__ . "/../layouts/Header.php"; ?>
+
 <div id="toast-container"></div>
+<?php if (!empty($_SESSION['message'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            showToast("<?= addslashes($_SESSION['message']) ?>", '<?= $_SESSION['status_type'] ?>');
+        });
+    </script>
+<?php endif;
+unset($_SESSION['message']);
+unset($_SESSION['status_type']); ?>
+
 <section id="account-manager" class="dashboard">
     <!-- Nút mở menu (hiện trên mobile) -->
     <div class="toggle-btn-mobile">

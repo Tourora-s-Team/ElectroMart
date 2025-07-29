@@ -19,20 +19,6 @@ function showRegister() {
     window.location.href = newUrl;
 }
 
-// Toggle password visibility
-function togglePassword(inputId) {
-    const input = document.getElementById(inputId);
-    const button = input.nextElementSibling;
-
-    if (input.type === 'password') {
-        input.type = 'text';
-        button.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-    } else {
-        input.type = 'password';
-        button.innerHTML = '<i class="fa-solid fa-eye"></i>';
-    }
-}
-
 // Form validation
 document.addEventListener('DOMContentLoaded', function () {
     // Login form validation
