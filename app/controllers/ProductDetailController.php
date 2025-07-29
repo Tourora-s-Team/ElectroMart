@@ -9,7 +9,7 @@ class ProductDetailController
         require_once ROOT_PATH . '/app/views/' . $view . '.php';
     }
 
-    public function showDetail($id)
+    public function showDetail($id)// Hàm hiển thị chi tiết sản phẩm
     {
         $productModels = new Product();
         // Lấy thông tin chi tiết sản phẩm theo ID
@@ -34,7 +34,7 @@ class ProductDetailController
         ]);
 
     }
-    public function submitReview()
+    public function submitReview()// Hàm xử lý việc gửi đánh giá sản phẩm
     {
         $rating = $_POST['rating'] ?? null;
         $comment = $_POST['comment'] ?? '';

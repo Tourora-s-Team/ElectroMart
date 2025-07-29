@@ -10,7 +10,7 @@ class Product
 
     }
 
-    function getAllProduct()
+    function getAllProduct()//hàm lấy tất cả sản phẩm
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
@@ -22,7 +22,7 @@ class Product
     }
 
 
-    function searchProduct($keyword)
+    function searchProduct($keyword)// hàm tìm kiếm sản phẩm theo từ khóa
     {
         // Thêm dấu % vào từ khóa
         $keyword = "%" . $keyword . "%";
@@ -43,7 +43,7 @@ class Product
         return $result;
     }
 
-    function getProductById($productId)
+    function getProductById($productId)// hàm lấy thông tin sản phẩm theo ProductID
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL, s.ShopName, r.Rating, c.CategoryName
@@ -63,7 +63,7 @@ class Product
 
         return null; // Không tìm thấy sản phẩm
     }
-    public function updateRatingProduct($productId)
+    public function updateRatingProduct($productId)// Cập nhật rating trung bình của sản phẩm
     {
         $handleData = new HandleData();
 
@@ -86,7 +86,7 @@ class Product
 
         return null;
     }
-    public function countReviewProduct($productId)
+    public function countReviewProduct($productId)// Hàm đếm số lượng đánh giá của sản phẩm
     {
         $handleData = new HandleData();
         $sql = "SELECT COUNT(ReviewID) AS count FROM review WHERE ProductID = :productId";
@@ -100,7 +100,7 @@ class Product
         return 0; // Không có đánh giá nào
     }
 
-    public function getReviewComment($productId)
+    public function getReviewComment($productId)// Hàm lấy danh sách đánh giá của sản phẩm
     {
         $handleData = new HandleData();
         $sql = "SELECT r.*, c.FullName
@@ -112,7 +112,7 @@ class Product
 
         return $result; // Trả về danh sách đánh giá
     }
-    public function addReviewComment($rating, $comment, $productId, $shopId, $userId)
+    public function addReviewComment($rating, $comment, $productId, $shopId, $userId)// Hàm thêm đánh giá sản phẩm
     {
         $handleData = new HandleData();
         // Thêm đánh giá vào cơ sở dữ liệu
@@ -130,7 +130,7 @@ class Product
         $this->updateRatingProduct($productId);
 
     }
-    public function getRelatedProduct($categoryId)
+    public function getRelatedProduct($categoryId)// Hàm lấy sản phẩm liên quan theo CategoryID
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
@@ -143,8 +143,6 @@ class Product
         return $result ?? []; // Trả về mảng, tránh lỗi null
 
     }
-
-
 
 }
 ?>

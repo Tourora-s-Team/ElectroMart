@@ -277,6 +277,11 @@
     margin-bottom: 25px;
 }
 
+.product-actions form {
+    display: flex;
+    flex: 1;
+}
+
 .btn {
     padding: 12px 24px;
     border: none;
@@ -290,6 +295,8 @@
     gap: 8px;
     transition: all 0.3s;
     text-decoration: none;
+    white-space: normal;
+    text-align: center;
 }
 
 .btn-cart {

@@ -47,9 +47,10 @@
                         <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
 
                             <div class="product-actions">
+                                <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                                <input type="hidden" name="quantity" value="1">
                                 <button type="submit" class="add-to-cart-btn">
-                                    <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
-                                    <input type="hidden" name="quantity" value="1">
+
                                     <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
                                 </button>
 

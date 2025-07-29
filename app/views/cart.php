@@ -6,7 +6,12 @@
         <?php if (!empty($cartItems)): ?>
             <div class="cart-content">
                 <div class="cart-items">
+
+                    <?php $total = 0; ?>
+
                     <?php foreach ($cartItems as $item): ?>
+                        <!-- tổng giá trị của tất cả sản phẩm trong giỏ hàng -->
+                        <?php $total += $item['Price'] * $item['Quantity']; ?>
                         <div class="cart-item" data-item-id="<?php echo $item[0]['CartID']; ?>">
                             <div class="item-image">
                                 <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
@@ -17,16 +22,27 @@
                                 <h3><?php echo htmlspecialchars($item['ProductName']); ?></h3>
                                 <div class="item-price"><?php echo number_format($item['Price'], 0, ',', '.'); ?>đ</div>
                             </div>
-
-                            <div class="item-quantity">
-                                <button class="quantity-btn minus" data-action="decrease">-</button>
-                                <input type="text" class="quantity-input" value="<?php echo $item['Quantity']; ?>" min="1">
-                                <button class="quantity-btn plus" data-action="increase">+</button>
-                            </div>
+                            <form id="form_update_quantity_<?php echo $item['ProductID']; ?>"
+                                action="/electromart/public/cart/update" method="POST">
+                                <input type="hidden" name="cart_id" value="<?php echo $item['CartID']; ?>">
+                                <input type="hidden" name="product_id" value="<?php echo $item['ProductID']; ?>">
+                                <div class="item-quantity">
+                                    <button type="button" class="quantity-btn minus"
+                                        onclick="changeQuantity(this,-1)">-</button>
+                                    <input type="text" name="quantity" id="quantity_input" class="quantity-input"
+                                        value="<?php echo $item['Quantity']; ?>" min="1"
+                                        max="<?php echo $item['StockQuantity']; ?>">
+                                    <button type="button" class="quantity-btn plus" onclick="changeQuantity(this,1)">+</button>
+                                </div>
+                            </form>
 
                             <div class="item-subtotal">
                                 <?php echo number_format($item['Price'] * $item['Quantity'], 0, ',', '.'); ?>đ
                             </div>
+
+                            <button form="form_update_quantity_<?php echo $item['ProductID']; ?>" type="submit"
+                                class="update-btn"><i class="fa-solid fa-pen"></i></button>
+
                             <form action="/electromart/public/cart/remove" method="POST">
                                 <div class="item-actions">
                                     <input type="hidden" name="cart_id" value="<?php echo $item['CartID']; ?>">
@@ -50,19 +66,19 @@
                             <span class="subtotal"><?php echo number_format($total, 0, ',', '.'); ?>đ</span>
                         </div>
 
-                        <div class="summary-row">
+                        <!-- <div class="summary-row">
                             <span>Phí vận chuyển:</span>
                             <span class="shipping">30.000đ</span>
-                        </div>
+                        </div> -->
 
                         <div class="summary-row total">
                             <span>Tổng cộng:</span>
-                            <span class="total-amount"><?php echo number_format($total + 30000, 0, ',', '.'); ?>đ</span>
+                            <span class="total-amount"><?php echo number_format($total, 0, ',', '.'); ?>đ</span>
                         </div>
 
                         <div class="checkout-actions">
                             <a href="/payment" class="checkout-btn">Thanh toán</a>
-                            <a href="/" class="continue-shopping">Tiếp tục mua sắm</a>
+                            <a href="public" class="continue-shopping">Tiếp tục mua sắm</a>
                         </div>
                     </div>
                 </div>
@@ -79,5 +95,20 @@
         <?php endif; ?>
     </div>
 </section>
+
+<script>
+    function changeQuantity(button, delta) {
+        const quantityInput = button.closest('.item-quantity').querySelector('.quantity-input'); //Từ nút bạn click, tìm tới <div> .item-quantity chứa nó, sau đó tìm ô nhập số lượng (input) bên trong khối đó.
+        const currentValue = parseInt(quantityInput.value) || 1;
+        const minValue = parseInt(quantityInput.min) || 1;
+        const maxValue = parseInt(quantityInput.max);
+        const newValue = currentValue + delta;
+
+        if (newValue >= minValue && newValue <= maxValue) {
+            quantityInput.value = newValue;
+        }
+    }
+</script>
+
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>

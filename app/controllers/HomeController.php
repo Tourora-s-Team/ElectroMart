@@ -1,5 +1,6 @@
 <?php
 require_once ROOT_PATH . '/app/models/Product.php';
+require_once ROOT_PATH . '/app/models/Customer.php';
 
 class HomeController
 {
@@ -9,10 +10,9 @@ class HomeController
         require_once ROOT_PATH . '/app/views/' . $view . '.php';
     }
 
-    public function index()
+    public function index()// Hàm hiển thị trang chủ
     {
         $productModels = new Product();
-
         // Lấy cả products và productImages
         $products = $productModels->getAllProduct();
         $this->view('/home', [

@@ -73,7 +73,7 @@
                         <label>Số lượng:</label>
                         <div class="quantity-selector">
                             <button type="button" class="qty-btn minus" onclick="changeQuantity(-1)">-</button>
-                            <input type="number" id="quantity" value="1" min="1"
+                            <input type="text" id="quantity" value="1" min="1"
                                 max="<?php echo $product['StockQuantity']; ?>">
                             <button type="button" class="qty-btn plus" onclick="changeQuantity(1)">+</button>
                         </div>
@@ -82,14 +82,29 @@
                 </div>
 
                 <div class="product-actions">
-                    <button class="btn btn-cart" onclick="addToCart(<?php echo $product['ProductID']; ?>)">
-                        <i class="fas fa-shopping-cart"></i>
-                        Thêm vào giỏ hàng
-                    </button>
-                    <button class="btn btn-buy-now">
-                        Mua ngay
-                    </button>
+                    <form id="addToCartForm" action="/electromart/public/cart/add" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                        <input type="hidden" name="quantity" id="hidden_quantity">
+                        <button type="submit" class="btn btn-cart">
+
+                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                        </button>
+                    </form>
+                    <form action="/electromart/public/cart/add" method="POST">
+                        <button class="btn btn-buy-now">
+                            Mua ngay
+                        </button>
+                    </form>
                 </div>
+                <script>
+                    const form = document.getElementById('addToCartForm');
+                    const quantityInput = document.getElementById('quantity');
+                    const hiddenQuantity = document.getElementById('hidden_quantity');
+
+                    form.addEventListener('submit', function (e) {
+                        hiddenQuantity.value = quantityInput.value;
+                    });
+                </script>
 
                 <div class="product-policies">
                     <div class="policy-item">

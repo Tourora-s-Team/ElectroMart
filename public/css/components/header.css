@@ -70,6 +70,64 @@
     gap: 20px;
 }
 
+/* drop down Profile */
+.user-menu {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.user-name {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.3s;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.user-name:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 110%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    min-width: 180px;
+    display: none;
+    z-index: 1000;
+}
+
+.dropdown a {
+    display: block;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown a:hover {
+    background-color: #fef3ed;
+    color: #FF6B35;
+}
+
+/* Riêng cho nút Đăng xuất */
+.dropdown a#sign_out:hover {
+    background-color: #ff0000;
+    color: white;
+    border-radius: 8px;
+}
+
+/* end drop down profile */
+
 .cart-icon {
     position: relative;
     color: white;

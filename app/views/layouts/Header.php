@@ -1,3 +1,16 @@
+<?php
+require_once ROOT_PATH . '/app/models/Customer.php';
+$fullName = 'Khách hàng';
+
+if (!empty($_SESSION['user'][0]['UserID'])) {
+    $customerModel = new Customer();
+    $res = $customerModel->getCustomerById($_SESSION['user'][0]['UserID']);
+
+    if (!empty($res) && isset($res[0]['FullName'])) {
+        $fullName = $res[0]['FullName'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -26,7 +39,6 @@
                         ElectroMart
                     </a>
                 </div>
-
                 <div class="search-box">
                     <form action="public/search" method="GET">
                         <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..."
@@ -40,33 +52,21 @@
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
-                    <!-- Hiển thị tên người dùng -->
-                    <?php
-                    require_once ROOT_PATH . '/app/models/Customer.php';
-                    $fullName = 'Khách hàng';
-
-                    if (!empty($_SESSION['user'][0]['UserID'])) {
-                        $customerModel = new Customer();
-                        $res = $customerModel->getCustomerById($_SESSION['user'][0]['UserID']);
-
-                        if (!empty($res) && isset($res[0]['FullName'])) {
-                            $fullName = $res[0]['FullName'];
-                        }
-                    }
-                    ?>
-                    <a href="public/account/info" class="profile-btn">
-                        <i class="fas fa-user"></i>
-                        <?php echo $fullName; ?>
-
-                    </a>
-                    <!-- Hiển thị nút đăng nhập hoặc đăng xuất -->
-                    <?php if (!empty($_SESSION['user'][0]['UserID'])): ?>
-                        <a href="public/account/signout" class="login-btn">Đăng xuất</a>
-                    <?php endif; ?>
                     <?php if (empty($_SESSION['user'][0]['UserID'])): ?>
                         <a href="public/account/signin" class="login-btn">Đăng nhập</a>
                     <?php endif; ?>
-
+                    <?php if (!empty($_SESSION['user'][0]['UserID'])): ?>
+                        <!-- drop down Profile -->
+                        <div class="user-menu">
+                            <div class="user-name" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
+                                <?php echo $fullName; ?> ▼</div>
+                            <div class="dropdown" id="userDropdown">
+                                <a id="info" href="public/account/info">Thông tin cá nhân</a>
+                                <a id="seller" href="/orders">Kênh người bán</a>
+                                <a id="sign_out" href="public/account/signout">Đăng xuất</a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -83,3 +83,17 @@
     </header>
 
     <main class="main-content">
+
+        <script>
+            function toggleDropdown() {
+                var dropdown = document.getElementById("userDropdown");
+                dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+            }
+
+            // Tắt dropdown nếu click ra ngoài
+            window.onclick = function (event) {
+                if (!event.target.closest('.user-menu')) {
+                    document.getElementById("userDropdown").style.display = "none";
+                }
+            }
+        </script>

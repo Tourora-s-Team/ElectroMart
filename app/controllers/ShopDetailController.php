@@ -8,7 +8,7 @@ class ShopDetailController
         extract($data);
         require_once ROOT_PATH . '/app/views/' . $view . '.php';
     }
-    public function showShopDetail($id)
+    public function showShopDetail($id)// Hàm hiển thị chi tiết shop
     {
 
         $shopModel = new Shop();

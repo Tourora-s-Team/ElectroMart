@@ -10,15 +10,7 @@ class Shop
 
     }
 
-    function getAllShops()
-    {
-        $handleData = new HandleData();
-        $sql = "SELECT * FROM shop";
-        $result = $handleData->getData($sql);
-        return $result;
-    }
-
-    function getShopById($shopId)
+    function getShopById($shopId)// hàm lấy thông tin shop theo ShopID
     {
         $handleData = new HandleData();
         $sql = "SELECT * FROM shop WHERE ShopID = :shopId";
@@ -27,7 +19,7 @@ class Shop
         return $result[0];
     }
     // cập nhật đánh giá của shop
-    public function updateRatingShop($shopId)
+    public function updateRatingShop($shopId)// Hàm cập nhật đánh giá trung bình của shop
     {
         $handleData = new HandleData();
 
@@ -49,7 +41,7 @@ class Shop
 
         return null;
     }
-    public function countProductShop($shopId)
+    public function countProductShop($shopId)// Hàm đếm số lượng sản phẩm của shop
     {
         $handleData = new HandleData();
         $sql = "SELECT COUNT(ProductID) AS count FROM product WHERE ShopID = :shopId";
@@ -63,7 +55,7 @@ class Shop
         return 0; // Không có sản phẩm nào
     }
 
-    public function getProductShop($shopId)
+    public function getProductShop($shopId)// Hàm lấy danh sách sản phẩm của shop
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, s.ShopName, s.ShopID, c.CategoryName, pi.ImageURL
@@ -79,7 +71,6 @@ class Shop
         if (count($result) > 0) {
             return $result; // Trả về sản phẩm đầu tiên
         }
-
         return null;
     }
 }
