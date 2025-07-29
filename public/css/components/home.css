@@ -60,7 +60,7 @@
 .product-card {
     box-sizing: border-box;
     max-width: 270px;
-    max-height: 440px;
+    max-height: 480px;
     background: white;
     border-radius: 12px;
     overflow: hidden;

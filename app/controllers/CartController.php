@@ -27,6 +27,41 @@ class CartController
             ]);
         }
     }
-}
+    public function addToCart()
+    {
+        $productId = $_POST['product_id'] ?? null;
+        $userId = $_SESSION['user'][0]['UserID']; // nếu có đăng nhập
+        $quantity = $_POST['quantity'] ?? null;
 
+        if (!isset($userId)) {
+            // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
+            header('Location: /electromart/public/account/signin');
+            exit;
+        } else {
+            $cartModels = new Cart();
+            $cardId = $cartModels->getCartID($userId);
+            $shopId = $cartModels->getShopID($productId);
+            $cartModels->addProductCart($cardId, $productId, $quantity, $shopId);
+
+            header('Location: /electromart/public/cart');
+            exit;
+        }
+    }
+    public function deleteFromCart()
+    {
+        $cartItemId = $_POST['cart_id'] ?? null;
+        $productId = $_POST['product_id'] ?? null;
+
+        if ($cartItemId && $productId) {
+            $cartModels = new Cart();
+            $cartModels->removeProductCart($cartItemId, $productId);
+            header('Location: /electromart/public/cart');
+            exit;
+        } else {
+            // Xử lý lỗi nếu không có cartItemId hoặc productId
+            echo "Vui lòng cung cấp đầy đủ thông tin để xóa sản phẩm.";
+        }
+    }
+
+}
 ?>

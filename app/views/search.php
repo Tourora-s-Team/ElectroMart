@@ -10,10 +10,9 @@
                     Tất cả sản phẩm
                 <?php endif; ?>
             </h2>
-
-            <!-- <div class="search-meta">
+            <div class="search-meta">
                 Tìm thấy <?php echo count($products); ?> sản phẩm
-            </div> -->
+            </div>
         </div>
 
         <div class="search-filters">
@@ -42,14 +41,15 @@
                                 <h3><?php echo htmlspecialchars($product['ProductName']); ?></h3>
                                 <div class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></div>
                                 <div class="product-price"><?php echo number_format($product['Price'], 0, ',', '.'); ?>đ</div>
-                                <!-- <div class="product-rating">
+                                <div class="product-rating">
                                     <div class="stars">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <i class="fas fa-star <?php echo $i <= $product['Rating'] ? 'active' : ''; ?>"></i>
+                                            <i
+                                                class="fas fa-star <?php echo $i <= $product['RatingProduct'] ? 'active' : ''; ?>"></i>
                                         <?php endfor; ?>
                                     </div>
-                                    <span class="rating-text">(<?php echo $product['Rating']; ?>)</span>
-                                </div> -->
+                                    <span class="rating-text">(<?php echo $product['RatingProduct']; ?>)</span>
+                                </div>
                                 <div class="product-stock">
                                     Còn lại: <?php echo $product['StockQuantity']; ?> sản phẩm
                                 </div>
