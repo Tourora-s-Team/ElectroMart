@@ -113,6 +113,4 @@
     </div>
 </div>
 
-
-<!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

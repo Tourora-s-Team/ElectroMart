@@ -49,15 +49,12 @@ class Financial
         $stmt->execute($params);
         $financials = $stmt->fetchAll();
 
-        // ✅ Thêm ngân hàng cho mọi dòng
         foreach ($financials as &$row) {
             $bankInfo = $this->getBankByShopID($row['ShopID']);
             $row = array_merge($row, $bankInfo ?? []);
         }
         return $financials;
     }
-
-
 
     public function getRevenueChartData($year = '')
     {

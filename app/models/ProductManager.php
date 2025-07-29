@@ -4,18 +4,21 @@ require_once ROOT_PATH . '/core/HandleData.php';
 class ProductManager extends HandleData
 {
     private $pdo;
+
     public function __construct()
     {
         $database = new Database();
         $this->pdo = $database->connectDB();
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== Thêm dòng này
     }
+
     public function lockProductById($productId)
     {
         $sql = "UPDATE Product SET IsActive = 0 WHERE ProductID = :productId";
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['productId' => $productId]);
     }
+
     public function getAllProductsWithImages($search = '', $sortBy = 'StockQuantity', $sortOrder = 'ASC')
     {
         $sql = "SELECT 
@@ -49,6 +52,7 @@ class ProductManager extends HandleData
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
+
     public function getById($id)
     {
         $sql = "SELECT * FROM Product WHERE ProductID = :id";
@@ -62,10 +66,10 @@ class ProductManager extends HandleData
     {
         $sql = "DELETE FROM Product WHERE ProductID = :id";
         $params = [':id' => $id];
-        return $this->execDataWithParams($sql, $params);
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-
 
     public function insert($data)
     {
@@ -117,7 +121,7 @@ class ProductManager extends HandleData
                     ':productId' => $productId,
                     ':imageUrl'  => $data['ImageURL'],
                     ':shopId'    => $data['ShopID'],
-                    ':isThumb'   => 1 // hoặc 0, tuỳ theo logic
+                    ':isThumb'   => 1
                 ]);
             }
 
@@ -125,7 +129,6 @@ class ProductManager extends HandleData
         } catch (PDOException $e) {
             $errorCode = $e->getCode();
             $errorMsg = $e->getMessage();
-
             // Bắt lỗi cụ thể
             if (str_contains($errorMsg, 'foreign key constraint')) {
                 throw new Exception("Lỗi ràng buộc khóa ngoại: Có thể CategoryID hoặc ShopID không tồn tại.");
@@ -140,16 +143,12 @@ class ProductManager extends HandleData
         }
     }
 
-
-
     public function getAllProducts()
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Product");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
-
 
     public function update($id, $data)
     {
@@ -166,6 +165,7 @@ class ProductManager extends HandleData
             ':image_url' => $data['image_url']
         ]);
     }
+
     public function updateProduct($data)
     {
         try {
@@ -173,14 +173,14 @@ class ProductManager extends HandleData
 
             // Cập nhật bảng Product
             $sql = "UPDATE Product SET 
-        ProductName = :ProductName,
-        Description = :Description,
-        StockQuantity = :StockQuantity,
-        Price = :Price,
-        Brand = :Brand,
-        ShopID = :ShopID,
-        CategoryID = :CategoryID
-        WHERE ProductID = :ProductID";
+                ProductName = :ProductName,
+                Description = :Description,
+                StockQuantity = :StockQuantity,
+                Price = :Price,
+                Brand = :Brand,
+                ShopID = :ShopID,
+                CategoryID = :CategoryID
+                WHERE ProductID = :ProductID";
 
 
             $stmt = $this->pdo->prepare($sql);
@@ -222,20 +222,8 @@ class ProductManager extends HandleData
             return $isUpdated;
         } catch (Exception $e) {
             $this->pdo->rollBack();
-
-            // In lỗi chi tiết ra trình duyệt (tạm thời để debug)
-            header('Content-Type: application/json');
-            echo json_encode([
-                'success' => false,
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            var_dump($data);
-            var_dump($stmt->errorInfo());
         }
     }
-
-
 
 
     public function addProduct($data)
@@ -288,8 +276,6 @@ class ProductManager extends HandleData
             return false;
         }
     }
-
-
 
 
     public function exportToTxt()

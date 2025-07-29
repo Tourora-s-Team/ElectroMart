@@ -1,9 +1,9 @@
 <?php
-include(__DIR__ . '/../layouts/HeaderOrders.php');
 $title = "ElectroMart - Quản lý người dùng";
 $pageTitle = "Quản lý người dùng";
-$pageSubtitle = "Quản lý và theo dõi người dùng";
+$pageSubtitle = "Quản lý người dùng trong hệ thống";
 $activeTab = "user_manager";
+include(__DIR__ . '/../layouts/HeaderOrders.php');
 ?>
 <div class="admin-user-manager">
     <div class="admin-container">

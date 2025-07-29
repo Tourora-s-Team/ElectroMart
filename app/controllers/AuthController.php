@@ -26,7 +26,6 @@ class AuthController
         if (isset($_POST['loginInfo']) && isset($_POST['password'])) {
             $loginInfo = $_POST['loginInfo'];
             $password = $_POST['password'];
-
             $userData = $this->userModel->authenticate($loginInfo, $password);
             // Kiểm tra xem tài khoản có bị khoá hay không
             // Truy vấn để lấy IsActive từ database

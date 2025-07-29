@@ -15,7 +15,6 @@ class AdminUserController extends BaseAdminController
         $role = isset($_GET['Role']) ? $_GET['Role'] : '';
         $email = isset($_GET['Email']) ? $_GET['Email'] : '';
         $isActive = isset($_GET['IsActive']) ? $_GET['IsActive'] : '';
-
         // Gọi hàm có thể lọc theo nhiều tiêu chí
         $users = $this->userManager->getUsersFiltered($role, $email, $isActive);
 

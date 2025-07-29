@@ -30,13 +30,11 @@ class AdminProductsController extends BaseAdminController
             'pageSubtitle' => 'Danh sách sản phẩm hiện có'
         ]);
     }
-    // Lấy sản phẩm theo ID
+
     public function get($id)
     {
         echo json_encode($this->productModel->getById($id));
     }
-
-    // Thêm hoặc cập nhật sản phẩm
 
     public function save()
     {
@@ -62,6 +60,7 @@ class AdminProductsController extends BaseAdminController
             echo json_encode(['success' => $result]);
         }
     }
+
     public function update()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -77,13 +76,9 @@ class AdminProductsController extends BaseAdminController
                 'ShopID' => $_POST['ShopID'] ?? null,
                 'CategoryID' => $_POST['CategoryID'] ?? null
             ];
-
-
             require_once ROOT_PATH . '/app/models/ProductManager.php';
             $productModel = new ProductManager();
-
             $result = $productModel->updateProduct($data);
-
             // Phản hồi JSON
             header('Content-Type: application/json');
             echo json_encode(['success' => $result]);
@@ -95,21 +90,10 @@ class AdminProductsController extends BaseAdminController
     {
         $productManager = new ProductManager();
         $result = $productManager->deleteProduct($id);
-
-        if ($result) {
-            http_response_code(200);
-            echo "Deleted successfully";
-        } else {
-            http_response_code(500);
-            echo "Failed to delete product";
-        }
     }
-
-
 
     public function add()
     {
-        // Lấy dữ liệu từ form (POST)
         $data = [
             'ProductName' => $_POST['ProductName'] ?? '',
             'Description' => $_POST['Description'] ?? '',
@@ -143,8 +127,6 @@ class AdminProductsController extends BaseAdminController
         exit;
     }
 
-
-
     public function exportTxt()
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php';
@@ -169,7 +151,6 @@ class AdminProductsController extends BaseAdminController
 
             echo "$id\t$name\t$desc\t$qty\t$brand\t$price\n";
         }
-
         exit;
     }
 

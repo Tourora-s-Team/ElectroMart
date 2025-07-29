@@ -6,6 +6,7 @@ class Orders extends HandleData
 {
     private $table = 'Orders';
     private $db;
+
     public function __construct()
     {
         parent::__construct();
@@ -220,88 +221,6 @@ class Orders extends HandleData
         }
     }
 
-    // Get recent orders (last N orders)
-    public function getRecentOrders($limit = 10)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} ORDER BY OrderDate DESC LIMIT $limit";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching recent orders: " . $e->getMessage());
-        }
-    }
-
-    // Search orders
-    public function searchOrders($searchTerm)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} 
-                    WHERE OrderID LIKE '%$searchTerm%' 
-                    OR UserID LIKE '%$searchTerm%' 
-                    OR Status LIKE '%$searchTerm%' 
-                    ORDER BY OrderDate DESC";
-
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error searching orders: " . $e->getMessage());
-        }
-    }
-
-    // Check if order exists
-    public function orderExists($orderId)
-    {
-        try {
-            $sql = "SELECT COUNT(*) as count FROM {$this->table} WHERE OrderID = '$orderId'";
-            $result = $this->getDataWithParams($sql);
-
-            return $result[0]['count'] > 0;
-        } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    // Get order count by status
-    public function getOrderCountByStatus()
-    {
-        try {
-            $sql = "SELECT Status, COUNT(*) as count FROM {$this->table} GROUP BY Status";
-            $result = $this->getDataWithParams($sql);
-
-            $counts = [];
-            foreach ($result as $row) {
-                $counts[$row['Status']] = $row['count'];
-            }
-
-            return $counts;
-        } catch (Exception $e) {
-            throw new Exception("Error getting order count by status: " . $e->getMessage());
-        }
-    }
-
-    // Get monthly order statistics
-    public function getMonthlyStats($year = null)
-    {
-        try {
-            if ($year === null) {
-                $year = date('Y');
-            }
-
-            $sql = "SELECT 
-                        MONTH(OrderDate) as month,
-                        COUNT(*) as order_count,
-                        SUM(TotalAmount) as total_revenue,
-                        SUM(ShippingFee) as total_shipping
-                    FROM {$this->table} 
-                    WHERE YEAR(OrderDate) = $year 
-                    GROUP BY MONTH(OrderDate) 
-                    ORDER BY month";
-
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error getting monthly statistics: " . $e->getMessage());
-        }
-    }
-
     // Validate order data
     public function validateOrderData($data, $isUpdate = false)
     {
@@ -317,7 +236,6 @@ class Orders extends HandleData
                 }
             }
         }
-
         // Validate numeric fields
         if (isset($data['TotalAmount']) && (!is_numeric($data['TotalAmount']) || $data['TotalAmount'] < 0)) {
             $errors[] = "Total amount must be a positive number";

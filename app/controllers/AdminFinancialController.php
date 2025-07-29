@@ -36,7 +36,6 @@ class AdminFinancialController extends BaseAdminController
         ]);
     }
 
-
     public function getChartData()
     {
         $year = $_GET['year'] ?? date('Y');

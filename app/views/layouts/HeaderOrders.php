@@ -1,3 +1,6 @@
+<?php
+$email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : null;
+?>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -14,13 +17,14 @@
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
+
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">
                     <i class="fas fa-bolt"></i>
                     <h1>ElectroMart</h1>
                 </div>
-                <p class="subtitle">Xin chào <?php $tenngdung ?></p> <!-- Sau này cập nhật sau $tenngdung -->
+                <p class="subtitle">Xin chào <?php echo $email ?></p> <!-- Sau này cập nhật sau $tenngdung -->
             </div>
 
             <nav class="sidebar-nav">

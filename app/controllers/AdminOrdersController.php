@@ -14,7 +14,6 @@ class AdminOrdersController extends BaseAdminController
 
     public function index()
     {
-        
             $filters = [
                 'status' => $_GET['status'] ?? '',
                 'fromDate' => $_GET['fromDate'] ?? '',
@@ -29,7 +28,6 @@ class AdminOrdersController extends BaseAdminController
                 'stats' => $stats,
                 'filters' => $filters
             ]);
-       
     }
 
     public function view($orderId)
