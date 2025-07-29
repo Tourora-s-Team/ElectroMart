@@ -10,12 +10,11 @@
                     Tất cả sản phẩm
                 <?php endif; ?>
             </h2>
-            
-            <!-- <div class="search-meta">
+            <div class="search-meta">
                 Tìm thấy <?php echo count($products); ?> sản phẩm
-            </div> -->
+            </div>
         </div>
-        
+
         <div class="search-filters">
             <div class="filter-group">
                 <label>Sắp xếp:</label>
@@ -27,29 +26,30 @@
                 </select>
             </div>
         </div>
-        
+
         <div class="product-grid">
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
-                        <a href="/product/<?php echo $product['ProductID']; ?>">
+                        <a href="public/product-detail/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
-                                <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>" 
-                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
+                                <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                    alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                             </div>
-                            
+
                             <div class="product-info">
                                 <h3><?php echo htmlspecialchars($product['ProductName']); ?></h3>
                                 <div class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></div>
                                 <div class="product-price"><?php echo number_format($product['Price'], 0, ',', '.'); ?>đ</div>
-                                <!-- <div class="product-rating">
+                                <div class="product-rating">
                                     <div class="stars">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <i class="fas fa-star <?php echo $i <= $product['Rating'] ? 'active' : ''; ?>"></i>
+                                            <i
+                                                class="fas fa-star <?php echo $i <= $product['RatingProduct'] ? 'active' : ''; ?>"></i>
                                         <?php endfor; ?>
                                     </div>
-                                    <span class="rating-text">(<?php echo $product['Rating']; ?>)</span>
-                                </div> -->
+                                    <span class="rating-text">(<?php echo $product['RatingProduct']; ?>)</span>
+                                </div>
                                 <div class="product-stock">
                                     Còn lại: <?php echo $product['StockQuantity']; ?> sản phẩm
                                 </div>
@@ -60,7 +60,7 @@
                                 <?php endif; ?>
                             </div>
                         </a>
-                        
+
                         <div class="product-actions">
                             <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
                                 <i class="fas fa-shopping-cart"></i> Thêm vào giỏ

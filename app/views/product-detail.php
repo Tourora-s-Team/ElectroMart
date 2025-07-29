@@ -1,12 +1,12 @@
 <?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
 
-<link rel="stylesheet" href="/public/css/components/productdetail.css">
+<link rel="stylesheet" href="/electromart/public/css/components/productdetail.css">
 
 <section class="product-detail">
     <div class="container">
         <!-- Breadcrumb -->
         <nav class="breadcrumb">
-            <a href="/">Trang chủ</a>
+            <a href="public">Trang chủ</a>
             <span class="separator">></span>
             <a
                 href="/search?category=<?php echo $product['CategoryID']; ?>"><?php echo htmlspecialchars($product['CategoryName'] ?? 'Danh mục'); ?></a>
@@ -18,7 +18,7 @@
             <!-- Product Images -->
             <div class="product-images">
                 <div class="main-image">
-                    <img id="mainImage" src="<?php echo $images[0]['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                    <img id="mainImage" src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                         alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                 </div>
 
@@ -42,12 +42,14 @@
                 <div class="product-rating">
                     <div class="stars">
                         <?php for ($i = 1; $i <= 5; $i++): ?>
-                            <i class="fas fa-star <?php echo $i <= $averageRating ? 'active' : ''; ?>"></i>
+                            <i
+                                class="fas fa-star <?php echo $i <= round($product['RatingProduct'], 1) ? 'active' : ''; ?>"></i>
                         <?php endfor; ?>
                     </div>
-                    <span class="rating-text"><?php echo number_format($averageRating, 1); ?></span>
-                    <span class="review-count">(<?php echo $reviewCount; ?> đánh giá)</span>
-                    <span class="sold-count">Đã bán: <?php echo rand(100, 1000); ?></span>
+                    <span
+                        class="rating-text"><?php echo htmlspecialchars(round($product['RatingProduct'], 1)); ?></span>
+                    <span class="review-count">(<?php echo htmlspecialchars($reviewCount); ?> đánh giá)</span>
+                    <span class="sold-count">Đã bán: <?php echo htmlspecialchars($product['StockQuantity']); ?></span>
                 </div>
 
                 <div class="product-price">
@@ -71,7 +73,7 @@
                         <label>Số lượng:</label>
                         <div class="quantity-selector">
                             <button type="button" class="qty-btn minus" onclick="changeQuantity(-1)">-</button>
-                            <input type="number" id="quantity" value="1" min="1"
+                            <input type="text" id="quantity" value="1" min="1"
                                 max="<?php echo $product['StockQuantity']; ?>">
                             <button type="button" class="qty-btn plus" onclick="changeQuantity(1)">+</button>
                         </div>
@@ -80,14 +82,29 @@
                 </div>
 
                 <div class="product-actions">
-                    <button class="btn btn-cart" onclick="addToCart(<?php echo $product['ProductID']; ?>)">
-                        <i class="fas fa-shopping-cart"></i>
-                        Thêm vào giỏ hàng
-                    </button>
-                    <button class="btn btn-buy-now">
-                        Mua ngay
-                    </button>
+                    <form id="addToCartForm" action="/electromart/public/cart/add" method="POST">
+                        <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                        <input type="hidden" name="quantity" id="hidden_quantity">
+                        <button type="submit" class="btn btn-cart">
+
+                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                        </button>
+                    </form>
+                    <form action="/electromart/public/cart/add" method="POST">
+                        <button class="btn btn-buy-now">
+                            Mua ngay
+                        </button>
+                    </form>
                 </div>
+                <script>
+                    const form = document.getElementById('addToCartForm');
+                    const quantityInput = document.getElementById('quantity');
+                    const hiddenQuantity = document.getElementById('hidden_quantity');
+
+                    form.addEventListener('submit', function (e) {
+                        hiddenQuantity.value = quantityInput.value;
+                    });
+                </script>
 
                 <div class="product-policies">
                     <div class="policy-item">
@@ -146,7 +163,7 @@
                         <i class="fas fa-comments"></i>
                         Chat ngay
                     </button>
-                    <a href="/shop/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
+                    <a href="public/shop-detail/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
                         <i class="fas fa-store"></i>
                         Xem shop
                     </a>
@@ -169,10 +186,11 @@
             <div class="review-summary">
                 <div class="rating-overview">
                     <div class="rating-score">
-                        <span class="score"><?php echo number_format($averageRating, 1); ?></span>
+                        <span class="score"><?php echo htmlspecialchars(round($product['RatingProduct'], 1)); ?></span>
                         <div class="stars">
                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                <i class="fas fa-star <?php echo $i <= $averageRating ? 'active' : ''; ?>"></i>
+                                <i
+                                    class="fas fa-star <?php echo $i <= round($product['RatingProduct'], 1) ? 'active' : ''; ?>"></i>
                             <?php endfor; ?>
                         </div>
                     </div>
@@ -217,16 +235,16 @@
             </div>
 
             <div class="review-list">
-                <?php if (!empty($reviews)): ?>
-                    <?php foreach ($reviews as $review): ?>
+                <?php if (!empty($reviewComment)): ?>
+                    <?php foreach ($reviewComment as $review): ?>
                         <div class="review-item">
                             <div class="reviewer-info">
                                 <div class="reviewer-avatar">
                                     <i class="fas fa-user"></i>
                                 </div>
                                 <div class="reviewer-details">
-                                    <h4>Khách hàng</h4>
-                                    <div class="review-rating">
+                                    <h4><?php echo $review['FullName'] ?></h4>
+                                    <div class="review-rating stars">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
                                             <i class="fas fa-star <?php echo $i <= $review['Rating'] ? 'active' : ''; ?>"></i>
                                         <?php endfor; ?>
@@ -245,44 +263,94 @@
                 <?php endif; ?>
             </div>
         </div>
+        <!-- thêm đánh giá -->
+        <form action="/electromart/public/product-detail/review" method="POST" class="review-form product-reviews ">
+            <h2 class="review-form__title ">Gửi đánh giá của bạn</h2>
+            <!-- Chọn sao -->
+            <div class="review-form__group">
+                <label for="rating" class="review-form__label">Số sao:</label>
+                <div class="review-rating stars" id="star-rating">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <i class="fas fa-star" data-value="<?php echo $i; ?>"></i>
+                    <?php endfor; ?>
+                </div>
+                <!-- lấy số sao để đánh giá -->
+                <input type="hidden" name="rating" id="rating-value" value="">
+            </div>
+
+            <!-- Nhận xét -->
+            <div class="review-form__group">
+                <label for="comment" class="review-form__label">Nhận xét:</label>
+                <textarea name="comment" id="comment" class="review-form__textarea"
+                    placeholder="Viết cảm nghĩ của bạn về sản phẩm..." required></textarea>
+            </div>
+
+            <!-- ID sản phẩm -->
+            <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+            <!-- lấy ID shop -->
+            <input type="hidden" name="shop_id" value="<?php echo $product['ShopID']; ?>">
+            <!-- Nút gửi -->
+            <button type="submit" class="review-form__submit">Gửi đánh giá</button>
+        </form>
 
         <!-- Related Products -->
-        <?php if (!empty($relatedProducts)): ?>
-            <div class="related-products">
-                <h2>Sản phẩm liên quan</h2>
-                <div class="product-grid">
-                    <?php foreach ($relatedProducts as $relatedProduct): ?>
-                        <div class="product-card">
-                            <a href="/product/<?php echo $relatedProduct['ProductID']; ?>">
-                                <div class="product-image">
-                                    <img src="<?php echo $relatedProduct['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
-                                        alt="<?php echo htmlspecialchars($relatedProduct['ProductName']); ?>">
+        <input type="hidden" name="category_id" value="<?php echo $product['CategoryID']; ?>">
+
+        <div class="related-products">
+            <h2>Sản phẩm liên quan</h2>
+            <div class="product-grid">
+                <?php foreach ($productRelated as $relatedProduct): ?>
+                    <div class="product-card">
+                        <a href="public/product-detail/<?php echo $relatedProduct['ProductID']; ?>">
+                            <div class="product-image">
+                                <img src="<?php echo $relatedProduct['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                    alt="<?php echo htmlspecialchars($relatedProduct['ProductName']); ?>">
+                            </div>
+                            <div class="product-info">
+                                <h3><?php echo htmlspecialchars($relatedProduct['ProductName']); ?></h3>
+                                <div class="product-price">
+                                    <?php echo number_format($relatedProduct['Price'], 0, ',', '.'); ?>đ
                                 </div>
-                                <div class="product-info">
-                                    <h3><?php echo htmlspecialchars($relatedProduct['ProductName']); ?></h3>
-                                    <div class="product-price">
-                                        <?php echo number_format($relatedProduct['Price'], 0, ',', '.'); ?>đ
+                                <div class="product-rating">
+                                    <div class="stars">
+                                        <?php for ($i = 1; $i <= 5; $i++): ?>
+                                            <i
+                                                class="fas fa-star <?php echo $i <= $relatedProduct['RatingProduct'] ? 'active' : ''; ?>"></i>
+                                        <?php endfor; ?>
                                     </div>
-                                    <div class="product-rating">
-                                        <div class="stars">
-                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                <i
-                                                    class="fas fa-star <?php echo $i <= $relatedProduct['Rating'] ? 'active' : ''; ?>"></i>
-                                            <?php endfor; ?>
-                                        </div>
-                                        <span class="rating-text">(<?php echo $relatedProduct['Rating']; ?>)</span>
-                                    </div>
+                                    <span class="rating-text">(<?php echo $relatedProduct['RatingProduct']; ?>)</span>
                                 </div>
-                            </a>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+                            </div>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
             </div>
-        <?php endif; ?>
+        </div>
+
     </div>
 </section>
 
 <script>
+    // Xử lý đánh giá chọn sao
+    const stars = document.querySelectorAll('#star-rating i');
+    const ratingInput = document.getElementById('rating-value');
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const value = parseInt(star.getAttribute('data-value'));
+            ratingInput.value = value;
+
+            // Xử lý làm sáng sao đã chọn
+            stars.forEach(s => {
+                if (parseInt(s.getAttribute('data-value')) <= value) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        });
+    });
+
     function changeMainImage(imageUrl, thumbnail) {
         document.getElementById('mainImage').src = imageUrl;
 

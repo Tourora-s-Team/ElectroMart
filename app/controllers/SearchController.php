@@ -9,12 +9,12 @@ class SearchController
         require_once ROOT_PATH . '/app/views/' . $view . '.php';
     }
 
-    public function search()
+    public function search()// Hàm xử lý tìm kiếm sản phẩm
     {
         $keyword = isset($_GET['q']) ? $_GET['q'] : '';
         $productModels = new Product();
         // Nếu không có từ khóa, gọi model hiển thị tất cả sản phẩm
-        if($keyword == ''){
+        if ($keyword == '') {
             $products = $productModels->getAllProduct();
         }
         // Nếu có từ khóa, gọi model để thực hiện tìm kiếm theo từ khoá
@@ -27,7 +27,7 @@ class SearchController
         $this->view('/search', [
             'title' => 'ElectroMart - Linh kiện điện tử chất lượng',
             'products' => $products,
- 
+
         ]);
 
     }

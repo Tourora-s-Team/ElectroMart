@@ -20,7 +20,7 @@
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
-                        <a href="product/detail/<?php echo $product['ProductID']; ?>">
+                        <a href="public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
                                 <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
@@ -30,25 +30,33 @@
                                 <h3><?php echo htmlspecialchars($product['ProductName']); ?></h3>
                                 <div class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></div>
                                 <div class="product-price"><?php echo number_format($product['Price'], 0, ',', '.'); ?>đ</div>
-                                <!-- <div class="product-rating">
+                                <div class="product-rating">
                                     <div class="stars">
                                         <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <i class="fas fa-star <?php echo $i <= $product['Rating'] ? 'active' : ''; ?>"></i>
+                                            <i
+                                                class="fas fa-star <?php echo $i <= $product['RatingProduct'] ? 'active' : ''; ?>"></i>
                                         <?php endfor; ?>
                                     </div>
-                                    <span class="rating-text">(<?php echo $product['Rating']; ?>)</span>
-                                </div> -->
+                                    <span class="rating-text">(<?php echo $product['RatingProduct']; ?>)</span>
+                                </div>
                                 <div class="product-stock">
                                     Còn lại: <?php echo $product['StockQuantity']; ?> sản phẩm
                                 </div>
                             </div>
                         </a>
+                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
 
-                        <div class="product-actions">
-                            <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
-                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-                            </button>
-                        </div>
+                            <div class="product-actions">
+                                <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="add-to-cart-btn">
+
+                                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                                </button>
+
+                            </div>
+
+                        </form>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

@@ -51,7 +51,7 @@
     </div>
 </footer>
 
-<script src="/public/js/main.js"></script>
+<script src="/electromart/public/js/main.js" defer></script>
 </body>
 
 </html>
