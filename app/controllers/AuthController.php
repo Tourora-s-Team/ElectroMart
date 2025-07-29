@@ -32,12 +32,13 @@ class AuthController
             $roles = explode(',', $userData[0]['Role']);
 
             if ($userData) {
-                if ($userData[0]['isActive'] == 0) {
-                    $_SESSION['login_error'] = 'Tài khoản của bạn đã bị khóa. Vui lòng liên hệ quản trị viên.';
+                if ($userData[0]['IsActive'] == 0) {
+                    $_SESSION['login_error'] = 'Tài khoản của bạn đã bị khóa.';
                     header("Location: /electromart/public/account/signin");
                     exit();
                 } else {
                     $_SESSION['user'] = $userData;
+                    $_SESSION['login_success'] = "Đăng nhập thành công.";
                     if (in_array('Admin', $roles)) {
                         header("Location: /electromart/public/admin/orders");
                     } elseif (in_array('Customer', $roles) || in_array('Seller', $roles)) {
@@ -46,8 +47,6 @@ class AuthController
                         $_SESSION['customer'] = $customerData;
                         header("Location: /electromart/public/home");
                     }
-
-                    $_SESSION['login_success'] = "Đăng nhập thành công.";
                     exit();
                 }
             } else {
