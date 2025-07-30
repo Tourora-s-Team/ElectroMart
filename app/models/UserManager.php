@@ -21,6 +21,11 @@ class UserManager
         $sql = "UPDATE Users SET IsActive = 0 WHERE UserID = :userId";
         return $this->db->execDataWithParams($sql, ['userId' => $userId]);
     }
+    public function openUser($userId)
+    {
+        $sql = "UPDATE Users SET IsActive = 1 WHERE UserID = :userId";
+        return $this->db->execDataWithParams($sql, ['userId' => $userId]);
+    }
 
     public function getUsersFiltered($role = '', $email = '', $isActive = '')
     {

@@ -29,4 +29,13 @@ class AdminUserController extends BaseAdminController
         header("Location: /electromart/public/admin/user_manager");
         exit;
     }
+    public function open()
+    {
+        if (isset($_GET['id'])) {
+            $userId = $_GET['id'];
+            $this->userManager->openUser($userId);
+        }
+        header("Location: /electromart/public/admin/user_manager");
+        exit;
+    }
 }

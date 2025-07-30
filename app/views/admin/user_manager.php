@@ -9,7 +9,7 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
     <div class="admin-container">
         <section class="filter-section">
             <form id="orderFilterForm" class="filter-form" method="GET" action="/electromart/public/admin/user_manager">
-                <div class="filter-grid" >
+                <div class="filter-grid">
                     <!-- Status Filter -->
                     <div class="filter-group">
                         <label for="statusFilter" class="filter-label">
@@ -70,7 +70,7 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Password</th>
-                                <th></th>
+                                <th>Hành động</th>
 
                             </tr>
                         </thead>
@@ -104,12 +104,18 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                                         </td>
                                         <td>
                                             <?php if ($user['IsActive'] == 1): ?>
-                                                <a href="/electromart/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
+                                                <a style="color : red" href="/electromart/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
                                                     onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
                                                     Khóa
                                                 </a>
                                             <?php else: ?>
                                                 Đã khóa
+                                            <?php endif; ?>
+                                            <?php if ($user['IsActive'] == 0): ?>
+                                                <a href="/electromart/public/admin/users/open?id=<?= $user['UserID'] ?>"
+                                                    onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?');">
+                                                    Mở Khóa
+                                                </a>
                                             <?php endif; ?>
                                         </td>
 
