@@ -2,12 +2,21 @@
 require_once ROOT_PATH . '/core/HandleData.php';
 class Product
 {
-    private $ProductID = 0;
-    private $ProductName = '';
+    private $ProductID;
+    private $ProductName;
+    private $Price;
 
-    function __construct()
+    function __construct($_productID = null, $_productName = null, $_productPrice = null)
     {
-
+        if ($_productID !== null) {
+            $this->ProductID = $_productID;
+        }
+        if ($_productName !== null) {
+            $this->ProductName = $_productName;
+        }
+        if ($_productPrice !== null) {
+            $this->Price = $_productPrice;
+        }
     }
 
     function getAllProduct()//hàm lấy tất cả sản phẩm
@@ -143,6 +152,49 @@ class Product
         return $result ?? []; // Trả về mảng, tránh lỗi null
 
     }
+
+    public function getShopIdByProductId($productId)
+    {
+        $handleData = new HandleData();
+        $sql = "SELECT ShopID FROM product WHERE ProductID = :productId";
+        $params = ['productId' => $productId];
+        $result = $handleData->getDataWithParams($sql, $params);
+
+        if (count($result) > 0) {
+            return $result[0]['ShopID'];
+        }
+
+        return null;
+    }
+
+    public function getProductsWithImagesByIDs(array $productIDs)
+    {
+        if (empty($productIDs)) {
+            return [];
+        }
+
+        // Tạo placeholders (?, ?, ?, ...)
+        $placeholders = implode(',', array_fill(0, count($productIDs), '?'));
+
+        $sql = "
+        SELECT 
+            p.*, 
+            pi.ImageID, 
+            pi.ImageURL, 
+            pi.IsThumbnail, 
+            pi.ShopID AS ImageShopID
+        FROM product p
+        LEFT JOIN ProductImage pi 
+            ON p.ProductID = pi.ProductID 
+            AND pi.IsThumbnail = 1
+        WHERE p.ProductID IN ($placeholders)
+        ORDER BY p.ProductID
+    ";
+
+        $handleData = new HandleData();
+        return $handleData->getDataWithParams($sql, $productIDs);
+    }
+
 
 }
 ?>

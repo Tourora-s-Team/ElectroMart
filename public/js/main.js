@@ -356,25 +356,30 @@ function showToast(message, type) {
     if (!toastContainer) return;
 
     const toast = document.createElement('div');
-    toast.classList.add('toast');
-    toast.classList.add(type);
+    toast.classList.add('toast', type);
 
-    // Thêm biểu tượng tùy theo loại thông báo
-    // Có thể thay đổi màu theo type nếu muốn (error, success, etc.)
-    if (type == "error") {
-        toast.innerHTML = "<i class='fas fa-exclamation'></i>" + message;
-
-    }else {
-        toast.innerHTML = "<i class='fas fa-check'></i>" + message;
+    // Nội dung toast + nút đóng
+    if (type === "error") {
+        toast.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+    } else {
+        toast.innerHTML = `<i class='fas fa-check'></i> ${message}`;
     }
+
+    // Tạo nút đóng
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '&times;';
+    closeBtn.classList.add('toast-close');
+    closeBtn.onclick = () => toast.remove();
+    toast.appendChild(closeBtn);
 
     toastContainer.appendChild(toast);
 
-    // Tự động xóa sau 4s
+    // Tự động xóa sau 3s
     setTimeout(() => {
         toast.remove();
-    }, 4000);
+    }, 3000);
 }
+
 
 //      Sử dụng regex để kiểm tra:
 //      Email hợp lệ: a@b.c
