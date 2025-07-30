@@ -43,6 +43,9 @@ if (!empty($_SESSION)) {
                 </div>
 
                 <div class="header-actions">
+                    <button class="menu-toggle" onclick="toggleMainNav()">
+                        <i class="fas fa-bars"></i>
+                    </button>
                     <a href="public/cart" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
@@ -63,7 +66,10 @@ if (!empty($_SESSION)) {
                         </div>
                     <?php endif; ?>
                 </div>
+
             </div>
+
+
 
             <nav class="main-nav">
                 <ul>
@@ -91,4 +97,16 @@ if (!empty($_SESSION)) {
                     document.getElementById("userDropdown").style.display = "none";
                 }
             }
+            function toggleMainNav() {
+                var nav = document.querySelector('.main-nav');
+                nav.classList.toggle('open');
+            }
+            // Đóng menu khi click ngoài menu trên mobile
+            window.addEventListener('click', function (e) {
+                var nav = document.querySelector('.main-nav');
+                var toggle = document.querySelector('.menu-toggle');
+                if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+                    nav.classList.remove('open');
+                }
+            });
         </script>

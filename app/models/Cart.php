@@ -11,11 +11,12 @@ class Cart
     {
         $cartID = $this->getCartID($userID);
         $handleData = new HandleData();
-        $sql = "SELECT p.ProductName, pi.ImageURL, p.Price, ci.Quantity, ci.CartID, ci.ProductID, p.StockQuantity
+        $sql = "SELECT p.*, ci.*, c.*, pi.*, s.*
                 FROM product p
                      JOIN cartitem ci ON ci.ProductID = p.ProductID
                      JOIN cart c ON c.CartID = ci.CartID
                      LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
+                     JOIN shop s ON p.ShopID = s.ShopID
                 WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL) AND ci.CartID = :cartID AND c.UserID = :userID;";
         $params = ['cartID' => $cartID, 'userID' => $userID];
         $result = $handleData->getDataWithParams($sql, $params);
