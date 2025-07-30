@@ -2,12 +2,21 @@
 require_once ROOT_PATH . '/core/HandleData.php';
 class Product
 {
-    private $ProductID = 0;
-    private $ProductName = '';
+    private $ProductID;
+    private $ProductName;
+    private $Price;
 
-    function __construct()
+    function __construct($_productID = null, $_productName = null, $_productPrice = null)
     {
-
+        if ($_productID !== null) {
+            $this->ProductID = $_productID;
+        }
+        if ($_productName !== null) {
+            $this->ProductName = $_productName;
+        }
+        if ($_productPrice !== null) {
+            $this->Price = $_productPrice;
+        }
     }
 
     function getAllProduct()//hàm lấy tất cả sản phẩm

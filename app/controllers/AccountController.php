@@ -72,8 +72,7 @@ class AccountController
             $_SESSION['status_type'] = "success";
             header("Location: /electromart/public/account/info");
             exit();
-        }
-        else {
+        } else {
             $_SESSION['message'] = "Cập nhật thông tin tài khoản thất bại.";
             $_SESSION['status_type'] = "error";
             header("Location: /electromart/public/account/info");
@@ -81,21 +80,36 @@ class AccountController
         }
     }
 
+    function convertOrderDetailToArray($orderDetailObj)
+    {
+        return [
+            'OrderID' => $orderDetailObj->getOrderID(),
+            'ProductID' => $orderDetailObj->getProductID(),
+            'Quantity' => $orderDetailObj->getQuantity(),
+            'UnitPrice' => $orderDetailObj->getUnitPrice(),
+            'ShopID' => $orderDetailObj->getShopID(),
+        ];
+    }
+        
     public function orderHistory()
     {
         if (!$this->isUserLoggedIn()) {
             return;
         }
-        $customerData = $this->customerData;
 
-        require_once(__DIR__ . "/../models/Order.php");
-        $orderModel = new Order();
-        $orderHistory = $orderModel->getAllOrdersByUserId($this->userID);
+        require_once(__DIR__ . "/../models/OrderDetail.php");
+        $odModel = new OrderDetail();
+        $orders = $odModel->getAllOrderIdByUserId($this->userID);
 
-        $orderCount = count($orderHistory);
-        if ($orderCount == 0) {
-            $orderHistory = null;
+        $isEmptyOrders;
+        if (empty($orders)) {
+            $isEmptyOrders = true;
         }
+        else {
+            $isEmptyOrders = false;
+            $numOfOrders  = count($orders);
+        }
+
         require_once(__DIR__ . "/../views/account_manager/order_history.php");
     }
 

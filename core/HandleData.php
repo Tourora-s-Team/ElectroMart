@@ -62,6 +62,28 @@ class HandleData extends Database
         return $conn->lastInsertId();
     }
 
+    // Gọi stored procedure có IN và OUT parameter
+    public function callProcedureWithOutParam($procedureName, $inParams = [])
+    {
+        $conn = $this->db->connectDB();
+
+        // Tạo placeholders cho IN parameters
+        $placeholders = implode(',', array_fill(0, count($inParams), '?'));
+        $sql = "CALL {$procedureName}($placeholders, @out_param)";
+
+        // Gọi procedure
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($inParams);
+        $stmt->closeCursor(); // 💡 Cần đóng cursor để MariaDB trả OUT param
+
+        // Lấy giá trị OUT
+        $select = $conn->query("SELECT @out_param AS result");
+        $row = $select->fetch(PDO::FETCH_ASSOC);
+        return $row['result'] ?? null;
+    }
+
+
+
 }
 
 ?>
