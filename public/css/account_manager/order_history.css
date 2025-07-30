@@ -222,10 +222,16 @@ p {
 }
 
 @media (max-width: 500px) {
+    .product-name,
+    .product-price {
+        font-size: 0.9rem;
+    }
+
     .modal-content,
     .product-title,
-    .price
+    .price,
     .order-total,
+
     .order-total p,
     .order-total p:nth-child(4) {
         font-size: 0.8rem;

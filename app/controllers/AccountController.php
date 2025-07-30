@@ -90,7 +90,7 @@ class AccountController
             'ShopID' => $orderDetailObj->getShopID(),
         ];
     }
-        
+
     public function orderHistory()
     {
         if (!$this->isUserLoggedIn()) {
@@ -104,10 +104,9 @@ class AccountController
         $isEmptyOrders;
         if (empty($orders)) {
             $isEmptyOrders = true;
-        }
-        else {
+        } else {
             $isEmptyOrders = false;
-            $numOfOrders  = count($orders);
+            $numOfOrders = count($orders);
         }
 
         require_once(__DIR__ . "/../views/account_manager/order_history.php");
@@ -345,5 +344,83 @@ class AccountController
             exit();
         }
     }
+
+    public function wishList()
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/WishList.php");
+        require_once(__DIR__ . "/../models/Product.php");
+
+        $wishListModel = new WishList();
+        $productModel = new Product();
+
+        // Lấy danh sách ID sản phẩm yêu thích
+        $wishListIDs = $wishListModel->getAllProductIDByUserId($this->userID);
+
+        if (empty($wishListIDs)) {
+            $isEmptyWishList = true;
+            $favoriteProducts = [];
+        } else {
+            $isEmptyWishList = false;
+
+            // wishListIDs có dạng: [0][ProductID => 1, ProductID => 2, ...]
+            // Dùng array_column để trích xuất mảng ProductID từ kết quả
+            $productIDs = array_column($wishListIDs, 'ProductID');
+
+            // Lấy chi tiết sản phẩm theo ID
+            $favoriteProducts = $productModel->getProductsWithImagesByIDs($productIDs);
+            $numOfProducts = count($favoriteProducts);
+        }
+
+        require_once(__DIR__ . "/../views/account_manager/wish_list.php");
+    }
+
+    public function deleteWishList($id)
+    {
+        if (!$this->isUserLoggedIn()) {
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/WishList.php");
+        $wishListModel = new WishList();
+
+        // Xóa sản phẩm khỏi danh sách yêu thích
+        $result = $wishListModel->removeItemById($id, $this->userID);
+
+        if ($result) {
+            $_SESSION['message'] = "Đã xóa sản phẩm khỏi danh sách yêu thích.";
+            $_SESSION['status_type'] = "success";
+        } else {
+            $_SESSION['message'] = "Xóa sản phẩm khỏi danh sách yêu thích thất bại.";
+            $_SESSION['status_type'] = "error";
+        }
+        header("Location: /electromart/public/account/wish-list");
+        exit();
+    }
+
+    public function addWishList($id)
+    {
+        if (!$this->isUserLoggedIn()) {
+            http_response_code(401);
+            echo json_encode(['message' => 'Chưa đăng nhập']);
+            return;
+        }
+
+        require_once(__DIR__ . "/../models/WishList.php");
+        $wishListModel = new WishList();
+
+        $res = $wishListModel->addItem($id, $this->userID);
+        if ($res === false) {
+            http_response_code(500);
+            return;
+        }else {
+            http_response_code(200);
+            return;
+        }
+    }
+
 }
 ?>
