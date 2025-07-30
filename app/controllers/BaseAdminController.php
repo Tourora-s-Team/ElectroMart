@@ -22,7 +22,7 @@ abstract class BaseAdminController
                 echo json_encode(['error' => 'Access denied. Admin role required.']);
                 exit();
             }
-            
+
             // Nếu là HTTP request thường, redirect
             header("Location: /electromart/public/account/signin");
             exit();
@@ -31,17 +31,16 @@ abstract class BaseAdminController
 
     private function isAjaxRequest()
     {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
-               strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
     }
 
     // Method để load admin layout
     protected function loadAdminView($viewFile, $data = [])
     {
         extract($data);
-        include '../app/views/layouts/HeaderOrders.php';
+        include '../app/views/layouts/AdminHeader.php';
         include $viewFile;
-        include '../app/views/layouts/FooterOrders.php';
+        include '../app/views/layouts/AdminFooter.php';
     }
 }
-?>

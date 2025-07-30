@@ -2,7 +2,7 @@
 
 require_once ROOT_PATH . '/core/HandleData.php';
 
-class Orders extends HandleData
+class OrdersManager extends HandleData
 {
     private $table = 'Orders';
     private $db;
@@ -56,27 +56,6 @@ class Orders extends HandleData
         } catch (Exception $e) {
             throw new Exception("Error fetching order: " . $e->getMessage());
         }
-    }
-    public function update($orderID, $status, $shippingFee, $totalAmount)
-    {
-        $sql = "UPDATE orders 
-                SET Status = :status, ShippingFee = :shippingFee, TotalAmount = :totalAmount 
-                WHERE OrderID = :orderID";
-        $params = [
-            ':status' => $status,
-            ':shippingFee' => $shippingFee,
-            ':totalAmount' => $totalAmount,
-            ':orderID' => $orderID
-        ];
-        return $this->db->write($sql, $params);
-    }
-
-
-    public function delete($orderID)
-    {
-        $sql = "DELETE FROM orders WHERE OrderID = :orderID";
-        $params = [':orderID' => $orderID];
-        return $this->db->write($sql, $params);
     }
 
     // Create new order
@@ -134,39 +113,6 @@ class Orders extends HandleData
             return true;
         } catch (Exception $e) {
             throw new Exception("Error deleting order: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by status
-    public function getOrdersByStatus($status)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE Status = '$status' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by status: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by user ID
-    public function getOrdersByUserId($userId)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE UserID = '$userId' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by user ID: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by date range
-    public function getOrdersByDateRange($fromDate, $toDate)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE DATE(OrderDate) BETWEEN '$fromDate' AND '$toDate' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by date range: " . $e->getMessage());
         }
     }
 

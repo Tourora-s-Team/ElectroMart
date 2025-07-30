@@ -3,13 +3,13 @@ $title = "ElectroMart - Quản lý người dùng";
 $pageTitle = "Quản lý người dùng";
 $pageSubtitle = "Quản lý người dùng trong hệ thống";
 $activeTab = "user_manager";
-include(__DIR__ . '/../layouts/HeaderOrders.php');
+include(__DIR__ . '/../layouts/AdminHeader.php');
 ?>
 <div class="admin-user-manager">
     <div class="admin-container">
         <section class="filter-section">
             <form id="orderFilterForm" class="filter-form" method="GET" action="/electromart/public/admin/user_manager">
-                <div class="filter-grid">
+                <div class="filter-grid" >
                     <!-- Status Filter -->
                     <div class="filter-group">
                         <label for="statusFilter" class="filter-label">
@@ -134,4 +134,4 @@ include(__DIR__ . '/../layouts/HeaderOrders.php');
     </div>
 </div>
 
-<?php include(__DIR__ . '/../layouts/FooterOrders.php'); ?>
+<?php include(__DIR__ . '/../layouts/AdminFooter.php'); ?>

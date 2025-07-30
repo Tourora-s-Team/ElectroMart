@@ -11,13 +11,16 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/electromart/public/css/admin/StyleOrders.css">
+    <script src="/electromart/public/js/AdminJs/Header.js"></script>
     <script src="https://kit.fontawesome.com/f6aadf5dfa.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+    <button id="toggleSidebar" class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
     <div class="admin-container">
         <!-- Sidebar -->
-
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">

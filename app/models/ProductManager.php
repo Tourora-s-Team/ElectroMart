@@ -61,15 +61,14 @@ class ProductManager extends HandleData
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
     public function deleteProduct($id)
     {
         $sql = "DELETE FROM Product WHERE ProductID = :id";
-        $params = [':id' => $id];
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $success = $stmt->execute([':id' => $id]);
+        return $success;
     }
+
 
     public function insert($data)
     {
@@ -150,22 +149,6 @@ class ProductManager extends HandleData
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $data)
-    {
-        $sql = "UPDATE Orders SET name = :name, type = :type, stock_quantity = :stock_quantity,
-            price = :price, brand = :brand, image_url = :image_url WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([
-            ':id' => $id,
-            ':name' => $data['product_name'],
-            ':type' => $data['product_type'],
-            ':stock_quantity' => $data['stock_quantity'],
-            ':price' => $data['price'],
-            ':brand' => $data['brand'],
-            ':image_url' => $data['image_url']
-        ]);
-    }
-
     public function updateProduct($data)
     {
         try {
@@ -224,59 +207,6 @@ class ProductManager extends HandleData
             $this->pdo->rollBack();
         }
     }
-
-
-    public function addProduct($data)
-    {
-        try {
-            $this->pdo->beginTransaction();
-
-            // 1. Thêm sản phẩm
-            $sql = "INSERT INTO Product 
-            (ProductName, Description, Price, StockQuantity, Brand, ShopID, CategoryID, CreateAt, UpdatedAt, IsActive) 
-            VALUES 
-            (:name, :description, :price, :stock, :brand, :shop_id, :category_id, NOW(), NOW(), 1)";
-
-            $stmt = $this->pdo->prepare($sql);
-            $result = $stmt->execute([
-                ':name'         => $data['name'],
-                ':description'  => $data['description'],
-                ':price'        => $data['price'],
-                ':stock'        => $data['stock'],
-                ':brand'        => $data['brand'],
-                ':shop_id'      => $data['shop_id'],
-                ':category_id'  => $data['category_id']
-            ]);
-
-            if (!$result) {
-                throw new Exception("Không thể thêm sản phẩm");
-            }
-
-            $productId = $this->pdo->lastInsertId();
-
-            // 2. Thêm ảnh nếu có
-            if (!empty($data['image_url'])) {
-                $imgSql = "INSERT INTO ProductImage 
-                (ProductID, ImageURL, IsPrimary, CreateAt) 
-                VALUES 
-                (:product_id, :image_url, 1, NOW())";
-
-                $imgStmt = $this->pdo->prepare($imgSql);
-                $imgStmt->execute([
-                    ':product_id' => $productId,
-                    ':image_url' => $data['image_url']
-                ]);
-            }
-
-            $this->pdo->commit();
-            return true;
-        } catch (Exception $e) {
-            $this->pdo->rollBack();
-            error_log("Lỗi khi thêm sản phẩm: " . $e->getMessage());
-            return false;
-        }
-    }
-
 
     public function exportToTxt()
     {
