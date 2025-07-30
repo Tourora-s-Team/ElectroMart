@@ -11,7 +11,7 @@ class Cart
     {
         $cartID = $this->getCartID($userID);
         $handleData = new HandleData();
-        $sql = "SELECT p.ProductName, pi.ImageURL, p.Price, ci.Quantity, ci.CartID, ci.ProductID, p.StockQuantity
+        $sql = "SELECT p.ProductName, pi.ImageURL, p.Price, ci.Quantity, ci.CartID, ci.ProductID, p.StockQuantity, p.ShopID
                 FROM product p
                      JOIN cartitem ci ON ci.ProductID = p.ProductID
                      JOIN cart c ON c.CartID = ci.CartID

@@ -56,8 +56,7 @@ class Receiver
         foreach ($result as $row) {
             $receivers[] = new Receiver($row);
         }
-
-        return $receivers; 
+        return $receivers;
     }
 
     public function getReceiverID()
@@ -160,7 +159,8 @@ class Receiver
         return $db->execDataWithParams($sql, $params);
     }
 
-    public function setDefaultReceiver($UserId, $receiverId) {
+    public function setDefaultReceiver($UserId, $receiverId)
+    {
         $db = new HandleData();
         // Đặt tất cả các địa chỉ của người dùng thành không phải mặc định
         $sql = "UPDATE receiver SET isDefault = 0 WHERE UserId = :userId";

@@ -6,13 +6,16 @@
         <?php if (!empty($cartItems)): ?>
             <div class="cart-content">
                 <div class="cart-items">
-
                     <?php $total = 0; ?>
-
                     <?php foreach ($cartItems as $item): ?>
                         <!-- tổng giá trị của tất cả sản phẩm trong giỏ hàng -->
                         <?php $total += $item['Price'] * $item['Quantity']; ?>
-                        <div class="cart-item" data-item-id="<?php echo $item[0]['CartID']; ?>">
+                        <div class="cart-item" data-item-id="<?php echo $item[0]['CartID']; ?>"
+                            data-product-id="<?= $item['ProductID']; ?>" data-price="<?= $item['Price']; ?>">
+                            <input type="checkbox" class="item-checkbox">
+                            <input type="hidden" name="quantity" class="quantity-input"
+                                value="<?php echo $item['Quantity']; ?>">
+
                             <div class="item-image">
                                 <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
                                     <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
@@ -58,6 +61,7 @@
                             </form>
 
                         </div>
+
                     <?php endforeach; ?>
                 </div>
 
@@ -81,7 +85,7 @@
                         </div>
 
                         <div class="checkout-actions">
-                            <a href="/payment" class="checkout-btn">Thanh toán</a>
+                            <button type="submit" class="checkout-btn">Thanh toán</button>
                             <a href="public" class="continue-shopping">Tiếp tục mua sắm</a>
                         </div>
                     </div>
@@ -112,6 +116,54 @@
             quantityInput.value = newValue;
         }
     }
+
+    document.querySelector('.checkout-btn').addEventListener('click', function (e) {
+        e.preventDefault(); // không submit form mặc định
+
+        const selectedItems = [];
+        let total = 0;
+
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const checkbox = item.querySelector('.item-checkbox');
+            if (checkbox.checked) {
+                const productId = item.dataset.productId;
+                const price = parseFloat(item.dataset.price);
+                const quantityInput = item.querySelector('.quantity-input');
+                const quantity = parseInt(quantityInput.value);
+
+                const subtotal = price * quantity;
+                total += subtotal;
+
+                selectedItems.push({
+                    product_id: productId,
+                    quantity: quantity,
+                    subtotal: subtotal
+                });
+            }
+        });
+
+        // Gửi dữ liệu qua fetch tới server (payment.php)
+        fetch('/electromart/public/payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: selectedItems,
+                total: total
+            })
+        })
+            .then(response => response.text()) // hoặc response.json() nếu server trả JSON
+            .then(data => {
+                // xử lý sau khi thanh toán
+                // ví dụ: chuyển hướng sang trang thanh toán thành công
+                console.log(data);
+                window.location.href = '/electromart/public/payment';
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi dữ liệu thanh toán:', error);
+            });
+    });
 </script>
 
 
