@@ -13,6 +13,8 @@ class PaymentController
 
     public function handlePaymentPost()
     {
+        ob_clean(); // ✅ Xóa sạch mọi output có thể có trước đó
+        header('Content-Type: application/json');
         $rawData = file_get_contents("php://input");
         $data = json_decode($rawData, true);
 

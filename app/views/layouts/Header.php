@@ -59,7 +59,7 @@ if (!empty($_SESSION)) {
                             <div class="user-name" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
                                 <?php echo $fullName; ?> ▼</div>
                             <div class="dropdown" id="userDropdown">
-                                <a id="info" href="public/account/info">Thông tin cá nhân</a>
+                                <a id="info" href="public/account/info">Thông tin tài khoản</a>
                                 <a id="seller" href="/orders">Kênh người bán</a>
                                 <a id="sign_out" href="public/account/signout">Đăng xuất</a>
                             </div>

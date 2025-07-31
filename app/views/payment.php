@@ -109,11 +109,13 @@
                         <span style="margin-left: 10px;">Thanh toán khi nhận hàng (COD)</span>
                     </label>
                     <label class="payment-option">
-                        <input type="radio" name="paymentMethod" value="bank">
+                        <input type="radio" name="paymentMethod" value="vnpay">
                         <span style="margin-left: 10px;">Thanh toán VNPay</span>
                     </label>
                 </div>
             </div>
+            <input type="hidden" name="paymentMethodFinal" id="paymentMethodFinal" value="cod">
+
 
             <!-- Tổng cộng -->
             <div class="order-summary">
@@ -133,13 +135,46 @@
             </div>
 
             <!-- Hidden fields for order -->
-            <input type="hidden" name="totalAmount" value="<?= $totalAmount ?>">
+            <input type="hidden" name="amount" value="<?= $totalAmount ?>">
             <input type="hidden" name="shippingFee" value="<?= isset($shippingFee) ? $shippingFee : 30000 ?>">
             <input type="hidden" name="receiverId"
                 value="<?= isset($defaultReceiver) ? $defaultReceiver->getReceiverId() : '' ?>">
+            <input type="hidden" name="language" value="vn"> <!-- hoặc "en" -->
+            <input type="hidden" name="bankCode" value="NCB"> <!-- hoặc "" nếu để người dùng chọn sau -->
 
             <button class="place-order-btn" type="submit">Đặt hàng</button>
     </form>
 </div>
+<script src="/electromart/vnpay_php/assets/jquery-1.11.3.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const radios = document.querySelectorAll('input[name="paymentMethod"]');
+        const hiddenInput = document.getElementById('paymentMethodFinal');
+
+        radios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.checked) {
+                    hiddenInput.value = this.value;
+                }
+            });
+        });
+
+        // Nếu bạn còn thay đổi action động theo phương thức thanh toán:
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+
+            // Gán lại giá trị vào hidden input (nếu user không click đổi thì vẫn lấy giá trị mặc định)
+            hiddenInput.value = paymentMethod;
+
+            // Cập nhật action nếu cần
+            if (paymentMethod === 'cod') {
+                this.action = '/electromart/public/payment/cod';
+            } else if (paymentMethod === 'vnpay') {
+                this.action = '/electromart/public/payment_vnpay';
+            }
+        });
+    });
+</script>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
