@@ -108,12 +108,6 @@ class AdminProductsController extends BaseAdminController
         }
     }
 
-    public function delete($id)
-    {
-        $productManager = new ProductManager();
-        $result = $productManager->deleteProduct($id);
-    }
-
     public function add()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
