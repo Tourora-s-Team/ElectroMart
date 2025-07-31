@@ -9,7 +9,7 @@ class AdminProductsController extends BaseAdminController
     public function __construct()
     {
         parent::__construct(); // Kiểm tra quyền admin
-        $this->productModel = new Product1();
+        $this->productModel = new ProductManager();
     }
 
     public function index()
@@ -41,7 +41,7 @@ class AdminProductsController extends BaseAdminController
     public function delete($id)
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php'; // Gọi model Product
-        $product = new Product1(); // Gọi model
+        $product = new ProductManager(); // Gọi model
         $product->deleteByID($id); // Xoá sản phẩm theo ID
         // Có thể redirect hoặc in ra thông báo
         if ($product) {
@@ -69,7 +69,7 @@ class AdminProductsController extends BaseAdminController
             $imageUrl = $_POST['ImageURL'] ?? '';
 
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
             $result = $productModel->insert([
                 'ProductName' => $name,
                 'CategoryID' => $category,
@@ -100,7 +100,7 @@ class AdminProductsController extends BaseAdminController
 
 
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
 
             $result = $productModel->updateProduct($data);
 
@@ -129,7 +129,7 @@ class AdminProductsController extends BaseAdminController
         ];
 
         require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
+        $productModel = new ProductManager();
 
         try {
             $result = $productModel->insert($data);
@@ -154,7 +154,7 @@ class AdminProductsController extends BaseAdminController
     public function exportTxt()
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
+        $productModel = new ProductManager();
         $products = $productModel->getAllProducts();
 
         // Gửi header để tải file

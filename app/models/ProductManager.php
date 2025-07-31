@@ -1,7 +1,7 @@
 <?php
 require_once ROOT_PATH . '/core/HandleData.php';
 
-class Product1
+class ProductManager
 {
     private $pdo;
 
@@ -118,9 +118,9 @@ class Product1
 
                 $stmtImg->execute([
                     ':productId' => $productId,
-                    ':imageUrl'  => $data['ImageURL'],
-                    ':shopId'    => $data['ShopID'],
-                    ':isThumb'   => 1 // hoặc 0, tuỳ theo logic
+                    ':imageUrl' => $data['ImageURL'],
+                    ':shopId' => $data['ShopID'],
+                    ':isThumb' => 1 // hoặc 0, tuỳ theo logic
                 ]);
             }
 
@@ -255,13 +255,13 @@ class Product1
 
             $stmt = $this->pdo->prepare($sql);
             $result = $stmt->execute([
-                ':name'         => $data['name'],
-                ':description'  => $data['description'],
-                ':price'        => $data['price'],
-                ':stock'        => $data['stock'],
-                ':brand'        => $data['brand'],
-                ':shop_id'      => $data['shop_id'],
-                ':category_id'  => $data['category_id']
+                ':name' => $data['name'],
+                ':description' => $data['description'],
+                ':price' => $data['price'],
+                ':stock' => $data['stock'],
+                ':brand' => $data['brand'],
+                ':shop_id' => $data['shop_id'],
+                ':category_id' => $data['category_id']
             ]);
 
             if (!$result) {
