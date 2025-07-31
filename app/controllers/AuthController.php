@@ -125,7 +125,7 @@ class AuthController
 
         try {
             // Tạo user trong database
-            $this->userModel->createUser( $email, $phone, $password);
+            $this->userModel->createUser($email, $phone, $password);
 
             $userId = $this->userModel->getUserIdByEmail($email);
 
@@ -143,6 +143,10 @@ class AuthController
                 $_SESSION['customer'] = $customerData;
                 $_SESSION['message'] = 'Xác minh email thành công! Chào mừng bạn đến với ElectroMart. Vui lòng đăng nhập để tiếp tục.';
                 $_SESSION['status_type'] = 'success';
+
+                $mail = new MailController();
+                // Gửi email chào mừng
+                $mail->sendWelcomeEmail($email, $name);
 
                 // Xóa dữ liệu tạm thời
                 unset($_SESSION['verification_code']);
