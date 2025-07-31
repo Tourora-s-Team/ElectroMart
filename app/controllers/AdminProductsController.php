@@ -42,7 +42,7 @@ class AdminProductsController extends BaseAdminController
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php'; // Gọi model Product
         $product = new ProductManager(); // Gọi model
-        $product->deleteByID($id); // Xoá sản phẩm theo ID
+        $product->deleteProduct($id); // Xoá sản phẩm theo ID
         // Có thể redirect hoặc in ra thông báo
         if ($product) {
             echo "Deleted successfully";
