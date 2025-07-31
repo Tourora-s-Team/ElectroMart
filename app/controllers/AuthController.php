@@ -65,6 +65,22 @@ class AuthController
             $password = $_POST["registerPassword"];
             $birthdate = $_POST["registerBirthdate"];
 
+            require_once __DIR__ . '/MailController.php';
+
+            $mail = new MailController();
+
+            $toEmail = $email;;
+            $toName = $name;
+            // $verificationCode = bin2hex(random_bytes(8)); // Tạo mã xác thực ngẫu nhiên
+
+            if ($mail->sendWelcomeEmail($toEmail, $toName)) {
+                echo "Email xác thực đã được gửi đến $toEmail";
+                
+            } else {
+                echo "Gửi email thất bại!";
+            }
+            exit();
+
             $this->userModel->createUser($name, $email, $phone, $password, $birthdate);
 
             $userId = $this->userModel->getUserIdByEmail($email);
