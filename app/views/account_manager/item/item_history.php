@@ -15,14 +15,14 @@
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     .summary__date {
         font-size: 14px;
         color: #6c757d;
         margin-top: 5px;
     }
 
-    .summary__status .status {
+    .status {
         display: inline-block;
         padding: 5px 10px;
         border-radius: 5px;
@@ -30,18 +30,23 @@
         font-weight: 600;
     }
 
-    .summary__status .status i {
+    .status i {
         margin-right: 6px;
     }
 
     .status--completed {
-        background-color: #d4edda;
-        color: #155724;
+        background-color: #EDF2FA;
+        color: #1566C1;
     }
 
     .status--processing {
         background-color: #fff3cd;
         color: #856404;
+    }
+
+    .status--shipping {
+        background-color: #cce5ff;
+        color: #155724;
     }
 
     .status--cancelled {
@@ -52,39 +57,74 @@
     .list-product__item {
         margin: 12px 0;
     }
+
+    .product-item {
+        margin: 10px 0;
+    }
+
+    .product-image {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
 </style>
-<div class="history-item">
+<div id="<?= $orders[$i]['OrderID'] ?>" class="history-item">
     <div class="item-header flex-row-sb">
         <div class="summary">
-            <p class="summary__order-id">Mã đơn hàng: <?= $orderHistory[0]['OrderID']?></p>
-            <p class="summary__date">Ngày đặt: <?= $orderHistory[0]['OrderDate']?></p>
+            <p class="summary__order-id">Mã đơn hàng: <?= $orders[$i]['OrderID'] ?></p>
+            <p class="summary__date">Ngày đặt: <?= $orders[$i]['OrderDate'] ?></p>
         </div>
         <div class="summary__status">
-            <span class="status status--completed"><i class="fa-solid fa-circle-check"></i>Đã hoàn thành</span>
-            <span class="hide status status--processing"><i class="fa-solid fa-circle-notch"></i>Đang xử lý</span>
-            <span class="hide status status--cancelled"><i class="fa-solid fa-circle-xmark"></i>Đã hủy</span>
+            <?php
+            $status = $orders[$i]['Status'];
+            ?>
+            <span class="status status--completed <?= $status === 'Completed' ? '' : 'hide' ?>">
+                <i class="fa-solid fa-circle-check"></i>Đã hoàn thành
+            </span>
+            <span class="status status--processing <?= $status === 'Processing' ? '' : 'hide' ?>">
+                <i class="fa-solid fa-circle-notch"></i>Đang xử lý
+            </span>
+            <span class="status status--shipping <?= $status === 'Shipped' ? '' : 'hide' ?>">
+                <i class="fa-solid fa-circle-notch"></i>Đang giao hàng
+            </span>
+            <span class="status status--cancelled <?= $status === 'Cancelled' ? '' : 'hide' ?>">
+                <i class="fa-solid fa-circle-xmark"></i>Đã hủy
+            </span>
         </div>
     </div>
     <div class="list-product container">
-        <div class="list-product__item flex-row-sb">
-            <div class="product-details">
-                <p class="inline-block product-name">Tên sản phẩm</p>
-                <p class="inline-block product-quantity">x 2</p>
-            </div>
-            <div class="product-price">
-                <p class="product-price">Giá: 500.000đ</p>
-            </div>
+        <div class="list-product__item flex-col">
+            <?php
+            foreach ($orders[$i]['ProductDetails'] as $product) {
+                $productId = $product['ProductID'];
+                $productName = $product['ProductName'] ?? 'Sản phẩm';
+                $productImage = $product['Image'] ?? './public/images/default.png';
+                $quantity = $product['Quantity'];
+                $unitPrice = $product['UnitPrice'];
+                echo '<div class="product-item flex-row-sb">
+                        <div class="product-details flex-row-sb">
+                            <img class="product-image" src="' . $productImage . '" alt="Ảnh sản phẩm ' . $productName . '">
+                            <p class="product-name">' . $productName . '</p>
+                            <p class="product-quantity"> x ' . $quantity . '</p>
+                        </div>
+                        <div class="product-price">
+                            <p class="product-price">' . number_format($unitPrice, 0, ',', '.') . ' đ</p>
+                        </div>
+                    </div>';
+            }
+            ?>
         </div>
     </div>
-
     <div class="item-footer flex-row-sb">
         <div class="actions">
-            <button class="btn btn-secondary">Chi tiết</button>
-            <button class="btn btn-primary">Mua lại</button>
+            <button class="btn btn-secondary openModalBtn" 
+                data-order-id="<?= $orders[$i]['OrderID'] ?>"
+                >Chi tiết</button>
         </div>
         <div class="total-price">
-            <p class="total-price__label">Tổng tiền:</p>
-            <p class="total-price__amount">1.000.000đ</p>
+            <p class="total-price__amount product-price">Tổng tiền: <?= number_format($orders[$i]['TotalAmount'], 0, ',', '.') ?>đ</p>
         </div>
     </div>
 </div>

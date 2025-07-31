@@ -11,7 +11,7 @@ class Order
     public function getAllOrders()
     {
         $handleData = new HandleData();
-        $sql = "SELECT * FROM orders where UserID = " . $_SESSION['user_id'];
+        $sql = "SELECT * FROM Orders where UserID = " . $_SESSION['user_id'];
         $result = $handleData->getData($sql);
         return $result;
     }
@@ -19,7 +19,7 @@ class Order
     public function getAllOrdersByUserId($userId)
     {
         $handleData = new HandleData();
-        $sql = "SELECT * FROM orders WHERE UserID = :userId";
+        $sql = "SELECT * FROM Orders WHERE UserID = :userId";
         $params = [':userId' => $userId];
         $result = $handleData->getDataWithParams($sql, $params);
         return $result;

@@ -58,7 +58,7 @@ class Orders extends HandleData
     }
     public function update($orderID, $status, $shippingFee, $totalAmount)
     {
-        $sql = "UPDATE orders 
+        $sql = "UPDATE Orders 
                 SET Status = :status, ShippingFee = :shippingFee, TotalAmount = :totalAmount 
                 WHERE OrderID = :orderID";
         $params = [
@@ -73,7 +73,7 @@ class Orders extends HandleData
 
     public function delete($orderID)
     {
-        $sql = "DELETE FROM orders WHERE OrderID = :orderID";
+        $sql = "DELETE FROM Orders WHERE OrderID = :orderID";
         $params = [':orderID' => $orderID];
         return $this->db->write($sql, $params);
     }
@@ -296,7 +296,7 @@ class Orders extends HandleData
                     GROUP BY MONTH(OrderDate) 
                     ORDER BY month";
 
-            return $this->read($sql);
+            return $this->getDataWithParams($sql);
         } catch (Exception $e) {
             throw new Exception("Error getting monthly statistics: " . $e->getMessage());
         }

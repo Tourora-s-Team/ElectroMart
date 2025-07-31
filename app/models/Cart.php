@@ -12,11 +12,11 @@ class Cart
         $cartID = $this->getCartID($userID);
         $handleData = new HandleData();
         $sql = "SELECT p.*, ci.*, c.*, pi.*, s.*
-                FROM product p
-                     JOIN cartitem ci ON ci.ProductID = p.ProductID
-                     JOIN cart c ON c.CartID = ci.CartID
-                     LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
-                     JOIN shop s ON p.ShopID = s.ShopID
+                FROM Product p
+                     JOIN CartItem ci ON ci.ProductID = p.ProductID
+                     JOIN Cart c ON c.CartID = ci.CartID
+                     LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
+                     JOIN Shop s ON p.ShopID = s.ShopID
                 WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL) AND ci.CartID = :cartID AND c.UserID = :userID;";
         $params = ['cartID' => $cartID, 'userID' => $userID];
         $result = $handleData->getDataWithParams($sql, $params);
@@ -26,7 +26,7 @@ class Cart
     function getCartID($userID)//hàm lấy CartID của người dùng
     {
         $handleData = new HandleData();
-        $sql = "SELECT CartID FROM cart WHERE UserID = :userID";
+        $sql = "SELECT CartID FROM Cart WHERE UserID = :userID";
         $params = ['userID' => $userID];
         $result = $handleData->getDataWithParams($sql, $params);
         return $result ? $result[0]['CartID'] : null;
@@ -35,8 +35,8 @@ class Cart
     public function getShopID($productID)//hàm lấy ShopID của sản phẩm
     {
         $handleData = new HandleData();
-        $sql = 'SELECT s.ShopID FROM product p
-                JOIN shop s ON p.ShopID = s.ShopID
+        $sql = 'SELECT s.ShopID FROM Product p
+                JOIN Shop s ON p.ShopID = s.ShopID
                 WHERE p.ProductID = :productID';
         $params = ['productID' => $productID];
         $result = $handleData->getDataWithParams($sql, $params);
@@ -47,7 +47,7 @@ class Cart
         $handleData = new HandleData();
         if ($this->isProductInCart($cartId, $productId) > 0) {
             $quantity += $this->isProductInCart($cartId, $productId);// Cộng thêm số lượng nếu sản phẩm đã có trong giỏ hàng
-            $sql = "UPDATE cartitem 
+            $sql = "UPDATE CartItem 
             SET Quantity = :quantity 
             WHERE CartID = :cartId AND ProductID = :productId";
             $params = [
@@ -57,7 +57,7 @@ class Cart
             ];
             $handleData->execDataWithParams($sql, $params);
         } else {
-            $sql = "INSERT INTO cartitem (CartID, ProductID, Quantity, ShopID) VALUES (:cartId, :productId, :quantity, :shopId)";
+            $sql = "INSERT INTO CartItem (CartID, ProductID, Quantity, ShopID) VALUES (:cartId, :productId, :quantity, :shopId)";
             $params = [
                 'cartId' => $cartId,
                 'productId' => $productId,
@@ -70,7 +70,7 @@ class Cart
     public function removeProductCart($cartItemId, $productId)//hàm xóa sản phẩm khỏi giỏ hàng
     {
         $handleData = new HandleData();
-        $sql = "DELETE FROM cartitem WHERE CartID = :cartItemId AND ProductID = :productId";
+        $sql = "DELETE FROM CartItem WHERE CartID = :cartItemId AND ProductID = :productId";
         $params = [
             'cartItemId' => $cartItemId,
             'productId' => $productId
@@ -80,8 +80,8 @@ class Cart
     public function updateQuantityCart($cartId, $productId, $quantity)//hàm cập nhật số lượng sản phẩm trong giỏ hàng
     {
         $handleData = new HandleData();
-        $sql = "UPDATE cartitem 
-            SET Quantity = :quantity 
+        $sql = "UPDATE CartItem
+            SET Quantity = :quantity
             WHERE CartID = :cartId AND ProductID = :productId";
         $params = [
             'cartId' => $cartId,
@@ -93,7 +93,7 @@ class Cart
     public function isProductInCart($cartId, $productId)//hàm kiểm tra sản phẩm đã có trong giỏ hàng hay chưa
     {
         $handleData = new HandleData();
-        $sql = "SELECT Quantity FROM cartitem WHERE CartID = :cartId AND ProductID = :productId";
+        $sql = "SELECT Quantity FROM CartItem WHERE CartID = :cartId AND ProductID = :productId";
         $params = [
             'cartId' => $cartId,
             'productId' => $productId

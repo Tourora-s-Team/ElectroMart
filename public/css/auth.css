@@ -37,8 +37,8 @@
 }
 
 .auth-container {
-    width: 100%;
-    max-width: 400px;
+    
+    width: 500px;
     margin: 0 auto;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .auth-card {
-    width: 500px;
+    width: 100%;
     background: white;
     border-radius: 0.75rem;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -276,9 +276,11 @@
     .container {
         padding: 0 0.5rem;
     }
-
+    .auth-container {
+        width: 350px;
+        padding: 1rem;
+    }
     .auth-card {
-        width: 400px;
         padding: 1.5rem;
         margin: 0 0.5rem;
     }

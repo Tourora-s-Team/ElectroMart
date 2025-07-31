@@ -40,7 +40,7 @@ unset($_SESSION['status_type']); ?>
         <button class="nav-btn fontsize-16" data-action="security" onclick="goToAction(this)">
             <i class="fas fa-lock"></i>Bảo mật
         </button>
-        <button class="nav-btn fontsize-16" data-action="favorites" onclick="goToAction(this)">
+        <button class="nav-btn fontsize-16" data-action="wish-list" onclick="goToAction(this)">
             <i class="fas fa-heart"></i>Yêu thích
         </button>
         <button class="nav-btn fontsize-16" data-action="signout" onclick="goToAction(this)">
