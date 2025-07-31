@@ -7,13 +7,14 @@ require_once __DIR__ . "/./account_navbar.php";
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Danh sách yêu thích</h1>
     </div>
-
-    <div class="product-grid">
-        <?php if ($numOfProducts == 0): ?>
+    <?php if ($numOfProducts == 0): ?>
+        <div class="list">
             <div class="no-information">
                 <p>Bạn chưa có sản phẩm nào trong danh sách yêu thích.</p>
             </div>
+        </div>
         <?php else: ?>
+    <div class="product-grid">
             <?php foreach ($favoriteProducts as $product): ?>
                 <div class="product-card">
                     <a href="/electromart/public/product-detail/<?= $product['ProductID'] ?>">

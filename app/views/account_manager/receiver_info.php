@@ -9,12 +9,16 @@ require_once __DIR__ . "/./account_navbar.php";
         <button id="new-address-btn" class="subheader__btn-edit btn" onclick="openAddModal()"><i
                 class="fa-regular fa-pen-to-square"></i>Thêm địa chỉ mới</button>
     </div>
-
+    <?php if ($receiverList == null): ?>
+        <div class="list">
+            <div class="no-information">
+                <p>Bạn chưa có địa chỉ giao hàng nào.</p>
+            </div>
+        </div>
+    <?php endif; ?>
     <div id="receiver-list">
         <?php
-        if ($receiverList == null) {
-            echo '<div class="no-information"><p>Bạn chưa có địa chỉ giao hàng nào.</p></div>';
-        } else {
+        if ($receiverList != null) {
             foreach ($receiverList as $receiver) {
                 include __DIR__ . "/./item/item_receiver.php";
             }

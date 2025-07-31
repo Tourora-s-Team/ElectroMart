@@ -363,6 +363,7 @@ class AccountController
         if (empty($wishListIDs)) {
             $isEmptyWishList = true;
             $favoriteProducts = [];
+            $numOfProducts = 0;
         } else {
             $isEmptyWishList = false;
 

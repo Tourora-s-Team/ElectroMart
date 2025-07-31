@@ -75,16 +75,20 @@ class OrderDetail
         $handleData = new HandleData();
         $jsonString = $handleData->callProcedureWithOutParam("GetOrdersByUserId", [$userId]);
 
+        // Kiểm tra nếu $jsonString là chuỗi JSON hợp lệ
+        if (!is_string($jsonString) || trim($jsonString) === '') {
+            return null;
+        }
+
         $data = json_decode($jsonString, true);
 
-        if ($data === null) {
+        if (json_last_error() !== JSON_ERROR_NONE) {
             $_SESSION['message'] = "JSON decode failed: " . json_last_error_msg();
-        } 
-        else {
-            return $data;
+            return null;
         }
-    }
 
+        return $data;
+    }
 
 }
 
