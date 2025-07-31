@@ -23,8 +23,8 @@ class Product
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
-            FROM product p
-            LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
+            FROM Product p
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
             WHERE pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL";
         $result = $handleData->getData($sql);
         return $result;
@@ -41,8 +41,8 @@ class Product
 
         // Câu lệnh SQL với tham số :keyword
         $sql = "SELECT p.*, pi.ImageURL
-            FROM product p
-            LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
+            FROM Product p
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
             WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)
             AND (p.ProductName LIKE :keyword OR p.Brand LIKE :keyword)";
         $params = ['keyword' => $keyword];
@@ -56,11 +56,11 @@ class Product
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL, s.ShopName, r.Rating, c.CategoryName
-            FROM product p
-            LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
-            LEFT JOIN shop s ON p.ShopID = s.ShopID
-            LEFT JOIN review r ON p.ProductID = r.ProductID
-            LEFT JOIN category c ON p.CategoryID = c.CategoryID
+            FROM Product p
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
+            LEFT JOIN Shop s ON p.ShopID = s.ShopID
+            LEFT JOIN Review r ON p.ProductID = r.ProductID
+            LEFT JOIN Category c ON p.CategoryID = c.CategoryID
             WHERE p.ProductID = :productId";
         $params = ['productId' => $productId];
         $result = $handleData->getDataWithParams($sql, $params);
@@ -76,12 +76,12 @@ class Product
     {
         $handleData = new HandleData();
 
-        $sql = "SELECT AVG(Rating) AS avg_rating FROM review WHERE ProductID = :productId";
+        $sql = "SELECT AVG(Rating) AS avg_rating FROM Review WHERE ProductID = :productId";
         $params = ['productId' => $productId];
         $avgRating = $handleData->getDataWithParams($sql, $params);
 
 
-        $updateSql = "UPDATE product SET RatingProduct = :avg WHERE ProductID = :productId";
+        $updateSql = "UPDATE Product SET RatingProduct = :avg WHERE ProductID = :productId";
         $params = [
             'avg' => $avgRating[0]['avg_rating'],
             'productId' => $productId
@@ -98,7 +98,7 @@ class Product
     public function countReviewProduct($productId)// Hàm đếm số lượng đánh giá của sản phẩm
     {
         $handleData = new HandleData();
-        $sql = "SELECT COUNT(ReviewID) AS count FROM review WHERE ProductID = :productId";
+        $sql = "SELECT COUNT(ReviewID) AS count FROM Review WHERE ProductID = :productId";
         $params = ['productId' => $productId];
         $result = $handleData->getDataWithParams($sql, $params);
 
@@ -113,8 +113,8 @@ class Product
     {
         $handleData = new HandleData();
         $sql = "SELECT r.*, c.FullName
-            FROM review r
-            LEFT JOIN customer c ON r.UserID = c.UserID
+            FROM Review r
+            LEFT JOIN Customer c ON r.UserID = c.UserID
             WHERE r.ProductID = :productId";
         $params = ['productId' => $productId];
         $result = $handleData->getDataWithParams($sql, $params);
@@ -125,7 +125,7 @@ class Product
     {
         $handleData = new HandleData();
         // Thêm đánh giá vào cơ sở dữ liệu
-        $sql = "INSERT INTO review (Rating, Comment, CreateAt, UserID, ProductID, ShopID) VALUES (:rating, :comment, NOW(),:userId,:productId, :shopId)";
+        $sql = "INSERT INTO Review (Rating, Comment, CreateAt, UserID, ProductID, ShopID) VALUES (:rating, :comment, NOW(),:userId,:productId, :shopId)";
         $params = [
             'productId' => $productId,
             'userId' => $userId,
@@ -143,8 +143,8 @@ class Product
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
-            FROM product p
-            LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
+            FROM Product p
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
             WHERE p.CategoryId = :categoryId";
         $params = ['categoryId' => $categoryId];
         $result = $handleData->getDataWithParams($sql, $params);
@@ -156,7 +156,7 @@ class Product
     public function getShopIdByProductId($productId)
     {
         $handleData = new HandleData();
-        $sql = "SELECT ShopID FROM product WHERE ProductID = :productId";
+        $sql = "SELECT ShopID FROM Product WHERE ProductID = :productId";
         $params = ['productId' => $productId];
         $result = $handleData->getDataWithParams($sql, $params);
 
@@ -183,7 +183,7 @@ class Product
             pi.ImageURL, 
             pi.IsThumbnail, 
             pi.ShopID AS ImageShopID
-        FROM product p
+        FROM Product p
         LEFT JOIN ProductImage pi 
             ON p.ProductID = pi.ProductID 
             AND pi.IsThumbnail = 1

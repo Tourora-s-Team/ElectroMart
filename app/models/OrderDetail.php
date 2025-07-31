@@ -53,7 +53,7 @@ class OrderDetail
     public function getOrderDetailsByOrderId($orderId)
     {
         $handleData = new HandleData();
-        $sql = "SELECT * FROM orderdetail WHERE OrderID = :orderId";
+        $sql = "SELECT * FROM OrderDetail WHERE OrderID = :orderId";
         $params = [':orderId' => $orderId];
         $res = $handleData->getDataWithParams($sql, $params);
 

@@ -147,7 +147,7 @@ class Product1
 
     public function getAllProducts()
     {
-        $sql = "SELECT ProductID, ProductName, Description, StockQuantity, Brand, Price FROM product";
+        $sql = "SELECT ProductID, ProductName, Description, StockQuantity, Brand, Price FROM Product";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
