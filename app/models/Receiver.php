@@ -48,7 +48,7 @@ class Receiver
     public static function getAllReceiversByUserId($userId)
     {
         $db = new HandleData();
-        $sql = "SELECT * FROM receiver WHERE UserId = :userId";
+        $sql = "SELECT * FROM Receiver WHERE UserId = :userId";
         $params = [':userId' => $userId];
         $result = $db->getDataWithParams($sql, $params);
 
@@ -115,7 +115,7 @@ class Receiver
     public function updateReceiver($receiverId, $data)
     {
         $db = new HandleData();
-        $sql = "UPDATE receiver SET ReceiverName = :receiverName, ContactNumber = :contactNumber, 
+        $sql = "UPDATE Receiver SET ReceiverName = :receiverName, ContactNumber = :contactNumber, 
                 AddressDetail = :addressDetail, Street = :street, Ward = :ward, City = :city, 
                 Country = :country, isDefault = :isDefault, Note = :note WHERE ReceiverID = :receiverId AND UserID = :userId";
         $params = [
@@ -136,7 +136,7 @@ class Receiver
     public function addReceiver($data)
     {
         $db = new HandleData();
-        $sql = "INSERT INTO receiver (UserId, ReceiverName, ContactNumber, AddressDetail, Street, Ward, City, Country, isDefault, Note) 
+        $sql = "INSERT INTO Receiver (UserId, ReceiverName, ContactNumber, AddressDetail, Street, Ward, City, Country, isDefault, Note) 
                 VALUES (:userId, :receiverName, :contactNumber, :addressDetail, :street, :ward, :city, :country, :isDefault, :note)";
         $params = [
             ':userId' => $data['UserId'],
@@ -155,7 +155,7 @@ class Receiver
     public function deleteReceiverById($id)
     {
         $db = new HandleData();
-        $sql = "DELETE FROM receiver WHERE ReceiverID = :id";
+        $sql = "DELETE FROM Receiver WHERE ReceiverID = :id";
         $params = [':id' => $id];
         return $db->execDataWithParams($sql, $params);
     }
@@ -163,12 +163,12 @@ class Receiver
     public function setDefaultReceiver($UserId, $receiverId) {
         $db = new HandleData();
         // Đặt tất cả các địa chỉ của người dùng thành không phải mặc định
-        $sql = "UPDATE receiver SET isDefault = 0 WHERE UserId = :userId";
+        $sql = "UPDATE Receiver SET isDefault = 0 WHERE UserId = :userId";
         $params = [':userId' => $UserId];
         $db->execDataWithParams($sql, $params);
 
         // Đặt địa chỉ được chọn làm mặc định
-        $sql = "UPDATE receiver SET isDefault = 1 WHERE ReceiverID = :receiverId AND UserId = :userId";
+        $sql = "UPDATE Receiver SET isDefault = 1 WHERE ReceiverID = :receiverId AND UserId = :userId";
         $params = [':receiverId' => $receiverId, ':userId' => $UserId];
         return $db->execDataWithParams($sql, $params);
     }

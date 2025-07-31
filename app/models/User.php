@@ -37,7 +37,7 @@ class User
 
     public function getUserData($userId)
     {
-        $sql = "SELECT Email, Phonenumber, CreateAt from users WHERE UserID = " . $userId;
+        $sql = "SELECT Email, Phonenumber, CreateAt from Users WHERE UserID = " . $userId;
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data;
@@ -45,14 +45,14 @@ class User
 
     public function getUserIdByEmail($email)
     {
-        $sql = "SELECT UserID FROM users WHERE Email = '$email'";
+        $sql = "SELECT UserID FROM Users WHERE Email = '$email'";
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data ? $data[0]['UserID'] : null;
     }
     public function getUserByEmail($email)
     {
-        $sql = "SELECT UserID, Email, PhoneNumber, Role FROM users WHERE Email = '$email'";
+        $sql = "SELECT UserID, Email, PhoneNumber, Role FROM Users WHERE Email = '$email'";
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data ? $data[0] : null;
@@ -61,7 +61,7 @@ class User
     public function createUser($name, $email, $phone, $password, $birthdate)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO users (Email, PhoneNumber, Password, Role, isActive) VALUES ('$email', '$phone', '$password', 'customer', 1)";
+        $sql = "INSERT INTO Users (Email, PhoneNumber, Password, Role, isActive) VALUES ('$email', '$phone', '$password', 'customer', 1)";
         $handleData->execData($sql);
     }
 
@@ -69,7 +69,7 @@ class User
     public function updateUser($userId, $email, $phone)
     {
         $handleData = new HandleData();
-        $sql = "UPDATE users SET Email = :email, PhoneNumber = :phone WHERE UserID = :userId";
+        $sql = "UPDATE Users SET Email = :email, PhoneNumber = :phone WHERE UserID = :userId";
 
         $params = [
             ':email' => $email,
@@ -82,7 +82,7 @@ class User
 
     public function authenticate($loginInfo, $password)
     {
-        $sql = "SELECT * FROM users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";
+        $sql = "SELECT * FROM Users WHERE (Email = '$loginInfo' OR PhoneNumber = '$loginInfo') AND Password = '$password'";
         $handleData = new HandleData();
         $data = $handleData->getData($sql);
         return $data;
@@ -90,7 +90,7 @@ class User
 
     public function checkPassword($userId, $password)
     {
-        $sql = "SELECT * FROM users WHERE UserID = :userId AND Password = :password";
+        $sql = "SELECT * FROM Users WHERE UserID = :userId AND Password = :password";
         $handleData = new HandleData();
         $params = [
             ':userId' => $userId,
@@ -102,7 +102,7 @@ class User
 
     public function updatePassword($userId, $newPassword)
     {
-        $sql = "UPDATE users SET Password = :newPassword WHERE UserID = :userId";
+        $sql = "UPDATE Users SET Password = :newPassword WHERE UserID = :userId";
         $handleData = new HandleData();
         $params = [
             ':newPassword' => $newPassword,

@@ -13,7 +13,7 @@ class Shop
     function getShopById($shopId)// hàm lấy thông tin shop theo ShopID
     {
         $handleData = new HandleData();
-        $sql = "SELECT * FROM shop WHERE ShopID = :shopId";
+        $sql = "SELECT * FROM Shop WHERE ShopID = :shopId";
         $params = ['shopId' => $shopId];
         $result = $handleData->getDataWithParams($sql, $params);
         return $result[0];
@@ -23,11 +23,11 @@ class Shop
     {
         $handleData = new HandleData();
 
-        $sql = "SELECT AVG(RatingProduct) AS avg_rating FROM product WHERE ShopID = :shopId";
+        $sql = "SELECT AVG(RatingProduct) AS avg_rating FROM Product WHERE ShopID = :shopId";
         $params = ['shopId' => $shopId];
         $avgRating = $handleData->getDataWithParams($sql, $params);
 
-        $updateSql = "UPDATE shop SET RatingShop = :avg WHERE ShopID = :shopId";
+        $updateSql = "UPDATE Shop SET RatingShop = :avg WHERE ShopID = :shopId";
         $params = [
             'avg' => $avgRating[0]['avg_rating'],
             'shopId' => $shopId,
@@ -44,7 +44,7 @@ class Shop
     public function countProductShop($shopId)// Hàm đếm số lượng sản phẩm của shop
     {
         $handleData = new HandleData();
-        $sql = "SELECT COUNT(ProductID) AS count FROM product WHERE ShopID = :shopId";
+        $sql = "SELECT COUNT(ProductID) AS count FROM Product WHERE ShopID = :shopId";
         $params = ['shopId' => $shopId];
         $result = $handleData->getDataWithParams($sql, $params);
 
@@ -59,10 +59,10 @@ class Shop
     {
         $handleData = new HandleData();
         $sql = "SELECT p.*, s.ShopName, s.ShopID, c.CategoryName, pi.ImageURL
-            FROM product p
-            LEFT JOIN shop s ON p.ShopID = s.ShopID
-            LEFT JOIN category c ON p.CategoryID = c.CategoryID
-            LEFT JOIN productimage pi ON p.ProductID = pi.ProductID
+            FROM Product p
+            LEFT JOIN Shop s ON p.ShopID = s.ShopID
+            LEFT JOIN Category c ON p.CategoryID = c.CategoryID
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
             WHERE p.ShopID = :shopId";
         $params = ['shopId' => $shopId];
         $result = $handleData->getDataWithParams($sql, $params);

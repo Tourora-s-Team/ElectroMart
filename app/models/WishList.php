@@ -8,7 +8,7 @@ class WishList {
         $productModel = new Product();
 
         $shopId = $productModel->getShopIdByProductId($productID);
-        $sql = "INSERT INTO wishlist (ProductID, CreateAt, ShopID, UserID) VALUES (:productID, :createdAt, :shopID, :userID)";
+        $sql = "INSERT INTO WishList (ProductID, CreateAt, ShopID, UserID) VALUES (:productID, :createdAt, :shopID, :userID)";
         return $handleData->execDataWithParams($sql, [
             ':userID' => $userId,
             ':createdAt' => date('Y-m-d H:i:s'),
@@ -19,7 +19,7 @@ class WishList {
 
     public function getAllProductIDByUserId($userId) {
         $handleData = new HandleData();
-        $sql = "SELECT ProductID FROM wishlist WHERE UserID = :userID";
+        $sql = "SELECT ProductID FROM WishList WHERE UserID = :userID";
         return $handleData->getDataWithParams($sql, [
             ':userID' => $userId
         ]);
@@ -27,7 +27,7 @@ class WishList {
 
     public function removeItemById($productID, $userId) {
         $handleData = new HandleData();
-        $sql = "DELETE FROM wishlist WHERE ProductID = :productID AND UserID = :userID";
+        $sql = "DELETE FROM WishList WHERE ProductID = :productID AND UserID = :userID";
         return $handleData->execDataWithParams($sql, [
             ':userID' => $userId,
             ':productID' => $productID
