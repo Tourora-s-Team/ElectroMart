@@ -2,6 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 class MailController
 {
@@ -17,7 +18,7 @@ class MailController
         $this->mailer->SMTPAuth = true;
         $this->mailer->Username = $_ENV['MAIL_USER'];
         $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+        $this->mailer->SMTPSecure = 'ssl';
         $this->mailer->Port = 465;
 
         // Cấu hình người gửi
