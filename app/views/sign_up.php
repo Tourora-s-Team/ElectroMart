@@ -14,6 +14,15 @@
             </script>
         <?php endif;
         unset($_SESSION['signup_error']); ?>
+
+        <?php if (!empty($_SESSION['verification_error'])): ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    showToast("<?= addslashes($_SESSION['verification_error']) ?>", 'error');
+                });
+            </script>
+        <?php endif;
+        unset($_SESSION['verification_error']); ?>
         <!-- Register Form -->
         <div class="auth-container" id="registerForm">
             <div class="auth-card">

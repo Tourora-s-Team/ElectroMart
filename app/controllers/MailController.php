@@ -2,90 +2,110 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
 
 class MailController
 {
     private $mailer;
+    private $fromEmail;
+    private $fromName = 'ElectroMart';
 
     public function __construct()
     {
         $this->mailer = new PHPMailer(true);
-
-        // Cấu hình SMTP
-        $this->mailer->isSMTP();
-        $this->mailer->Host = $_ENV['MAIL_HOST'];
-        $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = $_ENV['MAIL_USER'];
-        $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
-        $this->mailer->SMTPSecure = 'ssl';
-        $this->mailer->Port = 465;
-
-        // Cấu hình người gửi
-        $this->mailer->setFrom($_ENV['MAIL_USER'], 'ElectroMart');
-        $this->mailer->isHTML(true); // Gửi dạng HTML
-    }
-
-    /**
-     * Gửi email xác thực
-     */
-    public function sendVerificationEmail($toEmail, $toName, $verificationCode)
-    {
+        $this->fromEmail = $_ENV['MAIL_USER']; // Lấy từ biến môi trường
         try {
-            $this->mailer->clearAddresses(); // Xóa địa chỉ trước đó
-            $this->mailer->addAddress($toEmail, $toName);
+            // Cấu hình SMTP Gmail
+            $this->mailer->isSMTP();
+            $this->mailer->Host = 'smtp.gmail.com';
+            $this->mailer->SMTPAuth = true;
+            $this->mailer->Username = $this->fromEmail;
+            $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
+            $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+            $this->mailer->Port = 465;
 
-            $this->mailer->Subject = 'Xác thực tài khoản';
-            $this->mailer->Body = "
-                <h2>Xin chào $toName,</h2>
-                <p>Vui lòng xác thực tài khoản của bạn bằng mã sau:</p>
-                <h3 style='color: blue;'>$verificationCode</h3>
-                <p>Hoặc nhấn vào liên kết sau để xác thực:</p>
-                <a href='https://yourdomain.com/verify.php?code=$verificationCode'>Xác thực ngay</a>
-            ";
-
-            $this->mailer->send();
-            return true;
+            $this->mailer->setFrom($this->fromEmail, $this->fromName);
+            $this->mailer->isHTML(true);
+            $this->mailer->CharSet = 'UTF-8';
+            $this->mailer->Encoding = 'base64';
         } catch (Exception $e) {
-            error_log('Lỗi gửi email: ' . $this->mailer->ErrorInfo);
-            return false;
+            echo 'Mailer Error: ' . $e->getMessage();
         }
     }
 
-    public function sendWelcomeEmail($toEmail, $toName)
+    // 1. Gửi email xác thực tài khoản
+    public function sendVerificationEmail($toEmail, $toName, $verificationCode)
     {
         try {
             $this->mailer->clearAddresses();
             $this->mailer->addAddress($toEmail, $toName);
-            $this->mailer->Subject = "Chào mừng bạn đến với ElectroMart!";
+            $this->mailer->Subject = 'Xác minh địa chỉ email của bạn';
+
+            $verificationLink = "http://localhost/electromart/public/account/verify-email/" . urlencode($verificationCode);
 
             $this->mailer->Body = "
-            <div style='font-family: Arial, sans-serif; line-height: 1.6; max-width: 600px; margin: auto;'>
-                <h2 style='color: #2e6c80;'>🎉 Chào mừng $toName!</h2>
-                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>ElectroMart</strong>.</p>
-
-                <p>Chúng tôi rất vui khi có bạn đồng hành. Bạn giờ đây đã có thể:</p>
-                <ul>
-                    <li>📦 Theo dõi đơn hàng và lịch sử mua hàng</li>
-                    <li>🛒 Nhận các ưu đãi độc quyền</li>
-                    <li>📬 Nhận thông báo sản phẩm mới</li>
-                </ul>
-
-                <p>Hãy <a href='https://trieuthien-official.id.vn/' style='color: #1a73e8;'>đăng nhập</a> để bắt đầu ngay!</p>
-
-                <hr>
-                <p style='font-size: 0.9em; color: #666;'>Nếu bạn có bất kỳ câu hỏi nào, hãy liên hệ với chúng tôi qua email: <a href='mailto:support@trieuthien-official.id.vn'>support@trieuthien-official.id.vn</a>.</p>
-                <p style='font-size: 0.9em; color: #999;'>Chúc bạn một ngày tuyệt vời!<br>Đội ngũ Triệu Thiên Official</p>
-            </div>
+            <h2>Xin chào $toName,</h2>
+            <p>Cảm ơn bạn đã đăng ký tài khoản tại ElectroMart.</p>
+            <p>Vui lòng nhấn vào liên kết bên dưới để xác minh địa chỉ email của bạn:</p>
+            <p><a href='$verificationLink'>$verificationLink</a></p>
+            <p>Nếu bạn không thực hiện hành động này, hãy bỏ qua email.</p>
         ";
 
             $this->mailer->send();
             return true;
         } catch (Exception $e) {
-            echo 'Lỗi gửi email: ' . $this->mailer->ErrorInfo;
+            error_log("Gửi email xác minh thất bại: " . $e->getMessage());
             return false;
         }
     }
 
 
+
+    // 2. Gửi email chào mừng
+    public function sendWelcomeEmail($toEmail, $toName)
+    {
+        try {
+            $this->mailer->clearAddresses();
+            $this->mailer->addAddress($toEmail, $toName);
+            $this->mailer->Subject = 'Chào mừng bạn đến với ElectroMart!';
+            $this->mailer->Body = "
+                <h2>Chào mừng $toName!</h2>
+                <p>Cảm ơn bạn đã tạo tài khoản tại ElectroMart.</p>
+                <p>Hãy khám phá các sản phẩm và ưu đãi hấp dẫn dành cho bạn!</p>
+            ";
+            $this->mailer->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Welcome email failed: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // 3. Gửi email thông báo đơn hàng mới
+    public function sendOrderNotificationEmail($toEmail, $toName, $orderDetails)
+    {
+        try {
+            $this->mailer->clearAddresses();
+            $this->mailer->addAddress($toEmail, $toName);
+            $this->mailer->Subject = 'Xác nhận đơn hàng mới từ ElectroMart';
+
+            $orderHtml = "<ul>";
+            foreach ($orderDetails['items'] as $item) {
+                $orderHtml .= "<li>{$item['name']} - {$item['quantity']} x " . number_format($item['price']) . " VND</li>";
+            }
+            $orderHtml .= "</ul>";
+
+            $this->mailer->Body = "
+                <h2>Xin chào $toName,</h2>
+                <p>Bạn vừa đặt hàng thành công tại ElectroMart. Thông tin đơn hàng:</p>
+                $orderHtml
+                <p><strong>Tổng cộng:</strong> " . number_format($orderDetails['total']) . " VND</p>
+                <p>Cảm ơn bạn đã mua sắm cùng chúng tôi!</p>
+            ";
+            $this->mailer->send();
+            return true;
+        } catch (Exception $e) {
+            error_log("Order email failed: " . $e->getMessage());
+            return false;
+        }
+    }
 }

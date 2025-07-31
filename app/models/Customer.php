@@ -45,7 +45,12 @@ class Customer
     public function createCustomer($userID, $fullName, $gender, $birthDate)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO Customer (UserID, FullName, Gender, BirthDate) VALUES ('$userID', '$fullName', '$gender', '$birthDate')";
+        $birthDateFormatted = DateTime::createFromFormat('d/m/Y', $birthDate)->format('Y-m-d');
+        $loyaltyPoint = 0; // Mặc định 0 điểm tích lũy
+
+        $sql = "INSERT INTO Customer (UserID, FullName, Gender, BirthDate, LoyaltyPoint)
+            VALUES ('$userID', '$fullName', '$gender', '$birthDateFormatted', $loyaltyPoint)";
+
         $handleData->execData($sql);
     }
 

@@ -70,41 +70,119 @@ class AuthController
             require_once __DIR__ . '/MailController.php';
 
             $mail = new MailController();
-
-            $toEmail = $email;;
+            $toEmail = $email;
             $toName = $name;
-            // $verificationCode = bin2hex(random_bytes(8)); // Tạo mã xác thực ngẫu nhiên
 
-            if ($mail->sendWelcomeEmail($toEmail, $toName)) {
-                echo "Email xác thực đã được gửi đến $toEmail";
-                
-            } else {
-                echo "Gửi email thất bại!";
-            }
+            $verificationCode = bin2hex(random_bytes(8)); // Tạo mã xác thực ngẫu nhiên
+
+            $_SESSION['verification_code'] = $verificationCode;
+            $_SESSION['pending_user_data'] = [
+                'name' => $name,
+                'email' => $email,
+                'phone' => $phone,
+                'password' => $password,
+                'birthdate' => $birthdate
+            ];
+
+            $mail->sendVerificationEmail($toEmail, $toName, $verificationCode);
+
+            // Hiển thị trang yêu cầu người dùng xác minh email
+            require_once(__DIR__ . '/../views/email_verification.php');
             exit();
+        }
+    }
 
-            $this->userModel->createUser($name, $email, $phone, $password, $birthdate);
+    public function verifyEmail($code)
+    {
+        // Kiểm tra mã xác minh có hợp lệ không
+        if (empty($code)) {
+            $_SESSION['verification_error'] = 'Mã xác minh không hợp lệ.';
+            header("Location: /electromart/public/account/signup");
+            exit();
+        }
+
+        // Kiểm tra session có dữ liệu xác minh không
+        if (!isset($_SESSION['verification_code']) || !isset($_SESSION['pending_user_data'])) {
+            $_SESSION['verification_error'] = 'Phiên xác minh đã hết hạn. Vui lòng đăng ký lại.';
+            header("Location: /electromart/public/account/signup");
+            exit();
+        }
+
+        // So sánh mã xác minh
+        if ($_SESSION['verification_code'] !== $code) {
+            $_SESSION['verification_error'] = 'Mã xác minh không chính xác.';
+            header("Location: /electromart/public/account/signup");
+            exit();
+        }
+
+        // Lấy dữ liệu user từ session
+        $userData = $_SESSION['pending_user_data'];
+        $name = $userData['name'];
+        $email = $userData['email'];
+        $phone = $userData['phone'];
+        $password = $userData['password'];
+        $birthdate = $userData['birthdate'];
+
+        try {
+            // Tạo user trong database
+            $this->userModel->createUser( $email, $phone, $password);
 
             $userId = $this->userModel->getUserIdByEmail($email);
 
+            // Tạo customer
             $customerModel = new Customer();
             $customerModel->createCustomer($userId, $name, 'N/A', $birthdate);
 
+            // Lấy dữ liệu user và customer
             $userData = $this->userModel->getUserByEmail($email);
             $customerData = $customerModel->getCustomerById($userId);
 
             if ($userData) {
+                // Lưu vào session
                 $_SESSION['user'] = $userData;
                 $_SESSION['customer'] = $customerData;
-                $_SESSION['signup_success'] = 'Đăng ký thành công.';
-                header("Location: /electromart/public/home");
+                $_SESSION['message'] = 'Xác minh email thành công! Chào mừng bạn đến với ElectroMart. Vui lòng đăng nhập để tiếp tục.';
+                $_SESSION['status_type'] = 'success';
+
+                // Xóa dữ liệu tạm thời
+                unset($_SESSION['verification_code']);
+                unset($_SESSION['pending_user_data']);
+
+                header("Location: /electromart/public/");
                 exit();
             } else {
-                $_SESSION['signup_error'] = 'Đăng ký không thành công. Vui lòng thử lại.';
+                $_SESSION['signup_error'] = 'Có lỗi xảy ra trong quá trình tạo tài khoản. Vui lòng thử lại.';
                 header("Location: /electromart/public/account/signup");
+                exit();
             }
+        } catch (Exception $e) {
+            // $_SESSION['signup_error'] = 'Có lỗi xảy ra: ' . $e->getMessage();
+            $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng.';
+            header("Location: /electromart/public/account/signup");
+            exit();
         }
     }
+
+    public function resendVerificationEmail()
+    {
+        if (isset($_SESSION['pending_user_data'])) {
+            $userData = $_SESSION['pending_user_data'];
+
+            require_once __DIR__ . '/MailController.php';
+            $mail = new MailController();
+
+            $verificationCode = bin2hex(random_bytes(8));
+            $_SESSION['verification_code'] = $verificationCode;
+
+            $mail->sendVerificationEmail($userData['email'], $userData['name'], $verificationCode);
+
+            echo json_encode(['success' => true, 'message' => 'Email xác minh đã được gửi lại.']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Không tìm thấy thông tin đăng ký.']);
+        }
+        exit();
+    }
+
     public function signOut(): never
     {
 

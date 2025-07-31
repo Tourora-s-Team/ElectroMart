@@ -58,10 +58,21 @@ class User
         return $data ? $data[0] : null;
     }
 
-    public function createUser($name, $email, $phone, $password, $birthdate)
+    public function createUser($email, $phone, $password)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO Users (Email, PhoneNumber, Password, Role, isActive) VALUES ('$email', '$phone', '$password', 'customer', 1)";
+
+        // Đảm bảo dùng giá trị đúng kiểu, xử lý prepared statement nếu có thể
+        $email = addslashes($email);
+        $phone = addslashes($phone);
+        $password = addslashes($password);
+        $role = 'Customer'; // Đúng kiểu chữ khớp với SET trong MySQL
+        $createAt = date('Y-m-d H:i:s.v'); // DATETIME(3), vd: 2025-07-31 21:55:23.123
+        $isActive = 1;
+
+        $sql = "INSERT INTO Users (Email, PhoneNumber, Password, Role, CreateAt, IsActive)
+            VALUES ('$email', '$phone', '$password', '$role', '$createAt', $isActive)";
+
         $handleData->execData($sql);
     }
 
