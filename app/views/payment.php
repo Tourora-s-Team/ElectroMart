@@ -17,24 +17,38 @@
 
         if ($defaultReceiver) { ?>
             <div class="address-grid">
+                <!-- Cột 1: Tên và số điện thoại -->
                 <div>
-                    <p class="info">
-                        <strong><?php echo $defaultReceiver->getReceiverName(); ?></strong>
-                        <strong><?php echo $defaultReceiver->getContactNumber(); ?></strong>
-                    </p>
+                    <div class="info-name"><?php echo $defaultReceiver->getReceiverName(); ?></div>
+                    <div class="info-phone"><?php echo $defaultReceiver->getContactNumber(); ?></div>
+                </div>
+
+                <!-- Cột 2: Địa chỉ -->
+                <div>
                     <p class="address">
                         <?php echo $defaultReceiver->getAddressDetail(); ?>,
                         <?php echo $defaultReceiver->getWard(); ?>,
                         <?php echo $defaultReceiver->getCity(); ?>
                     </p>
-                    <span class="default-label">Mặc định</span>
                 </div>
-                <button class="change-btn-payment" onclick="showAddressModal()">Thay đổi</button>
+
+                <!-- Cột 3: Nhãn "Mặc định" -->
+                <div>
+                    <?php if ($defaultReceiver->getIsDefault()) { ?>
+                        <span class="default-label">Mặc định</span>
+                    <?php } ?>
+                </div>
+
+                <!-- Cột 4: Nút thay đổi -->
+                <div>
+                    <button class="change-btn-payment" onclick="showAddressModal()">Thay đổi</button>
+                </div>
             </div>
         <?php } else { ?>
             <p>Vui lòng thêm địa chỉ nhận hàng</p>
         <?php } ?>
     </div>
+
 
     <!-- Sản phẩm -->
     <form method="post" action="/electromart/public/payment/order">
