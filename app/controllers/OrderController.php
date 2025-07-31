@@ -1,5 +1,6 @@
 <?php
 require_once ROOT_PATH . '/app/models/Order.php';
+require_once ROOT_PATH . '/app/models/Payment.php';
 
 class OrderController
 {
@@ -10,6 +11,10 @@ class OrderController
     }
     public function vnpayReturn()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $vnp_HashSecret = "JT7NJO4J3MZWICBAZZE5NUK56EWS8BTR";
         $vnp_SecureHash = $_GET['vnp_SecureHash'] ?? '';
         $inputData = [];
@@ -37,6 +42,32 @@ class OrderController
             'query' => $_GET,
             'isValid' => $isValid
         ]);
+        if ($isValid && $_GET['vnp_ResponseCode'] === '00') {
+            $orderId = $_SESSION['order_id'] ?? null;
+
+            if (!$orderId) {
+                echo "Không tìm thấy OrderID";
+                exit;
+            }
+
+            // Gán vào mảng $vnpayData để truyền sang Payment::savePayment()
+            $vnpayData = [
+                'order_id' => $orderId,
+                'vnp_Amount' => $_GET['vnp_Amount'] / 100, // chia lại vì trước đó nhân 100
+                'vnp_ResponseCode' => $_GET['vnp_ResponseCode'] ?? '',
+                'vnp_TransactionNo' => $_GET['vnp_TransactionNo'] ?? '',
+                'vnp_OrderInfo' => $_GET['vnp_OrderInfo'] ?? '',
+                'vnp_PaymentMethod' => $_GET['vnp_BankCode'] ?? 'VNPAY',
+            ];
+
+            // Gọi models
+            $paymentModel = new Payment();
+            $paymentModel->savePayment($vnpayData);
+
+            // Xoá session nếu cần
+            unset($_SESSION['order_id']);
+
+        }
     }
 
 
@@ -156,6 +187,8 @@ class OrderController
 
         $orderModel = new Order();
         $orderId = $orderModel->createOrder($status, $shippingFee, $totalAmount, $userId);
+        $_SESSION['order_id'] = $orderId;
+
         var_dump($orderId); // Thêm dòng này để kiểm tra giá trị
         if (!$orderId) {
             die('Không lấy được OrderID!');
