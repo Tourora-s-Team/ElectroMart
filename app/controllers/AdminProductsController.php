@@ -84,6 +84,8 @@ class AdminProductsController extends BaseAdminController
     }
     public function update()
     {
+        ob_clean(); // Xóa mọi output không cần thiết
+        header('Content-Type: application/json');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Lấy dữ liệu từ form
             $data = [
@@ -110,6 +112,8 @@ class AdminProductsController extends BaseAdminController
 
     public function add()
     {
+        ob_clean(); // Xóa mọi output không cần thiết
+        header('Content-Type: application/json');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = [
                 'ProductName' => $_POST['ProductName'] ?? '',
