@@ -36,7 +36,7 @@ if (!empty($_SESSION)) {
                         </a>
                     </div>
                     <?php if (!empty($_SESSION['user'][0]['UserID'])): ?>
-                        <div class="user-name" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
+                        <div class="user-name user-menu" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
                             <?php echo $fullName; ?> ▼
                             <div class="dropdown" id="userDropdown">
                                 <a id="info" href="public/account/info">Thông tin cá nhân</a>
@@ -92,6 +92,7 @@ if (!empty($_SESSION)) {
             window.onclick = function (event) {
                 if (!event.target.closest('.user-menu')) {
                     document.getElementById("userDropdown").style.display = "none";
+                    console.log("Dropdown closed");
                 }
             }
             function toggleMainNav() {
@@ -107,3 +108,6 @@ if (!empty($_SESSION)) {
                 }
             });
         </script>
+
+    </main>
+</body>
