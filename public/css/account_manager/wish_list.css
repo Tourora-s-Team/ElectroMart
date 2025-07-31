@@ -1,0 +1,56 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 50px;
+    padding: 20px;
+    place-items: center;
+}
+
+.product-card {
+    position: relative;
+}
+
+.product-image img {
+    width: 270px;
+    height: 200px;
+}
+
+/* Ẩn nút xóa mặc định */
+.remove-from-wishlist-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.remove-from-wishlist-btn {
+    background-color: transparent;
+    border: none;
+    color: #F98724;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.remove-from-wishlist-btn:hover {
+    background-color: #F98724;
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 600px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

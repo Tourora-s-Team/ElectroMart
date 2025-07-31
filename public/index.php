@@ -23,6 +23,10 @@ require_once ROOT_PATH . '/routes/cart.routes.php';
 require_once ROOT_PATH . '/routes/search.routes.php';
 require_once ROOT_PATH . '/routes/product_detail.routes.php';
 require_once ROOT_PATH . '/routes/address.routes.php';
+require_once ROOT_PATH . '/routes/shop_detail.routes.php';
+require_once ROOT_PATH . '/routes/payment.routes.php';
+require_once ROOT_PATH . '/routes/order.routes.php';
+
 require_once ROOT_PATH . '/routes/admin/orders_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/products_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/financial_manager.routes.php';

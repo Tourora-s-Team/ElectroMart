@@ -16,4 +16,9 @@ $router->post('/electromart/public/account/set-default-receiver/{id}', 'AccountC
 $router->get('/electromart/public/account/security', 'AccountController@security');
 $router->post('/electromart/public/account/change-password', 'AccountController@changePassword');
 
+
+// Wish list route
+$router->get('/electromart/public/account/wish-list', 'AccountController@wishList');
+$router->post('/electromart/public/account/wish-list-remove/{id}', 'AccountController@deleteWishList');
+$router->post('/electromart/public/account/wish-list-add/{id}', 'AccountController@addWishList');
 ?>

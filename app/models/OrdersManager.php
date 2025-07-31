@@ -57,6 +57,27 @@ class OrdersManager extends HandleData
             throw new Exception("Error fetching order: " . $e->getMessage());
         }
     }
+    public function update($orderID, $status, $shippingFee, $totalAmount)
+    {
+        $sql = "UPDATE Orders 
+                SET Status = :status, ShippingFee = :shippingFee, TotalAmount = :totalAmount 
+                WHERE OrderID = :orderID";
+        $params = [
+            ':status' => $status,
+            ':shippingFee' => $shippingFee,
+            ':totalAmount' => $totalAmount,
+            ':orderID' => $orderID
+        ];
+        return $this->db->write($sql, $params);
+    }
+
+
+    public function delete($orderID)
+    {
+        $sql = "DELETE FROM Orders WHERE OrderID = :orderID";
+        $params = [':orderID' => $orderID];
+        return $this->db->write($sql, $params);
+    }
 
     // Create new order
     public function createOrder($data)
@@ -164,6 +185,88 @@ class OrdersManager extends HandleData
             return $this->getDataWithParams($sql);
         } catch (Exception $e) {
             throw new Exception("Error fetching today's orders: " . $e->getMessage());
+        }
+    }
+
+    // Get recent orders (last N orders)
+    public function getRecentOrders($limit = 10)
+    {
+        try {
+            $sql = "SELECT * FROM {$this->table} ORDER BY OrderDate DESC LIMIT $limit";
+            return $this->getDataWithParams($sql);
+        } catch (Exception $e) {
+            throw new Exception("Error fetching recent orders: " . $e->getMessage());
+        }
+    }
+
+    // Search orders
+    public function searchOrders($searchTerm)
+    {
+        try {
+            $sql = "SELECT * FROM {$this->table} 
+                    WHERE OrderID LIKE '%$searchTerm%' 
+                    OR UserID LIKE '%$searchTerm%' 
+                    OR Status LIKE '%$searchTerm%' 
+                    ORDER BY OrderDate DESC";
+
+            return $this->getDataWithParams($sql);
+        } catch (Exception $e) {
+            throw new Exception("Error searching orders: " . $e->getMessage());
+        }
+    }
+
+    // Check if order exists
+    public function orderExists($orderId)
+    {
+        try {
+            $sql = "SELECT COUNT(*) as count FROM {$this->table} WHERE OrderID = '$orderId'";
+            $result = $this->getDataWithParams($sql);
+
+            return $result[0]['count'] > 0;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    // Get order count by status
+    public function getOrderCountByStatus()
+    {
+        try {
+            $sql = "SELECT Status, COUNT(*) as count FROM {$this->table} GROUP BY Status";
+            $result = $this->getDataWithParams($sql);
+
+            $counts = [];
+            foreach ($result as $row) {
+                $counts[$row['Status']] = $row['count'];
+            }
+
+            return $counts;
+        } catch (Exception $e) {
+            throw new Exception("Error getting order count by status: " . $e->getMessage());
+        }
+    }
+
+    // Get monthly order statistics
+    public function getMonthlyStats($year = null)
+    {
+        try {
+            if ($year === null) {
+                $year = date('Y');
+            }
+
+            $sql = "SELECT 
+                        MONTH(OrderDate) as month,
+                        COUNT(*) as order_count,
+                        SUM(TotalAmount) as total_revenue,
+                        SUM(ShippingFee) as total_shipping
+                    FROM {$this->table} 
+                    WHERE YEAR(OrderDate) = $year 
+                    GROUP BY MONTH(OrderDate) 
+                    ORDER BY month";
+
+            return $this->getDataWithParams($sql);
+        } catch (Exception $e) {
+            throw new Exception("Error getting monthly statistics: " . $e->getMessage());
         }
     }
 

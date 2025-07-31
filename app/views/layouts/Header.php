@@ -29,42 +29,45 @@ if (!empty($_SESSION)) {
     <header class="header">
         <div class="container">
             <div class="header-top">
-                <div class="logo">
-                    <a href="public">
-                        <i class="fas fa-bolt"></i>
-                        ElectroMart
-                    </a>
-                </div>
-                <div class="search-box">
-                    <form action="public/search" method="GET">
-                        <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..."
-                            value="<?php echo $_GET['q'] ?? ''; ?>">
-                        <button type="submit"><i class="fas fa-search"></i></button>
-                    </form>
-                </div>
-
-                <div class="header-actions">
-                    <a href="public/cart" class="cart-icon">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a>
-                    <?php if (empty($_SESSION['user'][0]['UserID'])): ?>
-                        <a href="public/account/signin" class="login-btn">Đăng nhập</a>
-                    <?php endif; ?>
+                <div class="header-row1">
+                    <div class="logo">
+                        <a href="public">
+                            <i class="fas fa-bolt"></i>
+                            ElectroMart
+                        </a>
+                    </div>
                     <?php if (!empty($_SESSION['user'][0]['UserID'])): ?>
-                        <!-- drop down Profile -->
-                        <div class="user-menu">
-                            <div class="user-name" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
-                                <?php echo $fullName; ?> ▼</div>
+                        <div class="user-name user-menu" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
+                            <?php echo $fullName; ?> ▼
                             <div class="dropdown" id="userDropdown">
                                 <a id="info" href="public/account/info">Thông tin cá nhân</a>
                                 <a id="seller" href="/orders">Kênh người bán</a>
                                 <a id="sign_out" href="public/account/signout">Đăng xuất</a>
                             </div>
                         </div>
+                    <?php else: ?>
+                        <a href="public/account/signin" class="login-btn">Đăng nhập</a>
                     <?php endif; ?>
                 </div>
+                <div class="header-row2">
+                    <button class="menu-toggle" onclick="toggleMainNav()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="search-box">
+                        <form action="public/search" method="GET">
+                            <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..."
+                                value="<?php echo $_GET['q'] ?? ''; ?>">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </div>
+                    <a href="public/cart" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
             </div>
+
+
 
             <nav class="main-nav">
                 <ul>
@@ -90,6 +93,22 @@ if (!empty($_SESSION)) {
             window.onclick = function (event) {
                 if (!event.target.closest('.user-menu')) {
                     document.getElementById("userDropdown").style.display = "none";
+                    console.log("Dropdown closed");
                 }
             }
+            function toggleMainNav() {
+                var nav = document.querySelector('.main-nav');
+                nav.classList.toggle('open');
+            }
+            // Đóng menu khi click ngoài menu trên mobile
+            window.addEventListener('click', function (e) {
+                var nav = document.querySelector('.main-nav');
+                var toggle = document.querySelector('.menu-toggle');
+                if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+                    nav.classList.remove('open');
+                }
+            });
         </script>
+
+    </main>
+</body>

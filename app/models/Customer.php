@@ -37,7 +37,7 @@ class Customer
     public function getCustomerById($userId)
     {
         $handleData = new HandleData();
-        $sql = "SELECT FullName, Gender, BirthDate, LoyaltyPoint FROM customer WHERE UserID = " . $userId;
+        $sql = "SELECT FullName, Gender, BirthDate, LoyaltyPoint FROM Customer WHERE UserID = " . $userId;
         $res = $handleData->getData($sql);
         return $res;
     }
@@ -45,14 +45,14 @@ class Customer
     public function createCustomer($userID, $fullName, $gender, $birthDate)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO customer (UserID, FullName, Gender, BirthDate) VALUES ('$userID', '$fullName', '$gender', '$birthDate')";
+        $sql = "INSERT INTO Customer (UserID, FullName, Gender, BirthDate) VALUES ('$userID', '$fullName', '$gender', '$birthDate')";
         $handleData->execData($sql);
     }
 
     public function updateCustomer($userID, $fullName, $gender, $birthDate)
     {
         $handleData = new HandleData();
-        $sql = "UPDATE customer SET FullName = :fullName, Gender = :gender, BirthDate = :birthDate WHERE UserID = :userID";
+        $sql = "UPDATE Customer SET FullName = :fullName, Gender = :gender, BirthDate = :birthDate WHERE UserID = :userID";
         $params = [
             ':fullName' => $fullName,
             ':gender' => $gender,
