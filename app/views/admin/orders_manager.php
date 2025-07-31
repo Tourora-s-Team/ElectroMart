@@ -4,7 +4,7 @@ $pageTitle = "Quản lý đơn hàng";
 $pageSubtitle = "Quản lý và theo dõi đơn hàng của bạn";
 $activeTab = "orders";
 $todayOrderCount = isset($orders) ? count($orders) : 0;
-include(__DIR__ . '/../layouts/HeaderOrders.php');
+include(__DIR__ . '/../layouts/AdminHeader.php');
 ?>
 
 <!-- Filter Section -->
@@ -249,4 +249,4 @@ include(__DIR__ . '/../layouts/HeaderOrders.php');
 <script src="/public/js/AdminJs/Orders.js"></script>
 
 
-<?php include(__DIR__ . '/../layouts/FooterOrders.php'); ?>
+<?php include(__DIR__ . '/../layouts/AdminFooter.php'); ?>

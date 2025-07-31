@@ -2,10 +2,11 @@
 
 require_once ROOT_PATH . '/core/HandleData.php';
 
-class Orders extends HandleData
+class OrdersManager extends HandleData
 {
     private $table = 'Orders';
     private $db;
+
     public function __construct()
     {
         parent::__construct();
@@ -86,7 +87,7 @@ class Orders extends HandleData
                     VALUES ('{$data['OrderID']}', '{$data['OrderDate']}', '{$data['Status']}', 
                             {$data['ShippingFee']}, {$data['TotalAmount']}, '{$data['UserID']}')";
 
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error creating order: " . $e->getMessage());
@@ -117,7 +118,7 @@ class Orders extends HandleData
 
             $sql = "UPDATE {$this->table} SET " . implode(', ', $updateFields) . " WHERE OrderID = '$orderId'";
 
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error updating order: " . $e->getMessage());
@@ -129,43 +130,10 @@ class Orders extends HandleData
     {
         try {
             $sql = "DELETE FROM {$this->table} WHERE OrderID = '$orderId'";
-            $this->write($sql);
+            $this->execDataWithParams($sql);
             return true;
         } catch (Exception $e) {
             throw new Exception("Error deleting order: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by status
-    public function getOrdersByStatus($status)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE Status = '$status' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by status: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by user ID
-    public function getOrdersByUserId($userId)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE UserID = '$userId' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by user ID: " . $e->getMessage());
-        }
-    }
-
-    // Get orders by date range
-    public function getOrdersByDateRange($fromDate, $toDate)
-    {
-        try {
-            $sql = "SELECT * FROM {$this->table} WHERE DATE(OrderDate) BETWEEN '$fromDate' AND '$toDate' ORDER BY OrderDate DESC";
-            return $this->getDataWithParams($sql);
-        } catch (Exception $e) {
-            throw new Exception("Error fetching orders by date range: " . $e->getMessage());
         }
     }
 
@@ -317,7 +285,6 @@ class Orders extends HandleData
                 }
             }
         }
-
         // Validate numeric fields
         if (isset($data['TotalAmount']) && (!is_numeric($data['TotalAmount']) || $data['TotalAmount'] < 0)) {
             $errors[] = "Total amount must be a positive number";

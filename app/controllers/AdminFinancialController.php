@@ -23,7 +23,7 @@ class AdminFinancialController extends BaseAdminController
         $totalRevenue = $this->financialModel->getTotalRevenue($month, $year, $shopID);
         $availableYears = $this->financialModel->getAvailableYears();
 
-        $this->loadAdminView('../app/views/admin/FinancialFE.php', [
+        $this->loadAdminView('../app/views/admin/financial_manager.php', [
             'revenueData' => $revenueData,
             'chartData' => $chartData,
             'totalRevenue' => $totalRevenue,
@@ -35,7 +35,6 @@ class AdminFinancialController extends BaseAdminController
             'title' => "ElectroMart - Quản lý tài chính"
         ]);
     }
-
 
     public function getChartData()
     {

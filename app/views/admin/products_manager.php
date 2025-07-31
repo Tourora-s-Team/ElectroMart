@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/electromart/public/css/admin/StyleProducs.css">
 <div class="products-management-page">
     <!-- Search and Sort Section -->
 
@@ -78,7 +79,10 @@
                         <td><?= htmlspecialchars($product['Brand']) ?></td>
                         <td class="price"><?= number_format($product['Price'], 0, ',', '.') ?> VNĐ</td>
                         <td class="edit">
-                            <button onclick='editProduct(<?php echo json_encode($product); ?>)'>✏️Sửa</button>
+                            <button type="button" onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️Sửa</button>
+                            <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️Xoá</button>
+                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i>Khoá sản phẩm
+                            </button>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -198,6 +202,8 @@
         </div>
         <form id="editProductForm">
             <input type="hidden" id="product_id1" name="ProductID">
+            <input type="hidden" id="isactive" name="IsActive">
+
             <div class="form-group">
                 <label for="product_name">Tên sản phẩm *</label>
                 <input type="text" id="editProductName" name="ProductName" required>
@@ -257,9 +263,6 @@
                 <option value="10">Thiết bị văn phòng</option>
 
             </select>
-
-
-
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Lưu sản phẩm
@@ -271,273 +274,4 @@
         </form>
     </div>
 </div>
-
-
-<script>
-    function showAddProductModal() {
-        document.getElementById('addProductModal').style.display = 'block';
-    }
-
-    function closeAddProductModal() {
-        document.getElementById('addProductModal').style.display = 'none';
-        document.getElementById('addProductForm').reset();
-    }
-
-
-    function searchProducts() {
-        const search = document.getElementById('searchInput').value;
-        const sortBy = document.getElementById('sortBy').value;
-        const sortOrder = document.getElementById('sortOrder').value;
-
-        window.location.href = `?admin/products&search=${encodeURIComponent(search)}&sort_by=${sortBy}&sort_order=${sortOrder}`;
-    }
-
-    function sortProducts() {
-        const search = document.getElementById('searchInput').value;
-        const sortBy = document.getElementById('sortBy').value;
-        const sortOrder = document.getElementById('sortOrder').value;
-
-        window.location.href = `?admin/products&search=${encodeURIComponent(search)}&sort_by=${sortBy}&sort_order=${sortOrder}`;
-    }
-
-    function exportProducts() {
-        window.location.href = '/electromart/public/admin/products/export-txt';
-    }
-
-    // Handle form submission
-    document.getElementById('addProductForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-
-        fetch('products/add', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message);
-                    closeAddProductModal();
-                    location.reload();
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Có lỗi xảy ra khi thêm sản phẩm!');
-            });
-    });
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        const modal = document.getElementById('addProductModal');
-        if (event.target == modal) {
-            closeAddProductModal();
-        }
-    }
-
-    // Search on Enter key
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchProducts();
-        }
-    });
-</script>
-<script src="/ElectroMart/public/js/AdminJs/Orders.js"></script>
-<script>
-    function deleteProduct(id) {
-        if (confirm(`Bạn có chắc muốn xoá sản phẩm ID: ${id}?`)) {
-            fetch(`/electromart/public/admin/products/delete/${id}`, {
-                    method: 'GET'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message || "Xoá thành công!");
-                        location.reload();
-                    } else {
-                        alert(data.message || "Xoá thất bại!");
-                    }
-                })
-                .catch(error => {
-                    console.error("Lỗi khi xoá:", error);
-                    alert("Đã xảy ra lỗi khi xoá sản phẩm.");
-                });
-        }
-    }
-</script>
-<style>
-    .products-management-page {
-        padding: 20px;
-    }
-
-    .search-sort-section {
-        background: white;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
-
-    .header-actions {
-        display: flex;
-        margin-left: 820px;
-    }
-
-    .search-container {
-        display: flex;
-        gap: 10px;
-        flex: 1;
-        max-width: 400px;
-    }
-
-    .search-container input {
-        flex: 1;
-        padding: 10px;
-        border: 2px solid #e1e5e9;
-        border-radius: 8px;
-        font-size: 14px;
-    }
-
-    .sort-container {
-        display: flex;
-        gap: 10px;
-    }
-
-    .sort-container select {
-        padding: 10px;
-        border: 2px solid #e1e5e9;
-        border-radius: 8px;
-        font-size: 14px;
-    }
-
-    .product-image {
-        width: 80px;
-        text-align: center;
-    }
-
-    .product-image img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border-radius: 8px;
-        border: 2px solid #e1e5e9;
-    }
-
-    .no-image {
-        width: 60px;
-        height: 60px;
-        background: #f8f9fa;
-        border: 2px dashed #dee2e6;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        color: #6c757d;
-        text-align: center;
-    }
-
-    .price {
-        font-weight: 600;
-        color: #27ae60;
-    }
-
-    .products-stats {
-        background: white;
-        padding: 15px 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
-        margin-top: 20px;
-    }
-
-    .stat-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: #2c3e50;
-    }
-
-    .stat-item i {
-        color: #667eea;
-        font-size: 18px;
-    }
-
-    /* Modal Styles */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-content {
-        background-color: white;
-        margin: 5% auto;
-        padding: 0;
-        border-radius: 12px;
-        width: 90%;
-        max-width: 600px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .modal-header {
-        padding: 20px;
-        border-bottom: 1px solid #e1e5e9;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .modal-header h2 {
-        margin: 0;
-        color: #2c3e50;
-    }
-
-    .close {
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-        color: #aaa;
-    }
-
-    .close:hover {
-        color: #000;
-    }
-
-    #addProductForm {
-        padding: 20px;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
-    @media (max-width: 768px) {
-        .search-sort-section {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .search-container {
-            max-width: none;
-        }
-
-        .form-row {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
+<script src="/electromart/public/js/adminJs/Producs.js"></script>

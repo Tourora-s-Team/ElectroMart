@@ -52,7 +52,6 @@
 
     <!-- Revenue Data Table -->
     <div class="table-container">
-        <h3>Chi tiết doanh thu</h3>
         <table class="orders-table">
             <thead>
                 <tr>
@@ -114,6 +113,4 @@
     </div>
 </div>
 
-
-<!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

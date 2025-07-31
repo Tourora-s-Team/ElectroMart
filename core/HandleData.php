@@ -48,13 +48,6 @@ class HandleData extends Database
         }
     }
 
-    // Hàm thực thi có tham số (INSERT, UPDATE, DELETE)
-    public function write($sql, $params = [])
-    {
-        $conn = $this->db->connectDB();
-        $stmt = $conn->prepare($sql);
-        return $stmt->execute($params);
-    }
     // Hàm lấy ID cuối cùng được chèn ( tự tăng )
     public function getLastInsertId()
     {
@@ -85,5 +78,3 @@ class HandleData extends Database
 
 
 }
-
-?>

@@ -1,45 +1,3 @@
-// Orders-specific JavaScript functionality
-
-// Order management functions
-window.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("addProductForm");
-    if (!form) return;
-
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const formData = new FormData(form);
-        fetch("/electromart/public/admin/products/update", {
-            method: "POST",
-            body: formData,
-        })
-            .then(res => res.json())
-            .then(data => {
-                alert(data.success ? "Cập nhật thành công!" : "Thất bại!");
-            })
-            .catch(err => {
-                console.error("Lỗi:", err);
-            });
-    });
-});
-document.getElementById("addProductForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    fetch("/electromart/public/admin/products/update", {
-        method: "POST",
-        body: formData
-    })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                alert("Cập nhật sản phẩm thành công!");
-                closeAddProductModal();
-            } else {
-                alert("Cập nhật thất bại!");
-            }
-        });
-});
 class OrderManager {
     constructor() {
         this.orders = [];
@@ -142,78 +100,7 @@ class OrderManager {
         this.showSuccessMessage(`Đã xóa đơn hàng ${orderId} thành công`);
     }
 
-    showOrderDetailsModal(order) {
-        const modal = this.createModal('Thông tin chi tiết đơn hàng', `
-            <div class="order-details">
-                <div class="detail-row">
-                    <span class="detail-label">Mã đơn hàng:</span>
-                    <span class="detail-value">${this.escapeHtml(order.OrderID)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Ngày đặt:</span>
-                    <span class="detail-value">${this.formatDate(new Date(order.OrderDate))}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Trạng thái:</span>
-                    <span class="status-badge status-${order.Status.toLowerCase()}">${this.escapeHtml(order.Status)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Phí ship:</span>
-                    <span class="detail-value">${this.formatCurrency(order.ShippingFee)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Tổng tiền:</span>
-                    <span class="detail-value font-semibold">${this.formatCurrency(order.TotalAmount)}</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">User ID:</span>
-                    <span class="detail-value">${this.escapeHtml(order.UserID)}</span>
-                </div>
-            </div>
-        `);
 
-        document.body.appendChild(modal);
-    }
-
-    showEditOrderModal(order) {
-        const modal = this.createModal('Chỉnh sửa đơn hàng', `
-            <form class="edit-order-form" onsubmit="orderManager.saveOrderChanges(event, '${order.OrderID}')">
-                <div class="form-group">
-                    <label>Mã đơn hàng:</label>
-                    <input type="text" value="${this.escapeHtml(order.OrderID)}" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Trạng thái:</label>
-                    <select name="status" required>
-                        <option value="Pending" ${order.Status === 'Pending' ? 'selected' : ''}>Chờ xử lý</option>
-                        <option value="Processing" ${order.Status === 'Processing' ? 'selected' : ''}>Đang xử lý</option>
-                        <option value="Completed" ${order.Status === 'Completed' ? 'selected' : ''}>Hoàn thành</option>
-                        <option value="Cancelled" ${order.Status === 'Cancelled' ? 'selected' : ''}>Đã hủy</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Phí ship:</label>
-                    <input type="number" name="shippingFee" value="${order.ShippingFee}" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label>Tổng tiền:</label>
-                    <input type="number" name="totalAmount" value="${order.TotalAmount}" min="0" required>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i>
-                        Lưu thay đổi
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="orderManager.closeModal(this.closest('.modal'))">
-                        <i class="fas fa-times"></i>
-                        Hủy
-                    </button>
-                </div>
-            </form>
-        `);
-
-        document.body.appendChild(modal);
-    }
 
 
     saveOrderChanges(event, orderId) {
@@ -420,116 +307,6 @@ class OrderManager {
         };
     }
 }
-function deleteProduct(id) {
-    if (confirm(`Bạn có chắc muốn xoá sản phẩm ID: ${id}?`)) {
-        fetch(`/electromart/public/admin/products/delete/${id}`, {
-            method: 'GET'
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message || "Xoá thành công!");
-                    location.reload();
-                } else {
-                    alert(data.message || "Xoá thất bại!");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi khi xoá:", error);
-                alert("Đã xảy ra lỗi khi xoá sản phẩm.");
-            });
-    }
-}
-function showEditProductModal(product) {
-    // Gán dữ liệu vào form
-    document.getElementById('editProductName').value = product.ProductName;
-    document.getElementById('editProductDescription').value = product.Description;
-    document.getElementById('editProductStockQuantity').value = product.StockQuantity;
-    document.getElementById('editProductPrice').value = product.Price;
-    document.getElementById('editProductBrand').value = product.Brand;
-    document.getElementById('editProductImageURL').value = product.ImageURL;
-    console.log(document.querySelectorAll('#product_id').length);
-    // Gán ProductID
-    document.getElementById('product_id1').value = product.ProductID;
-    // Mở modal
-    document.getElementById('editProductModal').style.display = 'block';
-}
-
-
-function closeEditProductModal() {
-    document.getElementById('editProductModal').style.display = 'none';
-}
-document.getElementById("editProductForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const formData = new FormData(form);
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
-    }
-
-    fetch("/electromart/public/admin/products/update", {
-        method: "POST",
-        body: formData,
-    })
-        .then((res) => res.json())
-
-        .then((data) => {
-            if (data.success) {
-                alert("Cập nhật sản phẩm thành công!");
-                closeEditProductModal();
-                // Gọi lại load sản phẩm nếu cần
-            } else {
-                alert("Lỗi khi gửi dữ liệu!");
-            }
-        })
-        .catch((err) => {
-            console.error(err);
-            alert("Lỗi kết nối tới server!");
-        });
-});
-
-function editProduct(product) {
-    showEditProductModal(product);
-}
-
-
-
-// function editProduct(id) {
-//     fetch(`/electromart/public/admin/products/get/${id}`)
-//         .then(response => response.json())
-//         .then(product => {
-//             // Gán dữ liệu vào các input
-//             document.getElementById('product_id').value = product.ProductID; // gán ID để biết là đang sửa
-//             document.getElementById('product_name').value = product.ProductName;
-//             document.getElementById('product_type').value = product.Description;
-//             document.getElementById('stock_quantity').value = product.StockQuantity;
-//             document.getElementById('price').value = product.Price;
-//             document.getElementById('brand').value = product.Brand;
-//             document.getElementById('image_url').value = product.ImageURL;
-//             document.getElementById('ShopIDSelect').value = product.ShopID;
-//             document.querySelector("select[name='CategoryID']").value = product.CategoryID;
-
-//             // Đổi tiêu đề và nút
-//             document.querySelector("#addProductModal .modal-header h2").textContent = "Sửa sản phẩm";
-//             document.querySelector("#addProductForm button[type='submit']").innerHTML = `<i class="fas fa-save"></i> Lưu thay đổi`;
-
-//             // Mở modal
-//             showAddProductModal();
-//         });
-// }
-
-
-document.getElementById("addProductForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const formData = new FormData(this);
-    fetch("/electromart/public/admin/products/save", {
-        method: "POST",
-        body: formData
-    }).then(() => location.reload());
-});
-
 
 // Initialize order manager when DOM is loaded
 let orderManager;
@@ -731,51 +508,7 @@ function updateTableDisplay() {
     }, 200);
 }
 
-function createOrderRow(order) {
-    const row = document.createElement('tr');
-    row.className = 'order-row';
-    row.setAttribute('data-order-id', order.OrderID);
 
-    row.innerHTML = `
-        <td class="order-id">
-            <span class="font-medium">${escapeHtml(order.OrderID)}</span>
-        </td>
-        <td class="order-date">
-            <span class="timestamp" data-date="${order.OrderDate}">
-                ${formatDate(new Date(order.OrderDate))}
-            </span>
-        </td>
-        <td class="order-status">
-            <span class="status-badge status-${order.Status.toLowerCase()}">
-                ${escapeHtml(order.Status)}
-            </span>
-        </td>
-        <td class="shipping-fee">
-            <span class="currency">${formatCurrency(order.ShippingFee)}</span>
-        </td>
-        <td class="total-amount">
-            <span class="currency font-semibold">${formatCurrency(order.TotalAmount)}</span>
-        </td>
-        <td class="user-id">
-            <span>${escapeHtml(order.UserID)}</span>
-        </td>
-        <td class="actions">
-            <div class="action-buttons">
-                <button class="btn-icon btn-view" onclick="viewOrder('${order.OrderID}')" data-tooltip="Xem chi tiết">
-                    <i class="fas fa-eye"></i>
-                </button>
-                <button class="btn-icon btn-edit" onclick="editOrder('${order.OrderID}')" data-tooltip="Chỉnh sửa">
-                    <i class="fas fa-edit"></i>
-                </button>
-                <button class="btn-icon btn-delete" onclick="deleteOrder('${order.OrderID}')" data-tooltip="Xóa">
-                    <i class="fas fa-trash"></i>
-                </button>
-            </div>
-        </td>
-    `;
-
-    return row;
-}
 
 function updateStats() {
     const totalOrders = document.getElementById('totalOrders');
@@ -814,20 +547,6 @@ function viewOrder(orderId) {
 function editOrder(orderId) {
     console.log('Editing order:', orderId);
     showNotification('Chỉnh sửa đơn hàng: ' + orderId, 'info');
-}
-
-function deleteOrder(orderId) {
-    if (confirm(`Bạn có chắc chắn muốn xóa đơn hàng ${orderId}?`)) {
-        console.log('Deleting order:', orderId);
-        showNotification('Đã xóa đơn hàng: ' + orderId, 'success');
-
-        // Remove from current display
-        const row = document.querySelector(`[data-order-id="${orderId}"]`);
-        if (row) {
-            row.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(() => row.remove(), 300);
-        }
-    }
 }
 
 function openAddOrderModal() {
@@ -957,27 +676,6 @@ function sortTable(columnIndex) {
     console.log('Sorting by column:', columnIndex);
     // TODO: Implement table sorting functionality
 }
-function deleteProduct(id) {
-    if (confirm(`Bạn có chắc muốn xoá sản phẩm ID: ${id}?`)) {
-        fetch(`/electromart/public/admin/products/delete/${id}`, {
-            method: 'GET'
-        })
-
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.message || "Xoá thành công!");
-                    location.reload(); // làm mới bảng sản phẩm
-                } else {
-                    alert(data.message || "Xoá thất bại!");
-                }
-            })
-            .catch(error => {
-                console.error("Lỗi khi xoá:", error);
-                alert("Đã xảy ra lỗi khi xoá sản phẩm.");
-            });
-    }
-}
 
 
 function showNotification(message, type = 'info') {
@@ -988,7 +686,6 @@ function showNotification(message, type = 'info') {
         ${message}
     `;
 
-    // Add notification styles
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -1012,174 +709,5 @@ function showNotification(message, type = 'info') {
         notification.style.animation = 'slideOutRight 0.3s ease';
         setTimeout(() => notification.remove(), 300);
     }, 3000);
-}
+};
 
-// Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes fadeOut {
-        from {
-            opacity: 1;
-            transform: scale(1);
-        }
-        to {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-    }
-
-    .mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
-        font-size: 20px;
-        color: #374151;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 4px;
-        transition: background-color 0.2s ease;
-    }
-
-    .mobile-menu-btn:hover {
-        background-color: #f3f4f6;
-    }
-
-    @media (max-width: 1024px) {
-        .mobile-menu-btn {
-            display: block;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-
-// Add additional CSS animations
-const additionalStyle = document.createElement('style');
-additionalStyle.textContent = `
-    @keyframes modalSlideOut {
-        from {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        to {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.02);
-            background-color: #f0f9ff;
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
-
-    .order-details .detail-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 0;
-        border-bottom: 1px solid #f3f4f6;
-    }
-
-    .order-details .detail-row:last-child {
-        border-bottom: none;
-    }
-
-    .order-details .detail-label {
-        font-weight: 600;
-        color: #374151;
-        min-width: 120px;
-    }
-
-    .order-details .detail-value {
-        color: #111827;
-        text-align: right;
-    }
-
-    .edit-order-form .form-group {
-        margin-bottom: 16px;
-    }
-
-    .edit-order-form label {
-        display: block;
-        font-weight: 600;
-        color: #374151;
-        margin-bottom: 6px;
-        font-size: 14px;
-    }
-
-    .edit-order-form input,
-    .edit-order-form select {
-        width: 100%;
-        padding: 10px 12px;
-        border: 2px solid #d1d5db;
-        border-radius: 6px;
-        font-size: 14px;
-        transition: border-color 0.2s ease;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .edit-order-form input:focus,
-    .edit-order-form select:focus {
-        outline: none;
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-    }
-
-    .form-actions {
-        display: flex;
-        gap: 12px;
-        justify-content: flex-end;
-        margin-top: 24px;
-        padding-top: 16px;
-        border-top: 1px solid #e5e7eb;
-    }
-
-    .btn-secondary {
-        background-color: #6b7280;
-        color: white;
-    }
-
-    .btn-secondary:hover {
-        background-color: #4b5563;
-        transform: translateY(-1px);
-    }
-
-    .order-row {
-        cursor: pointer;
-    }
-
-    .order-row:hover {
-        background-color: #f8fafc !important;
-    }
-`;
-document.head.appendChild(additionalStyle);

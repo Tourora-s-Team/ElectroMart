@@ -1,5 +1,5 @@
 <?php
-require_once ROOT_PATH . '/app/models/Orders.php';
+require_once ROOT_PATH . '/app/models/OrdersManager.php';
 require_once ROOT_PATH . '/app/controllers/BaseAdminController.php';
 
 class AdminOrdersController extends BaseAdminController
@@ -9,27 +9,25 @@ class AdminOrdersController extends BaseAdminController
     public function __construct()
     {
         parent::__construct();
-        $this->orderModel = new Orders();
+        $this->orderModel = new OrdersManager();
     }
 
     public function index()
     {
-        
-            $filters = [
-                'status' => $_GET['status'] ?? '',
-                'fromDate' => $_GET['fromDate'] ?? '',
-                'toDate' => $_GET['toDate'] ?? '',
-                'userID' => $_GET['userID'] ?? ''
-            ];
+        $filters = [
+            'status' => $_GET['status'] ?? '',
+            'fromDate' => $_GET['fromDate'] ?? '',
+            'toDate' => $_GET['toDate'] ?? '',
+            'userID' => $_GET['userID'] ?? ''
+        ];
 
-            $orders = $this->orderModel->getAllOrders($filters);
-            $stats = $this->orderModel->getOrderStats($filters);
-            $this->loadView('OrdersFE', [
-                'orders' => $orders,
-                'stats' => $stats,
-                'filters' => $filters
-            ]);
-       
+        $orders = $this->orderModel->getAllOrders($filters);
+        $stats = $this->orderModel->getOrderStats($filters);
+        $this->loadView('orders_manager', [
+            'orders' => $orders,
+            'stats' => $stats,
+            'filters' => $filters
+        ]);
     }
 
     public function view($orderId)
@@ -73,7 +71,7 @@ class AdminOrdersController extends BaseAdminController
             return 0;
         }
     }
-    
+
     public function loadView($view, $data = [])
     {
         extract($data);

@@ -9,7 +9,7 @@ class AdminProductsController extends BaseAdminController
     public function __construct()
     {
         parent::__construct(); // Kiểm tra quyền admin
-        $this->productModel = new Product1();
+        $this->productModel = new ProductManager();
     }
 
     public function index()
@@ -21,7 +21,7 @@ class AdminProductsController extends BaseAdminController
         $products = $this->productModel->getAllProductsWithImages($search, $sortBy, $sortOrder);
         $totalProducts = $this->productModel->getProductCount();
 
-        $this->loadAdminView('../app/views/admin/ProductsFE.php', [
+        $this->loadAdminView('../app/views/admin/products_manager.php', [
             'products' => $products,
             'totalProducts' => $totalProducts,
             'pageTitle' => "Quản lý sản phẩm",
@@ -30,7 +30,7 @@ class AdminProductsController extends BaseAdminController
             'pageSubtitle' => 'Danh sách sản phẩm hiện có'
         ]);
     }
-    // Lấy sản phẩm theo ID
+
     public function get($id)
     {
         echo json_encode($this->productModel->getById($id));
@@ -41,8 +41,8 @@ class AdminProductsController extends BaseAdminController
     public function delete($id)
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php'; // Gọi model Product
-        $product = new Product1(); // Gọi model
-        $product->deleteByID($id); // Xoá sản phẩm theo ID
+        $product = new ProductManager(); // Gọi model
+        $product->deleteProduct($id); // Xoá sản phẩm theo ID
         // Có thể redirect hoặc in ra thông báo
         if ($product) {
             echo "Deleted successfully";
@@ -69,7 +69,7 @@ class AdminProductsController extends BaseAdminController
             $imageUrl = $_POST['ImageURL'] ?? '';
 
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
             $result = $productModel->insert([
                 'ProductName' => $name,
                 'CategoryID' => $category,
@@ -97,13 +97,10 @@ class AdminProductsController extends BaseAdminController
                 'ShopID' => $_POST['ShopID'] ?? null,
                 'CategoryID' => $_POST['CategoryID'] ?? null
             ];
-
-
             require_once ROOT_PATH . '/app/models/ProductManager.php';
-            $productModel = new Product1();
+            $productModel = new ProductManager();
 
             $result = $productModel->updateProduct($data);
-
             // Phản hồi JSON
             header('Content-Type: application/json');
             echo json_encode(['success' => $result]);
@@ -111,75 +108,67 @@ class AdminProductsController extends BaseAdminController
         }
     }
 
-
-
-
     public function add()
     {
-        // Lấy dữ liệu từ form (POST)
-        $data = [
-            'ProductName' => $_POST['ProductName'] ?? '',
-            'Description' => $_POST['Description'] ?? '',
-            'StockQuantity' => $_POST['StockQuantity'] ?? 0,
-            'Price' => $_POST['Price'] ?? 0,
-            'Brand' => $_POST['Brand'] ?? '',
-            'ImageURL' => $_POST['ImageURL'] ?? '',
-            'ShopID' => $_POST['ShopID'] ?? null,
-            'CategoryID' => $_POST['CategoryID'] ?? null
-        ];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'ProductName' => $_POST['ProductName'] ?? '',
+                'Description' => $_POST['Description'] ?? '',
+                'StockQuantity' => $_POST['StockQuantity'] ?? 0,
+                'Price' => $_POST['Price'] ?? 0,
+                'Brand' => $_POST['Brand'] ?? '',
+                'ImageURL' => $_POST['ImageURL'] ?? '',
+                'ShopID' => $_POST['ShopID'] ?? null,
+                'CategoryID' => $_POST['CategoryID'] ?? null,
+                'IsActive' => $_POST['IsActive'] ?? 1
+            ];
 
-        require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
-
-        try {
-            $result = $productModel->insert($data);
-
-            if ($result) {
-                echo json_encode(['success' => true, 'message' => 'Sản phẩm đã được thêm thành công.']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Không thể thêm sản phẩm.']);
+            try {
+                $result = $this->productModel->insert($data);
+                echo json_encode(['success' => $result, 'message' => $result ? 'Thêm sản phẩm thành công' : 'Thêm sản phẩm thất bại']);
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => 'Lỗi: ' . $e->getMessage()]);
             }
-        } catch (Exception $e) {
-            // Trả lỗi cụ thể về cho phía front-end
-            echo json_encode([
-                'success' => false,
-                'message' => 'Lỗi khi thêm sản phẩm: ' . $e->getMessage()
-            ]);
+            exit;
         }
-        exit;
     }
-
-
 
     public function exportTxt()
     {
         require_once ROOT_PATH . '/app/models/ProductManager.php';
-        $productModel = new Product1();
+        $productModel = new ProductManager();
         $products = $productModel->getAllProducts();
 
         // Gửi header để tải file
         header('Content-Type: text/plain');
         header('Content-Disposition: attachment; filename="DanhSachSanPham.txt"');
-
-        // Tiêu đề
         echo "ID\tTên sản phẩm\tLoại sản phẩm\tSố lượng\tThương hiệu\tGiá sản phẩm\n";
 
         // Duyệt dữ liệu
         foreach ($products as $p) {
-            $id = $p['ProductID'] ?? '';
-            $name = $p['ProductName'] ?? '';
-            $desc = $p['Description'] ?? '';
-            $qty = $p['StockQuantity'] ?? '';
-            $brand = $p['Brand'] ?? '';
-            $price = $p['Price'] ?? '';
+            $id = $p['ProductID'] . '';
+            $name = $p['ProductName'] . '';
+            $desc = $p['Description'] . '';
+            $qty = $p['StockQuantity'] . '';
+            $brand = $p['Brand'] . '';
+            $price = $p['Price'] . '';
 
             echo "$id\t$name\t$desc\t$qty\t$brand\t$price\n";
         }
-
         exit;
     }
 
-
+    public function lockProduct()
+    {
+        if (isset($_GET['id'])) {
+            $productId = $_GET['id'];
+            $productModel = new ProductManager();
+            $productModel->lockProductById($productId);
+            http_response_code(200);
+        } else {
+            http_response_code(400);
+        }
+    }
 
     public function search()
     {

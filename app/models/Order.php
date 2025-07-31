@@ -27,7 +27,7 @@ class Order
     public function createOrder($status, $shippingFee, $totalAmount, $userId)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO orders (OrderDate, Status, ShippingFee, TotalAmount, UserID) VALUES (now(), :status, :shippingFee, :totalAmount, :userId)";
+        $sql = "INSERT INTO Orders (OrderDate, Status, ShippingFee, TotalAmount, UserID) VALUES (now(), :status, :shippingFee, :totalAmount, :userId)";
         $params = [
             ':status' => $status,
             ':shippingFee' => $shippingFee,
@@ -36,14 +36,14 @@ class Order
         ];
         $handleData->getDataWithParams($sql, $params);
         // Lấy OrderID mới nhất của user này
-        $sqlGet = "SELECT OrderID FROM orders WHERE UserID = :userId ORDER BY OrderID DESC LIMIT 1";
+        $sqlGet = "SELECT OrderID FROM Orders WHERE UserID = :userId ORDER BY OrderID DESC LIMIT 1";
         $result = $handleData->getDataWithParams($sqlGet, [':userId' => $userId]);
         return $result ? (int) $result[0]['OrderID'] : 0;
     }
     public function createOrderDetail($orderId, $productId, $quantity, $total, $shopId)
     {
         $handleData = new HandleData();
-        $sql = "INSERT INTO orderdetail (OrderID, ProductID, Quantity, UnitPrice, ShopID) VALUES (:orderId, :productId, :quantity, :total, :shopId)";
+        $sql = "INSERT INTO OrderDetail (OrderID, ProductID, Quantity, UnitPrice, ShopID) VALUES (:orderId, :productId, :quantity, :total, :shopId)";
         $params = [
             ':orderId' => $orderId,
             ':productId' => $productId,

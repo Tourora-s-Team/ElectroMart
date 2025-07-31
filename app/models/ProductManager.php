@@ -1,7 +1,7 @@
 <?php
 require_once ROOT_PATH . '/core/HandleData.php';
 
-class Product1
+class ProductManager extends HandleData
 {
     private $pdo;
 
@@ -10,6 +10,13 @@ class Product1
         $database = new Database();
         $this->pdo = $database->connectDB();
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // <== Thêm dòng này
+    }
+
+    public function lockProductById($productId)
+    {
+        $sql = "UPDATE Product SET IsActive = 0 WHERE ProductID = :productId";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['productId' => $productId]);
     }
 
     public function getAllProductsWithImages($search = '', $sortBy = 'StockQuantity', $sortOrder = 'ASC')
@@ -21,6 +28,7 @@ class Product1
                     p.StockQuantity,
                     p.Brand,
                     p.Price,
+                    p.IsActive,
                     pi.ImageURL
                 FROM Product p
                 LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID";
@@ -44,6 +52,7 @@ class Product1
         $stmt->execute($params);
         return $stmt->fetchAll();
     }
+
     public function getById($id)
     {
         $sql = "SELECT * FROM Product WHERE ProductID = :id";
@@ -52,22 +61,13 @@ class Product1
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
-    public function deleteByID($productID)
+    public function deleteProduct($id)
     {
-        $sql1 = "DELETE FROM OrderDetail WHERE ProductID = ?";
-        $stmt1 = $this->pdo->prepare($sql1);
-        $stmt1->execute([$productID]);
-
-        $sql2 = "DELETE FROM CartItem WHERE ProductID = ?";
-        $stmt2 = $this->pdo->prepare($sql2);
-        $stmt2->execute([$productID]);
-
-        $sql3 = "DELETE FROM Product WHERE ProductID = ?";
-        $stmt3 = $this->pdo->prepare($sql3);
-        return $stmt3->execute([$productID]);
+        $sql = "DELETE FROM Product WHERE ProductID = :id";
+        $stmt = $this->pdo->prepare($sql);
+        $success = $stmt->execute([':id' => $id]);
+        return $success;
     }
-
 
 
     public function insert($data)
@@ -81,12 +81,12 @@ class Product1
             empty($data['Brand']) ||
             empty($data['CategoryID']) ||
             empty($data['ShopID'])
+
         ) {
             throw new Exception("Thiếu dữ liệu bắt buộc cho sản phẩm.");
         }
 
         try {
-            // 1. Thêm vào bảng Product
             $stmt = $this->pdo->prepare("
             INSERT INTO Product (
                 ProductName, Description, Price, StockQuantity, Brand,
@@ -120,7 +120,7 @@ class Product1
                     ':productId' => $productId,
                     ':imageUrl'  => $data['ImageURL'],
                     ':shopId'    => $data['ShopID'],
-                    ':isThumb'   => 1 // hoặc 0, tuỳ theo logic
+                    ':isThumb'   => 1
                 ]);
             }
 
@@ -128,7 +128,6 @@ class Product1
         } catch (PDOException $e) {
             $errorCode = $e->getCode();
             $errorMsg = $e->getMessage();
-
             // Bắt lỗi cụ thể
             if (str_contains($errorMsg, 'foreign key constraint')) {
                 throw new Exception("Lỗi ràng buộc khóa ngoại: Có thể CategoryID hoặc ShopID không tồn tại.");
@@ -143,33 +142,13 @@ class Product1
         }
     }
 
-
-
     public function getAllProducts()
     {
-        $sql = "SELECT ProductID, ProductName, Description, StockQuantity, Brand, Price FROM Product";
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->pdo->prepare("SELECT * FROM Product");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-    public function update($id, $data)
-    {
-        $sql = "UPDATE Orders SET name = :name, type = :type, stock_quantity = :stock_quantity,
-            price = :price, brand = :brand, image_url = :image_url WHERE id = :id";
-        $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute([
-            ':id' => $id,
-            ':name' => $data['product_name'],
-            ':type' => $data['product_type'],
-            ':stock_quantity' => $data['stock_quantity'],
-            ':price' => $data['price'],
-            ':brand' => $data['brand'],
-            ':image_url' => $data['image_url']
-        ]);
-    }
     public function updateProduct($data)
     {
         try {
@@ -177,14 +156,14 @@ class Product1
 
             // Cập nhật bảng Product
             $sql = "UPDATE Product SET 
-        ProductName = :ProductName,
-        Description = :Description,
-        StockQuantity = :StockQuantity,
-        Price = :Price,
-        Brand = :Brand,
-        ShopID = :ShopID,
-        CategoryID = :CategoryID
-        WHERE ProductID = :ProductID";
+                ProductName = :ProductName,
+                Description = :Description,
+                StockQuantity = :StockQuantity,
+                Price = :Price,
+                Brand = :Brand,
+                ShopID = :ShopID,
+                CategoryID = :CategoryID
+                WHERE ProductID = :ProductID";
 
 
             $stmt = $this->pdo->prepare($sql);
@@ -226,16 +205,6 @@ class Product1
             return $isUpdated;
         } catch (Exception $e) {
             $this->pdo->rollBack();
-
-            // In lỗi chi tiết ra trình duyệt (tạm thời để debug)
-            header('Content-Type: application/json');
-            echo json_encode([
-                'success' => false,
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-            var_dump($data);
-            var_dump($stmt->errorInfo());
         }
     }
 
@@ -255,13 +224,13 @@ class Product1
 
             $stmt = $this->pdo->prepare($sql);
             $result = $stmt->execute([
-                ':name'         => $data['name'],
-                ':description'  => $data['description'],
-                ':price'        => $data['price'],
-                ':stock'        => $data['stock'],
-                ':brand'        => $data['brand'],
-                ':shop_id'      => $data['shop_id'],
-                ':category_id'  => $data['category_id']
+                ':name' => $data['name'],
+                ':description' => $data['description'],
+                ':price' => $data['price'],
+                ':stock' => $data['stock'],
+                ':brand' => $data['brand'],
+                ':shop_id' => $data['shop_id'],
+                ':category_id' => $data['category_id']
             ]);
 
             if (!$result) {
