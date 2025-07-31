@@ -37,6 +37,51 @@ class AdminProductsController extends BaseAdminController
     }
 
 
+
+    public function delete($id)
+    {
+        require_once ROOT_PATH . '/app/models/ProductManager.php'; // Gọi model Product
+        $product = new ProductManager(); // Gọi model
+        $product->deleteByID($id); // Xoá sản phẩm theo ID
+        // Có thể redirect hoặc in ra thông báo
+        if ($product) {
+            echo "Deleted successfully";
+        } else {
+            echo "Failed to delete";
+        }
+        header('Location: /electromart/public/admin/products'); // Quay lại danh sách sản phẩm
+        exit;
+    }
+
+
+
+
+    // Thêm hoặc cập nhật sản phẩm
+
+    public function save()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['ProductName'] ?? '';
+            $category = $_POST['CategoryID'] ?? '';
+            $quantity = $_POST['StockQuantity'] ?? 0;
+            $brand = $_POST['Brand'] ?? '';
+            $price = $_POST['Price'] ?? 0;
+            $imageUrl = $_POST['ImageURL'] ?? '';
+
+            require_once ROOT_PATH . '/app/models/ProductManager.php';
+            $productModel = new ProductManager();
+            $result = $productModel->insert([
+                'ProductName' => $name,
+                'CategoryID' => $category,
+                'StockQuantity' => $quantity,
+                'Brand' => $brand,
+                'Price' => $price,
+                'ImageURL' => $imageUrl
+            ]);
+
+            echo json_encode(['success' => $result]);
+        }
+    }
     public function update()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,6 +99,7 @@ class AdminProductsController extends BaseAdminController
             ];
             require_once ROOT_PATH . '/app/models/ProductManager.php';
             $productModel = new ProductManager();
+
             $result = $productModel->updateProduct($data);
             // Phản hồi JSON
             header('Content-Type: application/json');

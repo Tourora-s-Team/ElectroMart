@@ -208,6 +208,63 @@ class ProductManager extends HandleData
         }
     }
 
+
+
+
+    public function addProduct($data)
+    {
+        try {
+            $this->pdo->beginTransaction();
+
+            // 1. Thêm sản phẩm
+            $sql = "INSERT INTO Product 
+            (ProductName, Description, Price, StockQuantity, Brand, ShopID, CategoryID, CreateAt, UpdatedAt, IsActive) 
+            VALUES 
+            (:name, :description, :price, :stock, :brand, :shop_id, :category_id, NOW(), NOW(), 1)";
+
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->execute([
+                ':name' => $data['name'],
+                ':description' => $data['description'],
+                ':price' => $data['price'],
+                ':stock' => $data['stock'],
+                ':brand' => $data['brand'],
+                ':shop_id' => $data['shop_id'],
+                ':category_id' => $data['category_id']
+            ]);
+
+            if (!$result) {
+                throw new Exception("Không thể thêm sản phẩm");
+            }
+
+            $productId = $this->pdo->lastInsertId();
+
+            // 2. Thêm ảnh nếu có
+            if (!empty($data['image_url'])) {
+                $imgSql = "INSERT INTO ProductImage 
+                (ProductID, ImageURL, IsPrimary, CreateAt) 
+                VALUES 
+                (:product_id, :image_url, 1, NOW())";
+
+                $imgStmt = $this->pdo->prepare($imgSql);
+                $imgStmt->execute([
+                    ':product_id' => $productId,
+                    ':image_url' => $data['image_url']
+                ]);
+            }
+
+            $this->pdo->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            error_log("Lỗi khi thêm sản phẩm: " . $e->getMessage());
+            return false;
+        }
+    }
+
+
+
+
     public function exportToTxt()
     {
         $products = $this->getAllProductsWithImages();
