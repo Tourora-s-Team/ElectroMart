@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'auth.css' ?>">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
 
 <main class="main-content">
     <div class="container">
@@ -71,5 +71,5 @@
 </main>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/auth.js"></script>
