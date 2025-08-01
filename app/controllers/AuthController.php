@@ -212,4 +212,13 @@ class AuthController
         }
         return false;
     }
+
+    public function authenticateShopRole()
+    {
+        if (isset($_SESSION['user'])) {
+            $roles = explode(',', $_SESSION['user'][0]['Role']);
+            return in_array('Seller', $roles);
+        }
+        return false;
+    }
 }

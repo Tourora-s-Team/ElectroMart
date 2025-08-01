@@ -1,4 +1,7 @@
-<?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
+<?php
+require_once ROOT_PATH . '/core/ImageHelper.php';
+include ROOT_PATH . '/app/views/layouts/header.php';
+?>
 
 <section class="cart">
     <div class="container">
@@ -20,7 +23,7 @@
 
                             <div class="item-image">
                                 <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
-                                    <img src="<?php echo $item['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                    <img src="<?php echo ImageHelper::getImageUrlWithFallback($item['ImageURL']); ?>"
                                         alt="<?php echo htmlspecialchars($item['ProductName']); ?>">
                                 </a>
                             </div>

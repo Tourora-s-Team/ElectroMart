@@ -32,6 +32,11 @@ require_once ROOT_PATH . '/routes/admin/products_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/financial_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/user_manager.routes.php';
 
+// Shop Management Routes
+require_once ROOT_PATH . '/routes/shop/shop_management.routes.php';
+
+// Shop API Routes
+require_once ROOT_PATH . '/routes/shop/api.routes.php';
 
 $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
 ?>

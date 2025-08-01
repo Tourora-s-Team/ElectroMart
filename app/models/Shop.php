@@ -73,6 +73,21 @@ class Shop
         }
         return null;
     }
+
+    // Cập nhật thông tin shop
+    public function updateShopInfo($data)
+    {
+        $handleData = new HandleData();
+        $sql = "UPDATE Shop SET 
+                ShopName = :ShopName, 
+                Email = :Email, 
+                PhoneNumber = :PhoneNumber, 
+                Address = :Address, 
+                Description = :Description 
+                WHERE ShopID = :ShopID";
+
+        return $handleData->execDataWithParams($sql, $data);
+    }
 }
 
 ?>

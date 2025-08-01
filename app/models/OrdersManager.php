@@ -79,6 +79,16 @@ class OrdersManager extends HandleData
         return $this->db->write($sql, $params);
     }
 
+    // Cập nhật trạng thái đơn hàng
+    public function updateOrderStatus($orderID, $status)
+    {
+        $sql = "UPDATE Orders SET Status = :status WHERE OrderID = :orderID";
+        return $this->execDataWithParams($sql, [
+            'status' => $status,
+            'orderID' => $orderID
+        ]);
+    }
+
     // Create new order
     public function createOrder($data)
     {

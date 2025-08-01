@@ -1,4 +1,7 @@
-<?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
+<?php
+require_once ROOT_PATH . '/core/ImageHelper.php';
+include ROOT_PATH . '/app/views/layouts/header.php';
+?>
 
 <link rel="stylesheet" href="/electromart/public/css/components/productdetail.css">
 
@@ -18,7 +21,7 @@
             <!-- Product Images -->
             <div class="product-images">
                 <div class="main-image">
-                    <img id="mainImage" src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                    <img id="mainImage" src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                         alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                 </div>
 
@@ -26,8 +29,8 @@
                     <div class="thumbnail-images">
                         <?php foreach ($images as $index => $image): ?>
                             <div class="thumbnail <?php echo $index === 0 ? 'active' : ''; ?>"
-                                onclick="changeMainImage('<?php echo $image['ImageURL']; ?>', this)">
-                                <img src="<?php echo $image['ImageURL']; ?>"
+                                onclick="changeMainImage('<?php echo ImageHelper::getImageUrl($image['ImageURL']); ?>', this)">
+                                <img src="<?php echo ImageHelper::getImageUrlWithFallback($image['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                             </div>
                         <?php endforeach; ?>
@@ -303,7 +306,7 @@
                     <div class="product-card">
                         <a href="public/product-detail/<?php echo $relatedProduct['ProductID']; ?>">
                             <div class="product-image">
-                                <img src="<?php echo $relatedProduct['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                <img src="<?php echo ImageHelper::getImageUrlWithFallback($relatedProduct['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($relatedProduct['ProductName']); ?>">
                             </div>
                             <div class="product-info">
