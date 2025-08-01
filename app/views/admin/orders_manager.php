@@ -247,7 +247,7 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
     </div>
 </div>
 
-<script src="/public/js/AdminJs/Orders.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/AdminJs/Orders.js"></script>
 
 
 <?php include(__DIR__ . '/../layouts/AdminFooter.php'); ?>

@@ -40,13 +40,13 @@ if (!empty($_SESSION)) {
                         <div class="user-name user-menu" onclick="toggleDropdown()"><i class="fa-solid fa-user"></i>
                             <?php echo $fullName; ?> ▼
                             <div class="dropdown" id="userDropdown">
-                                <a id="info" href="public/account/info">Thông tin cá nhân</a>
-                                <a id="seller" href="public/shop">Kênh người bán</a>
-                                <a id="sign_out" href="public/account/signout">Đăng xuất</a>
+                                <a id="info" href="https://electromart-t8ou8.ondigitalocean.app/public/account/info">Thông tin cá nhân</a>
+                                <a id="seller" href="https://electromart-t8ou8.ondigitalocean.app/public/shop">Kênh người bán</a>
+                                <a id="sign_out" href="https://electromart-t8ou8.ondigitalocean.app/public/account/signout">Đăng xuất</a>
                             </div>
                         </div>
                     <?php else: ?>
-                        <a href="public/account/signin" class="login-btn">Đăng nhập</a>
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signin" class="login-btn">Đăng nhập</a>
                     <?php endif; ?>
                 </div>
                 <div class="header-row2">
@@ -54,13 +54,13 @@ if (!empty($_SESSION)) {
                         <i class="fas fa-bars"></i>
                     </button>
                     <div class="search-box">
-                        <form action="public/search" method="GET">
+                        <form action="https://electromart-t8ou8.ondigitalocean.app/public/search" method="GET">
                             <input type="text" name="q" placeholder="Tìm kiếm sản phẩm..."
                                 value="<?php echo $_GET['q'] ?? ''; ?>">
                             <button type="submit"><i class="fas fa-search"></i></button>
                         </form>
                     </div>
-                    <a href="public/cart" class="cart-icon">
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/cart" class="cart-icon">
                         <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count">0</span>
                     </a>
@@ -71,11 +71,11 @@ if (!empty($_SESSION)) {
 
             <nav class="main-nav">
                 <ul>
-                    <li><a href="public">Trang chủ</a></li>
-                    <li><a href="public/search">Tất cả sản phẩm</a></li>
-                    <li><a href="public/categories">Danh mục</a></li>
-                    <li><a href="public/deals">Khuyến mãi</a></li>
-                    <li><a href="public/about">Về chúng tôi</a></li>
+                    <li><a href="https://electromart-t8ou8.ondigitalocean.app/public">Trang chủ</a></li>
+                    <li><a href="https://electromart-t8ou8.ondigitalocean.app/public/search">Tất cả sản phẩm</a></li>
+                    <li><a href="https://electromart-t8ou8.ondigitalocean.app/public/categories">Danh mục</a></li>
+                    <li><a href="https://electromart-t8ou8.ondigitalocean.app/public/deals">Khuyến mãi</a></li>
+                    <li><a href="https://electromart-t8ou8.ondigitalocean.app/public/about">Về chúng tôi</a></li>
                 </ul>
             </nav>
         </div>

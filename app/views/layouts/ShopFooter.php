@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<script src="public/js/shop/shop-admin.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/shop/shop-admin.js"></script>
 </body>
 
 </html>

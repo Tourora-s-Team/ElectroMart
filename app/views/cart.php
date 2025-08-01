@@ -22,14 +22,14 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                         value="<?php echo $item['Quantity']; ?>">
 
                                     <div class="item-image">
-                                        <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
+                                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
                                             <img src="<?php echo ImageHelper::getImageUrlWithFallback($item['ImageURL']); ?>"
                                                 alt="<?php echo htmlspecialchars($item['ProductName']); ?>">
                                         </a>
                                     </div>
 
                                     <div class="item-info">
-                                        <a href="public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
+                                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $item['ProductID'] ?>" class="item-link">
                                             <h3><?php echo htmlspecialchars($item['ProductName']); ?></h3>
                                         </a>
                                         <div class="item-price"><?php echo number_format($item['Price'], 0, ',', '.'); ?>đ</div>

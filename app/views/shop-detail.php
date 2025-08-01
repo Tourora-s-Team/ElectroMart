@@ -87,7 +87,7 @@
                     <div class="products-grid">
                         <?php foreach ($product as $product): ?>
                             <div class="product-card">
-                                <a href="public/product-detail/<?php echo $product['ProductID']; ?>">
+                                <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?php echo $product['ProductID']; ?>">
                                     <div class="product-image">
                                         <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
                                             alt="<?php echo htmlspecialchars($product['ProductName']); ?>">

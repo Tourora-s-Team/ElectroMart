@@ -34,7 +34,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
-                        <a href="public/product-detail/<?php echo $product['ProductID']; ?>">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?php echo $product['ProductID']; ?>">
                             <div class="product-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">

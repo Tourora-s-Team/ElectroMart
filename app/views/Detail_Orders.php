@@ -243,6 +243,6 @@ include 'layouts/Header1.php';
     </div>
 </div>
 
-<script src="/public/js/orders.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/orders.js"></script>
 
 <?php include 'layouts/Footer1.php'; ?>

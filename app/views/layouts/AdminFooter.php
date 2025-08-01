@@ -2,7 +2,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="/public/js/main.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
 <script>
     // Initialize page-specific functionality
     document.addEventListener('DOMContentLoaded', function() {

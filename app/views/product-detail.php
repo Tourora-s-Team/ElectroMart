@@ -167,7 +167,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                         <i class="fas fa-comments"></i>
                         Chat ngay
                     </button>
-                    <a href="public/shop-detail/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop-detail/<?php echo $product['ShopID']; ?>" class="btn btn-outline">
                         <i class="fas fa-store"></i>
                         Xem shop
                     </a>
@@ -306,7 +306,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             <div class="product-grid">
                 <?php foreach ($productRelated as $relatedProduct): ?>
                     <div class="product-card">
-                        <a href="public/product-detail/<?php echo $relatedProduct['ProductID']; ?>">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?php echo $relatedProduct['ProductID']; ?>">
                             <div class="product-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($relatedProduct['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($relatedProduct['ProductName']); ?>">

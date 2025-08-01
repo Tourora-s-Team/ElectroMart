@@ -34,7 +34,7 @@ unset($_SESSION['status_type']); ?>
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
-                        <a href="public/product-detail/<?= $product['ProductID'] ?>">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
