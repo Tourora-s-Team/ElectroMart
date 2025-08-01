@@ -25,7 +25,7 @@ $router->get("/electromart/public/shop/products/add", "ShopProductController@add
 $router->post("/electromart/public/shop/products/add", "ShopProductController@add");
 $router->get("/electromart/public/shop/products/edit/{id}", "ShopProductController@edit");
 $router->post("/electromart/public/shop/products/update/{id}", "ShopProductController@update");
-$router->post("/electromart/public/shop/products/delete/{id}", "ShopProductController@delete");
+$router->delete("/electromart/public/shop/products/delete/{id}", "ShopProductController@delete");
 $router->post("/electromart/public/shop/products/toggle-status/{id}", "ShopProductController@toggleStatus");
 $router->post("/electromart/public/shop/products/toggle-status", "ShopProductController@toggleStatus");
 $router->post("/electromart/public/shop/products/delete-image/{id}", "ShopProductController@deleteImage");

@@ -227,23 +227,37 @@ class ShopProductController extends BaseShopController
     // Xóa sản phẩm
     public function delete($productID)
     {
-        if (!$this->checkProductBelongsToShop($productID)) {
-            $_SESSION['error_message'] = 'Bạn không có quyền xóa sản phẩm này.';
-            header("Location: /electromart/public/shop/products");
-            exit();
+        // Dọn sạch output trước đó (rất quan trọng!)
+        if (ob_get_length()) {
+            ob_clean();
         }
 
+        // Đặt header JSON
+        header('Content-Type: application/json');
+
+        // Xác định gọi từ AJAX hay không (mặc định là JSON)
+        $isAjax = strtolower($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'xmlhttprequest';
+
+        // Check quyền sở hữu
+        if (!$this->checkProductBelongsToShop($productID)) {
+            echo json_encode([
+                'success' => false,
+                'message' => 'Bạn không có quyền xóa sản phẩm này.'
+            ]);
+            return;
+        }
+
+        // Gọi xoá sản phẩm
         $result = $this->productModel->deleteProduct($productID, $this->shopID);
 
-        if ($result) {
-            $_SESSION['success_message'] = 'Xóa sản phẩm thành công!';
-        } else {
-            $_SESSION['error_message'] = 'Có lỗi xảy ra khi xóa sản phẩm.';
-        }
-
-        header("Location: /electromart/public/shop/products");
+        echo json_encode([
+            'success' => $result,
+            'message' => $result ? 'Xóa sản phẩm thành công!' : 'Có lỗi xảy ra khi xóa sản phẩm.'
+        ]);
         exit();
     }
+
+
 
     // Xử lý thêm sản phẩm
     private function handleAddProduct()

@@ -645,11 +645,36 @@ function toggleProductStatus(productId, currentStatus) {
 }
 
 function deleteProduct(productId, productName) {
-    if (confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productName}"? Hành động này không thể hoàn tác.`)) {
-        showLoading();
-
-        window.location.href = `/electromart/public/shop/products/delete/${productId}`;
+    if (!confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productId}"? Hành động này không thể hoàn tác.`)) {
+        return;
     }
+
+    showLoading();
+
+    fetch(`/electromart/public/shop/products/delete/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest' // Để PHP phân biệt là AJAX
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            hideLoading();
+
+            if (data.success) {
+                showToast(data.message, 'success');
+                // Reload the page to reflect changes
+                window.location.reload();
+            }
+            else {
+                showToast(data.message || 'Không thể xóa sản phẩm', 'error');
+            }
+        })
+        .catch(error => {
+            hideLoading();
+            console.error('Lỗi khi xóa sản phẩm:', error);
+            alert('Đã xảy ra lỗi khi gửi yêu cầu xóa sản phẩm.');
+        });
 }
 
 // Bank account management
