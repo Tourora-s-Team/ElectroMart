@@ -26,7 +26,7 @@ class AdminUserController extends BaseAdminController
             $userId = $_GET['id'];
             $this->userManager->deactivateUser($userId);
         }
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/admin/user_manager");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager");
         exit;
     }
     public function open()
@@ -35,7 +35,7 @@ class AdminUserController extends BaseAdminController
             $userId = $_GET['id'];
             $this->userManager->openUser($userId);
         }
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/admin/user_manager");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager");
         exit;
     }
 }

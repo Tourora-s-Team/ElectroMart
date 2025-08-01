@@ -3,7 +3,7 @@
 <div class="order-detail">
     <!-- Back Button -->
     <div style="margin-bottom: 1.5rem;">
-        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/orders" class="btn btn-outline">
+        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders" class="btn btn-outline">
             <i class="fas fa-arrow-left"></i>
             Quay lại danh sách
         </a>
@@ -19,10 +19,10 @@
                         <?php echo $order['order']['Status']; ?>
                     </span>
                     <?php if (in_array($order['order']['Status'], ['Pending', 'Processing'])): ?>
-                        <button type="button" class="btn btn-primary btn-sm" onclick="openStatusUpdateModal()">
-                            <i class="fas fa-edit"></i>
-                            Cập nhật trạng thái
-                        </button>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="openStatusUpdateModal()">
+                                <i class="fas fa-edit"></i>
+                                Cập nhật trạng thái
+                            </button>
                     <?php endif; ?>
                 </div>
             </div>
@@ -80,10 +80,10 @@
                                 </span>
                             </div>
                             <?php if (!empty($order['order']['TransactionCode'])): ?>
-                                <div style="margin-bottom: 0.5rem;">
-                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Mã giao dịch:</span>
-                                    <div class="font-medium"><?php echo $order['order']['TransactionCode']; ?></div>
-                                </div>
+                                    <div style="margin-bottom: 0.5rem;">
+                                        <span style="color: var(--text-secondary); font-size: 0.875rem;">Mã giao dịch:</span>
+                                        <div class="font-medium"><?php echo $order['order']['TransactionCode']; ?></div>
+                                    </div>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -96,83 +96,83 @@
                     </h4>
 
                     <?php if (!empty($order['items'])): ?>
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Sản phẩm</th>
-                                        <th>Đơn giá</th>
-                                        <th>Số lượng</th>
-                                        <th>Thành tiền</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $subtotal = 0;
-                                    foreach ($order['items'] as $item):
-                                        $itemTotal = $item['Quantity'] * $item['UnitPrice'];
-                                        $subtotal += $itemTotal;
-                                        ?>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 1rem;">
-                                                    <div style="width: 60px; height: 60px; flex-shrink: 0;">
-                                                        <?php if (!empty($item['ImageURL'])): ?>
-                                                            <img src="<?php echo ImageHelper::getImageUrlWithFallback($item['ImageURL']); ?>"
-                                                                alt="<?php echo htmlspecialchars($item['ProductName']); ?>"
-                                                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
-                                                        <?php else: ?>
-                                                            <div
-                                                                style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
-                                                                <i class="fas fa-image" style="color: var(--text-light);"></i>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div>
-                                                        <div class="font-medium">
-                                                            <?php echo htmlspecialchars($item['ProductName']); ?>
-                                                        </div>
-                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                            Thương hiệu: <?php echo htmlspecialchars($item['Brand']); ?>
-                                                        </div>
-                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                            ID: <?php echo $item['ProductID']; ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="font-medium"><?php echo number_format($item['UnitPrice']); ?>₫</td>
-                                            <td class="font-medium"><?php echo $item['Quantity']; ?></td>
-                                            <td class="font-medium"><?php echo number_format($itemTotal); ?>₫</td>
+                                            <th>Sản phẩm</th>
+                                            <th>Đơn giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Thành tiền</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr style="border-top: 2px solid var(--border-color);">
-                                        <td colspan="3" class="font-medium">Tạm tính:</td>
-                                        <td class="font-medium"><?php echo number_format($subtotal); ?>₫</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3" class="font-medium">Phí vận chuyển:</td>
-                                        <td class="font-medium">
-                                            <?php echo number_format($order['order']['ShippingFee']); ?>₫
-                                        </td>
-                                    </tr>
-                                    <tr style="border-top: 1px solid var(--border-color);">
-                                        <td colspan="3" class="font-medium" style="font-size: 1.125rem;">Tổng cộng:</td>
-                                        <td class="font-medium" style="color: var(--primary-color); font-size: 1.125rem;">
-                                            <?php echo number_format($order['order']['TotalAmount']); ?>₫
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $subtotal = 0;
+                                        foreach ($order['items'] as $item):
+                                            $itemTotal = $item['Quantity'] * $item['UnitPrice'];
+                                            $subtotal += $itemTotal;
+                                            ?>
+                                                <tr>
+                                                    <td>
+                                                        <div style="display: flex; align-items: center; gap: 1rem;">
+                                                            <div style="width: 60px; height: 60px; flex-shrink: 0;">
+                                                                <?php if (!empty($item['ImageURL'])): ?>
+                                                                        <img src="<?php echo ImageHelper::getImageUrlWithFallback($item['ImageURL']); ?>"
+                                                                            alt="<?php echo htmlspecialchars($item['ProductName']); ?>"
+                                                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
+                                                                <?php else: ?>
+                                                                        <div
+                                                                            style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+                                                                            <i class="fas fa-image" style="color: var(--text-light);"></i>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div>
+                                                                <div class="font-medium">
+                                                                    <?php echo htmlspecialchars($item['ProductName']); ?>
+                                                                </div>
+                                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                                    Thương hiệu: <?php echo htmlspecialchars($item['Brand']); ?>
+                                                                </div>
+                                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                                    ID: <?php echo $item['ProductID']; ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="font-medium"><?php echo number_format($item['UnitPrice']); ?>₫</td>
+                                                    <td class="font-medium"><?php echo $item['Quantity']; ?></td>
+                                                    <td class="font-medium"><?php echo number_format($itemTotal); ?>₫</td>
+                                                </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr style="border-top: 2px solid var(--border-color);">
+                                            <td colspan="3" class="font-medium">Tạm tính:</td>
+                                            <td class="font-medium"><?php echo number_format($subtotal); ?>₫</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="font-medium">Phí vận chuyển:</td>
+                                            <td class="font-medium">
+                                                <?php echo number_format($order['order']['ShippingFee']); ?>₫
+                                            </td>
+                                        </tr>
+                                        <tr style="border-top: 1px solid var(--border-color);">
+                                            <td colspan="3" class="font-medium" style="font-size: 1.125rem;">Tổng cộng:</td>
+                                            <td class="font-medium" style="color: var(--primary-color); font-size: 1.125rem;">
+                                                <?php echo number_format($order['order']['TotalAmount']); ?>₫
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
                     <?php else: ?>
-                        <div class="empty-state">
-                            <i class="fas fa-box"></i>
-                            <h3>Không có sản phẩm</h3>
-                            <p>Không tìm thấy sản phẩm nào trong đơn hàng này</p>
-                        </div>
+                            <div class="empty-state">
+                                <i class="fas fa-box"></i>
+                                <h3>Không có sản phẩm</h3>
+                                <p>Không tìm thấy sản phẩm nào trong đơn hàng này</p>
+                            </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -208,10 +208,10 @@
                         </div>
 
                         <?php if (!empty($order['order']['BirthDate'])): ?>
-                            <div style="margin-bottom: 0.75rem;">
-                                <span style="color: var(--text-secondary); font-size: 0.875rem;">Ngày sinh:</span>
-                                <div><?php echo date('d/m/Y', strtotime($order['order']['BirthDate'])); ?></div>
-                            </div>
+                                <div style="margin-bottom: 0.75rem;">
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Ngày sinh:</span>
+                                    <div><?php echo date('d/m/Y', strtotime($order['order']['BirthDate'])); ?></div>
+                                </div>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -224,45 +224,45 @@
                 </div>
                 <div class="card-body">
                     <?php if (!empty($order['order']['ReceiverName'])): ?>
-                        <div style="margin-bottom: 1rem;">
-                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Người nhận</h4>
-                            <div style="margin-bottom: 0.5rem;">
-                                <span style="color: var(--text-secondary); font-size: 0.875rem;">Tên:</span>
-                                <div class="font-medium"><?php echo htmlspecialchars($order['order']['ReceiverName']); ?>
+                            <div style="margin-bottom: 1rem;">
+                                <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Người nhận</h4>
+                                <div style="margin-bottom: 0.5rem;">
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Tên:</span>
+                                    <div class="font-medium"><?php echo htmlspecialchars($order['order']['ReceiverName']); ?>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 0.5rem;">
+                                    <span style="color: var(--text-secondary); font-size: 0.875rem;">Số điện thoại:</span>
+                                    <div class="font-medium"><?php echo htmlspecialchars($order['order']['ContactNumber']); ?>
+                                    </div>
                                 </div>
                             </div>
-                            <div style="margin-bottom: 0.5rem;">
-                                <span style="color: var(--text-secondary); font-size: 0.875rem;">Số điện thoại:</span>
-                                <div class="font-medium"><?php echo htmlspecialchars($order['order']['ContactNumber']); ?>
-                                </div>
-                            </div>
-                        </div>
 
-                        <div>
-                            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Địa chỉ giao hàng</h4>
-                            <div style="line-height: 1.6;">
-                                <?php
-                                $address = [];
-                                if (!empty($order['order']['AddressDetail']))
-                                    $address[] = $order['order']['AddressDetail'];
-                                if (!empty($order['order']['Street']))
-                                    $address[] = $order['order']['Street'];
-                                if (!empty($order['order']['Ward']))
-                                    $address[] = $order['order']['Ward'];
-                                if (!empty($order['order']['City']))
-                                    $address[] = $order['order']['City'];
-                                if (!empty($order['order']['Country']))
-                                    $address[] = $order['order']['Country'];
-                                echo htmlspecialchars(implode(', ', $address));
-                                ?>
+                            <div>
+                                <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Địa chỉ giao hàng</h4>
+                                <div style="line-height: 1.6;">
+                                    <?php
+                                    $address = [];
+                                    if (!empty($order['order']['AddressDetail']))
+                                        $address[] = $order['order']['AddressDetail'];
+                                    if (!empty($order['order']['Street']))
+                                        $address[] = $order['order']['Street'];
+                                    if (!empty($order['order']['Ward']))
+                                        $address[] = $order['order']['Ward'];
+                                    if (!empty($order['order']['City']))
+                                        $address[] = $order['order']['City'];
+                                    if (!empty($order['order']['Country']))
+                                        $address[] = $order['order']['Country'];
+                                    echo htmlspecialchars(implode(', ', $address));
+                                    ?>
+                                </div>
                             </div>
-                        </div>
                     <?php else: ?>
-                        <div class="empty-state">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <h3>Chưa có thông tin giao hàng</h3>
-                            <p>Thông tin người nhận chưa được cập nhật</p>
-                        </div>
+                            <div class="empty-state">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <h3>Chưa có thông tin giao hàng</h3>
+                                <p>Thông tin người nhận chưa được cập nhật</p>
+                            </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -286,13 +286,13 @@
                     <select id="newStatus" name="status" class="form-select" required>
                         <option value="">Chọn trạng thái</option>
                         <?php if ($order['order']['Status'] == 'Pending'): ?>
-                            <option value="Processing">Đang xử lý</option>
-                            <option value="Cancelled">Hủy đơn</option>
+                                <option value="Processing">Đang xử lý</option>
+                                <option value="Cancelled">Hủy đơn</option>
                         <?php elseif ($order['order']['Status'] == 'Processing'): ?>
-                            <option value="Shipped">Đã giao hàng</option>
-                            <option value="Cancelled">Hủy đơn</option>
+                                <option value="Shipped">Đã giao hàng</option>
+                                <option value="Cancelled">Hủy đơn</option>
                         <?php elseif ($order['order']['Status'] == 'Shipped'): ?>
-                            <option value="Completed">Hoàn thành</option>
+                                <option value="Completed">Hoàn thành</option>
                         <?php endif; ?>
                     </select>
                 </div>

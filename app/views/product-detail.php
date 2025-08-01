@@ -3,7 +3,7 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
 include ROOT_PATH . '/app/views/layouts/header.php';
 ?>
 
-<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/productdetail.css">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/productdetail.css">
 
 <section class="product-detail">
     <div class="container">
@@ -85,7 +85,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 </div>
 
                 <div class="product-actions">
-                    <form id="addToCartForm" action="/electromart-o63e5.ondigitalocean.app/public/cart/add"
+                    <form id="addToCartForm" action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add"
                         method="POST">
                         <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
                         <input type="hidden" name="quantity" id="hidden_quantity">
@@ -94,7 +94,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                             <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
                         </button>
                     </form>
-                    <form action="/electromart-o63e5.ondigitalocean.app/public/cart/add" method="POST">
+                    <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add" method="POST">
                         <button class="btn btn-buy-now">
                             Mua ngay
                         </button>
@@ -268,7 +268,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             </div>
         </div>
         <!-- thêm đánh giá -->
-        <form action="/electromart-o63e5.ondigitalocean.app/public/product-detail/review" method="POST"
+        <form action="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/review" method="POST"
             class="review-form product-reviews ">
             <h2 class="review-form__title ">Gửi đánh giá của bạn</h2>
             <!-- Chọn sao -->

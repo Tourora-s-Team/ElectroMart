@@ -14,7 +14,7 @@ require_once __DIR__ . "/./account_navbar.php";
     </div>
 
     <div class="account-details">
-        <form id="form-info" action="/electromart-o63e5.ondigitalocean.app/public/account/update-info" method="post"
+        <form id="form-info" action="https://electromart-t8ou8.ondigitalocean.app/public/account/update-info" method="post"
             class="container-form">
             <fieldset disabled>
                 <div class="layout-form">

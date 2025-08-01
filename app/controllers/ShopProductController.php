@@ -35,8 +35,8 @@ class ShopProductController extends BaseShopController
         $stats = $this->productModel->getProductStats($this->shopID);
 
         $breadcrumb = [
-            ['text' => 'Trang chủ', 'url' => '/electromart-o63e5.ondigitalocean.app/public/'],
-            ['text' => 'Quản lý shop', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop'],
+            ['text' => 'Trang chủ', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/'],
+            ['text' => 'Quản lý shop', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
             ['text' => 'Sản phẩm']
         ];
 
@@ -67,9 +67,9 @@ class ShopProductController extends BaseShopController
 
         $categories = $this->productModel->getCategories();
         $breadcrumb = [
-            ['text' => 'Trang chủ', 'url' => '/electromart-o63e5.ondigitalocean.app/public/'],
-            ['text' => 'Quản lý shop', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop'],
-            ['text' => 'Sản phẩm', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop/products'],
+            ['text' => 'Trang chủ', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/'],
+            ['text' => 'Quản lý shop', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+            ['text' => 'Sản phẩm', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products'],
             ['text' => 'Thêm sản phẩm']
         ];
 
@@ -150,15 +150,15 @@ class ShopProductController extends BaseShopController
         $product = $this->getProductDetail($productID);
         if (!$product) {
             $_SESSION['error_message'] = 'Không tìm thấy sản phẩm.';
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/products");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/products");
             exit();
         }
 
         $categories = $this->productModel->getCategories();
         $breadcrumb = [
-            ['text' => 'Trang chủ', 'url' => '/electromart-o63e5.ondigitalocean.app/public/'],
-            ['text' => 'Quản lý shop', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop'],
-            ['text' => 'Sản phẩm', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop/products'],
+            ['text' => 'Trang chủ', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/'],
+            ['text' => 'Quản lý shop', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+            ['text' => 'Sản phẩm', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products'],
             ['text' => 'Sửa sản phẩm']
         ];
 
@@ -288,7 +288,7 @@ class ShopProductController extends BaseShopController
             $this->handleProductImages($productID, $_FILES['images'] ?? []);
 
             $_SESSION['success_message'] = 'Thêm sản phẩm thành công!';
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/products");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/products");
             exit();
         } else {
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi thêm sản phẩm.';
@@ -300,7 +300,7 @@ class ShopProductController extends BaseShopController
     {
         if (!$this->checkProductBelongsToShop($productID)) {
             $_SESSION['error_message'] = 'Bạn không có quyền sửa sản phẩm này.';
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/products");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/products");
             exit();
         }
 
@@ -325,7 +325,7 @@ class ShopProductController extends BaseShopController
             }
 
             $_SESSION['success_message'] = 'Cập nhật sản phẩm thành công!';
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/products");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/products");
             exit();
         } else {
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật sản phẩm.';
@@ -373,7 +373,7 @@ class ShopProductController extends BaseShopController
                 $uploadPath = $uploadDir . $fileName;
 
                 if (move_uploaded_file($files['tmp_name'][$i], $uploadPath)) {
-                    $imageURL = '/electromart-o63e5.ondigitalocean.app/public/images/products/' . $fileName;
+                    $imageURL = 'https://electromart-t8ou8.ondigitalocean.app/public/images/products/' . $fileName;
                     $isThumbnail = ($i === 0) ? 1 : 0; // Ảnh đầu tiên làm thumbnail
 
                     $this->productModel->addProductImage($productID, $this->shopID, $imageURL, $isThumbnail);

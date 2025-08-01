@@ -23,7 +23,7 @@ class ShopDetailController
 
         if (!$shop) {
             // Nếu không tìm thấy shop, có thể hiển thị thông báo lỗi hoặc chuyển hướng
-            header('Location: /electromart-o63e5.ondigitalocean.app/public/home');
+            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/home');
             exit;
         }
         // Hiển thị trang chi tiết shop

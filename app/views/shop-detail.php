@@ -1,6 +1,6 @@
 <?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
 
-<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/shopdetail.css">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/shopdetail.css">
 
 <section class="shop-detail">
     <div class="container">

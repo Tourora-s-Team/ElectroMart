@@ -112,64 +112,64 @@
                 </div>
                 <div class="card-body">
                     <?php if (!empty($topProducts)): ?>
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Sản phẩm</th>
-                                        <th>Đã bán</th>
-                                        <th>Doanh thu</th>
-                                        <th>% tổng DT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($topProducts as $index => $product): ?>
+                            <div class="table-container">
+                                <table class="table">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $index + 1; ?></td>
-                                            <td>
-                                                <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                                    <div style="width: 40px; height: 40px; flex-shrink: 0;">
-                                                        <?php if (!empty($product['ImageURL'])): ?>
-                                                            <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
-                                                                alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
-                                                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.25rem;">
-                                                        <?php else: ?>
-                                                            <div
-                                                                style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center;">
-                                                                <i class="fas fa-image"
-                                                                    style="color: var(--text-light); font-size: 0.75rem;"></i>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                    <div>
-                                                        <div class="font-medium" style="font-size: 0.875rem;">
-                                                            <?php echo htmlspecialchars($product['ProductName']); ?>
-                                                        </div>
-                                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                                            <?php echo htmlspecialchars($product['Brand']); ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="font-medium"><?php echo $product['QuantitySold']; ?></td>
-                                            <td class="font-medium"><?php echo number_format($product['Revenue']); ?>₫</td>
-                                            <td>
-                                                <span class="badge" style="background-color: var(--primary-color);">
-                                                    <?php echo number_format($product['RevenuePercentage'], 1); ?>%
-                                                </span>
-                                            </td>
+                                            <th>STT</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Đã bán</th>
+                                            <th>Doanh thu</th>
+                                            <th>% tổng DT</th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($topProducts as $index => $product): ?>
+                                                <tr>
+                                                    <td><?php echo $index + 1; ?></td>
+                                                    <td>
+                                                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                            <div style="width: 40px; height: 40px; flex-shrink: 0;">
+                                                                <?php if (!empty($product['ImageURL'])): ?>
+                                                                        <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
+                                                                            alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
+                                                                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.25rem;">
+                                                                <?php else: ?>
+                                                                        <div
+                                                                            style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center;">
+                                                                            <i class="fas fa-image"
+                                                                                style="color: var(--text-light); font-size: 0.75rem;"></i>
+                                                                        </div>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                            <div>
+                                                                <div class="font-medium" style="font-size: 0.875rem;">
+                                                                    <?php echo htmlspecialchars($product['ProductName']); ?>
+                                                                </div>
+                                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                                    <?php echo htmlspecialchars($product['Brand']); ?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="font-medium"><?php echo $product['QuantitySold']; ?></td>
+                                                    <td class="font-medium"><?php echo number_format($product['Revenue']); ?>₫</td>
+                                                    <td>
+                                                        <span class="badge" style="background-color: var(--primary-color);">
+                                                            <?php echo number_format($product['RevenuePercentage'], 1); ?>%
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                     <?php else: ?>
-                        <div class="empty-state">
-                            <i class="fas fa-chart-bar"></i>
-                            <h3>Chưa có dữ liệu</h3>
-                            <p>Chưa có sản phẩm nào được bán</p>
-                        </div>
+                            <div class="empty-state">
+                                <i class="fas fa-chart-bar"></i>
+                                <h3>Chưa có dữ liệu</h3>
+                                <p>Chưa có sản phẩm nào được bán</p>
+                            </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -214,52 +214,52 @@
                 </div>
                 <div class="card-body">
                     <?php if (!empty($bankAccounts)): ?>
-                        <div style="display: flex; flex-direction: column; gap: 1rem;">
-                            <?php foreach ($bankAccounts as $account): ?>
-                                <div class="bank-account-item">
-                                    <div style="display: flex; align-items: center; gap: 0.75rem;">
-                                        <div class="bank-icon">
-                                            <i class="fas fa-university"></i>
-                                        </div>
-                                        <div style="flex: 1;">
-                                            <div class="font-medium"><?php echo htmlspecialchars($account['BankName']); ?></div>
-                                            <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                                                **** **** **** <?php echo substr($account['AccountNumber'], -4); ?>
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <?php foreach ($bankAccounts as $account): ?>
+                                        <div class="bank-account-item">
+                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                <div class="bank-icon">
+                                                    <i class="fas fa-university"></i>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <div class="font-medium"><?php echo htmlspecialchars($account['BankName']); ?></div>
+                                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                                                        **** **** **** <?php echo substr($account['AccountNumber'], -4); ?>
+                                                    </div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-light);">
+                                                        <?php echo htmlspecialchars($account['AccountHolder']); ?>
+                                                    </div>
+                                                </div>
+                                                <div style="display: flex; gap: 0.25rem;">
+                                                    <?php if ($account['IsDefault']): ?>
+                                                            <span class="badge"
+                                                                style="background-color: var(--success-color); font-size: 0.75rem;">
+                                                                Mặc định
+                                                            </span>
+                                                    <?php endif; ?>
+                                                    <button type="button" class="btn btn-outline btn-sm"
+                                                        onclick="editBankAccount(<?php echo $account['BankAccountID']; ?>)">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="deleteBankAccount(<?php echo $account['BankAccountID']; ?>)">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div style="font-size: 0.75rem; color: var(--text-light);">
-                                                <?php echo htmlspecialchars($account['AccountHolder']); ?>
-                                            </div>
                                         </div>
-                                        <div style="display: flex; gap: 0.25rem;">
-                                            <?php if ($account['IsDefault']): ?>
-                                                <span class="badge"
-                                                    style="background-color: var(--success-color); font-size: 0.75rem;">
-                                                    Mặc định
-                                                </span>
-                                            <?php endif; ?>
-                                            <button type="button" class="btn btn-outline btn-sm"
-                                                onclick="editBankAccount(<?php echo $account['BankAccountID']; ?>)">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="deleteBankAccount(<?php echo $account['BankAccountID']; ?>)">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
+                                <?php endforeach; ?>
+                            </div>
                     <?php else: ?>
-                        <div class="empty-state">
-                            <i class="fas fa-university"></i>
-                            <h3>Chưa có tài khoản ngân hàng</h3>
-                            <p>Thêm tài khoản ngân hàng để nhận thanh toán</p>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openBankAccountModal()">
-                                <i class="fas fa-plus"></i>
-                                Thêm tài khoản
-                            </button>
-                        </div>
+                            <div class="empty-state">
+                                <i class="fas fa-university"></i>
+                                <h3>Chưa có tài khoản ngân hàng</h3>
+                                <p>Thêm tài khoản ngân hàng để nhận thanh toán</p>
+                                <button type="button" class="btn btn-primary btn-sm" onclick="openBankAccountModal()">
+                                    <i class="fas fa-plus"></i>
+                                    Thêm tài khoản
+                                </button>
+                            </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -371,12 +371,12 @@
                     <select id="payoutBankAccount" name="bank_account_id" class="form-select" required>
                         <option value="">Chọn tài khoản ngân hàng</option>
                         <?php if (!empty($bankAccounts)): ?>
-                            <?php foreach ($bankAccounts as $account): ?>
-                                <option value="<?php echo $account['BankAccountID']; ?>" <?php echo $account['IsDefault'] ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($account['BankName']); ?> -
-                                    **** **** **** <?php echo substr($account['AccountNumber'], -4); ?>
-                                </option>
-                            <?php endforeach; ?>
+                                <?php foreach ($bankAccounts as $account): ?>
+                                        <option value="<?php echo $account['BankAccountID']; ?>" <?php echo $account['IsDefault'] ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($account['BankName']); ?> -
+                                            **** **** **** <?php echo substr($account['AccountNumber'], -4); ?>
+                                        </option>
+                                <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
                 </div>
@@ -422,7 +422,7 @@
         const ctx = document.getElementById('revenueChart').getContext('2d');
 
         // Get chart data
-        fetch('/electromart-o63e5.ondigitalocean.app/public/shop/finance/revenue-chart?period=30')
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=30')
             .then(response => response.json())
             .then(data => {
                 revenueChart = new Chart(ctx, {
@@ -506,7 +506,7 @@
     function updateRevenueChart() {
         const period = document.getElementById('chartPeriod').value;
 
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/revenue-chart?period=${period}`)
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=${period}`)
             .then(response => response.json())
             .then(data => {
                 revenueChart.data.labels = data.labels || [];
@@ -528,7 +528,7 @@
 
     function editBankAccount(accountId) {
         // Load account data
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-account/${accountId}`)
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-account/${accountId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success && data.account) {
@@ -556,7 +556,7 @@
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
-            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/delete-bank-account/${accountId}`, {
+            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/delete-bank-account/${accountId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -584,7 +584,7 @@
     }
 
     function viewAllProducts() {
-        window.location.href = '/electromart-o63e5.ondigitalocean.app/public/shop/products';
+        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products';
     }
 
     function viewTransactionHistory() {
@@ -602,8 +602,8 @@
         const formData = new FormData(this);
         const accountId = document.getElementById('bankAccountId').value;
         const url = accountId ?
-            `/electromart-o63e5.ondigitalocean.app/public/shop/finance/update-bank-account/${accountId}` :
-            '/electromart-o63e5.ondigitalocean.app/public/shop/finance/add-bank-account';
+            `https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/${accountId}` :
+            'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/add-bank-account';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -659,7 +659,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
         submitBtn.disabled = true;
 
-        fetch('/electromart-o63e5.ondigitalocean.app/public/shop/finance/request-payout', {
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/request-payout', {
             method: 'POST',
             body: formData
         })

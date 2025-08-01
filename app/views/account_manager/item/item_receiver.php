@@ -73,7 +73,7 @@
 <!-- Thông tin địa chỉ -->
 <div id="<?= $receiver->getReceiverID() ?>" class="receiver-item">
     <p>Địa chỉ nhà <?php if ($receiver->getIsDefault()): ?> &nbsp;&nbsp;<span class="default-address">Mặc
-                định</span><?php endif; ?></p>
+                    định</span><?php endif; ?></p>
     <p class="receiver-info">[<?= $receiver->getAddressDetail() ?>] Đường <?= $receiver->getStreet() ?>,
         <?= $receiver->getWard() ?>, <?= $receiver->getCity() ?>, <?= $receiver->getCountry() ?>
     </p>
@@ -85,10 +85,10 @@
                 style="color: #007BFF"></i></button>
     </div>
     <?php if (!$receiver->getIsDefault()): ?>
-        <form method="POST"
-            action="/electromart-o63e5.ondigitalocean.app/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
-            style="display: inline;">
-            <button type="submit" class="set-default-address">Đặt làm địa chỉ mặc định</button>
-        </form>
+            <form method="POST"
+                action="https://electromart-t8ou8.ondigitalocean.app/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
+                style="display: inline;">
+                <button type="submit" class="set-default-address">Đặt làm địa chỉ mặc định</button>
+            </form>
     <?php endif; ?>
 </div>

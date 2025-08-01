@@ -45,7 +45,7 @@ class ShopManagementController extends BaseShopController
             'title' => 'Thông tin Shop - Quản lý Shop',
             'currentPage' => 'shop-info',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop/dashboard'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/dashboard'],
                 ['text' => 'Thông tin Shop']
             ]
         ]);
@@ -70,7 +70,7 @@ class ShopManagementController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật thông tin shop.';
         }
 
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/info");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/info");
         exit();
     }
 

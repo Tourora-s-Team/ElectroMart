@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 //     formData.append('product_id', productId);
 //     formData.append('quantity', quantity);
 
-//     fetch('/electromart-o63e5.ondigitalocean.app/public/cart/add', {
+//     fetch('https://electromart-t8ou8.ondigitalocean.app/public/cart/add', {
 //         method: 'POST',
 //         body: formData
 //     })

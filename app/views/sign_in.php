@@ -19,7 +19,7 @@
                     <p>Chào mừng bạn quay trở lại ElectroMart</p>
                 </div>
 
-                <form action="/electromart-o63e5.ondigitalocean.app/public/account/signin" method="POST"
+                <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/signin" method="POST"
                     class="auth-form">
                     <div class="form-group">
                         <label for="loginInfo">Email hoặc Số điện thoại</label>

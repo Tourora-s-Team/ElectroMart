@@ -8,44 +8,44 @@ require_once __DIR__ . "/./account_navbar.php";
         <h1 class="subheader__title">Danh sách yêu thích</h1>
     </div>
     <?php if ($numOfProducts == 0): ?>
-        <div class="list">
-            <div class="no-information">
-                <p>Bạn chưa có sản phẩm nào trong danh sách yêu thích.</p>
-            </div>
-        </div>
-    <?php else: ?>
-        <div class="product-grid">
-            <?php foreach ($favoriteProducts as $product): ?>
-                <div class="product-card">
-                    <a href="/electromart-o63e5.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
-                        <div class="product-image">
-                            <img src="<?= $product['ImageURL'] ?? '/public/images/no-image.jpg' ?>"
-                                alt="<?= htmlspecialchars($product['ProductName']) ?>">
-                        </div>
-                        <div class="product-info">
-                            <h3><?= htmlspecialchars($product['ProductName']) ?></h3>
-                            <div class="product-brand"><?= htmlspecialchars($product['Brand']) ?></div>
-                            <div class="product-price"><?= number_format($product['Price'], 0, ',', '.') ?>đ</div>
-                            <div class="product-rating">
-                                <div class="stars">
-                                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                                        <i class="fas fa-star <?= $i <= $product['RatingProduct'] ? 'active' : '' ?>"></i>
-                                    <?php endfor; ?>
-                                </div>
-                                <span class="rating-text">(<?= $product['RatingProduct'] ?>)</span>
-                            </div>
-                            <div class="product-stock">
-                                Còn lại: <?= $product['StockQuantity'] ?> sản phẩm
-                            </div>
-                        </div>
-                    </a>
-                    <form
-                        action="/electromart-o63e5.ondigitalocean.app/public/account/wish-list-remove/<?= $product['ProductID'] ?>"
-                        method="POST" class="remove-from-wishlist-form">
-                        <button type="button" class="remove-from-wishlist-btn"><i class="fas fa-heart"></i></button>
-                    </form>
+            <div class="list">
+                <div class="no-information">
+                    <p>Bạn chưa có sản phẩm nào trong danh sách yêu thích.</p>
                 </div>
-            <?php endforeach; ?>
+            </div>
+    <?php else: ?>
+            <div class="product-grid">
+                <?php foreach ($favoriteProducts as $product): ?>
+                        <div class="product-card">
+                            <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
+                                <div class="product-image">
+                                    <img src="<?= $product['ImageURL'] ?? '/public/images/no-image.jpg' ?>"
+                                        alt="<?= htmlspecialchars($product['ProductName']) ?>">
+                                </div>
+                                <div class="product-info">
+                                    <h3><?= htmlspecialchars($product['ProductName']) ?></h3>
+                                    <div class="product-brand"><?= htmlspecialchars($product['Brand']) ?></div>
+                                    <div class="product-price"><?= number_format($product['Price'], 0, ',', '.') ?>đ</div>
+                                    <div class="product-rating">
+                                        <div class="stars">
+                                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                    <i class="fas fa-star <?= $i <= $product['RatingProduct'] ? 'active' : '' ?>"></i>
+                                            <?php endfor; ?>
+                                        </div>
+                                        <span class="rating-text">(<?= $product['RatingProduct'] ?>)</span>
+                                    </div>
+                                    <div class="product-stock">
+                                        Còn lại: <?= $product['StockQuantity'] ?> sản phẩm
+                                    </div>
+                                </div>
+                            </a>
+                            <form
+                                action="https://electromart-t8ou8.ondigitalocean.app/public/account/wish-list-remove/<?= $product['ProductID'] ?>"
+                                method="POST" class="remove-from-wishlist-form">
+                                <button type="button" class="remove-from-wishlist-btn"><i class="fas fa-heart"></i></button>
+                            </form>
+                        </div>
+                <?php endforeach; ?>
         <?php endif; ?>
     </div>
 </div>

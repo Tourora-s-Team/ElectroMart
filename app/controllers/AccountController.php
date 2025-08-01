@@ -31,7 +31,7 @@ class AccountController
     {
         // Nếu người dùng chưa đăng nhập hoặc đang truy cập với quyền admin thì chuyển hướng đến trang đăng nhập và trả về false
         if ($this->userData == null || in_array($_SESSION["user"][0]["Role"], ['Admin'])) {
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/signin");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin");
             return false;
         }
         return true;
@@ -70,12 +70,12 @@ class AccountController
             $this->customerData = $this->customer->getCustomerById($this->userID);
             $_SESSION['message'] = "Cập nhật thông tin tài khoản thành công";
             $_SESSION['status_type'] = "success";
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/info");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/info");
             exit();
         } else {
             $_SESSION['message'] = "Cập nhật thông tin tài khoản thất bại.";
             $_SESSION['status_type'] = "error";
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/info");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/info");
             exit();
         }
     }
@@ -162,7 +162,7 @@ class AccountController
         $receiverModel = new Receiver();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/receiver-info");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/receiver-info");
             exit();
         }
 
@@ -193,7 +193,7 @@ class AccountController
         if ($result) {
             $_SESSION['message'] = "Thêm dữ liệu người nhận thành công.";
             $_SESSION['status_type'] = "success";
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/receiver-info");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/receiver-info");
             exit();
         } else {
             $_SESSION['message'] = "Cập nhật dữ liệu người nhận thất bại.";
@@ -211,7 +211,7 @@ class AccountController
         $receiverModel = new Receiver();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/receiver-info");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/receiver-info");
             exit();
         }
 
@@ -242,7 +242,7 @@ class AccountController
             if ($res) {
                 $_SESSION['message'] = "Cập nhật dữ liệu người nhận thành công.";
                 $_SESSION['status_type'] = "success";
-                header("Location: /electromart-o63e5.ondigitalocean.app/public/account/receiver-info");
+                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/receiver-info");
                 exit();
             }
         } else {
@@ -301,7 +301,7 @@ class AccountController
             $_SESSION['message'] = "Đặt địa chỉ mặc định thất bại.";
             $_SESSION['status_type'] = "error";
         }
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/account/receiver-info");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/receiver-info");
         exit();
     }
 
@@ -340,7 +340,7 @@ class AccountController
                 $_SESSION['message'] = "Mật khẩu hiện tại không đúng.";
                 $_SESSION['status_type'] = "error";
             }
-            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/security");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/security");
             exit();
         }
     }
@@ -398,7 +398,7 @@ class AccountController
             $_SESSION['message'] = "Xóa sản phẩm khỏi danh sách yêu thích thất bại.";
             $_SESSION['status_type'] = "error";
         }
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/account/wish-list");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/wish-list");
         exit();
     }
 

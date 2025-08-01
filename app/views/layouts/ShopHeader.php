@@ -11,7 +11,7 @@ $shopName = 'Shop của tôi'; // Sẽ được cập nhật từ database
     <title><?php echo isset($title) ? $title : 'ElectroMart - Quản lý Shop'; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/shop/shop-admin.css">
+    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/shop/shop-admin.css">
     <script src="https://kit.fontawesome.com/f6aadf5dfa.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -35,44 +35,44 @@ $shopName = 'Shop của tôi'; // Sẽ được cập nhật từ database
                 <ul>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'dashboard') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/dashboard" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/dashboard" class="nav-link">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'info') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/info" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/info" class="nav-link">
                             <i class="fas fa-store"></i>
                             <span>Thông tin Shop</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'orders') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/orders" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders" class="nav-link">
                             <i class="fas fa-shopping-cart"></i>
                             <span>Quản lý đơn hàng</span>
                         </a>
                     </li>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'products') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/products" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products" class="nav-link">
                             <i class="fas fa-box"></i>
                             <span>Quản lý sản phẩm</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'finance') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/shop/finance" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance" class="nav-link">
                             <i class="fas fa-dollar-sign"></i>
                             <span>Quản lý tài chính</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/home" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/home" class="nav-link">
                             <i class="fas fa-home"></i>
                             <span>Về trang chủ</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/account/signout" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signout" class="nav-link">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Đăng xuất</span>
                         </a>

@@ -10,8 +10,8 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
     <title><?php echo isset($title) ? $title : 'ElectroMart - Quản lý bán hàng'; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/admin/StyleOrders.css">
-    <script src="/electromart-o63e5.ondigitalocean.app/public/js/AdminJs/Header.js"></script>
+    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/admin/StyleOrders.css">
+    <script src="https://electromart-t8ou8.ondigitalocean.app/public/js/AdminJs/Header.js"></script>
     <script src="https://kit.fontawesome.com/f6aadf5dfa.js" crossorigin="anonymous"></script>
 </head>
 
@@ -33,33 +33,33 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
             <nav class="sidebar-nav">
                 <ul>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'orders') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/admin/orders" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/orders" class="nav-link">
                             <i class="fas fa-shopping-cart"></i>
                             <span>Quản lý đơn hàng</span>
                         </a>
                     </li>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'products') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/admin/products" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/products" class="nav-link">
                             <i class="fas fa-box"></i>
                             <span>Quản lý sản phẩm</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'finance') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/admin/finance" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/finance" class="nav-link">
                             <i class="fas fa-dollar-sign"></i>
                             <span>Quản lý tài chính</span>
                         </a>
                     </li>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'user_manager') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/admin/user_manager" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager" class="nav-link">
                             <i class="fas fa-chart-bar"></i>
                             <span>Quản lý người dùng</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'signout') ? 'active' : ''; ?>">
-                        <a href="/electromart-o63e5.ondigitalocean.app/public/account/signout" class="nav-link">
+                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signout" class="nav-link">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Đăng xuất</span>
                         </a>
@@ -80,14 +80,14 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
                         </p>
                     </div>
                     <?php if (isset($activeTab) && $activeTab === 'orders'): ?>
-                        <div class="header-right">
-                            <div class="stats-summary">
-                                <p class="stats-label">Tổng đơn hàng hôm nay</p>
-                                <p class="stats-value" id="todayOrderCount">
-                                    <?php echo isset($todayOrderCount) ? $todayOrderCount : '0'; ?>
-                                </p>
+                            <div class="header-right">
+                                <div class="stats-summary">
+                                    <p class="stats-label">Tổng đơn hàng hôm nay</p>
+                                    <p class="stats-value" id="todayOrderCount">
+                                        <?php echo isset($todayOrderCount) ? $todayOrderCount : '0'; ?>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 <?php endif; ?>
             </header>

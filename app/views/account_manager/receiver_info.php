@@ -10,11 +10,11 @@ require_once __DIR__ . "/./account_navbar.php";
                 class="fa-regular fa-pen-to-square"></i>Thêm địa chỉ mới</button>
     </div>
     <?php if ($receiverList == null): ?>
-        <div class="list">
-            <div class="no-information">
-                <p>Bạn chưa có địa chỉ giao hàng nào.</p>
+            <div class="list">
+                <div class="no-information">
+                    <p>Bạn chưa có địa chỉ giao hàng nào.</p>
+                </div>
             </div>
-        </div>
     <?php endif; ?>
     <div id="receiver-list">
         <?php
@@ -30,7 +30,7 @@ require_once __DIR__ . "/./account_navbar.php";
     <div class="modal-overlay" id="editModal">
         <div class="modal">
             <button class="close-btn" onclick="closeEditModal(); loadProvinces()">X</button>
-            <form action="/electromart-o63e5.ondigitalocean.app/public/account/update-receiver" method="POST">
+            <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/update-receiver" method="POST">
                 <h3>Chỉnh sửa địa chỉ</h3>
                 <!-- Gửi kèm dữ liệu ReceiverID khi gửi form -->
                 <input type="hidden" name="ReceiverID" value="">
@@ -81,7 +81,7 @@ require_once __DIR__ . "/./account_navbar.php";
         <div class="modal">
             <button class="close-btn" onclick="closeAddModal(); loadProvinces()">X</button>
             <h3>Thêm địa chỉ mới</h3>
-            <form action="/electromart-o63e5.ondigitalocean.app/public/account/add-receiver" method="POST">
+            <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/add-receiver" method="POST">
                 <!-- Tỉnh/Thành phố -->
                 <label for="add-city">Tỉnh / Thành phố</label>
                 <input list="province-options" id="add-city" name="City" placeholder="Nhập tỉnh/thành phố">
@@ -146,7 +146,7 @@ require_once __DIR__ . "/./account_navbar.php";
         inputHidden.value = receiverId;
         currentReceiverId = receiverId;
 
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/account/get-receiver/${receiverId}`)
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/account/get-receiver/${receiverId}`)
             .then(res => res.json())
             .then(data => {
                 document.getElementById("edit-city").value = data.City;
@@ -190,7 +190,7 @@ require_once __DIR__ . "/./account_navbar.php";
 
         if (!confirm("Bạn có chắc muốn xóa địa chỉ này không?")) return;
 
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/account/delete-receiver/${currentReceiverId}`, {
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/account/delete-receiver/${currentReceiverId}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
@@ -219,7 +219,7 @@ require_once __DIR__ . "/./account_navbar.php";
 
     // Load tỉnh/thành phố
     document.addEventListener("DOMContentLoaded", function () {
-        fetch('/electromart-o63e5.ondigitalocean.app/public/api/get-provinces/')
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/api/get-provinces/')
             .then(response => response.json())
             .then(data => {
                 provinceData.push(...data);
@@ -263,7 +263,7 @@ require_once __DIR__ . "/./account_navbar.php";
 
         const provinceId = matched.Id;
 
-        fetch("/electromart-o63e5.ondigitalocean.app/public/api/get-wards/" + provinceId)
+        fetch("https://electromart-t8ou8.ondigitalocean.app/public/api/get-wards/" + provinceId)
             .then(response => {
                 if (!response.ok) throw new Error('Lỗi khi gọi API phường/xã');
                 return response.json();

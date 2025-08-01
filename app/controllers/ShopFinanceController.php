@@ -43,7 +43,7 @@ class ShopFinanceController extends BaseShopController
             'title' => 'Quản lý tài chính',
             'currentPage' => 'finance',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
                 ['text' => 'Quản lý tài chính']
             ]
         ]);
@@ -77,8 +77,8 @@ class ShopFinanceController extends BaseShopController
             'title' => 'Quản lý tài khoản ngân hàng',
             'currentPage' => 'finance',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop'],
-                ['text' => 'Quản lý tài chính', 'url' => '/electromart-o63e5.ondigitalocean.app/public/shop/finance'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+                ['text' => 'Quản lý tài chính', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance'],
                 ['text' => 'Tài khoản ngân hàng']
             ]
         ]);
@@ -140,7 +140,7 @@ class ShopFinanceController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi thêm tài khoản ngân hàng.';
         }
 
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts");
         exit();
     }
 
@@ -179,7 +179,7 @@ class ShopFinanceController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật tài khoản ngân hàng.';
         }
 
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts");
         exit();
     }
 
@@ -206,7 +206,7 @@ class ShopFinanceController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi xóa tài khoản ngân hàng.';
         }
 
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts");
         exit();
     }
 
@@ -233,7 +233,7 @@ class ShopFinanceController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật tài khoản mặc định.';
         }
 
-        header("Location: /electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts");
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts");
         exit();
     }
 }

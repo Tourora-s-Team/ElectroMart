@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/admin/StyleFinancial.css">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/admin/StyleFinancial.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/public/js/AdminJs/Financial.js" defer></script>
 <div class="financial-management-page">
@@ -20,9 +20,9 @@
                 <select name="month" id="month" onchange="this.form.submit()">
                     <option value="">Tất cả các tháng</option>
                     <?php for ($i = 1; $i <= 12; $i++): ?>
-                        <option value="<?= $i ?>" <?= ($_GET['month'] ?? '') == $i ? 'selected' : '' ?>>
-                            Tháng <?= $i ?>
-                        </option>
+                            <option value="<?= $i ?>" <?= ($_GET['month'] ?? '') == $i ? 'selected' : '' ?>>
+                                Tháng <?= $i ?>
+                            </option>
                     <?php endfor; ?>
                 </select>
             </div>
@@ -31,9 +31,9 @@
                 <label for="year">Lọc theo năm:</label>
                 <select name="year" id="year" onchange="this.form.submit()">
                     <?php foreach ($availableYears as $availableYear): ?>
-                        <option value="<?= $availableYear ?>" <?= ($_GET['year'] ?? date('Y')) == $availableYear ? 'selected' : '' ?>>
-                            Năm <?= $availableYear ?>
-                        </option>
+                            <option value="<?= $availableYear ?>" <?= ($_GET['year'] ?? date('Y')) == $availableYear ? 'selected' : '' ?>>
+                                Năm <?= $availableYear ?>
+                            </option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -41,9 +41,9 @@
                 <select name="shop" onchange="this.form.submit()" class="filter-select">
                     <option value="">-- Chọn cửa hàng --</option>
                     <?php for ($i = 1; $i <= 10; $i++): ?>
-                        <option value="<?= $i ?>" <?= (isset($_GET['shop']) && $_GET['shop'] == $i) ? 'selected' : '' ?>>
-                            Cửa hàng <?= $i ?>
-                        </option>
+                            <option value="<?= $i ?>" <?= (isset($_GET['shop']) && $_GET['shop'] == $i) ? 'selected' : '' ?>>
+                                Cửa hàng <?= $i ?>
+                            </option>
                     <?php endfor; ?>
                 </select>
             </div>
@@ -68,17 +68,17 @@
             </thead>
             <tbody>
                 <?php foreach ($revenueData as $report): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($report['ReportID']) ?></td>
-                        <td><?= htmlspecialchars($report['ShopID']) ?></td>
-                        <td><?= number_format($report['Revenue']) ?> VNĐ</td>
-                        <td><?= htmlspecialchars($report['Month']) ?></td>
-                        <td><?= htmlspecialchars($report['Year']) ?></td>
-                        <td><?= htmlspecialchars($report['BankName'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($report['AccountNumber'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($report['AccountHolder'] ?? '') ?></td>
-                        <td><?= htmlspecialchars($report['Status'] ?? '') ?></td>
-                    </tr>
+                        <tr>
+                            <td><?= htmlspecialchars($report['ReportID']) ?></td>
+                            <td><?= htmlspecialchars($report['ShopID']) ?></td>
+                            <td><?= number_format($report['Revenue']) ?> VNĐ</td>
+                            <td><?= htmlspecialchars($report['Month']) ?></td>
+                            <td><?= htmlspecialchars($report['Year']) ?></td>
+                            <td><?= htmlspecialchars($report['BankName'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($report['AccountNumber'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($report['AccountHolder'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($report['Status'] ?? '') ?></td>
+                        </tr>
                 <?php endforeach; ?>
             </tbody>
 

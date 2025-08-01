@@ -19,7 +19,7 @@ class ProductDetailController
         $reviewComment = $productModels->getReviewComment($id);
         if (!$product) {
             // Nếu không tìm thấy sản phẩm, có thể hiển thị thông báo lỗi hoặc chuyển hướng
-            header('Location: /electromart-o63e5.ondigitalocean.app/public/home');
+            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/home');
             exit;
         }
 
@@ -46,12 +46,12 @@ class ProductDetailController
 
         if (!isset($userId)) {
             // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-            header('Location: /electromart-o63e5.ondigitalocean.app/public/account/signin');
+            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin');
             exit;
         } else {
             if ($rating && $productId) {
                 $productModels->addReviewComment($rating, $comment, $productId, $shopId, $userId);
-                header('Location: /electromart-o63e5.ondigitalocean.app/public/product-detail/' . $productId);
+                header('Location: https://electromart-t8ou8.ondigitalocean.app/public/product-detail/' . $productId);
                 exit;
             } else {
                 // Xử lý lỗi nếu không có rating hoặc productId

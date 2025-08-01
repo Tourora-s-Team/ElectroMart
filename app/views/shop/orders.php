@@ -120,82 +120,82 @@
         </div>
         <div class="card-body" style="padding: 0;">
             <?php if (!empty($orders)): ?>
-                <div class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Mã đơn hàng</th>
-                                <th>Khách hàng</th>
-                                <th>Ngày đặt</th>
-                                <th>Sản phẩm</th>
-                                <th>Trạng thái</th>
-                                <th>Phí ship</th>
-                                <th>Tổng tiền</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($orders as $order): ?>
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td class="font-medium">#<?php echo $order['OrderID']; ?></td>
-                                    <td>
-                                        <div>
-                                            <div class="font-medium"><?php echo htmlspecialchars($order['CustomerName']); ?>
-                                            </div>
-                                            <div style="font-size: 0.75rem; color: var(--text-secondary);">ID:
-                                                <?php echo $order['UserID']; ?>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div><?php echo date('d/m/Y', strtotime($order['OrderDate'])); ?></div>
-                                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
-                                            <?php echo date('H:i', strtotime($order['OrderDate'])); ?>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-                                            title="<?php echo htmlspecialchars($order['ProductNames']); ?>">
-                                            <?php echo htmlspecialchars($order['ProductNames']); ?>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge status-<?php echo strtolower($order['Status']); ?>">
-                                            <?php echo $order['Status']; ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo number_format($order['ShippingFee']); ?>₫</td>
-                                    <td class="font-medium"><?php echo number_format($order['TotalAmount']); ?>₫</td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <button type="button" class="btn btn-outline btn-sm"
-                                                onclick="viewOrderDetail(<?php echo $order['OrderID']; ?>)"
-                                                title="Xem chi tiết">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <?php if (in_array($order['Status'], ['Pending', 'Processing'])): ?>
-                                                <button type="button" class="btn btn-primary btn-sm"
-                                                    onclick="updateOrderStatus(<?php echo $order['OrderID']; ?>, '<?php echo $order['Status']; ?>')"
-                                                    title="Cập nhật trạng thái">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
+                                    <th>Mã đơn hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Sản phẩm</th>
+                                    <th>Trạng thái</th>
+                                    <th>Phí ship</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Thao tác</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($orders as $order): ?>
+                                        <tr>
+                                            <td class="font-medium">#<?php echo $order['OrderID']; ?></td>
+                                            <td>
+                                                <div>
+                                                    <div class="font-medium"><?php echo htmlspecialchars($order['CustomerName']); ?>
+                                                    </div>
+                                                    <div style="font-size: 0.75rem; color: var(--text-secondary);">ID:
+                                                        <?php echo $order['UserID']; ?>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div><?php echo date('d/m/Y', strtotime($order['OrderDate'])); ?></div>
+                                                <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                                    <?php echo date('H:i', strtotime($order['OrderDate'])); ?>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                                                    title="<?php echo htmlspecialchars($order['ProductNames']); ?>">
+                                                    <?php echo htmlspecialchars($order['ProductNames']); ?>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="status-badge status-<?php echo strtolower($order['Status']); ?>">
+                                                    <?php echo $order['Status']; ?>
+                                                </span>
+                                            </td>
+                                            <td><?php echo number_format($order['ShippingFee']); ?>₫</td>
+                                            <td class="font-medium"><?php echo number_format($order['TotalAmount']); ?>₫</td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <button type="button" class="btn btn-outline btn-sm"
+                                                        onclick="viewOrderDetail(<?php echo $order['OrderID']; ?>)"
+                                                        title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <?php if (in_array($order['Status'], ['Pending', 'Processing'])): ?>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                                onclick="updateOrderStatus(<?php echo $order['OrderID']; ?>, '<?php echo $order['Status']; ?>')"
+                                                                title="Cập nhật trạng thái">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
             <?php else: ?>
-                <div class="empty-state">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>Không tìm thấy đơn hàng</h3>
-                    <p>Chưa có đơn hàng nào phù hợp với bộ lọc hiện tại</p>
-                    <button type="button" class="btn btn-outline" onclick="resetFilters()">
-                        Xem tất cả đơn hàng
-                    </button>
-                </div>
+                    <div class="empty-state">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h3>Không tìm thấy đơn hàng</h3>
+                        <p>Chưa có đơn hàng nào phù hợp với bộ lọc hiện tại</p>
+                        <button type="button" class="btn btn-outline" onclick="resetFilters()">
+                            Xem tất cả đơn hàng
+                        </button>
+                    </div>
             <?php endif; ?>
         </div>
     </div>
@@ -248,12 +248,12 @@
     function searchOrders() {
         const searchInput = document.getElementById('orderSearch');
         if (searchInput && searchInput.value.trim()) {
-            window.location.href = `/electromart-o63e5.ondigitalocean.app/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+            window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
         }
     }
 
     function viewOrderDetail(orderId) {
-        window.location.href = `/electromart-o63e5.ondigitalocean.app/public/shop/orders/view/${orderId}`;
+        window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
     }
 
     function updateOrderStatus(orderId, currentStatus) {
@@ -279,13 +279,13 @@
 
         // Update form action
         const form = document.getElementById('statusUpdateForm');
-        form.action = `/electromart-o63e5.ondigitalocean.app/public/shop/orders/view/${orderId}`;
+        form.action = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
 
         openModal('statusUpdateModal');
     }
 
     function resetFilters() {
-        window.location.href = '/electromart-o63e5.ondigitalocean.app/public/shop/orders';
+        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders';
     }
 
     // Auto-refresh orders every 2 minutes

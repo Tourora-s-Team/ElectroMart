@@ -34,11 +34,11 @@
                     <select id="category" name="category" class="form-select">
                         <option value="">Tất cả danh mục</option>
                         <?php if (!empty($categories)): ?>
-                            <?php foreach ($categories as $category): ?>
-                                <option value="<?php echo $category['CategoryID']; ?>" <?php echo (($_GET['category'] ?? '') == $category['CategoryID']) ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($category['CategoryName']); ?>
-                                </option>
-                            <?php endforeach; ?>
+                                <?php foreach ($categories as $category): ?>
+                                        <option value="<?php echo $category['CategoryID']; ?>" <?php echo (($_GET['category'] ?? '') == $category['CategoryID']) ? 'selected' : ''; ?>>
+                                            <?php echo htmlspecialchars($category['CategoryName']); ?>
+                                        </option>
+                                <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
                 </div>
@@ -74,7 +74,7 @@
                         <i class="fas fa-search"></i>
                         Tìm kiếm
                     </button>
-                    <a href="/electromart-o63e5.ondigitalocean.app/public/shop/products" class="btn btn-outline">
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products" class="btn btn-outline">
                         <i class="fas fa-refresh"></i>
                         Làm mới
                     </a>
@@ -139,212 +139,212 @@
         </div>
         <div class="card-body">
             <?php if (!empty($products)): ?>
-                <!-- Table View (Default) -->
-                <div id="tableView" class="table-container">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 80px;">Hình ảnh</th>
-                                <th>Sản phẩm</th>
-                                <th style="width: 120px;">Giá</th>
-                                <th style="width: 100px;">Tồn kho</th>
-                                <th style="width: 100px;">Lượt xem</th>
-                                <th style="width: 100px;">Trạng thái</th>
-                                <th style="width: 150px;">Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($products as $product): ?>
+                    <!-- Table View (Default) -->
+                    <div id="tableView" class="table-container">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <div style="width: 60px; height: 60px;">
-                                            <?php if (!empty($product['ImageURL'])): ?>
-                                                <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
-                                                    alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
-                                                    style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
-                                            <?php else: ?>
-                                                <div
-                                                    style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
-                                                    <i class="fas fa-image" style="color: var(--text-light);"></i>
+                                    <th style="width: 80px;">Hình ảnh</th>
+                                    <th>Sản phẩm</th>
+                                    <th style="width: 120px;">Giá</th>
+                                    <th style="width: 100px;">Tồn kho</th>
+                                    <th style="width: 100px;">Lượt xem</th>
+                                    <th style="width: 100px;">Trạng thái</th>
+                                    <th style="width: 150px;">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($products as $product): ?>
+                                        <tr>
+                                            <td>
+                                                <div style="width: 60px; height: 60px;">
+                                                    <?php if (!empty($product['ImageURL'])): ?>
+                                                            <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
+                                                                alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
+                                                                style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
+                                                    <?php else: ?>
+                                                            <div
+                                                                style="width: 100%; height: 100%; background-color: var(--background-color); border-radius: 0.375rem; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-color);">
+                                                                <i class="fas fa-image" style="color: var(--text-light);"></i>
+                                                            </div>
+                                                    <?php endif; ?>
                                                 </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <h4 class="font-medium" style="margin-bottom: 0.25rem;">
-                                                <?php echo htmlspecialchars($product['ProductName']); ?>
-                                            </h4>
-                                            <p
-                                                style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
-                                                <?php echo htmlspecialchars($product['Brand']); ?>
-                                            </p>
-                                            <p style="font-size: 0.75rem; color: var(--text-light);">
-                                                ID: <?php echo $product['ProductID']; ?>
-                                            </p>
-                                        </div>
-                                    </td>
-                                    <td class="font-medium"><?php echo number_format($product['Price']); ?>₫</td>
-                                    <td>
-                                        <span
-                                            class="<?php echo ($product['StockQuantity'] > 0) ? 'text-success' : 'text-danger'; ?>">
-                                            <?php echo $product['StockQuantity']; ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo number_format($product['ViewCount'] ?? 0); ?></td>
-                                    <td>
-                                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <h4 class="font-medium" style="margin-bottom: 0.25rem;">
+                                                        <?php echo htmlspecialchars($product['ProductName']); ?>
+                                                    </h4>
+                                                    <p
+                                                        style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
+                                                        <?php echo htmlspecialchars($product['Brand']); ?>
+                                                    </p>
+                                                    <p style="font-size: 0.75rem; color: var(--text-light);">
+                                                        ID: <?php echo $product['ProductID']; ?>
+                                                    </p>
+                                                </div>
+                                            </td>
+                                            <td class="font-medium"><?php echo number_format($product['Price']); ?>₫</td>
+                                            <td>
+                                                <span
+                                                    class="<?php echo ($product['StockQuantity'] > 0) ? 'text-success' : 'text-danger'; ?>">
+                                                    <?php echo $product['StockQuantity']; ?>
+                                                </span>
+                                            </td>
+                                            <td><?php echo number_format($product['ViewCount'] ?? 0); ?></td>
+                                            <td>
+                                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                                    <span
+                                                        class="status-badge status-<?php echo $product['IsActive'] ? 'active' : 'inactive'; ?>">
+                                                        <?php echo $product['IsActive'] ? 'Đang bán' : 'Ngừng bán'; ?>
+                                                    </span>
+                                                    <label class="switch">
+                                                        <input type="checkbox" <?php echo $product['IsActive'] ? 'checked' : ''; ?>
+                                                            onchange="toggleProductStatus(<?php echo $product['ProductID']; ?>, this.checked)">
+                                                        <span class="slider"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div style="display: flex; gap: 0.5rem;">
+                                                    <button type="button" class="btn btn-outline btn-sm"
+                                                        onclick="editProduct(<?php echo $product['ProductID']; ?>)" title="Chỉnh sửa">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline btn-sm"
+                                                        onclick="viewProduct(<?php echo $product['ProductID']; ?>)"
+                                                        title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                        onclick="deleteProduct(<?php echo $product['ProductID']; ?>)" title="Xóa">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Grid View -->
+                    <div id="gridView" class="products-grid" style="display: none;">
+                        <?php foreach ($products as $product): ?>
+                                <div class="product-card">
+                                    <div class="product-image">
+                                        <?php if (!empty($product['ImageURL'])): ?>
+                                                <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
+                                                    alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
+                                        <?php else: ?>
+                                                <div class="placeholder-image">
+                                                    <i class="fas fa-image"></i>
+                                                </div>
+                                        <?php endif; ?>
+
+                                        <!-- Status Badge -->
+                                        <div class="product-status">
                                             <span
                                                 class="status-badge status-<?php echo $product['IsActive'] ? 'active' : 'inactive'; ?>">
                                                 <?php echo $product['IsActive'] ? 'Đang bán' : 'Ngừng bán'; ?>
                                             </span>
+                                        </div>
+
+                                        <!-- Actions Overlay -->
+                                        <div class="product-actions">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                onclick="editProduct(<?php echo $product['ProductID']; ?>)" title="Chỉnh sửa">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-outline"
+                                                onclick="viewProduct(<?php echo $product['ProductID']; ?>)" title="Xem chi tiết">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger"
+                                                onclick="deleteProduct(<?php echo $product['ProductID']; ?>)" title="Xóa">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="product-info">
+                                        <h4 class="product-name"><?php echo htmlspecialchars($product['ProductName']); ?></h4>
+                                        <p class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></p>
+                                        <div class="product-price"><?php echo number_format($product['Price']); ?>₫</div>
+
+                                        <div class="product-meta">
+                                            <span class="meta-item">
+                                                <i class="fas fa-box"></i>
+                                                <?php echo $product['StockQuantity']; ?> trong kho
+                                            </span>
+                                            <span class="meta-item">
+                                                <i class="fas fa-eye"></i>
+                                                <?php echo number_format($product['ViewCount'] ?? 0); ?> lượt xem
+                                            </span>
+                                        </div>
+
+                                        <!-- Toggle Switch -->
+                                        <div class="product-toggle">
                                             <label class="switch">
                                                 <input type="checkbox" <?php echo $product['IsActive'] ? 'checked' : ''; ?>
                                                     onchange="toggleProductStatus(<?php echo $product['ProductID']; ?>, this.checked)">
                                                 <span class="slider"></span>
                                             </label>
+                                            <span><?php echo $product['IsActive'] ? 'Đang bán' : 'Ngừng bán'; ?></span>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div style="display: flex; gap: 0.5rem;">
-                                            <button type="button" class="btn btn-outline btn-sm"
-                                                onclick="editProduct(<?php echo $product['ProductID']; ?>)" title="Chỉnh sửa">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-outline btn-sm"
-                                                onclick="viewProduct(<?php echo $product['ProductID']; ?>)"
-                                                title="Xem chi tiết">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-danger btn-sm"
-                                                onclick="deleteProduct(<?php echo $product['ProductID']; ?>)" title="Xóa">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Grid View -->
-                <div id="gridView" class="products-grid" style="display: none;">
-                    <?php foreach ($products as $product): ?>
-                        <div class="product-card">
-                            <div class="product-image">
-                                <?php if (!empty($product['ImageURL'])): ?>
-                                    <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
-                                        alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
-                                <?php else: ?>
-                                    <div class="placeholder-image">
-                                        <i class="fas fa-image"></i>
                                     </div>
-                                <?php endif; ?>
-
-                                <!-- Status Badge -->
-                                <div class="product-status">
-                                    <span
-                                        class="status-badge status-<?php echo $product['IsActive'] ? 'active' : 'inactive'; ?>">
-                                        <?php echo $product['IsActive'] ? 'Đang bán' : 'Ngừng bán'; ?>
-                                    </span>
                                 </div>
-
-                                <!-- Actions Overlay -->
-                                <div class="product-actions">
-                                    <button type="button" class="btn btn-sm btn-primary"
-                                        onclick="editProduct(<?php echo $product['ProductID']; ?>)" title="Chỉnh sửa">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline"
-                                        onclick="viewProduct(<?php echo $product['ProductID']; ?>)" title="Xem chi tiết">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-danger"
-                                        onclick="deleteProduct(<?php echo $product['ProductID']; ?>)" title="Xóa">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="product-info">
-                                <h4 class="product-name"><?php echo htmlspecialchars($product['ProductName']); ?></h4>
-                                <p class="product-brand"><?php echo htmlspecialchars($product['Brand']); ?></p>
-                                <div class="product-price"><?php echo number_format($product['Price']); ?>₫</div>
-
-                                <div class="product-meta">
-                                    <span class="meta-item">
-                                        <i class="fas fa-box"></i>
-                                        <?php echo $product['StockQuantity']; ?> trong kho
-                                    </span>
-                                    <span class="meta-item">
-                                        <i class="fas fa-eye"></i>
-                                        <?php echo number_format($product['ViewCount'] ?? 0); ?> lượt xem
-                                    </span>
-                                </div>
-
-                                <!-- Toggle Switch -->
-                                <div class="product-toggle">
-                                    <label class="switch">
-                                        <input type="checkbox" <?php echo $product['IsActive'] ? 'checked' : ''; ?>
-                                            onchange="toggleProductStatus(<?php echo $product['ProductID']; ?>, this.checked)">
-                                        <span class="slider"></span>
-                                    </label>
-                                    <span><?php echo $product['IsActive'] ? 'Đang bán' : 'Ngừng bán'; ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-
-                <!-- Pagination -->
-                <?php if (!empty($pagination)): ?>
-                    <div class="pagination-container">
-                        <div class="pagination-info">
-                            Hiển thị <?php echo $pagination['start']; ?>-<?php echo $pagination['end']; ?>
-                            trong tổng số <?php echo $pagination['total']; ?> sản phẩm
-                        </div>
-
-                        <?php if ($pagination['total_pages'] > 1): ?>
-                            <div class="pagination">
-                                <?php if ($pagination['current_page'] > 1): ?>
-                                    <a href="?page=<?php echo $pagination['current_page'] - 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                             return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
-                                        <i class="fas fa-chevron-left"></i>
-                                    </a>
-                                <?php endif; ?>
-
-                                <?php for ($i = max(1, $pagination['current_page'] - 2); $i <= min($pagination['total_pages'], $pagination['current_page'] + 2); $i++): ?>
-                                    <a href="?page=<?php echo $i; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                           return $k !== 'page';
-                                       }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
-                                        class="pagination-btn <?php echo ($i == $pagination['current_page']) ? 'active' : ''; ?>">
-                                        <?php echo $i; ?>
-                                    </a>
-                                <?php endfor; ?>
-
-                                <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
-                                    <a href="?page=<?php echo $pagination['current_page'] + 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                             return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
-                                        <i class="fas fa-chevron-right"></i>
-                                    </a>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
-                <?php endif; ?>
+
+                    <!-- Pagination -->
+                    <?php if (!empty($pagination)): ?>
+                            <div class="pagination-container">
+                                <div class="pagination-info">
+                                    Hiển thị <?php echo $pagination['start']; ?>-<?php echo $pagination['end']; ?>
+                                    trong tổng số <?php echo $pagination['total']; ?> sản phẩm
+                                </div>
+
+                                <?php if ($pagination['total_pages'] > 1): ?>
+                                        <div class="pagination">
+                                            <?php if ($pagination['current_page'] > 1): ?>
+                                                    <a href="?page=<?php echo $pagination['current_page'] - 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
+                                                             return $k !== 'page';
+                                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                                        <i class="fas fa-chevron-left"></i>
+                                                    </a>
+                                            <?php endif; ?>
+
+                                            <?php for ($i = max(1, $pagination['current_page'] - 2); $i <= min($pagination['total_pages'], $pagination['current_page'] + 2); $i++): ?>
+                                                    <a href="?page=<?php echo $i; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
+                                                           return $k !== 'page';
+                                                       }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
+                                                        class="pagination-btn <?php echo ($i == $pagination['current_page']) ? 'active' : ''; ?>">
+                                                        <?php echo $i; ?>
+                                                    </a>
+                                            <?php endfor; ?>
+
+                                            <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
+                                                    <a href="?page=<?php echo $pagination['current_page'] + 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
+                                                             return $k !== 'page';
+                                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                                        <i class="fas fa-chevron-right"></i>
+                                                    </a>
+                                            <?php endif; ?>
+                                        </div>
+                                <?php endif; ?>
+                            </div>
+                    <?php endif; ?>
             <?php else: ?>
-                <div class="empty-state">
-                    <i class="fas fa-box-open"></i>
-                    <h3>Chưa có sản phẩm nào</h3>
-                    <p>Hãy thêm sản phẩm đầu tiên cho shop của bạn</p>
-                    <button type="button" class="btn btn-primary" onclick="openAddProductModal()">
-                        <i class="fas fa-plus"></i>
-                        Thêm sản phẩm
-                    </button>
-                </div>
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Chưa có sản phẩm nào</h3>
+                        <p>Hãy thêm sản phẩm đầu tiên cho shop của bạn</p>
+                        <button type="button" class="btn btn-primary" onclick="openAddProductModal()">
+                            <i class="fas fa-plus"></i>
+                            Thêm sản phẩm
+                        </button>
+                    </div>
             <?php endif; ?>
         </div>
     </div>
@@ -406,11 +406,11 @@
                             <select id="productCategory" name="category_id" class="form-select" required>
                                 <option value="">Chọn danh mục</option>
                                 <?php if (!empty($categories)): ?>
-                                    <?php foreach ($categories as $category): ?>
-                                        <option value="<?php echo $category['CategoryID']; ?>">
-                                            <?php echo htmlspecialchars($category['CategoryName']); ?>
-                                        </option>
-                                    <?php endforeach; ?>
+                                        <?php foreach ($categories as $category): ?>
+                                                <option value="<?php echo $category['CategoryID']; ?>">
+                                                    <?php echo htmlspecialchars($category['CategoryName']); ?>
+                                                </option>
+                                        <?php endforeach; ?>
                                 <?php endif; ?>
                             </select>
                         </div>
@@ -464,7 +464,7 @@
     // Helper function to convert database image path to web URL
     function getImageUrl(imagePath) {
         if (!imagePath) {
-            return '/electromart-o63e5.ondigitalocean.app/public/images/no-image.jpg';
+            return 'https://electromart-t8ou8.ondigitalocean.app/public/images/no-image.jpg';
         }
 
         // Remove './' prefix if exists
@@ -510,7 +510,7 @@
 
     function editProduct(productId) {
         // Load product data via AJAX
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/edit/${productId}`, {
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/edit/${productId}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
@@ -576,12 +576,12 @@
     }
 
     function viewProduct(productId) {
-        window.open(`/electromart-o63e5.ondigitalocean.app/public/product-detail/${productId}`, '_blank');
+        window.open(`https://electromart-t8ou8.ondigitalocean.app/public/product-detail/${productId}`, '_blank');
     }
 
     function deleteProduct(productId) {
         if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/delete/${productId}`, {
+            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/delete/${productId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -604,7 +604,7 @@
     }
 
     function toggleProductStatus(productId, isActive) {
-        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/toggle-status/${productId}`, {
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/toggle-status/${productId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -706,7 +706,7 @@
 
     function removeExistingImage(imageId) {
         if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
-            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/delete-image/${imageId}`, {
+            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/delete-image/${imageId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -732,8 +732,8 @@
         const formData = new FormData(this);
         const productId = document.getElementById('productId').value;
         const url = productId ?
-            `/electromart-o63e5.ondigitalocean.app/public/shop/products/update/${productId}` :
-            '/electromart-o63e5.ondigitalocean.app/public/shop/products/add';
+            `https://electromart-t8ou8.ondigitalocean.app/public/shop/products/update/${productId}` :
+            'https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');

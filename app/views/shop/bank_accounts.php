@@ -17,90 +17,90 @@
 
     <!-- Success/Error Messages -->
     <?php if (isset($_SESSION['success_message'])): ?>
-        <div class="alert alert-success">
-            <i class="fas fa-check-circle"></i>
-            <?php echo $_SESSION['success_message'];
-            unset($_SESSION['success_message']); ?>
-        </div>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <?php echo $_SESSION['success_message'];
+                unset($_SESSION['success_message']); ?>
+            </div>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['error_message'])): ?>
-        <div class="alert alert-error">
-            <i class="fas fa-exclamation-triangle"></i>
-            <?php echo $_SESSION['error_message'];
-            unset($_SESSION['error_message']); ?>
-        </div>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <?php echo $_SESSION['error_message'];
+                unset($_SESSION['error_message']); ?>
+            </div>
     <?php endif; ?>
 
     <!-- Bank Accounts List -->
     <div class="bank-accounts-grid">
         <?php if (!empty($bankAccounts)): ?>
-            <?php foreach ($bankAccounts as $account): ?>
-                <div class="bank-account-card <?php echo $account['IsDefault'] ? 'default' : ''; ?>">
-                    <div class="card-header">
-                        <div class="bank-info">
-                            <h3><?php echo htmlspecialchars($account['BankName']); ?></h3>
-                            <?php if ($account['IsDefault']): ?>
-                                <span class="default-badge">
-                                    <i class="fas fa-star"></i>
-                                    Mặc định
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                        <div class="card-actions">
-                            <button type="button" class="btn btn-sm btn-outline"
-                                onclick="editBankAccount(<?php echo htmlspecialchars(json_encode($account)); ?>)">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <?php if (!$account['IsDefault']): ?>
-                                <button type="button" class="btn btn-sm btn-success"
-                                    onclick="setDefaultBankAccount(<?php echo $account['BankAccountID']; ?>)">
-                                    <i class="fas fa-star"></i>
-                                </button>
-                            <?php endif; ?>
-                            <button type="button" class="btn btn-sm btn-danger"
-                                onclick="deleteBankAccount(<?php echo $account['BankAccountID']; ?>)">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
+                <?php foreach ($bankAccounts as $account): ?>
+                        <div class="bank-account-card <?php echo $account['IsDefault'] ? 'default' : ''; ?>">
+                            <div class="card-header">
+                                <div class="bank-info">
+                                    <h3><?php echo htmlspecialchars($account['BankName']); ?></h3>
+                                    <?php if ($account['IsDefault']): ?>
+                                            <span class="default-badge">
+                                                <i class="fas fa-star"></i>
+                                                Mặc định
+                                            </span>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="card-actions">
+                                    <button type="button" class="btn btn-sm btn-outline"
+                                        onclick="editBankAccount(<?php echo htmlspecialchars(json_encode($account)); ?>)">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <?php if (!$account['IsDefault']): ?>
+                                            <button type="button" class="btn btn-sm btn-success"
+                                                onclick="setDefaultBankAccount(<?php echo $account['BankAccountID']; ?>)">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                    <?php endif; ?>
+                                    <button type="button" class="btn btn-sm btn-danger"
+                                        onclick="deleteBankAccount(<?php echo $account['BankAccountID']; ?>)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
 
-                    <div class="card-body">
-                        <div class="account-details">
-                            <div class="detail-item">
-                                <label>Số tài khoản:</label>
-                                <span class="account-number"><?php echo htmlspecialchars($account['AccountNumber']); ?></span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Chủ tài khoản:</label>
-                                <span><?php echo htmlspecialchars($account['AccountHolder']); ?></span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Trạng thái:</label>
-                                <span class="status <?php echo strtolower($account['Status']); ?>">
-                                    <?php echo htmlspecialchars($account['Status']); ?>
-                                </span>
-                            </div>
-                            <div class="detail-item">
-                                <label>Ngày tạo:</label>
-                                <span><?php echo date('d/m/Y H:i', strtotime($account['CreatedAt'])); ?></span>
+                            <div class="card-body">
+                                <div class="account-details">
+                                    <div class="detail-item">
+                                        <label>Số tài khoản:</label>
+                                        <span class="account-number"><?php echo htmlspecialchars($account['AccountNumber']); ?></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Chủ tài khoản:</label>
+                                        <span><?php echo htmlspecialchars($account['AccountHolder']); ?></span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Trạng thái:</label>
+                                        <span class="status <?php echo strtolower($account['Status']); ?>">
+                                            <?php echo htmlspecialchars($account['Status']); ?>
+                                        </span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <label>Ngày tạo:</label>
+                                        <span><?php echo date('d/m/Y H:i', strtotime($account['CreatedAt'])); ?></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
         <?php else: ?>
-            <div class="empty-state">
-                <div class="empty-icon">
-                    <i class="fas fa-university"></i>
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3>Chưa có tài khoản ngân hàng</h3>
+                    <p>Thêm tài khoản ngân hàng để nhận thanh toán từ khách hàng</p>
+                    <button type="button" class="btn btn-primary" onclick="openAddBankAccountModal()">
+                        <i class="fas fa-plus"></i>
+                        Thêm tài khoản đầu tiên
+                    </button>
                 </div>
-                <h3>Chưa có tài khoản ngân hàng</h3>
-                <p>Thêm tài khoản ngân hàng để nhận thanh toán từ khách hàng</p>
-                <button type="button" class="btn btn-primary" onclick="openAddBankAccountModal()">
-                    <i class="fas fa-plus"></i>
-                    Thêm tài khoản đầu tiên
-                </button>
-            </div>
         <?php endif; ?>
     </div>
 </div>
@@ -116,7 +116,7 @@
         </div>
 
         <form id="bankAccountForm" method="POST"
-            action="/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts">
+            action="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts">
             <div class="modal-body">
                 <input type="hidden" id="bankAccountAction" name="action" value="add">
                 <input type="hidden" id="bankAccountID" name="BankAccountID" value="">
@@ -395,7 +395,7 @@
         if (confirm('Bạn có chắc chắn muốn đặt tài khoản này làm mặc định?')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts';
+            form.action = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts';
 
             form.innerHTML = `
             <input type="hidden" name="action" value="set_default">
@@ -411,7 +411,7 @@
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?\nHành động này không thể hoàn tác.')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts';
+            form.action = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts';
 
             form.innerHTML = `
             <input type="hidden" name="action" value="delete">

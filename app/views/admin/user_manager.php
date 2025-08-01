@@ -9,7 +9,7 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
     <div class="admin-container">
         <section class="filter-section">
             <form id="orderFilterForm" class="filter-form" method="GET"
-                action="/electromart-o63e5.ondigitalocean.app/public/admin/user_manager">
+                action="https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager">
                 <div class="filter-grid">
                     <!-- Status Filter -->
                     <div class="filter-group">
@@ -78,62 +78,62 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                         </thead>
                         <tbody id="ordersTableBody">
                             <?php if (isset($users) && !empty($users)): ?>
-                                <?php foreach ($users as $user): ?>
-                                    <tr class="order-row" data-order-id="<?php echo htmlspecialchars($user['UserID']); ?>">
-                                        <td class="order-id">
-                                            <span class="font-medium"><?php echo htmlspecialchars($user['UserID']); ?></span>
-                                        </td>
-                                        <td class="order-status">
-                                            <span class="status-badge status-<?php echo strtolower($user['IsActive']); ?>">
-                                                <?php echo htmlspecialchars($user['IsActive']); ?>
-                                            </span>
-                                        </td>
-                                        <td class="order-status">
-                                            <span class="status-badge status-<?php echo strtolower($user['Role']); ?>">
-                                                <?php echo htmlspecialchars($user['Role']); ?>
-                                            </span>
-                                        </td>
-                                        <td class="order-status">
-                                            <span class="status-badge status-<?php echo strtolower($user['Email']); ?>">
-                                                <?php echo htmlspecialchars($user['Email']); ?>
-                                            </span>
-                                        </td>
-                                        <td class="user-id">
-                                            <span><?php echo ($user['Phonenumber']); ?></span>
-                                        </td>
-                                        <td class="password">
-                                            <span><?php echo htmlspecialchars($user['Password']); ?></span>
-                                        </td>
-                                        <td>
-                                            <?php if ($user['IsActive'] == 1): ?>
-                                                <a style="color : red"
-                                                    href="/electromart-o63e5.ondigitalocean.app/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
-                                                    onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
-                                                    Khóa
-                                                </a>
-                                            <?php else: ?>
-                                                Đã khóa
-                                            <?php endif; ?>
-                                            <?php if ($user['IsActive'] == 0): ?>
-                                                <a href="/electromart-o63e5.ondigitalocean.app/public/admin/users/open?id=<?= $user['UserID'] ?>"
-                                                    onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?');">
-                                                    Mở Khóa
-                                                </a>
-                                            <?php endif; ?>
-                                        </td>
+                                    <?php foreach ($users as $user): ?>
+                                            <tr class="order-row" data-order-id="<?php echo htmlspecialchars($user['UserID']); ?>">
+                                                <td class="order-id">
+                                                    <span class="font-medium"><?php echo htmlspecialchars($user['UserID']); ?></span>
+                                                </td>
+                                                <td class="order-status">
+                                                    <span class="status-badge status-<?php echo strtolower($user['IsActive']); ?>">
+                                                        <?php echo htmlspecialchars($user['IsActive']); ?>
+                                                    </span>
+                                                </td>
+                                                <td class="order-status">
+                                                    <span class="status-badge status-<?php echo strtolower($user['Role']); ?>">
+                                                        <?php echo htmlspecialchars($user['Role']); ?>
+                                                    </span>
+                                                </td>
+                                                <td class="order-status">
+                                                    <span class="status-badge status-<?php echo strtolower($user['Email']); ?>">
+                                                        <?php echo htmlspecialchars($user['Email']); ?>
+                                                    </span>
+                                                </td>
+                                                <td class="user-id">
+                                                    <span><?php echo ($user['Phonenumber']); ?></span>
+                                                </td>
+                                                <td class="password">
+                                                    <span><?php echo htmlspecialchars($user['Password']); ?></span>
+                                                </td>
+                                                <td>
+                                                    <?php if ($user['IsActive'] == 1): ?>
+                                                            <a style="color : red"
+                                                                href="https://electromart-t8ou8.ondigitalocean.app/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
+                                                                onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
+                                                                Khóa
+                                                            </a>
+                                                    <?php else: ?>
+                                                            Đã khóa
+                                                    <?php endif; ?>
+                                                    <?php if ($user['IsActive'] == 0): ?>
+                                                            <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/users/open?id=<?= $user['UserID'] ?>"
+                                                                onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?');">
+                                                                Mở Khóa
+                                                            </a>
+                                                    <?php endif; ?>
+                                                </td>
 
-                                    </tr>
-                                <?php endforeach; ?>
+                                            </tr>
+                                    <?php endforeach; ?>
                             <?php else: ?>
-                                <tr class="no-data">
-                                    <td colspan="7" class="text-center">
-                                        <div class="no-data-content">
-                                            <i class="fas fa-shopping-cart no-data-icon"></i>
-                                            <p class="no-data-text">Không tìm thấy đơn hàng nào</p>
-                                            <p class="no-data-subtext">Thử điều chỉnh bộ lọc để xem thêm kết quả</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr class="no-data">
+                                        <td colspan="7" class="text-center">
+                                            <div class="no-data-content">
+                                                <i class="fas fa-shopping-cart no-data-icon"></i>
+                                                <p class="no-data-text">Không tìm thấy đơn hàng nào</p>
+                                                <p class="no-data-subtext">Thử điều chỉnh bộ lọc để xem thêm kết quả</p>
+                                            </div>
+                                        </td>
+                                    </tr>
                             <?php endif; ?>
                         </tbody>
                     </table>
