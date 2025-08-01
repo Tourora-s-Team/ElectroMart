@@ -83,3 +83,9 @@
     }
 
 }
+
+@media (max-width: 480px) {
+    .subheader .subheader__title {
+        font-size: 1rem;
+    }
+}
