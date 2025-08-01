@@ -49,7 +49,7 @@ $router->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
     <title>Electro Mart</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'base.css' ?>">
+    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/base.css' ?>">
     <!-- Import Font Awesome -->
     <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/fontawesome/css/all.min.css">
 </head>

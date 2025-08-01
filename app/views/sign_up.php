@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'auth.css' ?>">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
 <!-- Thư viện định dạng ngày tháng -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>

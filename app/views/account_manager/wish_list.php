@@ -2,7 +2,7 @@
 require_once __DIR__ . "/./account_navbar.php";
 ?>
 
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/wish_list.css' ?>">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/account_manager/wish_list.css">
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Danh sách yêu thích</h1>
