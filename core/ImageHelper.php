@@ -23,7 +23,7 @@ class ImageHelper
         $cleanPath = ltrim($imagePath, './');
 
         // Thêm prefix cho web
-        $webUrl = '/electromart/' . $cleanPath;
+        $webUrl = 'https://electromart-t8ou8.ondigitalocean.app/' . $cleanPath;
 
         return $webUrl;
     }
