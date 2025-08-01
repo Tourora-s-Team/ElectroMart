@@ -113,5 +113,5 @@
         dateFormat: "d/m/Y", // định dạng hiển thị
     });
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/auth.js"></script>

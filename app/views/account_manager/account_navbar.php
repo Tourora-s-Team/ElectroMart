@@ -92,4 +92,4 @@ unset($_SESSION['status_type']); ?>
     window.addEventListener('resize', adjustLayoutForMobile);
 
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
