@@ -767,6 +767,10 @@ body {
     
 }
 
+.edit {
+    display: inline-flex;
+}
+
 .main-content {
     padding: 24px;
 }
