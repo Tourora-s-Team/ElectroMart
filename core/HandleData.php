@@ -1,5 +1,5 @@
 <?php
-require_once ROOT_PATH . '/config/Database.php';
+require_once ROOT_PATH . '/config/database.php';
 
 class HandleData extends Database
 {
