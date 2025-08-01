@@ -1,4 +1,7 @@
-<?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
+<?php
+require_once ROOT_PATH . '/core/ImageHelper.php';
+include ROOT_PATH . '/app/views/layouts/header.php';
+?>
 
 <div id="toast-container"></div>
 <?php if (!empty($_SESSION['message'])): ?>
@@ -33,7 +36,7 @@ unset($_SESSION['status_type']); ?>
                         <!-- Thêm đường dẫn thẻ <a> đến trang chi tiết sản phẩm -->
                         <a href="public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
-                                <img src="<?php echo $product['ImageURL'] ?? '/public/images/no-image.jpg'; ?>"
+                                <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
                             </div>
 

@@ -1,3 +1,4 @@
+<?php require_once ROOT_PATH . '/core/ImageHelper.php'; ?>
 <link rel="stylesheet" href="/electromart/public/css/admin/StyleProducs.css">
 <div class="products-management-page">
     <!-- Search and Sort Section -->
@@ -62,9 +63,9 @@
                     <tr>
                         <td class="product-image">
                             <?php if (!empty($product['ImageURL'])): ?>
-                                <img src="/electromart/<?= htmlspecialchars(str_replace('./', '', $product['ImageURL'])) ?>"
+                                <img src="<?= ImageHelper::getImageUrlWithFallback($product['ImageURL']) ?>"
                                     alt="<?= htmlspecialchars($product['ProductName']) ?>"
-                                    onerror="this.src='../public/images/no-image.png'">
+                                    onerror="this.src='/electromart/public/images/no-image.jpg'">
                             <?php else: ?>
                                 <div class="no-image">Không có ảnh</div>
                             <?php endif; ?>
@@ -233,7 +234,8 @@
 
             <div class="form-group">
                 <label for="image_url">URL ảnh sản phẩm</label>
-                <input type="text" id="editProductImageURL" name="ImageURL" placeholder="./public/images/electro_mart/....png">
+                <input type="text" id="editProductImageURL" name="ImageURL"
+                    placeholder="./public/images/electro_mart/....png">
             </div>
             <select name="ShopID" id="ShopIDSelect" required>
                 <option value="">-- Chọn cửa hàng --</option>

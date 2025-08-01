@@ -41,7 +41,7 @@ if (!empty($_SESSION)) {
                             <?php echo $fullName; ?> ▼
                             <div class="dropdown" id="userDropdown">
                                 <a id="info" href="public/account/info">Thông tin cá nhân</a>
-                                <a id="seller" href="/orders">Kênh người bán</a>
+                                <a id="seller" href="public/shop">Kênh người bán</a>
                                 <a id="sign_out" href="public/account/signout">Đăng xuất</a>
                             </div>
                         </div>
