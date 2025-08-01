@@ -795,10 +795,6 @@
         font-size: 24px;
     }
 
-    .product-actions {
-        flex-direction: column;
-    }
-
     .main-image {
         height: 300px;
     }

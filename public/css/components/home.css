@@ -290,5 +290,16 @@
 
     .product-grid {
         grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+        zoom: 0.6;
+    }
+
+    .product-card {
+        max-height: 570px;
+    }
+
+    .product-image {
+        height: 270px;
+        width: 270px;
     }
 }
