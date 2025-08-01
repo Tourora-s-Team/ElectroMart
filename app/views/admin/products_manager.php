@@ -84,6 +84,7 @@
                             <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i>Khoá sản phẩm
                             </button>
                         </td>
+
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -274,4 +275,4 @@
         </form>
     </div>
 </div>
-<script src="/electromart/public/js/adminJs/Producs.js"></script>
+<script src="/electromart/public/js/adminJs/Products.js"></script>

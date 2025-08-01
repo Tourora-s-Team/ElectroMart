@@ -1178,3 +1178,117 @@ select {
     background-color: #f8fafc !important;
 }
 
+.edit button {
+  padding: 6px 12px;
+  margin: 4px 4px 4px 0;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Nút Sửa */
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* chia đôi: trái - phải */
+  gap: 8px;
+  align-items: start;
+}
+
+.btn-left, .btn-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Nút cơ bản */
+.edit-grid button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+/* Màu nút */
+.edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* chia đôi: trái - phải */
+  gap: 8px;
+  align-items: start;
+}
+
+.btn-left, .btn-right {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Nút cơ bản */
+.edit-grid button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+/* style.css */
+
+.edit button {
+  padding: 6px 12px;
+  margin: 4px 4px 4px 0;
+  font-size: 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+.edit button:first-child {
+  background-color: #3b82f6; 
+  color: white;
+}
+
+.edit button:first-child:hover {
+  background-color: #2563eb; 
+}
+
+.edit button:nth-child(2) {
+  background-color: #ef4444; 
+  color: white;
+  margin-left : 10px;
+}
+
+.edit button:nth-child(2):hover {
+  background-color: #dc2626; 
+}
+
+
+.edit button:nth-child(3) {
+  background-color: #facc15; 
+  color: #1f2937; 
+}
+
+.edit button:nth-child(3):hover {
+  background-color: #eab308;
+}
+
