@@ -58,28 +58,28 @@ unset($_SESSION['status_type']); ?>
                                 </div>
                             </div>
                         </a>
-                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
+                        <form action="/electromart-o63e5.ondigitalocean.app/public/cart/add" method="POST" class="add-to-cart-form">
 
-                            <div class="product-actions">
-                                <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
-                                <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="add-to-cart-btn">
-                                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-                                </button>
-                                <button type="button" class="add-to-wishlist-btn" title="Thêm vào danh sách yêu thích"
-                                    data-id="<?= $product['ProductID'] ?>"
-                                    onclick="addToWishList(<?php echo $product['ProductID']; ?>)">
-                                    <i class="fas fa-heart"></i>
-                                </button>
+                                    <div class="product-actions">
+                                        <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="add-to-cart-btn">
+                                            <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                                        </button>
+                                        <button type="button" class="add-to-wishlist-btn" title="Thêm vào danh sách yêu thích"
+                                            data-id="<?= $product['ProductID'] ?>"
+                                            onclick="addToWishList(<?php echo $product['ProductID']; ?>)">
+                                            <i class="fas fa-heart"></i>
+                                        </button>
+                                    </div>
+
+                                </form>
                             </div>
-
-                        </form>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
             <?php else: ?>
-                <div class="no-products">
-                    <p>Không có sản phẩm nào để hiển thị.</p>
-                </div>
+                    <div class="no-products">
+                        <p>Không có sản phẩm nào để hiển thị.</p>
+                    </div>
             <?php endif; ?>
         </div>
     </div>
@@ -132,7 +132,7 @@ unset($_SESSION['status_type']); ?>
     function addToWishList(productId) {
         const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
         btn.disabled = true;
-        fetch(`/electromart/public/account/wish-list-add/${productId}`, {
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/account/wish-list-add/${productId}`, {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'

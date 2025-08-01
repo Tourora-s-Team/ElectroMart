@@ -10,9 +10,9 @@
     <meta name="author" content="">
     <title>VNPAY RESPONSE</title>
     <!-- Bootstrap core CSS -->
-    <link href="/electromart/public/css/vnpay/bootstrap.min.css" rel="stylesheet" />
+    <link href="/electromart-o63e5.ondigitalocean.app/public/css/vnpay/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
-    <link href="/electromart/public/css/vnpay/jumbotron-narrow.css" rel="stylesheet">
+    <link href="/electromart-o63e5.ondigitalocean.app/public/css/vnpay/jumbotron-narrow.css" rel="stylesheet">
 </head>
 
 <body>

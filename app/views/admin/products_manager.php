@@ -1,5 +1,5 @@
 <?php require_once ROOT_PATH . '/core/ImageHelper.php'; ?>
-<link rel="stylesheet" href="/electromart/public/css/admin/StyleProducs.css">
+<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/admin/StyleProducs.css">
 <div class="products-management-page">
     <!-- Search and Sort Section -->
 
@@ -65,7 +65,7 @@
                             <?php if (!empty($product['ImageURL'])): ?>
                                 <img src="<?= ImageHelper::getImageUrlWithFallback($product['ImageURL']) ?>"
                                     alt="<?= htmlspecialchars($product['ProductName']) ?>"
-                                    onerror="this.src='/electromart/public/images/no-image.jpg'">
+                                    onerror="this.src='/electromart-o63e5.ondigitalocean.app/public/images/no-image.jpg'">
                             <?php else: ?>
                                 <div class="no-image">Không có ảnh</div>
                             <?php endif; ?>
@@ -80,9 +80,11 @@
                         <td><?= htmlspecialchars($product['Brand']) ?></td>
                         <td class="price"><?= number_format($product['Price'], 0, ',', '.') ?> VNĐ</td>
                         <td class="edit">
-                            <button type="button" onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️</button>
+                            <button type="button"
+                                onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️</button>
                             <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️</button>
-                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i></button>
+                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa"
+                                    style="color:#dc2626;"></i></button>
                         </td>
 
                     </tr>
@@ -276,4 +278,4 @@
         </form>
     </div>
 </div>
-<script src="/electromart/public/js/adminJs/Products.js"></script>
+<script src="/electromart-o63e5.ondigitalocean.app/public/js/adminJs/Products.js"></script>

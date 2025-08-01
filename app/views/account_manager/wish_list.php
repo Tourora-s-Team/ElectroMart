@@ -13,11 +13,11 @@ require_once __DIR__ . "/./account_navbar.php";
                 <p>Bạn chưa có sản phẩm nào trong danh sách yêu thích.</p>
             </div>
         </div>
-        <?php else: ?>
-    <div class="product-grid">
+    <?php else: ?>
+        <div class="product-grid">
             <?php foreach ($favoriteProducts as $product): ?>
                 <div class="product-card">
-                    <a href="/electromart/public/product-detail/<?= $product['ProductID'] ?>">
+                    <a href="/electromart-o63e5.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
                         <div class="product-image">
                             <img src="<?= $product['ImageURL'] ?? '/public/images/no-image.jpg' ?>"
                                 alt="<?= htmlspecialchars($product['ProductName']) ?>">
@@ -39,8 +39,9 @@ require_once __DIR__ . "/./account_navbar.php";
                             </div>
                         </div>
                     </a>
-                    <form action="/electromart/public/account/wish-list-remove/<?= $product['ProductID'] ?>" method="POST"
-                        class="remove-from-wishlist-form">
+                    <form
+                        action="/electromart-o63e5.ondigitalocean.app/public/account/wish-list-remove/<?= $product['ProductID'] ?>"
+                        method="POST" class="remove-from-wishlist-form">
                         <button type="button" class="remove-from-wishlist-btn"><i class="fas fa-heart"></i></button>
                     </form>
                 </div>

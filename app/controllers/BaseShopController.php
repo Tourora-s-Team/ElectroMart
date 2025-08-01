@@ -29,7 +29,7 @@ abstract class BaseShopController
             }
 
             // Nếu là HTTP request thường, redirect
-            header("Location: /electromart/public/account/signin");
+            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/signin");
             exit();
         }
 
@@ -48,7 +48,7 @@ abstract class BaseShopController
                 echo json_encode(['success' => false, 'error' => 'Shop not found for this user.', 'message' => 'Không tìm thấy shop cho tài khoản này.']);
                 exit();
             }
-            header("Location: /electromart/public/account/signin");
+            header("Location: /electromart-o63e5.ondigitalocean.app/public/account/signin");
             exit();
         }
     }

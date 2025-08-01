@@ -74,7 +74,7 @@
                         <i class="fas fa-search"></i>
                         Tìm kiếm
                     </button>
-                    <a href="/electromart/public/shop/products" class="btn btn-outline">
+                    <a href="/electromart-o63e5.ondigitalocean.app/public/shop/products" class="btn btn-outline">
                         <i class="fas fa-refresh"></i>
                         Làm mới
                     </a>
@@ -464,7 +464,7 @@
     // Helper function to convert database image path to web URL
     function getImageUrl(imagePath) {
         if (!imagePath) {
-            return '/electromart/public/images/no-image.jpg';
+            return '/electromart-o63e5.ondigitalocean.app/public/images/no-image.jpg';
         }
 
         // Remove './' prefix if exists
@@ -510,7 +510,7 @@
 
     function editProduct(productId) {
         // Load product data via AJAX
-        fetch(`/electromart/public/shop/products/edit/${productId}`, {
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/edit/${productId}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
@@ -576,12 +576,12 @@
     }
 
     function viewProduct(productId) {
-        window.open(`/electromart/public/product-detail/${productId}`, '_blank');
+        window.open(`/electromart-o63e5.ondigitalocean.app/public/product-detail/${productId}`, '_blank');
     }
 
     function deleteProduct(productId) {
         if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-            fetch(`/electromart/public/shop/products/delete/${productId}`, {
+            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/delete/${productId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -604,7 +604,7 @@
     }
 
     function toggleProductStatus(productId, isActive) {
-        fetch(`/electromart/public/shop/products/toggle-status/${productId}`, {
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/toggle-status/${productId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -706,7 +706,7 @@
 
     function removeExistingImage(imageId) {
         if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
-            fetch(`/electromart/public/shop/products/delete-image/${imageId}`, {
+            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/products/delete-image/${imageId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -732,8 +732,8 @@
         const formData = new FormData(this);
         const productId = document.getElementById('productId').value;
         const url = productId ?
-            `/electromart/public/shop/products/update/${productId}` :
-            '/electromart/public/shop/products/add';
+            `/electromart-o63e5.ondigitalocean.app/public/shop/products/update/${productId}` :
+            '/electromart-o63e5.ondigitalocean.app/public/shop/products/add';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');

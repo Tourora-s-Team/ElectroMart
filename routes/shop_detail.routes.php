@@ -1,6 +1,6 @@
 <?php
 require_once ROOT_PATH . '/app/controllers/ShopDetailController.php';
 
-$router->get('/electromart/public/shop-detail/{id}', 'ShopDetailController@showShopDetail');
+$router->get('/electromart-o63e5.ondigitalocean.app/public/shop-detail/{id}', 'ShopDetailController@showShopDetail');
 
 ?>

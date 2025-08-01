@@ -422,7 +422,7 @@
         const ctx = document.getElementById('revenueChart').getContext('2d');
 
         // Get chart data
-        fetch('/electromart/public/shop/finance/revenue-chart?period=30')
+        fetch('/electromart-o63e5.ondigitalocean.app/public/shop/finance/revenue-chart?period=30')
             .then(response => response.json())
             .then(data => {
                 revenueChart = new Chart(ctx, {
@@ -506,7 +506,7 @@
     function updateRevenueChart() {
         const period = document.getElementById('chartPeriod').value;
 
-        fetch(`/electromart/public/shop/finance/revenue-chart?period=${period}`)
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/revenue-chart?period=${period}`)
             .then(response => response.json())
             .then(data => {
                 revenueChart.data.labels = data.labels || [];
@@ -528,7 +528,7 @@
 
     function editBankAccount(accountId) {
         // Load account data
-        fetch(`/electromart/public/shop/finance/bank-account/${accountId}`)
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-account/${accountId}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success && data.account) {
@@ -556,7 +556,7 @@
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
-            fetch(`/electromart/public/shop/finance/delete-bank-account/${accountId}`, {
+            fetch(`/electromart-o63e5.ondigitalocean.app/public/shop/finance/delete-bank-account/${accountId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -584,7 +584,7 @@
     }
 
     function viewAllProducts() {
-        window.location.href = '/electromart/public/shop/products';
+        window.location.href = '/electromart-o63e5.ondigitalocean.app/public/shop/products';
     }
 
     function viewTransactionHistory() {
@@ -602,8 +602,8 @@
         const formData = new FormData(this);
         const accountId = document.getElementById('bankAccountId').value;
         const url = accountId ?
-            `/electromart/public/shop/finance/update-bank-account/${accountId}` :
-            '/electromart/public/shop/finance/add-bank-account';
+            `/electromart-o63e5.ondigitalocean.app/public/shop/finance/update-bank-account/${accountId}` :
+            '/electromart-o63e5.ondigitalocean.app/public/shop/finance/add-bank-account';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -659,7 +659,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
         submitBtn.disabled = true;
 
-        fetch('/electromart/public/shop/finance/request-payout', {
+        fetch('/electromart-o63e5.ondigitalocean.app/public/shop/finance/request-payout', {
             method: 'POST',
             body: formData
         })

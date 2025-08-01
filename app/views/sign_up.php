@@ -31,7 +31,8 @@
                     <p>Tạo tài khoản mới để mua sắm tại ElectroMart</p>
                 </div>
 
-                <form action="/electromart/public/account/signup" method="POST" class="auth-form">
+                <form action="/electromart-o63e5.ondigitalocean.app/public/account/signup" method="POST"
+                    class="auth-form">
                     <div class="form-group">
                         <label for="registerName">Họ và tên *</label>
                         <div class="input-wrapper">

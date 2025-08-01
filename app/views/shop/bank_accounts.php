@@ -115,7 +115,8 @@
             </button>
         </div>
 
-        <form id="bankAccountForm" method="POST" action="/electromart/public/shop/finance/bank-accounts">
+        <form id="bankAccountForm" method="POST"
+            action="/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts">
             <div class="modal-body">
                 <input type="hidden" id="bankAccountAction" name="action" value="add">
                 <input type="hidden" id="bankAccountID" name="BankAccountID" value="">
@@ -394,7 +395,7 @@
         if (confirm('Bạn có chắc chắn muốn đặt tài khoản này làm mặc định?')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/electromart/public/shop/finance/bank-accounts';
+            form.action = '/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts';
 
             form.innerHTML = `
             <input type="hidden" name="action" value="set_default">
@@ -410,7 +411,7 @@
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?\nHành động này không thể hoàn tác.')) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/electromart/public/shop/finance/bank-accounts';
+            form.action = '/electromart-o63e5.ondigitalocean.app/public/shop/finance/bank-accounts';
 
             form.innerHTML = `
             <input type="hidden" name="action" value="delete">

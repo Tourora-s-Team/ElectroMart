@@ -15,7 +15,7 @@ class CartController
         // Kiểm tra xem người dùng đã đăng nhập và có giỏ hàng hay chưa
         if (!isset($userID)) {
             // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-            header('Location: /electromart/public/account/signin');
+            header('Location: /electromart-o63e5.ondigitalocean.app/public/account/signin');
             exit;
         } else {
             // đăng nhập rồi thì hiển thị danh sách sản phẩm trong giỏ hàng
@@ -34,7 +34,7 @@ class CartController
 
         if (!isset($userId)) {
             // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-            header('Location: /electromart/public/account/signin');
+            header('Location: /electromart-o63e5.ondigitalocean.app/public/account/signin');
             exit;
         } else {
             $cartModels = new Cart();
@@ -42,7 +42,7 @@ class CartController
             $shopId = $cartModels->getShopID($productId);
             $cartModels->addProductCart($cardId, $productId, $quantity, $shopId);
 
-            header('Location: /electromart/public/cart');
+            header('Location: /electromart-o63e5.ondigitalocean.app/public/cart');
             exit;
         }
     }
@@ -54,7 +54,7 @@ class CartController
         if ($cartItemId && $productId) {
             $cartModels = new Cart();
             $cartModels->removeProductCart($cartItemId, $productId);
-            header('Location: /electromart/public/cart');
+            header('Location: /electromart-o63e5.ondigitalocean.app/public/cart');
             exit;
         } else {
             // Xử lý lỗi nếu không có cartItemId hoặc productId
@@ -69,7 +69,7 @@ class CartController
         if ($cartItemId && $productId && $quantity) {
             $cartModels = new Cart();
             $cartModels->updateQuantityCart($cartItemId, $productId, $quantity);
-            header('Location: /electromart/public/cart');
+            header('Location: /electromart-o63e5.ondigitalocean.app/public/cart');
             exit;
         } else {
             // Xử lý lỗi nếu không có cartItemId, productId hoặc quantity

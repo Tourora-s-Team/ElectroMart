@@ -8,8 +8,9 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
 <div class="admin-user-manager">
     <div class="admin-container">
         <section class="filter-section">
-            <form id="orderFilterForm" class="filter-form" method="GET" action="/electromart/public/admin/user_manager">
-                <div class="filter-grid" >
+            <form id="orderFilterForm" class="filter-form" method="GET"
+                action="/electromart-o63e5.ondigitalocean.app/public/admin/user_manager">
+                <div class="filter-grid">
                     <!-- Status Filter -->
                     <div class="filter-group">
                         <label for="statusFilter" class="filter-label">
@@ -29,8 +30,8 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                             <i class="fas fa-user"></i>
                             Email
                         </label>
-                        <input type="text" id="userEmailFilter" name="Email" placeholder="Nhập Email..." class="filter-input"
-                            value="<?php echo $_GET['Email'] ?? ''; ?>">
+                        <input type="text" id="userEmailFilter" name="Email" placeholder="Nhập Email..."
+                            class="filter-input" value="<?php echo $_GET['Email'] ?? ''; ?>">
                     </div>
                     <!-- Role Filter -->
                     <div class="filter-group">
@@ -38,8 +39,8 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                             <i class="fas fa-user"></i>
                             Quyền
                         </label>
-                        <input type="text" id="roleFilter" name="Role" placeholder="Nhập quyền tài khoản..." class="filter-input"
-                            value="<?php echo $_GET['Role'] ?? ''; ?>">
+                        <input type="text" id="roleFilter" name="Role" placeholder="Nhập quyền tài khoản..."
+                            class="filter-input" value="<?php echo $_GET['Role'] ?? ''; ?>">
                     </div>
                 </div>
 
@@ -56,7 +57,8 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
             <div class="table-container">
                 <div class="table-header">
                     <h3 class="table-title">
-                        Danh sách người dùng (<span id="userCount"><?php echo isset($users) ? count($users) : 0; ?></span> người
+                        Danh sách người dùng (<span
+                            id="userCount"><?php echo isset($users) ? count($users) : 0; ?></span> người
                         dùng)
                     </h3>
                 </div>
@@ -104,7 +106,8 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                                         </td>
                                         <td>
                                             <?php if ($user['IsActive'] == 1): ?>
-                                                <a style="color : red" href="/electromart/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
+                                                <a style="color : red"
+                                                    href="/electromart-o63e5.ondigitalocean.app/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
                                                     onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
                                                     Khóa
                                                 </a>
@@ -112,7 +115,7 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                                                 Đã khóa
                                             <?php endif; ?>
                                             <?php if ($user['IsActive'] == 0): ?>
-                                                <a href="/electromart/public/admin/users/open?id=<?= $user['UserID'] ?>"
+                                                <a href="/electromart-o63e5.ondigitalocean.app/public/admin/users/open?id=<?= $user['UserID'] ?>"
                                                     onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?');">
                                                     Mở Khóa
                                                 </a>

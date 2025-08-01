@@ -9,7 +9,7 @@
                     showToast("<?= addslashes($_SESSION['login_error']) ?>", 'error');
                 });
             </script>
-        <?php endif; 
+        <?php endif;
         unset($_SESSION['login_error']); ?>
         <!-- Sign in Form -->
         <div class="auth-container" id="loginForm">
@@ -19,7 +19,8 @@
                     <p>Chào mừng bạn quay trở lại ElectroMart</p>
                 </div>
 
-                <form action="/electromart/public/account/signin" method="POST" class="auth-form">
+                <form action="/electromart-o63e5.ondigitalocean.app/public/account/signin" method="POST"
+                    class="auth-form">
                     <div class="form-group">
                         <label for="loginInfo">Email hoặc Số điện thoại</label>
                         <div class="input-wrapper">

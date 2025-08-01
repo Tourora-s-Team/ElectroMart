@@ -7,7 +7,7 @@
             <p class="page-description">Thêm sản phẩm mới vào shop của bạn</p>
         </div>
         <div class="header-actions">
-            <a href="/electromart/public/shop/products" class="btn btn-outline">
+            <a href="/electromart-o63e5.ondigitalocean.app/public/shop/products" class="btn btn-outline">
                 <i class="fas fa-arrow-left"></i>
                 Quay lại
             </a>
@@ -17,8 +17,9 @@
     <!-- Add Product Form -->
     <div class="card">
         <div class="card-body">
-            <form id="addProductForm" method="POST" action="/electromart/public/shop/products/add"
-                enctype="multipart/form-data" data-async>
+            <form id="addProductForm" method="POST"
+                action="/electromart-o63e5.ondigitalocean.app/public/shop/products/add" enctype="multipart/form-data"
+                data-async>
                 <!-- Basic Information -->
                 <div class="form-section">
                     <h4 class="section-title">
@@ -153,7 +154,7 @@
                 <!-- Form Actions -->
                 <div class="form-actions">
                     <button type="button" class="btn btn-outline"
-                        onclick="window.location.href='/electromart/public/shop/products'">
+                        onclick="window.location.href='/electromart-o63e5.ondigitalocean.app/public/shop/products'">
                         <i class="fas fa-times"></i>
                         Hủy
                     </button>
@@ -344,7 +345,7 @@
 
         showLoading();
 
-        fetch('/electromart/public/shop/products/add', {
+        fetch('/electromart-o63e5.ondigitalocean.app/public/shop/products/add', {
             method: 'POST',
             body: formData
         })
@@ -354,7 +355,7 @@
                 if (data.success) {
                     showToast('Đã lưu nháp sản phẩm', 'success');
                     setTimeout(() => {
-                        window.location.href = '/electromart/public/shop/products';
+                        window.location.href = '/electromart-o63e5.ondigitalocean.app/public/shop/products';
                     }, 1000);
                 } else {
                     showToast(data.message || 'Có lỗi xảy ra khi lưu nháp', 'error');

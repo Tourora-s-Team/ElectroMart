@@ -8,8 +8,8 @@ require_once __DIR__ . "/./account_navbar.php";
         <h1 class="subheader__title">Cài đặt bảo mật</h1>
     </div>
     <div class="account-details">
-        <form id="form-change-password" action="/electromart/public/account/change-password" method="post"
-            class="security-form">
+        <form id="form-change-password" action="/electromart-o63e5.ondigitalocean.app/public/account/change-password"
+            method="post" class="security-form">
             <input type="text" id="UserId" name="UserId" value="<?= $_SESSION['user'][0]['UserID'] ?>" hidden>
             <div class="form-group">
                 <div class="input-wrapper">
@@ -24,7 +24,7 @@ require_once __DIR__ . "/./account_navbar.php";
                     <label for="new-pas">Mật khẩu mới:</label>
                     <input type="password" id="new-pas" name="new_password" value="">
                     <button type="button" class="password-toggle" onclick="togglePassword('new-pas')"><i
-                    class="fa-solid fa-eye"></i></button>
+                            class="fa-solid fa-eye"></i></button>
                     <p id="password-strength-msg" style="color: red;"></p>
                 </div>
             </div>

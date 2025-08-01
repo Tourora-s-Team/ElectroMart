@@ -1,2 +1,2 @@
 <?php
-$router->get('/electromart/public/admin/finance', 'AdminFinancialController@index');
+$router->get('/electromart-o63e5.ondigitalocean.app/public/admin/finance', 'AdminFinancialController@index');

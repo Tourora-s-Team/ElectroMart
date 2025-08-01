@@ -24,7 +24,7 @@ function sortProducts() {
 }
 
 function exportProducts() {
-    window.location.href = '/electromart/public/admin/products/export-txt';
+    window.location.href = '/electromart-o63e5.ondigitalocean.app/public/admin/products/export-txt';
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("addProductForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(this);
-    fetch("/electromart/public/admin/products/save", {
+    fetch("/electromart-o63e5.ondigitalocean.app/public/admin/products/save", {
         method: "POST",
         body: formData
     }).then(() => location.reload());
@@ -88,7 +88,7 @@ window.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const formData = new FormData(form);
-        fetch("/electromart/public/admin/products/update", {
+        fetch("/electromart-o63e5.ondigitalocean.app/public/admin/products/update", {
             method: "POST",
             body: formData,
         })
@@ -105,7 +105,7 @@ document.getElementById("addProductForm").addEventListener("submit", function (e
     e.preventDefault();
 
     const formData = new FormData(this);
-    fetch("/electromart/public/admin/products/update", {
+    fetch("/electromart-o63e5.ondigitalocean.app/public/admin/products/update", {
         method: "POST",
         body: formData
     })
@@ -121,23 +121,23 @@ document.getElementById("addProductForm").addEventListener("submit", function (e
 });
 function deleteProduct(id) {
     if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này?")) {
-        fetch(`/electromart/public/admin/products/delete/${id}`, {
-            method: 'POST', 
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/admin/products/delete/${id}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        .then(response => {
-            if (response.ok) {
-                alert("Xoá thành công!");
-                location.reload();
-            } else {
-                alert("Xoá thất bại. Mã lỗi: " + response.status);
-            }
-        })
-        .catch(error => {
-            console.error("Lỗi:", error);
-        });
+            .then(response => {
+                if (response.ok) {
+                    alert("Xoá thành công!");
+                    location.reload();
+                } else {
+                    alert("Xoá thất bại. Mã lỗi: " + response.status);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi:", error);
+            });
     }
 }
 
@@ -152,16 +152,16 @@ function showEditProductModal(product) {
     console.log(document.querySelectorAll('#product_id').length);
     // Gán ProductID
     document.getElementById('product_id1').value = product.ProductID;
-    
+
     // Mở modal
     document.getElementById('editProductModal').style.display = 'block';
 }
 
 function lockProduct(productId) {
-        if (confirm("Bạn có muốn khoá sản phẩm không?")) {
-            fetch(`/electromart/public/admin/products/lock?id=${productId}`, {
-                method: 'POST'
-            })
+    if (confirm("Bạn có muốn khoá sản phẩm không?")) {
+        fetch(`/electromart-o63e5.ondigitalocean.app/public/admin/products/lock?id=${productId}`, {
+            method: 'POST'
+        })
             .then(response => {
                 if (response.ok) {
                     alert("Sản phẩm đã bị khoá.");
@@ -170,10 +170,10 @@ function lockProduct(productId) {
                     alert("Có lỗi xảy ra khi khoá sản phẩm.");
                 }
             });
-        }
     }
+}
 
-    function closeEditProductModal() {
+function closeEditProductModal() {
     document.getElementById('editProductModal').style.display = 'none';
 }
 document.getElementById("editProductForm").addEventListener("submit", function (e) {
@@ -184,7 +184,7 @@ document.getElementById("editProductForm").addEventListener("submit", function (
         console.log(`${key}: ${value}`);
     }
 
-    fetch("/electromart/public/admin/products/update", {
+    fetch("/electromart-o63e5.ondigitalocean.app/public/admin/products/update", {
         method: "POST",
         body: formData,
     })

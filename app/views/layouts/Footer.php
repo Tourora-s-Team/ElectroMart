@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="/electromart/public/css/base.css">
-<link rel="stylesheet" href="/electromart/public/css/components/footer.css">
+<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/base.css">
+<link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/footer.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 </main>
@@ -51,7 +51,7 @@
     </div>
 </footer>
 
-<script src="/electromart/public/js/main.js" defer></script>
+<script src="/electromart-o63e5.ondigitalocean.app/public/js/main.js" defer></script>
 </body>
 
 </html>

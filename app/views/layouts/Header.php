@@ -13,15 +13,15 @@ if (!empty($_SESSION)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title ?? 'ElectroMart'; ?></title>
-    <link rel="stylesheet" href="/electromart/public/css/base.css">
-    <link rel="stylesheet" href="/electromart/public/css/components/header.css">
-    <link rel="stylesheet" href="/electromart/public/css/components/footer.css">
-    <link rel="stylesheet" href="/electromart/public/css/components/home.css">
-    <link rel="stylesheet" href="/electromart/public/css/components/cart.css">
-    <link rel="stylesheet" href="/electromart/public/css/components/search.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/base.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/header.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/footer.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/home.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/cart.css">
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/search.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="/electromart/public/js/main.js" defer></script>
-    <link rel="stylesheet" href="/electromart/public/css/components/productdetail.css">
+    <script src="/electromart-o63e5.ondigitalocean.app/public/js/main.js" defer></script>
+    <link rel="stylesheet" href="/electromart-o63e5.ondigitalocean.app/public/css/components/productdetail.css">
     <base href="/electromart/">
 </head>
 
