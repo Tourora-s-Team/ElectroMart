@@ -24,8 +24,8 @@ class Product
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
             FROM Product p
-            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
-            WHERE pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL";
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID AND pi.ShopID = p.ShopID
+            WHERE p.IsActive = 1 AND (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)";
         $result = $handleData->getData($sql);
         return $result;
     }
@@ -42,8 +42,8 @@ class Product
         // Câu lệnh SQL với tham số :keyword
         $sql = "SELECT p.*, pi.ImageURL
             FROM Product p
-            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
-            WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID AND pi.ShopID = p.ShopID
+            WHERE p.IsActive = 1 AND (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)
             AND (p.ProductName LIKE :keyword OR p.Brand LIKE :keyword)";
         $params = ['keyword' => $keyword];
         // Truyền giá trị cho :keyword
@@ -57,11 +57,11 @@ class Product
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL, s.ShopName, r.Rating, c.CategoryName
             FROM Product p
-            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID AND pi.ShopID = p.ShopID
             LEFT JOIN Shop s ON p.ShopID = s.ShopID
-            LEFT JOIN Review r ON p.ProductID = r.ProductID
+            LEFT JOIN Review r ON p.ProductID = r.ProductID AND r.ShopID = p.ShopID
             LEFT JOIN Category c ON p.CategoryID = c.CategoryID
-            WHERE p.ProductID = :productId";
+            WHERE p.ProductID = :productId AND p.IsActive = 1";
         $params = ['productId' => $productId];
         $result = $handleData->getDataWithParams($sql, $params);
 
@@ -144,8 +144,9 @@ class Product
         $handleData = new HandleData();
         $sql = "SELECT p.*, pi.ImageURL
             FROM Product p
-            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
-            WHERE p.CategoryId = :categoryId";
+            LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID AND pi.ShopID = p.ShopID
+            WHERE p.CategoryID = :categoryId AND p.IsActive = 1 
+            AND (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL)";
         $params = ['categoryId' => $categoryId];
         $result = $handleData->getDataWithParams($sql, $params);
 

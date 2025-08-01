@@ -74,7 +74,7 @@ if (!empty($_SESSION)) {
                     <li><a href="public">Trang chủ</a></li>
                     <li><a href="public/search">Tất cả sản phẩm</a></li>
                     <li><a href="public/categories">Danh mục</a></li>
-                    <li><a href="public/deals">Khuyến mãi</a></li>
+                    <li><a href="public/promotions">Khuyến mãi</a></li>
                     <li><a href="public/about">Về chúng tôi</a></li>
                 </ul>
             </nav>

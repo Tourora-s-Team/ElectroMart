@@ -27,6 +27,11 @@ require_once ROOT_PATH . '/routes/shop_detail.routes.php';
 require_once ROOT_PATH . '/routes/payment.routes.php';
 require_once ROOT_PATH . '/routes/order.routes.php';
 
+// New feature routes
+require_once ROOT_PATH . '/routes/category.routes.php';
+require_once ROOT_PATH . '/routes/promotion.routes.php';
+require_once ROOT_PATH . '/routes/about.routes.php';
+
 require_once ROOT_PATH . '/routes/admin/orders_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/products_manager.routes.php';
 require_once ROOT_PATH . '/routes/admin/financial_manager.routes.php';
