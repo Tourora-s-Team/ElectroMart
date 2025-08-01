@@ -79,11 +79,11 @@
                         <td><?= htmlspecialchars($product['Brand']) ?></td>
                         <td class="price"><?= number_format($product['Price'], 0, ',', '.') ?> VNĐ</td>
                         <td class="edit">
-                            <button type="button" onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️Sửa</button>
-                            <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️Xoá</button>
-                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i>Khoá sản phẩm
-                            </button>
+                            <button type="button" onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️</button>
+                            <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️</button>
+                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i></button>
                         </td>
+
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -274,4 +274,4 @@
         </form>
     </div>
 </div>
-<script src="/electromart/public/js/adminJs/Producs.js"></script>
+<script src="/electromart/public/js/adminJs/Products.js"></script>
