@@ -60,7 +60,7 @@
 .product-card {
     box-sizing: border-box;
     max-width: 270px;
-    max-height: 480px;
+    max-height: 510px;
     background: white;
     border-radius: 12px;
     overflow: hidden;
@@ -260,7 +260,7 @@
 }
 
 /* Responsive Home */
-@media (max-width: 768px) {
+@media (max-width: 1010px) {
     .hero-content h1 {
         font-size: 32px;
     }
@@ -270,7 +270,7 @@
     }
 
     .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-columns: repeat(3, minmax(160px, 1fr));
         gap: 15px;
     }
 

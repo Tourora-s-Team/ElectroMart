@@ -237,14 +237,3 @@ class OrderController
     }
 }
 ?>
-<!-- 
-http://localhost/vnpay_php/vnpay_return.php?
-vnp_Amount=1420000000&
-vnp_BankCode=NCB&
-vnp_BankTranNo=VNP15109185&
-vnp_CardType=ATM&vnp_OrderInfo=Thanh+toan+GD%3A1753935855&
-vnp_PayDate=20250731112730&vnp_ResponseCode=00&
-vnp_TmnCode=50PNFZGW&vnp_TransactionNo=15109185&
-vnp_TransactionStatus=00&
-vnp_TxnRef=1753935855&
-vnp_SecureHash=f9be19306a98a6650bf77db1ff50fa6957941411253e0cecedcd4f00c0d324373f687453f7037e9436835e25a1befdb9f05f8721a904af909818fa8cda5b4e31 -->
