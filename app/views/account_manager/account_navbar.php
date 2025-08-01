@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_navbar.css' ?>">
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_info.css' ?>">
 
-<?php require_once __DIR__ . "/../layouts/Header.php"; ?>
+<?php require_once __DIR__ . "/../layouts/header.php"; ?>
 
 <div id="toast-container"></div>
 <?php if (!empty($_SESSION['message'])): ?>
