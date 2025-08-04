@@ -350,7 +350,7 @@ function lazyLoadImages() {
 lazyLoadImages();
 // showToast - Thông báo kiểu toast ngắn
 //      Tạo toast trong phần tử có ID toast - container(phải có sẵn trong HTML)
-//      Tự động xóa sau 4s
+//      Tự động xóa sau 3s
 function showToast(message, type) {
     const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) return;

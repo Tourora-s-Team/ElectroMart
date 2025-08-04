@@ -34,6 +34,7 @@
 </head>
 
 <body class="shop-admin-layout">
+    <div id="toast-container"></div>
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <!-- Shop Header -->
@@ -232,6 +233,7 @@
 
         <!-- Page Content -->
         <div class="page-content">
+            <div id="toast-container"></div>
             <?php echo $content; ?>
         </div>
 
@@ -252,9 +254,6 @@
 
     <!-- Overlay for mobile -->
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Toast Container -->
-    <div id="toastContainer" class="toast-container"></div>
 
     <!-- Scripts -->
     <script src="/electromart/public/js/shop/shop-admin.js"></script>
@@ -387,6 +386,7 @@
                 .replace(/'/g, "&#039;");
         }
     </script>
+    <script src="/electromart/public/js/main.js"></script>
 </body>
 
 </html>

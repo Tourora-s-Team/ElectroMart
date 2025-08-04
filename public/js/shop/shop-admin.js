@@ -192,22 +192,22 @@ function hideToast(toast) {
     }, 300);
 }
 
-function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = `toast toast-${type}`;
+// function showToast(message, type = 'success') {
+//     const toast = document.createElement('div');
+//     toast.className = `toast toast-${type}`;
 
-    const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
-    toast.innerHTML = `
-        <i class="fas ${icon}"></i>
-        <span>${message}</span>
-    `;
+//     const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+//     toast.innerHTML = `
+//         <i class="fas ${icon}"></i>
+//         <span>${message}</span>
+//     `;
 
-    document.body.appendChild(toast);
+//     document.body.appendChild(toast);
 
-    setTimeout(() => {
-        hideToast(toast);
-    }, 5000);
-}
+//     setTimeout(() => {
+//         hideToast(toast);
+//     }, 5000);
+// }
 
 // Form handling
 function initializeForms() {
@@ -686,22 +686,6 @@ function editBankAccount(accountId) {
     // This would typically fetch data via AJAX
 }
 
-function deleteBankAccount(accountId, bankName) {
-    if (confirm(`Bạn có chắc chắn muốn xóa tài khoản ${bankName}?`)) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.style.display = 'none';
-
-        form.innerHTML = `
-            <input type="hidden" name="action" value="delete">
-            <input type="hidden" name="BankAccountID" value="${accountId}">
-        `;
-
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
-
 function setDefaultBankAccount(accountId) {
     const form = document.createElement('form');
     form.method = 'POST';
@@ -966,10 +950,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Global error handler
-window.addEventListener('error', function (e) {
-    console.error('Global error:', e.error);
-    showToast('Có lỗi xảy ra trong hệ thống', 'error');
-});
+// window.addEventListener('error', function (e) {
+//     console.error('Global error:', e.error);
+//     showToast('Có lỗi xảy ra trong hệ thống', 'error');
+// });
 
 // Global unhandled promise rejection handler
 window.addEventListener('unhandledrejection', function (e) {

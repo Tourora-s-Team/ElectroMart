@@ -184,31 +184,43 @@ class ShopFinanceController extends BaseShopController
     }
 
     // Xóa tài khoản ngân hàng
-    public function deleteBankAccount()
+    public function deleteBankAccount($bankAccountID = null)
     {
-        $bankAccountID = $_POST['BankAccountID'] ?? '';
+        // Nếu dùng route kiểu /delete-bank-account/{id} thì lấy ID từ URL
+        if ($bankAccountID === null) {
+            // Hoặc nếu là POST, bạn có thể lấy từ $_POST nếu cần
+            $bankAccountID = $_POST['BankAccountID'] ?? '';
+        }
 
         if (empty($bankAccountID)) {
-            $_SESSION['error_message'] = 'Không tìm thấy tài khoản ngân hàng.';
-            return;
+            return $this->respondJSON(false, 'Không tìm thấy tài khoản ngân hàng.');
         }
 
         if (!$this->financeModel->checkBankAccountBelongsToShop($bankAccountID, $this->shopID)) {
-            $_SESSION['error_message'] = 'Bạn không có quyền xóa tài khoản này.';
-            return;
+            return $this->respondJSON(false, 'Bạn không có quyền xóa tài khoản này.');
         }
 
         $result = $this->financeModel->deleteBankAccount($bankAccountID, $this->shopID);
 
         if ($result) {
-            $_SESSION['success_message'] = 'Xóa tài khoản ngân hàng thành công!';
+            return $this->respondJSON(true, 'Xóa tài khoản ngân hàng thành công!');
         } else {
-            $_SESSION['error_message'] = 'Có lỗi xảy ra khi xóa tài khoản ngân hàng.';
+            return $this->respondJSON(false, 'Có lỗi xảy ra khi xóa tài khoản ngân hàng.');
         }
+    }
 
-        header("Location: /electromart/public/shop/finance/bank-accounts");
+    // Helper function
+    private function respondJSON($success, $message)
+    {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => $success,
+            'message' => $message
+        ]);
         exit();
     }
+
+
 
     // Đặt tài khoản mặc định
     public function setDefaultBankAccount()

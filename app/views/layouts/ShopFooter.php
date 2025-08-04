@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<script src="public/js/shop/shop-admin.js"></script>
+<script src="/electromart/public/js/shop/shop-admin.js"></script>
 </body>
 
 </html>

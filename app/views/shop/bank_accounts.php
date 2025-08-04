@@ -406,22 +406,6 @@
         }
     }
 
-    function deleteBankAccount(bankAccountID) {
-        if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?\nHành động này không thể hoàn tác.')) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/electromart/public/shop/finance/bank-accounts';
-
-            form.innerHTML = `
-            <input type="hidden" name="action" value="delete">
-            <input type="hidden" name="BankAccountID" value="${bankAccountID}">
-        `;
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-    }
-
     function openModal(modalId) {
         document.getElementById(modalId).style.display = 'flex';
         document.body.style.overflow = 'hidden';

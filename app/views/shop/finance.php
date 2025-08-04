@@ -562,7 +562,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        showToast('Xóa tài khoản thành công', 'success');
+                        
                         setTimeout(() => location.reload(), 1000);
                     } else {
                         showToast(data.message || 'Không thể xóa tài khoản', 'error');
