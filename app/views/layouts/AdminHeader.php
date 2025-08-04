@@ -7,6 +7,8 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/electromart/public/images/electromart-icon.ico" type="image/x-icon">
     <title><?php echo isset($title) ? $title : 'ElectroMart - Quản lý bán hàng'; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">

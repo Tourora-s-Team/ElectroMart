@@ -17,6 +17,8 @@ else
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title ?? 'ElectroMart'; ?></title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/electromart/public/images/electromart-icon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/electromart/public/css/base.css">
     <link rel="stylesheet" href="/electromart/public/css/components/header.css">
     <link rel="stylesheet" href="/electromart/public/css/components/footer.css">
