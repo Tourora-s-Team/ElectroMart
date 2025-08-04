@@ -1,8 +1,12 @@
 <?php
 require_once ROOT_PATH . '/app/models/Customer.php';
 
-if (!empty($_SESSION)) {
+if (!empty($_SESSION['customer'])) {
     $fullName = $_SESSION['customer'][0]['FullName'];
+}
+else 
+{
+    $fullName = 'Admin';
 }
 
 ?>
