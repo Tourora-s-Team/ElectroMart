@@ -100,7 +100,7 @@
             foreach ($orders[$i]['ProductDetails'] as $product) {
                 $productId = $product['ProductID'];
                 $productName = $product['ProductName'] ?? 'Sản phẩm';
-                $productImage = $product['Image'] ?? './public/images/default.png';
+                $productImage = ImageHelper::getImageUrlWithFallback($product['Image'] ?? './public/images/no-image.jpg');
                 $quantity = $product['Quantity'];
                 $unitPrice = $product['UnitPrice'];
                 echo '<div class="product-item flex-row-sb">
