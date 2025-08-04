@@ -67,6 +67,13 @@ class AuthController
             $password = $_POST["registerPassword"];
             $birthdate = $_POST["registerBirthdate"];
 
+            // Kiểm tra xem email hoặc số điện thoại đã được sử dụng chưa
+            if ($this->userModel->isUserExists($email, $phone)) {
+                $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng. Vui lòng chọn thông tin khác.';
+                header("Location: /electromart/public/account/signup");
+                exit();
+            }
+
             require_once __DIR__ . '/MailController.php';
 
             $mail = new MailController();
@@ -133,6 +140,10 @@ class AuthController
             $customerModel = new Customer();
             $customerModel->createCustomer($userId, $name, 'N/A', $birthdate);
 
+            // Tạo giỏ hàng cho người dùng mới
+            $cartModel = new Cart();
+            $cartID = $cartModel->createCart($userId);
+
             // Lấy dữ liệu user và customer
             $userData = $this->userModel->getUserByEmail($email);
             $customerData = $customerModel->getCustomerById($userId);
@@ -144,7 +155,9 @@ class AuthController
                 $_SESSION['message'] = 'Xác minh email thành công! Chào mừng bạn đến với ElectroMart. Vui lòng đăng nhập để tiếp tục.';
                 $_SESSION['status_type'] = 'success';
 
+                require_once __DIR__ . '/MailController.php';
                 $mail = new MailController();
+
                 // Gửi email chào mừng
                 $mail->sendWelcomeEmail($email, $name);
 
@@ -160,8 +173,8 @@ class AuthController
                 exit();
             }
         } catch (Exception $e) {
-            // $_SESSION['signup_error'] = 'Có lỗi xảy ra: ' . $e->getMessage();
-            $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng.';
+            echo 'Có lỗi xảy ra: ' . $e->getMessage();
+            // $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng.';
             header("Location: /electromart/public/account/signup");
             exit();
         }

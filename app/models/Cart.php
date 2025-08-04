@@ -42,6 +42,20 @@ class Cart
         $result = $handleData->getDataWithParams($sql, $params);
         return $result ? $result[0]['ShopID'] : null;
     }
+
+    // Thêm giỏ hàng mới cho người dùng nếu chưa có
+    public function createCart($userID)
+    {
+        $handleData = new HandleData();
+        $sql = "INSERT INTO Cart (UserID, LastUpdate, Status) 
+            VALUES (:userID, NOW(3), 'Active')";
+
+        $params = ['userID' => $userID];
+        $handleData->execDataWithParams($sql, $params);
+
+        return $this->getCartID($userID); // Trả về CartID mới tạo
+    }
+
     public function addProductCart($cartId, $productId, $quantity, $shopId)//hàm thêm sản phẩm vào giỏ hàng
     {
         $handleData = new HandleData();

@@ -99,6 +99,18 @@ class User
         return $data;
     }
 
+    public function isUserExists($email, $phone)
+    {
+        $sql = "SELECT * FROM Users WHERE Email = :email OR PhoneNumber = :phone";
+        $handleData = new HandleData();
+        $params = [
+            ':email' => $email,
+            ':phone' => $phone
+        ];
+        $data = $handleData->getDataWithParams($sql, $params);
+        return !empty($data);
+    }
+
     public function checkPassword($userId, $password)
     {
         $sql = "SELECT * FROM Users WHERE UserID = :userId AND Password = :password";
