@@ -212,3 +212,34 @@ function editProduct(product) {
     }
     showEditProductModal(product);
 }
+function toggleProductStatus(productID, isChecked) {
+
+    const status = isChecked ? 1 : 0;
+
+    fetch('/electromart/public/admin/products/toggle-status/' + productID, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ is_active: status })
+    })
+    .then(async response => {
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`HTTP ${response.status}: ${text}`);
+        }
+        location.reload(); 
+    })
+    .then(data => {
+        if (!data.success) {
+            alert('❌ ' + data.message);
+            document.querySelector(`input[onchange*="${productID}"]`).checked = !isChecked;
+        } else {
+            console.log('✅ ' + data.message);
+            
+        }
+    })
+    
+}
+

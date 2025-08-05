@@ -54,6 +54,7 @@
                 <th>Số lượng</th>
                 <th>Thương hiệu</th>
                 <th>Giá sản phẩm</th>
+                <th>Trạng thái</th>
                 <th></th>
             </tr>
         </thead>
@@ -79,10 +80,19 @@
                         </td>
                         <td><?= htmlspecialchars($product['Brand']) ?></td>
                         <td class="price"><?= number_format($product['Price'], 0, ',', '.') ?> VNĐ</td>
+                        <td>
+                            <div class="product-toggle">
+                                <label class="switch">
+                                    <input type="checkbox" <?= $product['IsActive'] ? 'checked' : '' ?>
+                                        onchange="toggleProductStatus(<?= $product['ProductID'] ?>, this.checked)">
+                                    <span class="slider"></span>
+                                </label>
+                                <span><?= $product['IsActive'] ? 'Đang mở' : 'Đang khoá' ?></span>
+                            </div>
+                        </td>
                         <td class="edit">
                             <button type="button" onclick='editProduct(<?= json_encode($product, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>)'>✏️</button>
                             <button type="button" onclick="deleteProduct(<?= $product['ProductID'] ?>)">🗑️</button>
-                            <button onclick="lockProduct(<?= $product['ProductID'] ?>)"> <i class="fas fa-lock" title="Đã khóa" style="color:#dc2626;"></i></button>
                         </td>
 
                     </tr>
