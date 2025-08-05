@@ -70,6 +70,10 @@
         margin-right: 10px;
     }
 </style>
+
+<?php
+require_once ROOT_PATH . '/core/ImageHelper.php';
+?>
 <div id="<?= $orders[$i]['OrderID'] ?>" class="history-item">
     <div class="item-header flex-row-sb">
         <div class="summary">
