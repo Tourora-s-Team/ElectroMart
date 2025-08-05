@@ -32,7 +32,7 @@ class Receiver
     public function getReceiverById($receiverId)
     {
         $db = new HandleData();
-        $sql = "SELECT * FROM receiver WHERE ReceiverID = :receiverId";
+        $sql = "SELECT * FROM Receiver WHERE ReceiverID = :receiverId";
         $params = [':receiverId' => $receiverId];
         $result = $db->getDataWithParams($sql, $params);
 

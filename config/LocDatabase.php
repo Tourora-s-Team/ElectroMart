@@ -22,7 +22,7 @@ class LocDatabase
                 $this->username,
                 $this->password,
                 [
-                    PDO::MYSQL_ATTR_SSL_CA => __DIR__ . "/../ca-certificate.crt", // đặt đúng đường dẫn
+                    PDO::MYSQL_ATTR_SSL_CA => __DIR__ . "/ca-certificate.crt", // đặt đúng đường dẫn
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
                 ]
             );
