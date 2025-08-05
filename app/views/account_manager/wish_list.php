@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . "/./account_navbar.php";
+require_once ROOT_PATH . '/core/ImageHelper.php';
 ?>
 
 <link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/wish_list.css' ?>">
@@ -19,7 +20,7 @@ require_once __DIR__ . "/./account_navbar.php";
                 <div class="product-card">
                     <a href="/electromart/public/product-detail/<?= $product['ProductID'] ?>">
                         <div class="product-image">
-                            <img src="<?= $product['ImageURL'] ?? '/public/images/no-image.jpg' ?>"
+                            <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                 alt="<?= htmlspecialchars($product['ProductName']) ?>">
                         </div>
                         <div class="product-info">

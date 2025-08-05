@@ -3,17 +3,6 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
 include ROOT_PATH . '/app/views/layouts/header.php';
 ?>
 
-<div id="toast-container"></div>
-<?php if (!empty($_SESSION['message'])): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            showToast("<?= addslashes($_SESSION['message']) ?>", '<?= $_SESSION['status_type'] ?>');
-        });
-    </script>
-<?php endif;
-unset($_SESSION['message']);
-unset($_SESSION['status_type']); ?>
-
 <section class="hero">
     <div class="container">
         <div class="hero-content">
@@ -201,30 +190,6 @@ unset($_SESSION['status_type']); ?>
             block: 'start'
         });
     });
-
-    function addToWishList(productId) {
-        const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
-        btn.disabled = true;
-        fetch(`/electromart/public/account/wish-list-add/${productId}`, {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    btn.disabled = false;
-                    showToast("Đã thêm vào danh sách yêu thích.", "success");
-                } else {
-                    showToast("Sản phẩm đã có trong danh sách yêu thích.", "error");
-                }
-            })
-            .catch(error => {
-                showToast("Lỗi khi gửi yêu cầu", "error");
-                console.error('Lỗi:', error);
-            });
-    }
-
 </script>
 
 <style>

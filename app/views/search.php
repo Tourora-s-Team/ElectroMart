@@ -68,6 +68,11 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                             <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
                                 <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
                             </button>
+                            <button type="button" class="add-to-wishlist-btn" title="Thêm vào danh sách yêu thích"
+                                data-id="<?= $product['ProductID'] ?>"
+                                onclick="addToWishList(<?php echo $product['ProductID']; ?>)">
+                                <i class="fas fa-heart"></i>
+                            </button>
                         </div>
                     </div>
                 <?php endforeach; ?>

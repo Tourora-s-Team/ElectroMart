@@ -2,59 +2,6 @@
 // ElectroMart JavaScript.
 //       Đảm bảo toàn bộ HTML đã tải xong trước khi JS thao tác với DOM
 document.addEventListener('DOMContentLoaded', function () {
-
-    // // Add to cart functionality
-    // //      Lấy tất cả nút có class .add-to-cart-btn
-    // //      Gắn click event để gọi addToCart(productId) — gửi POST lên /cart/add
-    // const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    // addToCartButtons.forEach(button => {
-    //     button.addEventListener('click', function (e) {
-    //         console.log("Button clicked", this.dataset.productId); // Kiểm tra xem productId có được lấy đúng không (xem trong console F12)
-    //         e.preventDefault();
-    //         const productId = this.dataset.productId;
-    //         addToCart(productId);
-    //     });
-    // });
-
-    // // Cart quantity controls
-    // //       Với mỗi nút .quantity-btn, đọc data-action (increase hoặc decrease)
-    // //       Tìm input.quantity-input và dataset.itemId của sản phẩm
-    // //       Tăng/giảm số lượng và gọi updateCartItem(itemId, quantity)
-    // const quantityButtons = document.querySelectorAll('.quantity-btn');
-
-    // quantityButtons.forEach(button => {
-    //     button.addEventListener('click', function () {
-    //         const action = this.dataset.action;
-    //         const quantityInput = this.parentElement.querySelector('.quantity-input');
-    //         const itemId = this.closest('.cart-item').dataset.itemId;
-
-    //         let quantity = parseInt(quantityInput.value);
-
-    //         if (action === 'increase') {
-    //             quantity++;
-    //         } else if (action === 'decrease' && quantity > 1) {
-    //             quantity--;
-    //         }
-
-    //         quantityInput.value = quantity;
-    //         updateCartItem(itemId, quantity);
-    //     });
-    // });
-
-    // // Remove item buttons
-    // //      Khi click vào nút xóa, xác nhận với confirm()
-    // //      Gọi removeCartItem(itemId) để gửi POST /cart/remove
-    // //      Nếu thành công, xóa element khỏi DOM + cập nhật lại hiển thị
-    // const removeButtons = document.querySelectorAll('.remove-btn');
-
-    // removeButtons.forEach(button => {
-    //     button.addEventListener('click', function () {
-    //         const itemId = this.dataset.itemId;
-    //         removeCartItem(itemId);
-    //     });
-    // });
-
-
     // Search functionality
     //      Khi form được submit, kiểm tra input rỗng không
     //      Nếu rỗng, chặn submit + focus vào input
@@ -88,136 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update cart count
     // updateCartCount();
 });
-
-// // Add product to cart
-// //       Dùng fetch để gửi dữ liệu FormData
-// //       Gọi showNotification() nếu thành công hoặc lỗi
-// function addToCart(productId, quantity = 1) {
-//     const formData = new FormData();
-//     formData.append('product_id', productId);
-//     formData.append('quantity', quantity);
-
-//     fetch('/electromart/public/cart/add', {
-//         method: 'POST',
-//         body: formData
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 showNotification('Đã thêm sản phẩm vào giỏ hàng!', 'success');
-//                 updateCartCount();
-//             } else {
-//                 showNotification(data.message || 'Có lỗi xảy ra!', 'error');
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             showNotification('Có lỗi xảy ra!', 'error');
-//         });
-
-// }
-
-// // Update cart item quantity
-// //      Gửi POST /cart/update để cập nhật số lượng server-side
-// //      Sau đó gọi updateCartDisplay() để cập nhật lại giao diện
-// function updateCartItem(itemId, quantity) {
-//     const formData = new FormData();
-//     formData.append('cart_item_id', itemId);
-//     formData.append('quantity', quantity);
-
-//     fetch('/cart/update', {
-//         method: 'POST',
-//         body: formData
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 updateCartDisplay();
-//             } else {
-//                 showNotification(data.message || 'Có lỗi xảy ra!', 'error');
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             showNotification('Có lỗi xảy ra!', 'error');
-//         });
-// }
-
-// // Remove cart item
-// function removeCartItem(itemId) {
-//     if (!confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
-//         return;
-//     }
-
-//     const formData = new FormData();
-//     formData.append('cart_item_id', itemId);
-
-//     fetch('/cart/remove', {
-//         method: 'POST',
-//         body: formData
-//     })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 const cartItem = document.querySelector(`[data-item-id="${itemId}"]`);
-//                 if (cartItem) {
-//                     cartItem.remove();
-//                 }
-//                 updateCartDisplay();
-//                 showNotification('Đã xóa sản phẩm khỏi giỏ hàng!', 'success');
-//             } else {
-//                 showNotification(data.message || 'Có lỗi xảy ra!', 'error');
-//             }
-//         })
-//         .catch(error => {
-//             console.error('Error:', error);
-//             showNotification('Có lỗi xảy ra!', 'error');
-//         });
-// }
-
-// // Update cart display.
-// //       Tính lại từng item - subtotal = price * quantity
-// //       Cập nhật tổng phụ(.subtotal) và tổng cộng(.total - amount)
-// //       Cộng thêm phí ship cố định 30.000đ
-// function updateCartDisplay() {
-//     // Recalculate totals
-//     let subtotal = 0;
-//     const cartItems = document.querySelectorAll('.cart-item');
-
-//     cartItems.forEach(item => {
-//         const price = parseFloat(item.querySelector('.item-price').textContent.replace(/[^\d]/g, ''));
-//         const quantity = parseInt(item.querySelector('.quantity-input').value);
-//         const itemSubtotal = price * quantity;
-
-//         item.querySelector('.item-subtotal').textContent = formatPrice(itemSubtotal);
-//         subtotal += itemSubtotal;
-//     });
-
-//     // Update summary
-//     const subtotalElement = document.querySelector('.subtotal');
-//     const totalElement = document.querySelector('.total-amount');
-
-//     if (subtotalElement) {
-//         subtotalElement.textContent = formatPrice(subtotal);
-//     }
-
-//     if (totalElement) {
-//         const shipping = 30000;
-//         totalElement.textContent = formatPrice(subtotal + shipping);
-//     }
-
-//     updateCartCount();
-// }
-
-// // Update cart count in header
-// function updateCartCount() {
-//     const cartItems = document.querySelectorAll('.cart-item');
-//     const cartCount = document.querySelector('.cart-count');
-
-//     if (cartCount) {
-//         cartCount.textContent = cartItems.length;
-//     }
-// }
 
 // Sort products
 function sortProducts(sortType) {
@@ -411,4 +228,25 @@ function togglePassword(inputId) {
     }
 }
 
-
+function addToWishList(productId) {
+    const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
+    btn.disabled = true;
+    fetch(`/electromart/public/account/wish-list-add/${productId}`, {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                btn.disabled = false;
+                showToast("Đã thêm vào danh sách yêu thích.", "success");
+            } else {
+                showToast("Sản phẩm đã có trong danh sách yêu thích.", "error");
+            }
+        })
+        .catch(error => {
+            showToast("Lỗi khi gửi yêu cầu", "error");
+            console.error('Lỗi:', error);
+        });
+}

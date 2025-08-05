@@ -30,6 +30,16 @@ if (!empty($_SESSION['customer'])) {
 </head>
 
 <body>
+    <div id="toast-container"></div>
+    <?php if (!empty($_SESSION['message'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                showToast("<?= addslashes($_SESSION['message']) ?>", '<?= $_SESSION['status_type'] ?>');
+            });
+        </script>
+    <?php endif;
+    unset($_SESSION['message']);
+    unset($_SESSION['status_type']); ?>
     <header class="header">
         <div class="container">
             <div class="header-top">
@@ -86,8 +96,6 @@ if (!empty($_SESSION['customer'])) {
     </header>
 
     <main class="main-content">
-
-
 
     </main>
 </body>

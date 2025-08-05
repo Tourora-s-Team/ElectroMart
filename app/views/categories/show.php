@@ -108,29 +108,6 @@ unset($_SESSION['status_type']); ?>
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
 
 <script>
-    function addToWishList(productId) {
-        const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
-        btn.disabled = true;
-        fetch(`/electromart/public/account/wish-list-add/${productId}`, {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
-            .then(response => {
-                if (response.ok) {
-                    btn.disabled = false;
-                    showToast("Đã thêm vào danh sách yêu thích.", "success");
-                } else {
-                    showToast("Sản phẩm đã có trong danh sách yêu thích.", "error");
-                }
-            })
-            .catch(error => {
-                showToast("Lỗi khi gửi yêu cầu", "error");
-                console.error('Lỗi:', error);
-            });
-    }
-
     // Sort functionality
     document.getElementById('sortProducts').addEventListener('change', function () {
         // Implement sorting logic here
@@ -307,38 +284,6 @@ unset($_SESSION['status_type']); ?>
         display: flex;
         gap: 10px;
         padding: 0 20px 20px;
-    }
-
-    .add-to-cart-btn {
-        flex: 1;
-        background: #007bff;
-        color: white;
-        border: none;
-        padding: 10px;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: background 0.3s;
-    }
-
-    .add-to-cart-btn:hover {
-        background: #0056b3;
-    }
-
-    .add-to-wishlist-btn {
-        background: #f8f9fa;
-        color: #666;
-        border: 1px solid #ddd;
-        padding: 10px 12px;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .add-to-wishlist-btn:hover {
-        background: #e74c3c;
-        color: white;
-        border-color: #e74c3c;
     }
 
     .no-products {
