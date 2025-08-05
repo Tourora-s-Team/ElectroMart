@@ -579,29 +579,7 @@
         window.open(`/electromart/public/product-detail/${productId}`, '_blank');
     }
 
-    // function deleteProduct(productId) {
-    //     if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-    //         fetch(`/electromart/public/shop/products/delete/${productId}`, {
-    //                 method: 'DELETE',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 }
-    //             })
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 if (data.success) {
-    //                     showToast('Xóa sản phẩm thành công', 'success');
-    //                     setTimeout(() => location.reload(), 1000);
-    //                 } else {
-    //                     showToast(data.message || 'Không thể xóa sản phẩm', 'error');
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 console.error('Error:', error);
-    //                 showToast('Có lỗi xảy ra khi xóa sản phẩm', 'error');
-    //             });
-    //     }
-    // }
+
 
     function toggleProductStatus(productId, isActive) {
         fetch(`/electromart/public/shop/products/toggle-status/${productId}`, {
