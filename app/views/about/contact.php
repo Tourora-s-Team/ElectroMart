@@ -52,8 +52,7 @@ unset($_SESSION['status_type']); ?>
                     <i class="fas fa-envelope"></i>
                 </div>
                 <h3>Email</h3>
-                <p>Tổng đài: <a href="mailto:info@electromart.vn">info@electromart.vn</a><br>
-                    Hỗ trợ: <a href="mailto:support@electromart.vn">support@electromart.vn</a></p>
+                <p>Tổng đài: <a href="mailto:ad.electromart.official@gmail.com">Liên hệ ngay</a></p>
             </div>
 
             <div class="contact-item">

@@ -105,7 +105,7 @@ unset($_SESSION['status_type']); ?>
                 <div class="member-info">
                     <h4>Lâm Triệu Thiên</h4>
                     <p class="position">Người sáng lập</p>
-                    <p class="description">Với hơn 10 năm kinh nghiệm trong ngành điện tử, anh A đã xây dựng ElectroMart
+                    <p class="description">Với hơn 10 năm kinh nghiệm trong ngành điện tử, anh Thiên đã xây dựng ElectroMart
                         từ một cửa hàng nhỏ thành một thương hiệu uy tín.</p>
                 </div>
             </div>
@@ -238,7 +238,7 @@ unset($_SESSION['status_type']); ?>
 
     .story-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 2fr 1fr;
         gap: 60px;
         align-items: center;
     }
