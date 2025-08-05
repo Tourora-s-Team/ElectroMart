@@ -183,4 +183,50 @@ class AdminProductsController extends BaseAdminController
         echo json_encode($products);
         exit;
     }
+    public function toggleStatus($productID)
+    {
+        ini_set('display_errors', 0);
+        error_reporting(0);
+        header('Content-Type: application/json'); // đảm bảo là JSON
+
+        // 2. Kiểm tra yêu cầu Ajax và dữ liệu hợp lệ
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($productID)) {
+            $input = json_decode(file_get_contents('php://input'), true);
+            $isActive = isset($input['is_active']) ? (int)$input['is_active'] : null;
+
+            if (!in_array($isActive, [0, 1])) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Trạng thái không hợp lệ.'
+                ]);
+                exit;
+            }
+
+            // 3. Kiểm tra sản phẩm tồn tại
+            $product = $this->productModel->getById($productID);
+
+            if (!$product) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Không tìm thấy sản phẩm.'
+                ]);
+                exit;
+            }
+
+            // 4. Cập nhật IsActive
+            $result = $this->productModel->updateStatus($productID, $isActive);
+
+            if ($result) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Cập nhật trạng thái thành công.'
+                ]);
+            } else {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Không thể cập nhật trạng thái.'
+                ]);
+            }
+        }
+    }
 }

@@ -58,6 +58,7 @@ class ShopProductController extends BaseShopController
         ]);
     }
 
+
     // Thêm sản phẩm mới
     public function add()
     {
@@ -170,6 +171,19 @@ class ShopProductController extends BaseShopController
             'breadcrumb' => $breadcrumb
         ]);
     }
+    public function update($productID)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->handleEditProduct($productID);
+        } else {
+            $_SESSION['error_message'] = 'Phương thức không hợp lệ.';
+            header("Location: /electromart/public/shop/products");
+            exit();
+        }
+    }
+
+
+
 
     // Cập nhật trạng thái sản phẩm (bán/ngừng bán)
     public function toggleStatus($productID = null)
@@ -263,16 +277,17 @@ class ShopProductController extends BaseShopController
     private function handleAddProduct()
     {
         $data = [
-            'ProductName' => $_POST['ProductName'] ?? '',
-            'Description' => $_POST['Description'] ?? '',
-            'Price' => $_POST['Price'] ?? 0,
-            'StockQuantity' => $_POST['StockQuantity'] ?? 0,
-            'Brand' => $_POST['Brand'] ?? '',
-            'CategoryID' => $_POST['CategoryID'] ?? 0,
-            'ShopID' => $this->shopID,
+            'ProductName'     => $_POST['product_name'] ?? '',
+            'Description'     => $_POST['description'] ?? '',
+            'Price'           => $_POST['price'] ?? 0.0000,
+            'StockQuantity'   => $_POST['stock_quantity'] ?? 0,
+            'Brand'           => $_POST['brand'] ?? '',
+            'RatingProduct'   => $_POST['RatingProduct'] ?? null,
+            'CategoryID'      => $_POST['category_id'] ?? 0,
+            'ShopID'          => $this->shopID,
             'CreateAt' => date('Y-m-d H:i:s'),
             'UpdateAt' => date('Y-m-d H:i:s'),
-            'IsActive' => 1
+            'IsActive'        => isset($_POST['is_active']) ? 1 : 0
         ];
 
         // Validate required fields
@@ -305,15 +320,14 @@ class ShopProductController extends BaseShopController
         }
 
         $data = [
-            'ProductID' => $productID,
             'ProductName' => $_POST['ProductName'] ?? '',
             'Description' => $_POST['Description'] ?? '',
             'Price' => $_POST['Price'] ?? 0,
             'StockQuantity' => $_POST['StockQuantity'] ?? 0,
             'Brand' => $_POST['Brand'] ?? '',
             'CategoryID' => $_POST['CategoryID'] ?? 0,
-            'ShopID' => $this->shopID,
-            'UpdateAt' => date('Y-m-d H:i:s')
+            'UpdateAt' => date('Y-m-d H:i:s'),
+            'IsActive' => 1 // hoặc lấy từ form nếu cho phép cập nhật trạng thái
         ];
 
         $result = $this->productModel->updateProduct($productID, $this->shopID, $data);
@@ -331,6 +345,7 @@ class ShopProductController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật sản phẩm.';
         }
     }
+
 
     // Lấy chi tiết sản phẩm
     private function getProductDetail($productID)

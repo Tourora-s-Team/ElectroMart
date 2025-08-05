@@ -113,21 +113,21 @@ class ShopFinanceController extends BaseShopController
     {
         $data = [
             'ShopID' => $this->shopID,
-            'BankName' => $_POST['BankName'] ?? '',
-            'AccountNumber' => $_POST['AccountNumber'] ?? '',
+            'BankName' => $_POST['bank_name'] ?? '',
+            'AccountNumber' => $_POST['account_number'] ?? '',
             'AccountHolder' => $_POST['account_holder_name'] ?? '',
-            'IsDefault' => isset($_POST['IsDefault']) ? 1 : 0,
+            'IsDefault' => isset($_POST['is_default']) ? 1 : 0,
             'CreatedAt' => date('Y-m-d H:i:s'),
             'Status' => 'Active'
         ];
 
         // Validate required fields
         if (empty($data['BankName']) || empty($data['AccountNumber']) || empty($data['AccountHolder'])) {
-            $_SESSION['error_message'] = 'Vui lòng điền đầy đủ thông tin bắt buộc.';
+            $this->returnJson(['success' => false, 'message' => 'Vui lòng điền đầy đủ thông tin bắt buộc.']);
             return;
         }
 
-        // Nếu đây là tài khoản mặc định, cập nhật các tài khoản khác thành không mặc định
+        // Nếu là mặc định thì reset các tài khoản khác
         if ($data['IsDefault']) {
             $this->financeModel->resetDefaultBankAccounts($this->shopID);
         }
@@ -135,14 +135,13 @@ class ShopFinanceController extends BaseShopController
         $result = $this->financeModel->addBankAccount($data);
 
         if ($result) {
-            $_SESSION['success_message'] = 'Thêm tài khoản ngân hàng thành công!';
+            $this->returnJson(['success' => true, 'message' => 'Thêm tài khoản ngân hàng thành công!']);
         } else {
-            $_SESSION['error_message'] = 'Có lỗi xảy ra khi thêm tài khoản ngân hàng.';
+            $this->returnJson(['success' => false, 'message' => 'Có lỗi xảy ra khi thêm tài khoản ngân hàng.']);
         }
-
-        header("Location: /electromart/public/shop/finance/bank-accounts");
-        exit();
     }
+
+
 
     // Cập nhật tài khoản ngân hàng
     public function updateBankAccount()

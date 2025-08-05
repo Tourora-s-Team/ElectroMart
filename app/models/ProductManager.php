@@ -290,4 +290,20 @@ class ProductManager extends HandleData
         $result = $stmt->fetch();
         return $result['total'] ?? 0;
     }
+
+    public function updateStatus($productID, $isActive)
+    {
+        // Chỉ chấp nhận giá trị 0 hoặc 1
+        if (!in_array($isActive, [0, 1])) {
+            return false;
+        }
+
+        $sql = "UPDATE Product SET IsActive = :is_active WHERE ProductID = :product_id";
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':is_active' => $isActive,
+            ':product_id' => $productID
+        ]);
+    }
 }

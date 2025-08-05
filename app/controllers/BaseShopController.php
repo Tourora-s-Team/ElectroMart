@@ -12,6 +12,13 @@ abstract class BaseShopController
         $this->authController = new AuthController();
         $this->checkShopAccess();
     }
+    protected function returnJson($data)
+    {
+        header('Content-Type: application/json');
+        echo json_encode($data);
+        exit();
+    }
+
 
     private function checkShopAccess()
     {

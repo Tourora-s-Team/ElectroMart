@@ -309,16 +309,16 @@
                             <div class="pagination">
                                 <?php if ($pagination['current_page'] > 1): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] - 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                             return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                                                                                        return $k !== 'page';
+                                                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 <?php endif; ?>
 
                                 <?php for ($i = max(1, $pagination['current_page'] - 2); $i <= min($pagination['total_pages'], $pagination['current_page'] + 2); $i++): ?>
                                     <a href="?page=<?php echo $i; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                           return $k !== 'page';
-                                       }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
+                                                                        return $k !== 'page';
+                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
                                         class="pagination-btn <?php echo ($i == $pagination['current_page']) ? 'active' : ''; ?>">
                                         <?php echo $i; ?>
                                     </a>
@@ -326,8 +326,8 @@
 
                                 <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] + 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                             return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                                                                                        return $k !== 'page';
+                                                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 <?php endif; ?>
@@ -511,10 +511,10 @@
     function editProduct(productId) {
         // Load product data via AJAX
         fetch(`/electromart/public/shop/products/edit/${productId}`, {
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
-        })
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 403) {
@@ -579,39 +579,19 @@
         window.open(`/electromart/public/product-detail/${productId}`, '_blank');
     }
 
-    function deleteProduct(productId) {
-        if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-            fetch(`/electromart/public/shop/products/delete/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showToast('Xóa sản phẩm thành công', 'success');
-                        setTimeout(() => location.reload(), 1000);
-                    } else {
-                        showToast(data.message || 'Không thể xóa sản phẩm', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showToast('Có lỗi xảy ra khi xóa sản phẩm', 'error');
-                });
-        }
-    }
+
 
     function toggleProductStatus(productId, isActive) {
         fetch(`/electromart/public/shop/products/toggle-status/${productId}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-            body: JSON.stringify({ is_active: isActive })
-        })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: JSON.stringify({
+                    is_active: isActive
+                })
+            })
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 403) {
@@ -653,7 +633,7 @@
     }
 
     // Image preview functionality
-    document.getElementById('productImages').addEventListener('change', function (e) {
+    document.getElementById('productImages').addEventListener('change', function(e) {
         const files = e.target.files;
         const preview = document.getElementById('imagePreview');
 
@@ -673,7 +653,7 @@
             }
 
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 const previewItem = document.createElement('div');
                 previewItem.className = 'preview-item';
                 previewItem.innerHTML = `
@@ -707,8 +687,8 @@
     function removeExistingImage(imageId) {
         if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
             fetch(`/electromart/public/shop/products/delete-image/${imageId}`, {
-                method: 'POST'
-            })
+                    method: 'POST'
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -726,7 +706,7 @@
     }
 
     // Form submission
-    document.getElementById('productForm').addEventListener('submit', function (e) {
+    document.getElementById('productForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
@@ -742,9 +722,9 @@
         submitBtn.disabled = true;
 
         fetch(url, {
-            method: 'POST',
-            body: formData
-        })
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -766,7 +746,7 @@
     });
 
     // Load saved view preference
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const savedView = localStorage.getItem('productsView');
         if (savedView === 'grid') {
             toggleView();
