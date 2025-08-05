@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Shop Management Routes
  * Routes for shop management functionality
@@ -25,7 +26,7 @@ $router->get("/electromart/public/shop/products/add", "ShopProductController@add
 $router->post("/electromart/public/shop/products/add", "ShopProductController@add");
 $router->get("/electromart/public/shop/products/edit/{id}", "ShopProductController@edit");
 $router->post("/electromart/public/shop/products/update/{id}", "ShopProductController@update");
-$router->delete("/electromart/public/shop/products/delete/{id}", "ShopProductController@delete");
+$router->post("/electromart/public/shop/products/delete/{id}", "ShopProductController@delete");
 $router->post("/electromart/public/shop/products/toggle-status/{id}", "ShopProductController@toggleStatus");
 $router->post("/electromart/public/shop/products/toggle-status", "ShopProductController@toggleStatus");
 $router->post("/electromart/public/shop/products/delete-image/{id}", "ShopProductController@deleteImage");
@@ -52,5 +53,3 @@ $router->get("/electromart/public/shop/api/dashboard-stats", "ShopManagementCont
 $router->get("/electromart/public/shop/api/orders", "ShopOrderController@getShopOrders");
 $router->get("/electromart/public/shop/api/products", "ShopProductController@getShopProducts");
 $router->get("/electromart/public/shop/api/finance-stats", "ShopFinanceController@getFinanceStats");
-
-?>

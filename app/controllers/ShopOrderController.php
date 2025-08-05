@@ -45,7 +45,7 @@ class ShopOrderController extends BaseShopController
     public function view($orderID)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->updateOrderStatus($orderID);
+            $this->updateStatus($orderID);
         }
 
         $orderDetail = $this->shopOrderModel->getOrderDetail($orderID, $this->shopID);
@@ -99,7 +99,7 @@ class ShopOrderController extends BaseShopController
     }
 
     // Cập nhật trạng thái đơn hàng
-    private function updateOrderStatus($orderID)
+    public function updateStatus($orderID)
     {
         $newStatus = $_POST['status'] ?? '';
 
@@ -116,4 +116,5 @@ class ShopOrderController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.';
         }
     }
+    
 }

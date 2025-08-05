@@ -311,12 +311,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="branchName" class="form-label">Chi nhánh</label>
-                    <input type="text" id="branchName" name="branch_name" class="form-input"
-                        placeholder="Nhập tên chi nhánh">
-                </div>
-
-                <div class="form-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="isDefault" name="is_default" value="1">
                         <span class="checkmark"></span>
@@ -460,7 +454,7 @@
                                 borderColor: 'var(--primary-color)',
                                 borderWidth: 1,
                                 callbacks: {
-                                    label: function (context) {
+                                    label: function(context) {
                                         return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
                                     }
                                 }
@@ -481,7 +475,7 @@
                                 },
                                 ticks: {
                                     color: 'var(--text-secondary)',
-                                    callback: function (value) {
+                                    callback: function(value) {
                                         return new Intl.NumberFormat('vi-VN', {
                                             notation: 'compact',
                                             compactDisplay: 'short'
@@ -557,12 +551,12 @@
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
             fetch(`/electromart/public/shop/finance/delete-bank-account/${accountId}`, {
-                method: 'POST'
-            })
+                    method: 'POST'
+                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        
+
                         setTimeout(() => location.reload(), 1000);
                     } else {
                         showToast(data.message || 'Không thể xóa tài khoản', 'error');
@@ -596,7 +590,7 @@
     }
 
     // Form submissions
-    document.getElementById('bankAccountForm').addEventListener('submit', function (e) {
+    document.getElementById('bankAccountForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
@@ -612,9 +606,9 @@
         submitBtn.disabled = true;
 
         fetch(url, {
-            method: 'POST',
-            body: formData
-        })
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -635,7 +629,7 @@
             });
     });
 
-    document.getElementById('payoutForm').addEventListener('submit', function (e) {
+    document.getElementById('payoutForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const amount = parseInt(document.getElementById('payoutAmount').value);
@@ -660,9 +654,9 @@
         submitBtn.disabled = true;
 
         fetch('/electromart/public/shop/finance/request-payout', {
-            method: 'POST',
-            body: formData
-        })
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -684,7 +678,7 @@
     });
 
     // Initialize chart when page loads
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         initRevenueChart();
     });
 </script>

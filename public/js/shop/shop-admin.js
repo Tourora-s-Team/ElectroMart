@@ -652,7 +652,7 @@ function deleteProduct(productId, productName) {
     showLoading();
 
     fetch(`/electromart/public/shop/products/delete/${productId}`, {
-        method: 'DELETE',
+        method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest' // Để PHP phân biệt là AJAX
         }
@@ -705,27 +705,6 @@ function viewOrderDetail(orderId) {
     window.location.href = `/electromart/public/shop/orders/view/${orderId}`;
 }
 
-function updateOrderStatus(orderId, currentStatus) {
-    const statusOptions = {
-        'Pending': 'Processing',
-        'Processing': 'Shipped',
-        'Shipped': 'Completed'
-    };
-
-    const nextStatus = statusOptions[currentStatus];
-    if (nextStatus) {
-        if (confirm(`Cập nhật trạng thái đơn hàng thành "${nextStatus}"?`)) {
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.style.display = 'none';
-
-            form.innerHTML = `<input type="hidden" name="status" value="${nextStatus}">`;
-
-            document.body.appendChild(form);
-            form.submit();
-        }
-    }
-}
 
 // Search functions
 function searchOrders() {
@@ -896,6 +875,50 @@ function loadDraft(formId) {
 function clearDraft(formId) {
     localStorage.removeItem(`draft_${formId}`);
 }
+document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Ngăn form submit mặc định
+
+    const newStatus = document.getElementById('newStatus').value;
+    const note = document.getElementById('statusNote').value;
+    const form = this;
+
+    if (!newStatus) {
+        showToast('Vui lòng chọn trạng thái mới', 'error');
+        return;
+    }
+
+    if (!confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?')) {
+        return;
+    }
+
+    // Lấy đường dẫn action đã set sẵn trong JS khi mở modal
+    const url = form.action;
+
+    // Gửi request AJAX
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: `status=${encodeURIComponent(newStatus)}&note=${encodeURIComponent(note)}`
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Lỗi server');
+        return response.text(); // hoặc JSON nếu backend trả JSON
+    })
+    .then(() => {
+        closeModal('statusUpdateModal');
+        showToast('Cập nhật trạng thái thành công', 'success');
+
+        // Làm mới danh sách đơn hàng sau khi cập nhật
+        refreshOrderList();
+    })
+    .catch(error => {
+        console.error(error);
+        showToast('Có lỗi xảy ra khi cập nhật trạng thái', 'error');
+    });
+});
 
 function showDraftSavedIndicator() {
     // Show a subtle indicator that draft is saved

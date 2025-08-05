@@ -211,20 +211,22 @@ class ShopProduct
      */
     public function deleteProduct($productID, $shopID)
     {
-        // Xóa hình ảnh trước
-        $sql = "DELETE FROM ProductImage WHERE ProductID = :ProductID AND ShopID = :ShopID";
-        $this->handleData->execDataWithParams($sql, [
-            'ProductID' => $productID,
-            'ShopID' => $shopID
-        ]);
-
-        // Xóa sản phẩm
+        // Xóa các bản ghi phụ thuộc
+        $tables = ['CartItem', 'OrderDetail', 'Review', 'WishList', 'ProductImage'];
+        foreach ($tables as $table) {
+            $sql = "DELETE FROM $table WHERE ProductID = :ProductID";
+            $this->handleData->execDataWithParams($sql, [
+                'ProductID' => $productID
+            ]);
+        }
+        // Xóa sản phẩm cuối cùng
         $sql = "DELETE FROM Product WHERE ProductID = :ProductID AND ShopID = :ShopID";
         return $this->handleData->execDataWithParams($sql, [
             'ProductID' => $productID,
             'ShopID' => $shopID
         ]);
     }
+
 
     /**
      * Thay đổi trạng thái sản phẩm

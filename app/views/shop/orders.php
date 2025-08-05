@@ -172,15 +172,15 @@
                                                 title="Xem chi tiết">
                                                 <i class="fas fa-eye"></i>
                                             </button>
-                                            <?php if (in_array($order['Status'], ['Pending', 'Processing'])): ?>
-                                                <button type="button" class="btn btn-primary btn-sm"
-                                                    onclick="updateOrderStatus(<?php echo $order['OrderID']; ?>, '<?php echo $order['Status']; ?>')"
-                                                    title="Cập nhật trạng thái">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                            <?php endif; ?>
+
+                                            <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="updateOrderStatus(<?php echo $order['OrderID']; ?>, '<?php echo $order['Status']; ?>')"
+                                                title="Cập nhật trạng thái">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
                                         </div>
                                     </td>
+
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -278,8 +278,7 @@
 
         // Update form action
         const form = document.getElementById('statusUpdateForm');
-        form.action = `/electromart/public/shop/orders/view/${orderId}`;
-
+        form.action = `/electromart/public/shop/orders/update-status/${orderId}`;
         openModal('statusUpdateModal');
     }
 
@@ -290,9 +289,9 @@
     // Auto-refresh orders every 2 minutes
     let refreshInterval;
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Start auto-refresh
-        refreshInterval = setInterval(function () {
+        refreshInterval = setInterval(function() {
             refreshOrderList();
         }, 120000); // 2 minutes
 
@@ -306,10 +305,10 @@
         if (!openModal) {
             const currentUrl = window.location.href;
             fetch(currentUrl, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
                 .then(response => response.text())
                 .then(html => {
                     // Update the orders table
@@ -346,7 +345,7 @@
     }
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', function(e) {
         if (e.ctrlKey || e.metaKey) {
             switch (e.key) {
                 case 'f':
@@ -361,23 +360,10 @@
         }
     });
 
-    // Status update form handling
-    document.getElementById('statusUpdateForm').addEventListener('submit', function (e) {
-        const newStatus = document.getElementById('newStatus').value;
-        if (!newStatus) {
-            e.preventDefault();
-            showToast('Vui lòng chọn trạng thái mới', 'error');
-            return;
-        }
 
-        if (!confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?')) {
-            e.preventDefault();
-            return;
-        }
-    });
 
     // Cleanup on page unload
-    window.addEventListener('beforeunload', function () {
+    window.addEventListener('beforeunload', function() {
         if (refreshInterval) {
             clearInterval(refreshInterval);
         }

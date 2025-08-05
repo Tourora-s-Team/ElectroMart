@@ -345,9 +345,9 @@
         showLoading();
 
         fetch('/electromart/public/shop/products/add', {
-            method: 'POST',
-            body: formData
-        })
+                method: 'POST',
+                body: formData
+            })
             .then(response => response.json())
             .then(data => {
                 hideLoading();
@@ -368,7 +368,7 @@
     }
 
     // Form validation
-    document.getElementById('addProductForm').addEventListener('submit', function (e) {
+    document.getElementById('addProductForm').addEventListener('submit', function(e) {
         const price = document.getElementById('productPrice').value;
         const stock = document.getElementById('productStock').value;
 
@@ -386,9 +386,10 @@
     });
 
     // Image preview functionality
-    document.getElementById('productImages').addEventListener('change', function () {
+    document.getElementById('productImages').addEventListener('change', function() {
         handleFileSelection(this);
     });
+
 
     function handleFileSelection(input) {
         const files = input.files;
@@ -412,7 +413,7 @@
 
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
+                reader.onload = function(e) {
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.alt = file.name;
@@ -422,4 +423,35 @@
             }
         }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form[data-async]');
+        if (!form) return;
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+            showLoading();
+
+            fetch(form.action, {
+                    method: form.method,
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(data => {
+                    hideLoading();
+                    if (data.success) {
+                        showToast('Thêm sản phẩm thành công!', 'success');
+                        window.location.href = '/electromart/public/shop/products';
+                    } else {
+                        showToast(data.message || 'Thêm sản phẩm thất bại!', 'error');
+                    }
+                })
+                .catch(err => {
+                    hideLoading();
+                    console.error(err);
+                    showToast('Lỗi khi gửi dữ liệu!', 'error');
+                });
+        });
+    });
 </script>
