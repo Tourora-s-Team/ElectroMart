@@ -213,6 +213,31 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
+/* hiển thị thông báo lỗi “Vui lòng chọn sản phẩm để thanh toán!” */
+.message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 15px;
+    font-weight: 500;
+    max-width: 600px;
+    transition: opacity 0.3s ease;
+}
+
+.message.error {
+    background-color: #ffe5e5;
+    color: #d8000c;
+    border: 1px solid #d8000c;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* end hiển thị thông báo lỗi “Vui lòng chọn sản phẩm để thanh toán!” */
+
+
 .continue-shopping {
     display: block;
     text-align: center;

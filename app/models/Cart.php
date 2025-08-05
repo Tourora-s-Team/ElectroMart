@@ -115,5 +115,26 @@ class Cart
         $result = $handleData->getDataWithParams($sql, $params);
         return $result ? $result[0]['Quantity'] : 0;
     }
+    public function cartCount($userID)
+    {
+        $cartId = $this->getCartID($userID);
+        $handleData = new HandleData();
+
+        $sql = "SELECT COUNT(ProductID) AS total FROM CartItem 
+            INNER JOIN Cart ON CartItem.CartID = Cart.CartID 
+            WHERE Cart.CartID = :cartId";
+        $params = [
+            'cartId' => $cartId
+        ];
+
+        $result = $handleData->getDataWithParams($sql, $params);
+
+        if (!empty($result) && isset($result[0]['total'])) {
+            return (int) $result[0]['total'];
+        }
+
+        return 0;
+    }
+
 }
 ?>

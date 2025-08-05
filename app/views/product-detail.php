@@ -93,21 +93,12 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                             <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
                         </button>
                     </form>
-                    <form action="/electromart/public/cart/add" method="POST">
-                        <button class="btn btn-buy-now">
-                            Mua ngay
-                        </button>
-                    </form>
-                </div>
-                <script>
-                    const form = document.getElementById('addToCartForm');
-                    const quantityInput = document.getElementById('quantity');
-                    const hiddenQuantity = document.getElementById('hidden_quantity');
 
-                    form.addEventListener('submit', function (e) {
-                        hiddenQuantity.value = quantityInput.value;
-                    });
-                </script>
+                    <button class="btn btn-buy-now" id="buyNowBtn">
+                        Mua ngay
+                    </button>
+
+                </div>
 
                 <div class="product-policies">
                     <div class="policy-item">
@@ -334,6 +325,14 @@ include ROOT_PATH . '/app/views/layouts/header.php';
 </section>
 
 <script>
+    //đồng bộ số lượng sản phẩm được chọn với input ẩn (hidden) trước khi gửi form
+    const form = document.getElementById('addToCartForm');
+    const quantityInput = document.getElementById('quantity');
+    const hiddenQuantity = document.getElementById('hidden_quantity');
+
+    form.addEventListener('submit', function (e) {
+        hiddenQuantity.value = quantityInput.value;
+    });
     // Xử lý đánh giá chọn sao
     const stars = document.querySelectorAll('#star-rating i');
     const ratingInput = document.getElementById('rating-value');
@@ -400,6 +399,52 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 showNotification('Có lỗi xảy ra!', 'error');
             });
     }
+    //nút mua ngay chuyển đến trang thanh toán "/electromart/public/payment"
+    document.getElementById('buyNowBtn').addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const quantity = parseInt(document.getElementById('quantity').value);
+        const productId = <?php echo json_encode($product['ProductID']); ?>;
+        const shopId = <?php echo json_encode($product['ShopID']); ?>;
+        const shopName = <?php echo json_encode($product['ShopName']); ?>;
+        const imageUrl = <?php echo json_encode(ImageHelper::getImageUrlWithFallback($product['ImageURL'])); ?>;
+        const price = <?php echo json_encode($product['Price']); ?>;
+        const subtotal = price * quantity;
+
+        const payload = {
+            items: [
+                {
+                    image: imageUrl,
+                    product_id: productId,
+                    shop_id: shopId,
+                    shop_name: shopName,
+                    quantity: quantity,
+                    subtotal: subtotal
+                }
+            ],
+            total: subtotal
+        };
+
+        fetch('/electromart/public/payment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.status === 'success') {
+                    window.location.href = '/electromart/public/payment';
+                } else {
+                    alert('Không thể xử lý thanh toán. Vui lòng thử lại.');
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi gửi dữ liệu mua ngay:', error);
+            });
+    });
 </script>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>

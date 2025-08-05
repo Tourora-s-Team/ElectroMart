@@ -34,11 +34,18 @@ class Order
             ':totalAmount' => $totalAmount,
             ':userId' => $userId,
         ];
-        $handleData->getDataWithParams($sql, $params);
+        $insertResult = $handleData->getDataWithParams($sql, $params);
+        if ($insertResult === false) {
+            die("❌ Insert vào bảng Orders thất bại!");
+        }
         // Lấy OrderID mới nhất của user này
         $sqlGet = "SELECT OrderID FROM Orders WHERE UserID = :userId ORDER BY OrderID DESC LIMIT 1";
         $result = $handleData->getDataWithParams($sqlGet, [':userId' => $userId]);
-        return $result ? (int) $result[0]['OrderID'] : 0;
+        if (!$result) {
+            die("❌ Không thể lấy OrderID sau khi insert.");
+        }
+
+        return (int) $result[0]['OrderID'];
     }
     public function createOrderDetail($orderId, $productId, $quantity, $total, $shopId)
     {

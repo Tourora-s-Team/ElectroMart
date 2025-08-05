@@ -3,9 +3,7 @@ require_once ROOT_PATH . '/app/models/Customer.php';
 
 if (!empty($_SESSION['customer'])) {
     $fullName = $_SESSION['customer'][0]['FullName'];
-}
-else 
-{
+} else {
     $fullName = 'Admin';
 }
 
@@ -89,32 +87,48 @@ else
 
     <main class="main-content">
 
-        <script>
-            function toggleDropdown() {
-                var dropdown = document.getElementById("userDropdown");
-                dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-            }
 
-            // Tắt dropdown nếu click ra ngoài
-            window.onclick = function (event) {
-                if (!event.target.closest('.user-menu')) {
-                    document.getElementById("userDropdown").style.display = "none";
-                    console.log("Dropdown closed");
-                }
-            }
-            function toggleMainNav() {
-                var nav = document.querySelector('.main-nav');
-                nav.classList.toggle('open');
-            }
-            // Đóng menu khi click ngoài menu trên mobile
-            window.addEventListener('click', function (e) {
-                var nav = document.querySelector('.main-nav');
-                var toggle = document.querySelector('.menu-toggle');
-                if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
-                    nav.classList.remove('open');
-                }
-            });
-        </script>
 
     </main>
 </body>
+<script>
+    function toggleDropdown() {
+        var dropdown = document.getElementById("userDropdown");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    // Tắt dropdown nếu click ra ngoài
+    window.onclick = function (event) {
+        if (!event.target.closest('.user-menu')) {
+            document.getElementById("userDropdown").style.display = "none";
+            console.log("Dropdown closed");
+        }
+    }
+    function toggleMainNav() {
+        var nav = document.querySelector('.main-nav');
+        nav.classList.toggle('open');
+    }
+    // Đóng menu khi click ngoài menu trên mobile
+    window.addEventListener('click', function (e) {
+        var nav = document.querySelector('.main-nav');
+        var toggle = document.querySelector('.menu-toggle');
+        if (nav.classList.contains('open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+            nav.classList.remove('open');
+        }
+    });
+    //đếm số sản phẩm trong giỏ hàng và hiển thị lên biểu tượng giỏ hàng (góc phải của header)
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/electromart/public/api/cartCount")
+            .then(response => response.json())
+            .then(data => {
+                const countElement = document.querySelector('.cart-count');
+                if (countElement && data.count > 0) {
+                    countElement.textContent = data.count;
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi khi lấy số lượng giỏ hàng:', error);
+            });
+    });
+
+</script>

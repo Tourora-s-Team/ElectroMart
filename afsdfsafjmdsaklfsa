@@ -1,0 +1,26 @@
+  features/cart[m
+  features/payment[m
+  features/product_details[m
+  features/shop_details[m
+* [32mmain[m
+  recover-payment[m
+  [31mremotes/origin/HEAD[m -> origin/main
+  [31mremotes/origin/ThanhDatDo2004-patch-1[m
+  [31mremotes/origin/clone_main[m
+  [31mremotes/origin/content[m
+  [31mremotes/origin/content_in_navbar[m
+  [31mremotes/origin/features/account_manager[m
+  [31mremotes/origin/features/admin[m
+  [31mremotes/origin/features/cart[m
+  [31mremotes/origin/features/home_suggestion[m
+  [31mremotes/origin/features/mail[m
+  [31mremotes/origin/features/payment[m
+  [31mremotes/origin/features/product_details[m
+  [31mremotes/origin/features/shop[m
+  [31mremotes/origin/features/shop-admin[m
+  [31mremotes/origin/features/shop_details[m
+  [31mremotes/origin/main[m
+  [31mremotes/origin/main_local[m
+  [31mremotes/origin/main_local_fixbugs[m
+  [31mremotes/origin/main_local_payment[m
+  [31mremotes/origin/recover-payment[m

@@ -14,7 +14,7 @@ class Payment
 
         $handleData = new HandleData();
 
-        $sql = "INSERT INTO payment (OrderID, PaymentMethod, Amount, PaymentDate, Status, TransactionCode, Note, UserID)
+        $sql = "INSERT INTO Payment (OrderID, PaymentMethod, Amount, PaymentDate, Status, TransactionCode, Note, UserID)
             VALUES (:order_id, :paymentmethod, :amount, NOW(), :status, :transaction_no, :note, :user_id)";
 
         $params = [
@@ -24,6 +24,31 @@ class Payment
             ':status' => $data['vnp_ResponseCode'] === '00' ? 'Success' : 'Failed',
             ':transaction_no' => $data['vnp_TransactionNo'] ?? null,
             ':note' => $data['vnp_OrderInfo'] ?? '',
+            ':user_id' => $userId,
+        ];
+
+        $handleData->getDataWithParams($sql, $params);
+    }
+    public function savePaymentCod($data)
+    {
+        if (!isset($_SESSION['user'][0]['UserID'])) {
+            throw new Exception("User is not logged in. Cannot save payment.");
+        }
+
+        $userId = $_SESSION['user'][0]['UserID'];
+
+        $handleData = new HandleData();
+
+        $sql = "INSERT INTO Payment (OrderID, PaymentMethod, Amount, PaymentDate, Status, TransactionCode, Note, UserID)
+            VALUES (:order_id, :paymentmethod, :amount, NOW(), :status, :transaction_no, :note, :user_id)";
+
+        $params = [
+            ':order_id' => $data['order_id'],
+            ':paymentmethod' => $data['PaymentMethod'] ?? 'COD',
+            ':amount' => $data['Amount'],
+            ':status' => 'Pending',
+            ':transaction_no' => '',
+            ':note' => '',
             ':user_id' => $userId,
         ];
 

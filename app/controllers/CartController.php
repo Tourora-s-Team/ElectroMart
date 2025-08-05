@@ -76,5 +76,19 @@ class CartController
             echo "Vui lòng cung cấp đầy đủ thông tin để cập nhật số lượng sản phẩm.";
         }
     }
+    public function getCartCount()
+    {
+        if (!isset($_SESSION['user'])) {
+            echo json_encode(['count' => 0]);
+            return;
+        }
+        $userId = $_SESSION['user'][0]['UserID']; // nếu có đăng nhập
+        $cartModels = new Cart();
+        $count = $cartModels->cartCount($userId);
+        header('Content-Type: application/json');
+        echo json_encode(['count' => $count]);
+        exit;
+    }
+
 }
 ?>

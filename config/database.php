@@ -1,18 +1,21 @@
 <?php
-class Database {
+class Database
+{
     private $servername;
     private $username;
     private $password;
     private $dbname;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->servername = $_ENV['DB_HOST'] ?? 'localhost';
         $this->username = $_ENV['DB_USER'] ?? 'root';
         $this->password = $_ENV['DB_PASS'] ?? '';
         $this->dbname = $_ENV['DB_NAME'] ?? 'electromart';
     }
 
-    function connectDB() {
+    function connectDB()
+    {
         try {
             $conn = new PDO(
                 "mysql:host=$this->servername;port=25060;dbname=$this->dbname;charset=utf8",
@@ -28,5 +31,6 @@ class Database {
             echo "Error: Không thể kết nối CSDL: " . $e->getMessage();
         }
     }
+
 }
 ?>
