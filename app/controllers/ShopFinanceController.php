@@ -163,11 +163,12 @@ class ShopFinanceController extends BaseShopController
             $result = $this->financeModel->updateBankAccount($id, $shopID, $data);
 
             if ($result) {
-                // Chuyển hướng hoặc trả về JSON thành công
-                header("Location: /electromart/public/shop/finance/bank-accounts");
+                // Chuyển hướng thành công
+                header("Location: /electromart/public/shop/finance");
+                $_SESSION['success_message'] = 'Cập nhật tài khoản ngân hàng thành công!';
                 exit;
             } else {
-                echo "Có lỗi xảy ra khi cập nhật tài khoản ngân hàng.";
+                $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật tài khoản ngân hàng.';
             }
         }
     }

@@ -335,18 +335,18 @@
 <div id="editBankAccountModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="modal-title" id="editBankAccountModalTitle">Sửa tài khoản ngân hàng</h3>
+            <h3 class="modal-title" id="editBankAccountModalTitle">Cập nhật tài khoản ngân hàng</h3>
             <button type="button" class="modal-close" onclick="closeModal('editBankAccountModal')">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         <form id="editBankAccountForm" method="POST" action="/electromart/public/shop/finance/update-bank-account/">
             <input type="hidden" name="action" value="update">
-            <input type="hidden" id="bankAccountId" name="bank_account_id" value="">
+            <input type="hidden" id="editBankAccountId" name="bank_account_id" value="">
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="bankName" class="form-label">Tên ngân hàng *</label>
-                    <select id="bankName" name="bank_name" class="form-select" required>
+                    <label for="editBankName" class="form-label">Tên ngân hàng *</label>
+                    <select id="editBankName" name="bank_name" class="form-select" required>
                         <option value="">Chọn ngân hàng</option>
                         <option value="Vietcombank">Vietcombank</option>
                         <option value="VietinBank">VietinBank</option>
@@ -364,20 +364,20 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="accountNumber" class="form-label">Số tài khoản *</label>
-                    <input type="text" id="accountNumber" name="account_number" class="form-input"
+                    <label for="editAccountNumber" class="form-label">Số tài khoản *</label>
+                    <input type="text" id="editAccountNumber" name="account_number" class="form-input"
                         placeholder="Nhập số tài khoản" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="accountHolderName" class="form-label">Tên chủ tài khoản *</label>
-                    <input type="text" id="accountHolderName" name="account_holder_name" class="form-input"
+                    <label for="editAccountHolderName" class="form-label">Tên chủ tài khoản *</label>
+                    <input type="text" id="editAccountHolderName" name="account_holder_name" class="form-input"
                         placeholder="Nhập tên chủ tài khoản" required>
                 </div>
 
                 <div class="form-group">
                     <label class="checkbox-label">
-                        <input type="checkbox" id="isDefault" name="is_default" value="1">
+                        <input type="checkbox" id="editIsDefault" name="is_default" value="1">
                         <span class="checkmark"></span>
                         Đặt làm tài khoản mặc định
                     </label>
@@ -389,7 +389,7 @@
                 </button>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i>
-                    <span id="bankAccountSubmitText">Xác nhận</span>
+                    <span id="bankAccountSubmitText">Cập nhật</span>
                 </button>
             </div>
         </form>
@@ -474,6 +474,11 @@
 </div>
 
 <script>
+    const bankAccounts = {
+        <?php foreach ($bankAccounts as $account): ?>
+            <?php echo $account['BankAccountID']; ?>: <?php echo json_encode($account); ?>,
+        <?php endforeach; ?>
+    };
     let revenueChart;
 
     // Initialize Revenue Chart
@@ -519,7 +524,7 @@
                                 borderColor: 'var(--primary-color)',
                                 borderWidth: 1,
                                 callbacks: {
-                                    label: function(context) {
+                                    label: function (context) {
                                         return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
                                     }
                                 }
@@ -540,7 +545,7 @@
                                 },
                                 ticks: {
                                     color: 'var(--text-secondary)',
-                                    callback: function(value) {
+                                    callback: function (value) {
                                         return new Intl.NumberFormat('vi-VN', {
                                             notation: 'compact',
                                             compactDisplay: 'short'
@@ -586,49 +591,35 @@
     }
 
     function editBankAccount(accountId) {
-        // Load account data
-        fetch(`/electromart/public/shop/finance/bank-account/${accountId}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.account) {
-                    const account = data.account;
+        openModal('editBankAccountModal');
+        // Fill form with existing data
+        document.getElementById('editBankName').value = bankAccounts[String(accountId)].BankName;
+        document.getElementById('editAccountNumber').value = bankAccounts[String(accountId)].AccountNumber;
+        document.getElementById('editAccountHolderName').value = bankAccounts[String(accountId)].AccountHolder;
+        document.getElementById('editIsDefault').checked = bankAccounts[String(accountId)].IsDefault == 1;
+        // Mở modal
 
-                    // Gán dữ liệu vào form
-                    document.getElementById('bankAccountId').value = account.BankAccountID;
-                    document.getElementById('bankName').value = account.BankName;
-                    document.getElementById('accountNumber').value = account.AccountNumber;
-                    document.getElementById('accountHolderName').value = account.AccountHolder;
-                    document.getElementById('isDefault').checked = account.IsDefault == 1;
+        // Gán giá trị vào input hidden
+        document.getElementById('editBankAccountId').value = accountId;
 
-                    // Cập nhật action của form
-                    const form = document.getElementById('editBankAccountForm');
-                    form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
-
-                    // Hiển thị modal
-                    openModal('editBankAccountModal');
-                } else {
-                    showToast('Không thể tải thông tin tài khoản', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showToast('Có lỗi xảy ra', 'error');
-            });
+        // Cập nhật action của form
+        const form = document.getElementById('editBankAccountForm');
+        form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
     }
 
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
             fetch(`/electromart/public/shop/finance/delete-bank-account/${accountId}`, {
-                    method: 'POST'
-                })
+                method: 'POST'
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-
+                        showToast(data.message, 'success');
                         setTimeout(() => location.reload(), 1000);
                     } else {
-                        showToast(data.message || 'Không thể xóa tài khoản', 'error');
+                        showToast(data.message, 'error');
                     }
                 })
                 .catch(error => {
@@ -659,7 +650,7 @@
     }
 
     // Form submissions
-    document.getElementById('bankAccountForm').addEventListener('submit', function(e) {
+    document.getElementById('bankAccountForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const formData = new FormData(this);
@@ -675,9 +666,9 @@
         submitBtn.disabled = true;
 
         fetch(url, {
-                method: 'POST',
-                body: formData
-            })
+            method: 'POST',
+            body: formData
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -698,7 +689,7 @@
             });
     });
 
-    document.getElementById('payoutForm').addEventListener('submit', function(e) {
+    document.getElementById('payoutForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const amount = parseInt(document.getElementById('payoutAmount').value);
@@ -723,9 +714,9 @@
         submitBtn.disabled = true;
 
         fetch('/electromart/public/shop/finance/request-payout', {
-                method: 'POST',
-                body: formData
-            })
+            method: 'POST',
+            body: formData
+        })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -747,7 +738,7 @@
     });
 
     // Initialize chart when page loads
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         initRevenueChart();
     });
 </script>

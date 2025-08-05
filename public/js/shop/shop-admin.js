@@ -621,19 +621,6 @@ function deleteProduct(productId, productName) {
         });
 }
 
-// Bank account management
-function editBankAccount(accountId) {
-    // Mở modal
-    openModal('editBankAccountModal');
-
-    // Gán giá trị vào input hidden
-    document.getElementById('bankAccountId').value = accountId;
-
-    // Cập nhật action của form
-    const form = document.getElementById('editBankAccountForm');
-    form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
-}
-
 
 
 
@@ -826,7 +813,7 @@ function loadDraft(formId) {
 function clearDraft(formId) {
     localStorage.removeItem(`draft_${formId}`);
 }
-document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
+document.getElementById('statusUpdateForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Ngăn form submit mặc định
 
     const newStatus = document.getElementById('newStatus').value;
@@ -854,21 +841,21 @@ document.getElementById('statusUpdateForm').addEventListener('submit', function(
         },
         body: `status=${encodeURIComponent(newStatus)}&note=${encodeURIComponent(note)}`
     })
-    .then(response => {
-        if (!response.ok) throw new Error('Lỗi server');
-        return response.text(); // hoặc JSON nếu backend trả JSON
-    })
-    .then(() => {
-        closeModal('statusUpdateModal');
-        showToast('Cập nhật trạng thái thành công', 'success');
+        .then(response => {
+            if (!response.ok) throw new Error('Lỗi server');
+            return response.text(); // hoặc JSON nếu backend trả JSON
+        })
+        .then(() => {
+            closeModal('statusUpdateModal');
+            showToast('Cập nhật trạng thái thành công', 'success');
 
-        // Làm mới danh sách đơn hàng sau khi cập nhật
-        refreshOrderList();
-    })
-    .catch(error => {
-        console.error(error);
-        showToast('Có lỗi xảy ra khi cập nhật trạng thái', 'error');
-    });
+            // Làm mới danh sách đơn hàng sau khi cập nhật
+            refreshOrderList();
+        })
+        .catch(error => {
+            console.error(error);
+            showToast('Có lỗi xảy ra khi cập nhật trạng thái', 'error');
+        });
 });
 
 function showDraftSavedIndicator() {
