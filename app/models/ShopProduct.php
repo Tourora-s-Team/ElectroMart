@@ -193,17 +193,23 @@ class ShopProduct
     public function updateProduct($productID, $shopID, $data)
     {
         $sql = "UPDATE Product 
-                SET ProductName = :ProductName, Brand = :Brand, Description = :Description, 
-                    Price = :Price, StockQuantity = :StockQuantity, CategoryID = :CategoryID, 
-                    IsActive = :IsActive, UpdateAt = :UpdateAt
-                WHERE ProductID = :ProductID AND ShopID = :ShopID";
+        SET ProductName = :ProductName, 
+            Brand = :Brand, 
+            Description = :Description, 
+            Price = :Price, 
+            StockQuantity = :StockQuantity, 
+            CategoryID = :CategoryID, 
+            IsActive = :IsActive, 
+            UpdateAt = :UpdateAt
+        WHERE ProductID = :ProductID AND ShopID = :ShopID";
 
         $params = array_merge($data, [
             'ProductID' => $productID,
             'ShopID' => $shopID
         ]);
-
+    
         return $this->handleData->execDataWithParams($sql, $params);
+        
     }
 
     /**

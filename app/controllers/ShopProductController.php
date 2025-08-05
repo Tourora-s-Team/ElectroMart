@@ -174,13 +174,22 @@ class ShopProductController extends BaseShopController
     public function update($productID)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->handleEditProduct($productID);
-        } else {
-            $_SESSION['error_message'] = 'Phương thức không hợp lệ.';
-            header("Location: /electromart/public/shop/products");
-            exit();
+            header('Content-Type: application/json');
+            $success = $this->handleEditProduct($productID, true); // TRUE = isAjax
+
+            echo json_encode([
+                'success' => $success,
+                'message' => $success ? 'Cập nhật sản phẩm thành công!' : 'Cập nhật sản phẩm thất bại!'
+            ]);
+            exit;
         }
+
+        http_response_code(405);
+        echo "Phương thức không được hỗ trợ.";
+        exit;
     }
+
+
 
 
 
@@ -311,40 +320,55 @@ class ShopProductController extends BaseShopController
     }
 
     // Xử lý sửa sản phẩm
-    private function handleEditProduct($productID)
+    private function handleEditProduct($productID, $isAjax = false)
     {
         if (!$this->checkProductBelongsToShop($productID)) {
+            if ($isAjax) {
+                return false;
+            }
             $_SESSION['error_message'] = 'Bạn không có quyền sửa sản phẩm này.';
             header("Location: /electromart/public/shop/products");
             exit();
         }
 
         $data = [
-            'ProductName' => $_POST['ProductName'] ?? '',
-            'Description' => $_POST['Description'] ?? '',
-            'Price' => $_POST['Price'] ?? 0,
-            'StockQuantity' => $_POST['StockQuantity'] ?? 0,
-            'Brand' => $_POST['Brand'] ?? '',
-            'CategoryID' => $_POST['CategoryID'] ?? 0,
+            'ProductName' => $_POST['product_name'] ?? '',
+            'Brand' => $_POST['brand'] ?? '',
+            'Description' => $_POST['description'] ?? '',
+            'Price' => $_POST['price'] ?? 0,
+            'StockQuantity' => $_POST['stock_quantity'] ?? 0,
+            'CategoryID' => $_POST['category_id'] ?? 0,
+            'IsActive' => isset($_POST['is_active']) ? 1 : 0,
             'UpdateAt' => date('Y-m-d H:i:s'),
-            'IsActive' => 1 // hoặc lấy từ form nếu cho phép cập nhật trạng thái
+            'ProductID' => $_POST['product_id'] ?? 0,
+            'ShopID' => $_SESSION['shop_id'] ?? 0
         ];
 
         $result = $this->productModel->updateProduct($productID, $this->shopID, $data);
 
         if ($result) {
-            // Xử lý upload hình ảnh mới nếu có
             if (!empty($_FILES['images']['name'][0])) {
                 $this->handleProductImages($productID, $_FILES['images']);
+            }
+
+            if ($isAjax) {
+                return true;
             }
 
             $_SESSION['success_message'] = 'Cập nhật sản phẩm thành công!';
             header("Location: /electromart/public/shop/products");
             exit();
         } else {
+            if ($isAjax) {
+                return false;
+            }
+
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật sản phẩm.';
+            header("Location: /electromart/public/shop/products");
+            exit();
         }
     }
+
 
 
     // Lấy chi tiết sản phẩm

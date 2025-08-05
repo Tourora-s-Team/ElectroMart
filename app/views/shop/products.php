@@ -510,7 +510,7 @@
 
     function editProduct(productId) {
         // Load product data via AJAX
-        fetch(`/electromart/public/shop/products/edit/${productId}`, {
+        fetch(`/electromart/public/shop/products/update/${productId}`, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
@@ -573,6 +573,7 @@
                 console.error('Error:', error);
                 showToast('Có lỗi xảy ra khi tải thông tin sản phẩm', 'error');
             });
+
     }
 
     function viewProduct(productId) {
@@ -715,35 +716,57 @@
             `/electromart/public/shop/products/update/${productId}` :
             '/electromart/public/shop/products/add';
 
-        // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
+
+        // Hiển thị đang xử lý
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
         submitBtn.disabled = true;
 
         fetch(url, {
                 method: 'POST',
-                body: formData
+                body: formData,
             })
-            .then(response => response.json())
+            .then(response => {
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    return response.json();
+                } else {
+                    throw new Error("Không nhận được phản hồi JSON hợp lệ");
+                }
+            })
             .then(data => {
                 if (data.success) {
-                    showToast(data.message, 'success');
-                    closeModal('productModal');
-                    setTimeout(() => location.reload(), 1000);
+                    showToast(data.message || 'Thành công!', 'success');
+
+                    // Tự đóng modal (nếu bạn dùng modal Bootstrap, sửa lại cho phù hợp)
+                    const modal = document.getElementById('productModal');
+                    if (modal) {
+                        modal.classList.remove('show');
+                        modal.style.display = 'none';
+                        document.body.classList.remove('modal-open');
+                        const backdrop = document.querySelector('.modal-backdrop');
+                        if (backdrop) backdrop.remove();
+                    }
+
+                    // Tự reload trang
+                    setTimeout(() => {
+                        window.location.href = "/electromart/public/shop/products";
+                    }, 1000);
                 } else {
                     showToast(data.message || 'Có lỗi xảy ra', 'error');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                showToast('Có lỗi xảy ra khi lưu sản phẩm', 'error');
+                console.error('Lỗi:', error);
+                showToast('Đã xảy ra lỗi không mong muốn', 'error');
             })
             .finally(() => {
                 submitBtn.innerHTML = originalText;
                 submitBtn.disabled = false;
             });
     });
+
 
     // Load saved view preference
     document.addEventListener('DOMContentLoaded', function() {
