@@ -417,7 +417,7 @@
     }
 
     // Close modal when clicking outside
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         const modals = document.querySelectorAll('.modal');
         modals.forEach(modal => {
             if (event.target === modal) {

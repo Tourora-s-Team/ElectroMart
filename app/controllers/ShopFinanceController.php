@@ -60,7 +60,7 @@ class ShopFinanceController extends BaseShopController
                     $this->addBankAccount();
                     break;
                 case 'update':
-                    $this->updateBankAccount();
+                    $this->updateBankAccount($_POST['bank_account_id']);
                     break;
                 case 'delete':
                     $this->deleteBankAccount();
@@ -144,43 +144,36 @@ class ShopFinanceController extends BaseShopController
 
 
     // Cập nhật tài khoản ngân hàng
-    public function updateBankAccount()
+    public function updateBankAccount($id)
     {
-        $bankAccountID = $_POST['BankAccountID'] ?? '';
-        $data = [
-            'BankName' => $_POST['BankName'] ?? '',
-            'AccountNumber' => $_POST['AccountNumber'] ?? '',
-            'AccountHolder' => $_POST['account_holder_name'] ?? '',
-            'IsDefault' => isset($_POST['IsDefault']) ? 1 : 0
-        ];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'BankName' => $_POST['bank_name'] ?? '',
+                'AccountNumber' => $_POST['account_number'] ?? '',
+                'AccountHolder' => $_POST['account_holder_name'] ?? '',
+                'IsDefault' => isset($_POST['is_default']) ? 1 : 0,
+                'CreatedAt' => date('Y-m-d H:i:s'),
+                'Status' => 'Active',
+                'bankAccountID' => $id,
+                'shopID' => $this->shopID,
+            ];
 
-        if (empty($bankAccountID)) {
-            $_SESSION['error_message'] = 'Không tìm thấy tài khoản ngân hàng.';
-            return;
+            $shopID = $this->shopID;
+
+            $result = $this->financeModel->updateBankAccount($id, $shopID, $data);
+
+            if ($result) {
+                // Chuyển hướng hoặc trả về JSON thành công
+                header("Location: /electromart/public/shop/finance/bank-accounts");
+                exit;
+            } else {
+                echo "Có lỗi xảy ra khi cập nhật tài khoản ngân hàng.";
+            }
         }
-
-        // Kiểm tra tài khoản có thuộc shop không
-        if (!$this->financeModel->checkBankAccountBelongsToShop($bankAccountID, $this->shopID)) {
-            $_SESSION['error_message'] = 'Bạn không có quyền cập nhật tài khoản này.';
-            return;
-        }
-
-        // Nếu đây là tài khoản mặc định, cập nhật các tài khoản khác thành không mặc định
-        if ($data['IsDefault']) {
-            $this->financeModel->resetDefaultBankAccounts($this->shopID);
-        }
-
-        $result = $this->financeModel->updateBankAccount($bankAccountID, $this->shopID, $data);
-
-        if ($result) {
-            $_SESSION['success_message'] = 'Cập nhật tài khoản ngân hàng thành công!';
-        } else {
-            $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật tài khoản ngân hàng.';
-        }
-
-        header("Location: /electromart/public/shop/finance/bank-accounts");
-        exit();
     }
+
+
+
 
     // Xóa tài khoản ngân hàng
     public function deleteBankAccount($bankAccountID = null)

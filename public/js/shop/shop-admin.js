@@ -623,12 +623,19 @@ function deleteProduct(productId, productName) {
 
 // Bank account management
 function editBankAccount(accountId) {
-    // Implementation for editing bank account
-    openModal('bankAccountModal');
+    // Mở modal
+    openModal('editBankAccountModal');
 
-    // Load account data and populate form
-    // This would typically fetch data via AJAX
+    // Gán giá trị vào input hidden
+    document.getElementById('bankAccountId').value = accountId;
+
+    // Cập nhật action của form
+    const form = document.getElementById('editBankAccountForm');
+    form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
 }
+
+
+
 
 function setDefaultBankAccount(accountId) {
     const form = document.createElement('form');
