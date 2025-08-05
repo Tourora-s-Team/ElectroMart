@@ -39,8 +39,8 @@ require_once __DIR__ . "/./account_navbar.php";
             </div>
 
             <div class="display-right">
-                <button type="button" id="cancel-btn" class="btn btn-secondary">Hủy</button>
-                <button type="button" id="change-password-btn" class="btn btn-primary">Lưu</button>
+                <button type="button" id="cancel-btn" class="btn-account btn-secondary">Hủy</button>
+                <button type="button" id="change-password-btn" class="btn-account btn-primary">Lưu</button>
             </div>
         </form>
     </div>

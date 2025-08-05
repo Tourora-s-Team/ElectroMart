@@ -6,7 +6,7 @@ require_once __DIR__ . "/./account_navbar.php";
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Địa chỉ giao hàng</h1>
-        <button id="new-address-btn" class="subheader__btn-edit btn" onclick="openAddModal()"><i
+        <button id="new-address-btn" class="subheader__btn-edit btn-account" onclick="openAddModal()"><i
                 class="fa-regular fa-pen-to-square"></i>Thêm địa chỉ mới</button>
     </div>
     <?php if ($receiverList == null): ?>

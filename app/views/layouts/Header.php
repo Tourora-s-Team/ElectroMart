@@ -101,7 +101,6 @@ if (!empty($_SESSION['customer'])) {
     window.onclick = function (event) {
         if (!event.target.closest('.user-menu')) {
             document.getElementById("userDropdown").style.display = "none";
-            console.log("Dropdown closed");
         }
     }
     function toggleMainNav() {

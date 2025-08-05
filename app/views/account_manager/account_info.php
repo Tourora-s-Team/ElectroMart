@@ -9,7 +9,7 @@ require_once __DIR__ . "/./account_navbar.php";
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Thông tin tài khoản</h1>
-        <button id="edit-info-btn" class="subheader__btn-edit btn"><i class="fa-regular fa-pen-to-square"></i>Chỉnh
+        <button id="edit-info-btn" class="subheader__btn-edit btn-account"><i class="fa-regular fa-pen-to-square"></i>Chỉnh
             sửa</button>
     </div>
 
@@ -44,11 +44,11 @@ require_once __DIR__ . "/./account_navbar.php";
                         <input type="text" id="date-of-birth" name="date-of-birth">
                     </div>
                 </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="hidden btn-account" id="submit-info">Lưu</button>
+                </div>
             </fieldset>
-
-            <div class="form-actions">
-                <button type="submit" class="hidden btn" id="submit-info" class="btn btn-primary">Lưu</button>
-            </div>
         </form>
 
         <div class="member-details flex-row">
@@ -142,6 +142,10 @@ require_once __DIR__ . "/./account_navbar.php";
             showToast("Số điện thoại không hợp lệ.", 'error');
             return;
         }
+
+        // if (fieldset.disabled) {
+        //     return;
+        // }
 
         const form = document.getElementById('form-info');
         form.submit();
