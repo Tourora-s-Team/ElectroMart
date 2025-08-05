@@ -90,6 +90,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                         </div>
 
                         <div class="checkout-actions">
+                            <div id="cart-message" class="message hidden"></div>
                             <button type="submit" class="checkout-btn">Thanh toán</button>
                             <a href="public" class="continue-shopping">Tiếp tục mua sắm</a>
                         </div>
@@ -152,6 +153,20 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 });
             }
         });
+
+        // ✅ Kiểm tra nếu không có sản phẩm nào được chọn
+        const messageBox = document.getElementById('cart-message');
+        if (selectedItems.length === 0) {
+            messageBox.textContent = "Vui lòng chọn sản phẩm để thanh toán!";
+            messageBox.classList.remove('hidden');
+            messageBox.classList.add('error');
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 3000);
+
+            return; return; // không tiếp tục nếu chưa chọn sản phẩm
+        }
         console.log({
             items: selectedItems,
             total: total

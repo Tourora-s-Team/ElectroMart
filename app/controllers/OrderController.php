@@ -159,8 +159,6 @@ class OrderController
 
     public function createOrder()
     {
-
-
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             http_response_code(405);
             echo "Phương thức không hợp lệ";
@@ -189,7 +187,8 @@ class OrderController
         $orderId = $orderModel->createOrder($status, $shippingFee, $totalAmount, $userId);
         $_SESSION['order_id'] = $orderId;
 
-        var_dump($orderId); // Thêm dòng này để kiểm tra giá trị
+        var_dump($orderId);
+        var_dump($products); // Thêm dòng này để kiểm tra giá trị
         if (!$orderId) {
             die('Không lấy được OrderID!');
         }
@@ -220,7 +219,18 @@ class OrderController
         // Sau khi tạo đơn hàng thành công, chuyển hướng về trang chủ hoặc trang cảm ơn
         $method = $_POST['paymentMethodFinal'] ?? 'cod';
         if ($method == 'cod') {
-            header("Location: /electromart/public/home");
+            // Gán vào mảng $vnpayData để truyền sang Payment::savePayment()
+            $CodData = [
+                'order_id' => $orderId,
+                'PaymentMethod' => $method,
+                'Amount' => $totalAmount,
+            ];
+            var_dump($CodData);
+            // exit;
+            $paymentModel = new Payment();
+            $paymentModel->savePaymentCod($CodData);
+
+            header("Location: /electromart/public/account/order-history");
             exit;
         } elseif ($method == 'vnpay') {
             $_SESSION['vnpay_payment'] = [
