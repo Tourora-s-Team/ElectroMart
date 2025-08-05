@@ -8,10 +8,10 @@
             <p class="page-description">Quản lý danh sách sản phẩm của shop</p>
         </div>
         <div class="header-actions">
-            <button type="button" class="btn btn-primary" onclick="openAddProductModal()">
+            <a href="/electromart/public/shop/products/add" type="button" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Thêm sản phẩm
-            </button>
+            </a>
         </div>
     </div>
 
@@ -159,6 +159,9 @@
                                     <td>
                                         <div style="width: 60px; height: 60px;">
                                             <?php if (!empty($product['ImageURL'])): ?>
+                                                <script>
+                                                    console.log('Image URL:', '<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>');
+                                                    </script>
                                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
                                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
@@ -340,10 +343,10 @@
                     <i class="fas fa-box-open"></i>
                     <h3>Chưa có sản phẩm nào</h3>
                     <p>Hãy thêm sản phẩm đầu tiên cho shop của bạn</p>
-                    <button type="button" class="btn btn-primary" onclick="openAddProductModal()">
+                    <a href="/electromart/public/shop/products/add" type="button" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
                         Thêm sản phẩm
-                    </button>
+                    </a>
                 </div>
             <?php endif; ?>
         </div>
@@ -499,14 +502,6 @@
         localStorage.setItem('productsView', currentView);
     }
 
-    function openAddProductModal() {
-        document.getElementById('productModalTitle').textContent = 'Thêm sản phẩm mới';
-        document.getElementById('productSubmitText').textContent = 'Thêm sản phẩm';
-        document.getElementById('productForm').reset();
-        document.getElementById('productId').value = '';
-        document.getElementById('imagePreview').innerHTML = '';
-        openModal('productModal');
-    }
 
     function editProduct(productId) {
         // Load product data via AJAX
@@ -630,58 +625,6 @@
                 // Revert switch
                 event.target.checked = !isActive;
             });
-    }
-
-    // Image preview functionality
-    document.getElementById('productImages').addEventListener('change', function(e) {
-        const files = e.target.files;
-        const preview = document.getElementById('imagePreview');
-
-        // Clear existing previews
-        preview.innerHTML = '';
-
-        if (files.length > 5) {
-            showToast('Chỉ được chọn tối đa 5 hình ảnh', 'warning');
-            e.target.value = '';
-            return;
-        }
-
-        Array.from(files).forEach((file, index) => {
-            if (file.size > 2 * 1024 * 1024) {
-                showToast(`Hình ảnh "${file.name}" quá lớn (>2MB)`, 'warning');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewItem = document.createElement('div');
-                previewItem.className = 'preview-item';
-                previewItem.innerHTML = `
-                <img src="${e.target.result}" alt="Preview">
-                <button type="button" class="remove-image" onclick="removePreviewImage(${index})">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-                preview.appendChild(previewItem);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-
-    function removePreviewImage(index) {
-        const fileInput = document.getElementById('productImages');
-        const dt = new DataTransfer();
-
-        Array.from(fileInput.files).forEach((file, i) => {
-            if (i !== index) {
-                dt.items.add(file);
-            }
-        });
-
-        fileInput.files = dt.files;
-
-        // Trigger change event to update preview
-        fileInput.dispatchEvent(new Event('change'));
     }
 
     function removeExistingImage(imageId) {

@@ -363,62 +363,6 @@ function closeModal(modal) {
     }
 }
 
-// File upload functionality
-function initializeFileUploads() {
-    const fileInputs = document.querySelectorAll('input[type="file"]');
-    fileInputs.forEach(input => {
-        input.addEventListener('change', function () {
-            handleFileSelection(this);
-        });
-    });
-
-    // Drag and drop
-    const dropZones = document.querySelectorAll('.image-upload');
-    dropZones.forEach(zone => {
-        zone.addEventListener('dragover', function (e) {
-            e.preventDefault();
-            this.classList.add('drag-over');
-        });
-
-        zone.addEventListener('dragleave', function () {
-            this.classList.remove('drag-over');
-        });
-
-        zone.addEventListener('drop', function (e) {
-            e.preventDefault();
-            this.classList.remove('drag-over');
-
-            const fileInput = this.querySelector('input[type="file"]');
-            if (fileInput) {
-                fileInput.files = e.dataTransfer.files;
-                handleFileSelection(fileInput);
-            }
-        });
-    });
-}
-
-function handleFileSelection(input) {
-    const files = input.files;
-    const previewContainer = input.closest('.form-group').querySelector('.image-preview');
-
-    if (previewContainer) {
-        previewContainer.innerHTML = '';
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = file.name;
-                    previewContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    }
-}
 
 // Product management functions
 function editProduct(productId) {

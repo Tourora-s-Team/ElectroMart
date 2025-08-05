@@ -35,6 +35,21 @@
 
 <body class="shop-admin-layout">
     <div id="toast-container"></div>
+    <?php if (!empty($_SESSION['error_message'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                showToast("<?= addslashes($_SESSION['error_message']) ?>", 'error');
+            });
+        </script>
+        <?php unset($_SESSION['error_message']); ?>
+    <?php elseif (!empty($_SESSION['success_message'])): ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                showToast("<?= addslashes($_SESSION['success_message']) ?>", 'success');
+            });
+        </script>
+        <?php unset($_SESSION['success_message']); ?>
+    <?php endif; ?>
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <!-- Shop Header -->

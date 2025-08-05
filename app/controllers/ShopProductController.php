@@ -182,9 +182,6 @@ class ShopProductController extends BaseShopController
         }
     }
 
-
-
-
     // Cập nhật trạng thái sản phẩm (bán/ngừng bán)
     public function toggleStatus($productID = null)
     {
@@ -275,19 +272,19 @@ class ShopProductController extends BaseShopController
 
     // Xử lý thêm sản phẩm
     private function handleAddProduct()
-    {
+    {  
         $data = [
-            'ProductName'     => $_POST['product_name'] ?? '',
-            'Description'     => $_POST['description'] ?? '',
-            'Price'           => $_POST['price'] ?? 0.0000,
-            'StockQuantity'   => $_POST['stock_quantity'] ?? 0,
-            'Brand'           => $_POST['brand'] ?? '',
-            'RatingProduct'   => $_POST['RatingProduct'] ?? null,
-            'CategoryID'      => $_POST['category_id'] ?? 0,
-            'ShopID'          => $this->shopID,
+            'ProductName' => $_POST['product_name'] ?? '',
+            'Description' => $_POST['description'] ?? '',
+            'Price' => $_POST['price'] ?? 0.0000,
+            'StockQuantity' => $_POST['stock_quantity'] ?? 0,
+            'Brand' => $_POST['brand'] ?? '',
+            'RatingProduct' => $_POST['RatingProduct'] ?? 0,
+            'CategoryID' => $_POST['category_id'] ?? 0,
+            'ShopID' => $this->shopID,
             'CreateAt' => date('Y-m-d H:i:s'),
             'UpdateAt' => date('Y-m-d H:i:s'),
-            'IsActive'        => isset($_POST['is_active']) ? 1 : 0
+            'IsActive' => isset($_POST['is_active']) ? 1 : 0
         ];
 
         // Validate required fields
@@ -377,7 +374,7 @@ class ShopProductController extends BaseShopController
         if (empty($files['name'][0]))
             return;
 
-        $uploadDir = ROOT_PATH . '/public/images/products/';
+        $uploadDir = ROOT_PATH . '/public/images/electro_mart/';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -388,7 +385,7 @@ class ShopProductController extends BaseShopController
                 $uploadPath = $uploadDir . $fileName;
 
                 if (move_uploaded_file($files['tmp_name'][$i], $uploadPath)) {
-                    $imageURL = '/electromart/public/images/products/' . $fileName;
+                    $imageURL = './public/images/electro_mart/' . $fileName;
                     $isThumbnail = ($i === 0) ? 1 : 0; // Ảnh đầu tiên làm thumbnail
 
                     $this->productModel->addProductImage($productID, $this->shopID, $imageURL, $isThumbnail);

@@ -112,7 +112,12 @@
                                     ảnh.</p>
                             </div>
                             <input type="file" id="productImages" name="images[]" class="form-file-input" multiple
-                                accept="image/*" style="display: none;">
+                                accept=".jpg,.jpeg,.png,.gif,image/jpeg,image/jpg,image/png,image/gif"
+                                style="display: none;">
+                        </div>
+
+                        <div class="form-help" style="margin-top: 0.5rem;">
+                            <strong>Lưu ý:</strong> Chọn tối đa 5 hình ảnh.
                         </div>
 
                         <!-- Image Preview -->
@@ -137,17 +142,6 @@
                             <div class="form-help">Bỏ chọn nếu bạn muốn lưu nháp sản phẩm</div>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <div class="checkbox-group">
-                            <label class="checkbox-label">
-                                <input type="checkbox" id="productFeatured" name="is_featured" value="1">
-                                <span class="checkmark"></span>
-                                <span class="checkbox-text">Sản phẩm nổi bật</span>
-                            </label>
-                            <div class="form-help">Sản phẩm nổi bật sẽ được ưu tiên hiển thị</div>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Form Actions -->
@@ -156,10 +150,6 @@
                         onclick="window.location.href='/electromart/public/shop/products'">
                         <i class="fas fa-times"></i>
                         Hủy
-                    </button>
-                    <button type="button" class="btn btn-secondary" onclick="saveDraft()">
-                        <i class="fas fa-save"></i>
-                        Lưu nháp
                     </button>
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
@@ -258,9 +248,15 @@
 
     .image-preview {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 1rem;
         margin-top: 1rem;
+        max-width: 100%;
+    }
+
+    .preview-item {
+        position: relative;
+        display: inline-block;
     }
 
     .image-preview img {
@@ -269,6 +265,34 @@
         object-fit: cover;
         border-radius: 8px;
         border: 2px solid #e5e7eb;
+        transition: border-color 0.3s ease;
+    }
+
+    .image-preview img:hover {
+        border-color: #3b82f6;
+    }
+
+    .remove-preview {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #ef4444;
+        color: white;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    }
+
+    .remove-preview:hover {
+        background: #dc2626;
     }
 
     .checkbox-group {
@@ -333,44 +357,31 @@
 </style>
 
 <script>
-    // Save draft functionality
-    function saveDraft() {
-        const form = document.getElementById('addProductForm');
-        const formData = new FormData(form);
-
-        // Remove is_active to save as draft
-        formData.delete('is_active');
-        formData.append('is_draft', '1');
-
-        showLoading();
-
-        fetch('/electromart/public/shop/products/add', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                hideLoading();
-                if (data.success) {
-                    showToast('Đã lưu nháp sản phẩm', 'success');
-                    setTimeout(() => {
-                        window.location.href = '/electromart/public/shop/products';
-                    }, 1000);
-                } else {
-                    showToast(data.message || 'Có lỗi xảy ra khi lưu nháp', 'error');
-                }
-            })
-            .catch(error => {
-                hideLoading();
-                console.error('Error:', error);
-                showToast('Có lỗi xảy ra khi lưu nháp', 'error');
-            });
-    }
-
-    // Form validation
-    document.getElementById('addProductForm').addEventListener('submit', function(e) {
+    // Form validation and submission
+    document.getElementById('addProductForm').addEventListener('submit', function (e) {
         const price = document.getElementById('productPrice').value;
         const stock = document.getElementById('productStock').value;
+        const productName = document.getElementById('productName').value.trim();
+        const brand = document.getElementById('productBrand').value.trim();
+        const categoryId = document.getElementById('productCategory').value;
+
+        if (!productName) {
+            e.preventDefault();
+            showToast('Vui lòng nhập tên sản phẩm', 'error');
+            return;
+        }
+
+        if (!brand) {
+            e.preventDefault();
+            showToast('Vui lòng nhập thương hiệu', 'error');
+            return;
+        }
+
+        if (!categoryId) {
+            e.preventDefault();
+            showToast('Vui lòng chọn danh mục', 'error');
+            return;
+        }
 
         if (parseInt(price) < 0) {
             e.preventDefault();
@@ -383,75 +394,264 @@
             showToast('Số lượng tồn kho không thể âm', 'error');
             return;
         }
-    });
 
-    // Image preview functionality
-    document.getElementById('productImages').addEventListener('change', function() {
-        handleFileSelection(this);
-    });
+        const fileInput = document.getElementById('productImages');
+        const files = fileInput.files;
 
-
-    function handleFileSelection(input) {
-        const files = input.files;
-        const previewContainer = document.getElementById('imagePreview');
-
-        if (files.length > 5) {
-            showToast('Chỉ được chọn tối đa 5 hình ảnh', 'error');
-            input.value = '';
-            return;
+        if (files.length === 0) {
+            const confirmContinue = confirm('Bạn chưa chọn hình ảnh nào. Bạn có muốn tiếp tục không?');
+            if (!confirmContinue) {
+                e.preventDefault();
+                return;
+            }
         }
 
-        previewContainer.innerHTML = '';
+        if (files.length > 5) {
+            e.preventDefault();
+            showToast('Chỉ được chọn tối đa 5 hình ảnh', 'error');
+            return;
+        }
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
 
             if (file.size > 2 * 1024 * 1024) {
-                showToast(`Hình ảnh ${file.name} vượt quá 2MB`, 'error');
-                continue;
+                e.preventDefault();
+                showToast(`Hình ảnh "${file.name}" vượt quá 2MB`, 'error');
+                return;
             }
 
-            if (file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = file.name;
-                    previewContainer.appendChild(img);
-                };
-                reader.readAsDataURL(file);
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(file.type)) {
+                e.preventDefault();
+                showToast(`Định dạng file "${file.name}" không được hỗ trợ`, 'error');
+                return;
             }
         }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form[data-async]');
-        if (!form) return;
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const formData = new FormData(form);
-            showLoading();
-
-            fetch(form.action, {
-                    method: form.method,
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    hideLoading();
-                    if (data.success) {
-                        showToast('Thêm sản phẩm thành công!', 'success');
-                        window.location.href = '/electromart/public/shop/products';
-                    } else {
-                        showToast(data.message || 'Thêm sản phẩm thất bại!', 'error');
-                    }
-                })
-                .catch(err => {
-                    hideLoading();
-                    console.error(err);
-                    showToast('Lỗi khi gửi dữ liệu!', 'error');
-                });
-        });
+        // Cho submit bình thường (form HTML)
     });
+
+
+
+    // Global variables
+    let isProcessingFiles = false;
+    let fileInputInitialized = false;
+    let currentFiles = []; // Mảng lưu trữ các file hiện tại
+
+    // Image preview functionality - ĐÃ SỬA
+    function handleProductImageSelection(files, triggerSource = 'manual') {
+        if (isProcessingFiles) {
+            console.log('Already processing files, skipping...');
+            return;
+        }
+        isProcessingFiles = true;
+
+        console.log(`Processing ${files.length} files from ${triggerSource}`);
+
+        const previewContainer = document.getElementById('imagePreview');
+        const fileInput = document.getElementById('productImages');
+
+        // Clear current files và preview khi là lựa chọn mới
+        if (triggerSource === 'file-input' || triggerSource === 'drag-drop') {
+            currentFiles = [];
+            previewContainer.innerHTML = '';
+            console.log('Cleared previous files and preview');
+        }
+
+        // Validate maximum 5 images
+        if (currentFiles.length + files.length > 5) {
+            showToast('Chỉ được chọn tối đa 5 hình ảnh', 'error');
+            fileInput.value = '';
+            isProcessingFiles = false;
+            return;
+        }
+
+        // Process each file sequentially to avoid duplicates
+        const filesToProcess = Array.from(files);
+        let processedCount = 0;
+
+        filesToProcess.forEach((file, index) => {
+            // Validate file
+            if (file.size > 2 * 1024 * 1024) {
+                showToast(`Hình ảnh "${file.name}" vượt quá 2MB`, 'error');
+                processedCount++;
+                if (processedCount === filesToProcess.length) {
+                    updateFileInput();
+                }
+                return;
+            }
+
+            if (!file.type.match('image.*')) {
+                showToast(`File "${file.name}" không phải là hình ảnh`, 'error');
+                processedCount++;
+                if (processedCount === filesToProcess.length) {
+                    updateFileInput();
+                }
+                return;
+            }
+
+            // Add to current files
+            currentFiles.push(file);
+
+            // Create preview
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                previewItem.dataset.index = currentFiles.length - 1;
+                previewItem.dataset.fileName = file.name;
+
+                previewItem.innerHTML = `
+                    <img src="${e.target.result}" alt="${file.name}" 
+                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #e5e7eb;">
+                    <button type="button" class="remove-preview" 
+                            onclick="removeProductImagePreview(${currentFiles.length - 1})"
+                            style="position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; 
+                                   border-radius: 50%; background: #ef4444; color: white; border: none; 
+                                   font-size: 12px; cursor: pointer; display: flex; align-items: center; 
+                                   justify-content: center;">×</button>
+                `;
+
+                previewContainer.appendChild(previewItem);
+                console.log(`Added preview for ${file.name}`);
+
+                processedCount++;
+                if (processedCount === filesToProcess.length) {
+                    updateFileInput();
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function updateFileInput() {
+            // Update file input
+            const dataTransfer = new DataTransfer();
+            currentFiles.forEach(file => dataTransfer.items.add(file));
+            fileInput.files = dataTransfer.files;
+
+            isProcessingFiles = false;
+            console.log('File processing completed');
+        }
+    }
+
+    // Remove image preview - ĐÃ SỬA
+    function removeProductImagePreview(index) {
+        const previewContainer = document.getElementById('imagePreview');
+        const fileInput = document.getElementById('productImages');
+
+        console.log(`Removing image at index ${index}`);
+
+        // Remove file from currentFiles
+        currentFiles.splice(index, 1);
+
+        // Clear and rebuild preview
+        previewContainer.innerHTML = '';
+        currentFiles.forEach((file, newIndex) => {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            previewItem.dataset.index = newIndex;
+            previewItem.dataset.fileName = file.name;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                previewItem.innerHTML = `
+                    <img src="${e.target.result}" alt="${file.name}"
+                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 2px solid #e5e7eb;">
+                    <button type="button" class="remove-preview" 
+                            onclick="removeProductImagePreview(${newIndex})"
+                            style="position: absolute; top: -8px; right: -8px; width: 20px; height: 20px; 
+                                   border-radius: 50%; background: #ef4444; color: white; border: none; 
+                                   font-size: 12px; cursor: pointer; display: flex; align-items: center; 
+                                   justify-content: center;">×</button>
+                `;
+                previewContainer.appendChild(previewItem);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Update file input
+        const dataTransfer = new DataTransfer();
+        currentFiles.forEach(file => dataTransfer.items.add(file));
+        fileInput.files = dataTransfer.files;
+
+        console.log(`Updated file input with ${currentFiles.length} files`);
+    }
+
+    // Drag and drop initialization - ĐÃ SỬA
+    function initializeDragAndDrop() {
+        const uploadArea = document.querySelector('.image-upload');
+        const fileInput = document.getElementById('productImages');
+
+        if (!uploadArea || !fileInput || fileInputInitialized) return;
+
+        // Prevent default drag behaviors
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        // Highlight drop area
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        // Handle dropped files
+        uploadArea.addEventListener('drop', handleDrop, false);
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function highlight() {
+            uploadArea.style.borderColor = '#3b82f6';
+            uploadArea.style.backgroundColor = '#eff6ff';
+        }
+
+        function unhighlight() {
+            uploadArea.style.borderColor = '#d1d5db';
+            uploadArea.style.backgroundColor = '#f9fafb';
+        }
+
+        function handleDrop(e) {
+            console.log('Files dropped');
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleProductImageSelection(files, 'drag-drop');
+        }
+
+        fileInputInitialized = true;
+    }
+
+    // File input change handler - ĐÃ SỬA
+    function handleProductFileInputChange(e) {
+        console.log('Product file input change event triggered');
+        const files = e.target.files;
+        if (files.length > 0) {
+            handleProductImageSelection(files, 'file-input');
+        }
+    }
+
+    // DOMContentLoaded initialization - ĐÃ SỬA
+    document.addEventListener('DOMContentLoaded', function () {
+        const fileInput = document.getElementById('productImages');
+
+        console.log('Initializing product image upload...');
+
+        // Initialize file input event
+        if (fileInput) {
+            // Remove any existing listeners first
+            fileInput.removeEventListener('change', handleProductFileInputChange);
+            fileInput.addEventListener('change', handleProductFileInputChange);
+            console.log('Product file input event listener added');
+        }
+
+        // Initialize drag and drop
+        initializeDragAndDrop();
+    });
+
 </script>

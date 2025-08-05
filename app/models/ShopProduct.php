@@ -181,10 +181,16 @@ class ShopProduct
      */
     public function addProduct($data)
     {
-        $sql = "INSERT INTO Product (ShopID, ProductName, Brand, Description, Price, StockQuantity, CategoryID, IsActive, CreateAt, UpdateAt) 
-                VALUES (:ShopID, :ProductName, :Brand, :Description, :Price, :StockQuantity, :CategoryID, :IsActive, :CreateAt, :UpdateAt)";
-
-        return $this->handleData->execDataWithParams($sql, $data);
+        $sql = "INSERT INTO Product (
+            ShopID, ProductName, Brand, Description, Price, StockQuantity,
+            CategoryID, IsActive, CreateAt, UpdateAt, RatingProduct
+        ) VALUES (
+            :ShopID, :ProductName, :Brand, :Description, :Price, :StockQuantity,
+            :CategoryID, :IsActive, :CreateAt, :UpdateAt, :RatingProduct
+        )";
+        // Thực thi sql và trả về ID sản phẩm mới
+        $this->handleData->execDataWithParams($sql, $data);
+        return $this->handleData->getLastInsertId();
     }
 
     /**
