@@ -331,6 +331,71 @@
     </div>
 </div>
 
+<!-- EditBankAccoutModel -->
+<div id="editBankAccountModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title" id="editBankAccountModalTitle">Sửa tài khoản ngân hàng</h3>
+            <button type="button" class="modal-close" onclick="closeModal('editBankAccountModal')">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="editBankAccountForm" method="POST" action="/electromart/public/shop/finance/update-bank-account/">
+            <input type="hidden" name="action" value="update">
+            <input type="hidden" id="bankAccountId" name="bank_account_id" value="">
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="bankName" class="form-label">Tên ngân hàng *</label>
+                    <select id="bankName" name="bank_name" class="form-select" required>
+                        <option value="">Chọn ngân hàng</option>
+                        <option value="Vietcombank">Vietcombank</option>
+                        <option value="VietinBank">VietinBank</option>
+                        <option value="BIDV">BIDV</option>
+                        <option value="Agribank">Agribank</option>
+                        <option value="Techcombank">Techcombank</option>
+                        <option value="MB Bank">MB Bank</option>
+                        <option value="ACB">ACB</option>
+                        <option value="VPBank">VPBank</option>
+                        <option value="Sacombank">Sacombank</option>
+                        <option value="SHB">SHB</option>
+                        <option value="TPBank">TPBank</option>
+                        <option value="VIB">VIB</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountNumber" class="form-label">Số tài khoản *</label>
+                    <input type="text" id="accountNumber" name="account_number" class="form-input"
+                        placeholder="Nhập số tài khoản" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountHolderName" class="form-label">Tên chủ tài khoản *</label>
+                    <input type="text" id="accountHolderName" name="account_holder_name" class="form-input"
+                        placeholder="Nhập tên chủ tài khoản" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="isDefault" name="is_default" value="1">
+                        <span class="checkmark"></span>
+                        Đặt làm tài khoản mặc định
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeModal('editBankAccountModal')">
+                    Hủy
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    <span id="bankAccountSubmitText">Xác nhận</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Payout Modal -->
 <div id="payoutModal" class="modal">
     <div class="modal-content">
@@ -528,16 +593,19 @@
                 if (data.success && data.account) {
                     const account = data.account;
 
-                    document.getElementById('bankAccountModalTitle').textContent = 'Chỉnh sửa tài khoản ngân hàng';
-                    document.getElementById('bankAccountSubmitText').textContent = 'Cập nhật tài khoản';
+                    // Gán dữ liệu vào form
                     document.getElementById('bankAccountId').value = account.BankAccountID;
                     document.getElementById('bankName').value = account.BankName;
                     document.getElementById('accountNumber').value = account.AccountNumber;
                     document.getElementById('accountHolderName').value = account.AccountHolder;
-                    document.getElementById('branchName').value = account.BranchName || '';
                     document.getElementById('isDefault').checked = account.IsDefault == 1;
 
-                    openModal('bankAccountModal');
+                    // Cập nhật action của form
+                    const form = document.getElementById('editBankAccountForm');
+                    form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
+
+                    // Hiển thị modal
+                    openModal('editBankAccountModal');
                 } else {
                     showToast('Không thể tải thông tin tài khoản', 'error');
                 }
@@ -547,6 +615,7 @@
                 showToast('Có lỗi xảy ra', 'error');
             });
     }
+
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {

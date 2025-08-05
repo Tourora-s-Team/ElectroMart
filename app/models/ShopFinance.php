@@ -167,14 +167,18 @@ class ShopFinance
     public function updateBankAccount($bankAccountID, $shopID, $data)
     {
         $sql = "UPDATE BankAccount 
-                SET BankName = :BankName, AccountNumber = :AccountNumber, 
-                    AccountHolder = :AccountHolder, IsDefault = :IsDefault 
-                WHERE BankAccountID = :bankAccountID AND ShopID = :shopID";
+        SET BankName = :BankName, AccountNumber = :AccountNumber, 
+            AccountHolder = :AccountHolder, IsDefault = :IsDefault,
+            CreatedAt = :CreatedAt,
+            Status = :Status
+        WHERE BankAccountID = :bankAccountID AND ShopID = :shopID";
+
 
         $params = array_merge($data, [
             'bankAccountID' => $bankAccountID,
             'shopID' => $shopID
         ]);
+        var_dump($params);
 
         return $this->handleData->execDataWithParams($sql, $params);
     }
