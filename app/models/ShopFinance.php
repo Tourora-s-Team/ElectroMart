@@ -301,44 +301,82 @@ class ShopFinance
      */
     public function getFinanceStats($shopID, $month = '', $year = '')
     {
+        $totalRevenue = $this->getTotalRevenue($shopID, $month, $year);
         // Get current period stats
         $currentSql = "SELECT 
-                        COUNT(DISTINCT o.OrderID) as total_orders,
-                        SUM(od.Quantity * od.UnitPrice) as total_revenue,
-                        AVG(od.Quantity * od.UnitPrice) as avg_order_value,
-                        SUM(od.Quantity) as total_products_sold
-                    FROM Orders o 
-                    INNER JOIN OrderDetail od ON o.OrderID = od.OrderID 
-                    WHERE od.ShopID = :shopID 
-                    AND o.Status = 'Completed'";
+            COUNT(DISTINCT o.OrderID) AS total_orders,
+            SUM(od.Quantity * od.UnitPrice) AS total_revenue_month,
+            AVG(od.Quantity * od.UnitPrice) AS avg_order_value,
+            SUM(od.Quantity) AS total_products_sold
+        FROM Orders o 
+        INNER JOIN OrderDetail od ON o.OrderID = od.OrderID 
+        WHERE od.ShopID = :shopID 
+          AND o.Status = 'Completed'
+          AND MONTH(o.OrderDate) = MONTH(CURDATE())
+          AND YEAR(o.OrderDate) = YEAR(CURDATE())";
 
         $params = ['shopID' => $shopID];
 
         if (!empty($month)) {
             $currentSql .= " AND MONTH(o.OrderDate) = :month";
-            $params['month'] = $month;
+            $params['month'] = (int) $month;
         }
 
         if (!empty($year)) {
             $currentSql .= " AND YEAR(o.OrderDate) = :year";
-            $params['year'] = $year;
+            $params['year'] = (int) $year;
         }
 
-        $currentStats = $this->handleData->getDataWithParams($currentSql, $params);
+        $currentStats = $this->handleData->getDataWithParams($currentSql, $params)[0] ?? [];
 
-        // Calculate growth (simplified - you can enhance this)
+        // ❗ Tính kỳ trước
+        $prevParams = ['shopID' => $shopID];
+        $prevSql = $currentSql;
+
+        if (!empty($month) && !empty($year)) {
+            $prevMonth = $month - 1;
+            $prevYear = $year;
+
+            if ($prevMonth == 0) {
+                $prevMonth = 12;
+                $prevYear -= 1;
+            }
+
+            $prevSql = str_replace(":month", ":prev_month", $currentSql);
+            $prevSql = str_replace(":year", ":prev_year", $prevSql);
+            $prevParams['prev_month'] = $prevMonth;
+            $prevParams['prev_year'] = $prevYear;
+        } elseif (!empty($year)) {
+            $prevParams['year'] = $year - 1;
+            $prevSql = str_replace(":year", ":year", $currentSql);
+        }
+
+        $prevStats = $this->handleData->getDataWithParams($prevSql, $prevParams)[0] ?? [];
+
+        // Helper để tính % tăng trưởng
+        function calcGrowth($current, $previous)
+        {
+            if ($previous == 0 || $previous === null) {
+                return null;
+            }
+            return round((($current - $previous) / $previous) * 100, 2);
+        }
+
         $stats = [
-            'total_revenue' => $currentStats[0]['total_revenue'] ?? 0,
-            'total_orders' => $currentStats[0]['total_orders'] ?? 0,
-            'avg_order_value' => $currentStats[0]['avg_order_value'] ?? 0,
-            'total_products_sold' => $currentStats[0]['total_products_sold'] ?? 0,
-            'monthly_revenue' => $currentStats[0]['total_revenue'] ?? 0, // Same as total for now
-            'revenue_growth' => rand(5, 25), // Placeholder - implement comparison with previous period
-            'monthly_growth' => rand(3, 20), // Placeholder  
-            'orders_growth' => rand(2, 15),  // Placeholder
-            'aov_growth' => rand(1, 10)      // Placeholder
+            'total_revenue' => $totalRevenue ?? 0,
+            'total_orders' => $currentStats['total_orders'] ?? 0,
+            'avg_order_value' => $currentStats['avg_order_value'] ?? 0,
+            'total_products_sold' => $currentStats['total_products_sold'] ?? 0,
+            'monthly_revenue' => $currentStats['total_revenue_month'] ?? 0,
+
+            // ✅ Growth calculations
+            'revenue_growth' => calcGrowth($totalRevenue ?? 0, $prevStats['total_revenue'] ?? 0),
+            'monthly_growth' => calcGrowth($currentStats['total_products_sold'] ?? 0, $prevStats['total_products_sold'] ?? 0),
+            'orders_growth' => calcGrowth($currentStats['total_orders'] ?? 0, $prevStats['total_orders'] ?? 0),
+            'aov_growth' => calcGrowth($currentStats['avg_order_value'] ?? 0, $prevStats['avg_order_value'] ?? 0),
         ];
 
         return $stats;
     }
+
 }

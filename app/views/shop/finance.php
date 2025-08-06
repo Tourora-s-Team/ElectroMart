@@ -40,7 +40,7 @@
                 <i class="fas fa-chart-line"></i>
             </div>
             <div class="stat-info">
-                <h4><?php echo number_format($stats['monthly_revenue'] ?? 0); ?>₫</h4>
+                <h4><?php echo number_format($stats['current_revenue'] ?? 0); ?>₫</h4>
                 <p>Doanh thu tháng này</p>
                 <div class="stat-change stat-change-positive">
                     <i class="fas fa-arrow-up"></i>

@@ -87,11 +87,13 @@ class ShopManagementController extends BaseShopController
 
         // Doanh thu tháng này
         $sql = "SELECT COALESCE(SUM(od.Quantity * od.UnitPrice), 0) as monthly_revenue 
-                FROM Orders o 
-                INNER JOIN OrderDetail od ON o.OrderID = od.OrderID 
-                WHERE od.ShopID = ? 
-                AND MONTH(o.OrderDate) = MONTH(CURRENT_DATE()) 
-                AND YEAR(o.OrderDate) = YEAR(CURRENT_DATE())";
+        FROM Orders o 
+        INNER JOIN OrderDetail od ON o.OrderID = od.OrderID 
+        WHERE od.ShopID = ? 
+          AND o.Status = 'Completed'
+          AND MONTH(o.OrderDate) = MONTH(CURRENT_DATE()) 
+          AND YEAR(o.OrderDate) = YEAR(CURRENT_DATE())";
+
         $monthlyRevenue = $handleData->getDataWithParams($sql, [$this->shopID])[0]['monthly_revenue'];
 
         // Tổng số sản phẩm

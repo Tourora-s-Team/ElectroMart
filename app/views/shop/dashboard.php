@@ -18,7 +18,7 @@
                 <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="stat-content">
-                <h3><?php echo number_format($stats['monthly_revenue']); ?>₫</h3>
+                <h3><?php echo number_format($stats['monthly_revenue']) ?? 0; ?>₫</h3>
                 <p>Doanh thu tháng này</p>
             </div>
         </div>
