@@ -8,8 +8,8 @@ class HandleData extends Database
 
     public function __construct()
     {
-        $this->db = new Database();
-        $this->conn = $this->db->connectDB();
+        parent::__construct();
+        $this->conn = $this->connectDB();
     }
 
     // Hàm thực thi trả về dữ liệu

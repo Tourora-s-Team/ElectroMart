@@ -111,10 +111,10 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
                         <div class="product-details flex-row-sb">
                             <img class="product-image" src="' . $productImage . '" alt="Ảnh sản phẩm ' . $productName . '">
                             <p class="product-name">' . $productName . '</p>
-                            <p class="product-quantity"> x ' . $quantity . '</p>
+                            <p class="product-quantity">&nbsp&nbsp <strong> x ' . $quantity . '</strong></p>
                         </div>
                         <div class="product-price">
-                            <p class="product-price">' . number_format($unitPrice, 0, ',', '.') . ' đ</p>
+                            <p class="product-price">' . number_format($unitPrice * $quantity, 0, ',', '.') . ' đ</p>
                         </div>
                     </div>';
             }
