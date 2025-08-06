@@ -2,7 +2,7 @@
 $title = "Xác minh email - ElectroMart";
 ?>
 
-<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'auth.css' ?>">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
 
 <!-- Main Content -->
 <main class="main-content">

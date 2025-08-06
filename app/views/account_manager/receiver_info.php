@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/./account_navbar.php";
 ?>
-<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'account_manager/receiver_info.css' ?>">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/account_manager/receiver_info.css">
 
 <div class="account-info">
     <div class="subheader flex-row-sb">
