@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/BaseShopController.php';
 require_once __DIR__ . '/../../core/HandleData.php';
+require_once ROOT_PATH . '/app/models/ShopFinance.php';
+
 
 class ShopApiController extends BaseShopController
 {
@@ -179,4 +181,27 @@ class ShopApiController extends BaseShopController
             die();
         }
     }
+
+    // Trong controller: ShopFinanceController.php
+    public function getRevenueChartJSON()
+    {
+        $shopID = $this->shopID;
+        $year = $_GET['year'] ?? date('Y');
+
+        $financeModel = new ShopFinance();
+        $revenueData = $financeModel->getRevenueChartData($shopID, $year);
+
+        // Tạo label "Tháng 1", "Tháng 2", ..., "Tháng 12"
+        $labels = array_map(function ($i) {
+            return "Tháng $i";
+        }, range(1, 12));
+
+        header('Content-Type: application/json');
+        echo json_encode([
+            'labels' => $labels,
+            'values' => $revenueData
+        ]);
+        exit;
+    }
+
 }

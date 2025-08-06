@@ -37,14 +37,8 @@ function initializeShopAdmin() {
     // Initialize forms
     initializeForms();
 
-    // Initialize charts if they exist
-    initializeCharts();
-
     // Initialize modals
     initializeModals();
-
-    // Initialize file uploads
-    initializeFileUploads();
 }
 
 // Initialize dropdowns
@@ -231,81 +225,6 @@ function initializeForms() {
             this.style.height = this.scrollHeight + 'px';
         });
     });
-}
-
-// Chart functionality
-function initializeCharts() {
-    // Revenue chart
-    const revenueChartCanvas = document.getElementById('revenueChart');
-    if (revenueChartCanvas) {
-        initializeRevenueChart();
-    }
-}
-
-function initializeRevenueChart() {
-    const ctx = document.getElementById('revenueChart').getContext('2d');
-    const chartData = window.chartData || [];
-
-    currentChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T9', 'T10', 'T11', 'T12'],
-            datasets: [{
-                label: 'Doanh thu (VNĐ)',
-                data: chartData,
-                borderColor: '#2563eb',
-                backgroundColor: 'rgba(37, 99, 235, 0.1)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (value) {
-                            return formatCurrency(value);
-                        }
-                    }
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index'
-            },
-            tooltips: {
-                callbacks: {
-                    label: function (context) {
-                        return 'Doanh thu: ' + formatCurrency(context.parsed.y);
-                    }
-                }
-            }
-        }
-    });
-}
-
-function updateChart(year) {
-    if (!currentChart) return;
-
-    fetch(`/electromart/public/shop/finance/chart-data?year=${year}`)
-        .then(response => response.json())
-        .then(data => {
-            currentChart.data.datasets[0].data = data;
-            currentChart.update();
-        })
-        .catch(error => {
-            console.error('Error updating chart:', error);
-            showToast('Có lỗi khi cập nhật biểu đồ', 'error');
-        });
 }
 
 // Modal functionality
@@ -813,50 +732,6 @@ function loadDraft(formId) {
 function clearDraft(formId) {
     localStorage.removeItem(`draft_${formId}`);
 }
-document.getElementById('statusUpdateForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Ngăn form submit mặc định
-
-    const newStatus = document.getElementById('newStatus').value;
-    const note = document.getElementById('statusNote').value;
-    const form = this;
-
-    if (!newStatus) {
-        showToast('Vui lòng chọn trạng thái mới', 'error');
-        return;
-    }
-
-    if (!confirm('Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?')) {
-        return;
-    }
-
-    // Lấy đường dẫn action đã set sẵn trong JS khi mở modal
-    const url = form.action;
-
-    // Gửi request AJAX
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: `status=${encodeURIComponent(newStatus)}&note=${encodeURIComponent(note)}`
-    })
-        .then(response => {
-            if (!response.ok) throw new Error('Lỗi server');
-            return response.text(); // hoặc JSON nếu backend trả JSON
-        })
-        .then(() => {
-            closeModal('statusUpdateModal');
-            showToast('Cập nhật trạng thái thành công', 'success');
-
-            // Làm mới danh sách đơn hàng sau khi cập nhật
-            refreshOrderList();
-        })
-        .catch(error => {
-            console.error(error);
-            showToast('Có lỗi xảy ra khi cập nhật trạng thái', 'error');
-        });
-});
 
 function showDraftSavedIndicator() {
     // Show a subtle indicator that draft is saved

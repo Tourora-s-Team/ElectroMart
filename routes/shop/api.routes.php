@@ -11,3 +11,4 @@ $router->get("/electromart/public/api/test", "TestApiController@test");
 $router->get("/electromart/public/shop/api/notifications", "ShopApiController@getNotifications");
 $router->post("/electromart/public/shop/api/notifications/mark-read", "ShopApiController@markNotificationRead");
 $router->post("/electromart/public/shop/api/notifications/mark-all-read", "ShopApiController@markAllNotificationsRead");
+$router->get('/electromart/public/shop/finance/revenue-chart', 'ShopApiController@getRevenueChartJSON');
