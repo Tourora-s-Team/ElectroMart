@@ -8,13 +8,13 @@ class LocDatabase
 
     public function __construct()
     {
-        $this->servername = $_ENV['DB_HOST'];
-        $this->username = $_ENV['DB_USER'];
-        $this->password = $_ENV['DB_PASS'];
-        $this->dbname = $_ENV['LOC_DB_NAME'];
+        $this->servername = getenv('DB_HOST');
+        $this->username = getenv('DB_USER');
+        $this->password = getenv('DB_PASS');
+        $this->dbname = getenv('LOC_DB_NAME');
     }
 
-    function connectDB()
+    public function connectDB()
     {
         try {
             $conn = new PDO(

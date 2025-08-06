@@ -12,10 +12,10 @@ class Database
 
     public function __construct()
     {
-        $this->servername = $_ENV['DB_HOST'] ?? 'localhost';
-        $this->username = $_ENV['DB_USER'] ?? 'root';
-        $this->password = $_ENV['DB_PASS'] ?? '';
-        $this->dbname = $_ENV['DB_NAME'] ?? 'electromart';
+        $this->servername = getenv('DB_HOST') ?? 'localhost';
+        $this->username = getenv('DB_USER') ?? 'root';
+        $this->password = getenv('DB_PASS') ?? '';
+        $this->dbname = getenv('DB_NAME') ?? 'electromart';
         $this->port = 25060;
     }
 

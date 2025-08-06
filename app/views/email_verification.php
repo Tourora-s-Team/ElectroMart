@@ -2,7 +2,7 @@
 $title = "Xác minh email - ElectroMart";
 ?>
 
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'auth.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'auth.css' ?>">
 
 <!-- Main Content -->
 <main class="main-content">

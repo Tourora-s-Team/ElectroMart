@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'auth.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'auth.css' ?>">
 <!-- Thư viện định dạng ngày tháng -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -31,7 +31,8 @@
                     <p>Tạo tài khoản mới để mua sắm tại ElectroMart</p>
                 </div>
 
-                <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/signup" method="POST" class="auth-form">
+                <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/signup" method="POST"
+                    class="auth-form">
                     <div class="form-group">
                         <label for="registerName">Họ và tên *</label>
                         <div class="input-wrapper">
@@ -112,5 +113,5 @@
         dateFormat: "d/m/Y", // định dạng hiển thị
     });
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
+<script src="<?= getenv('SCRIPT_PATH') . 'main.js' ?>"></script>
+<script src="<?= getenv('SCRIPT_PATH') . 'auth.js' ?>"></script>

@@ -12,14 +12,14 @@ class MailController
     public function __construct()
     {
         $this->mailer = new PHPMailer(true);
-        $this->fromEmail = $_ENV['MAIL_USER']; // Lấy từ biến môi trường
+        $this->fromEmail = getenv('MAIL_USER'); // Lấy từ biến môi trường
         try {
             // Cấu hình SMTP Gmail
             $this->mailer->isSMTP();
             $this->mailer->Host = 'smtp.gmail.com';
             $this->mailer->SMTPAuth = true;
             $this->mailer->Username = $this->fromEmail;
-            $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
+            $this->mailer->Password = getenv('MAIL_PASSWORD');
             $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $this->mailer->Port = 465;
 

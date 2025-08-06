@@ -1,6 +1,6 @@
 <!-- Thành phần dùng chung -->
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_navbar.css' ?>">
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/account_info.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'account_manager/account_navbar.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'account_manager/account_info.css' ?>">
 
 <?php require_once __DIR__ . "/../layouts/Header.php"; ?>
 
@@ -92,4 +92,4 @@ unset($_SESSION['status_type']); ?>
     window.addEventListener('resize', adjustLayoutForMobile);
 
 </script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
+<script src="<?= getenv('SCRIPT_PATH') . 'main.js' ?>"></script>

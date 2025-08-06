@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/./account_navbar.php";
 ?>
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'account_manager/order_history.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'account_manager/order_history.css' ?>">
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Lịch sử mua hàng</h1>
@@ -62,7 +62,7 @@ require_once __DIR__ . "/./account_navbar.php";
                             <p>Đơn giá:</p>
                         </div>
                     </div>
-    
+
                     <div class="product-item">
                         <img src="" alt="" />
                         <div>
@@ -71,7 +71,7 @@ require_once __DIR__ . "/./account_navbar.php";
                         </div>
                     </div>
                 </section>
-    
+
                 <section class="full-width order-total">
                     <h3>Tổng tiền</h3>
                     <p>Tạm tính:</p>

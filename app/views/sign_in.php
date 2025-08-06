@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?= $_ENV['STYLE_PATH'] . 'auth.css' ?>">
+<link rel="stylesheet" href="<?= getenv('STYLE_PATH') . 'auth.css' ?>">
 
 <main class="main-content">
     <div class="container">
@@ -71,5 +71,5 @@
 </main>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'main.js' ?>"></script>
-<script src="<?= $_ENV['SCRIPT_PATH'] . 'auth.js' ?>"></script>
+<script src="<?= getenv('SCRIPT_PATH') . 'main.js' ?>"></script>
+<script src="<?= getenv('SCRIPT_PATH') . 'auth.js' ?>"></script>
