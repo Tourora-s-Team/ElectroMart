@@ -1,8 +1,8 @@
 <?php
 // Import PHPMailer (chú ý dùng đúng đường dẫn)
-require_once ROOT_PATH . '/phpmailer/phpmailer/src/PHPMailer.php';
-require_once ROOT_PATH  . '/phpmailer/phpmailer/src/Exception.php';
-require_once ROOT_PATH  . '/phpmailer/phpmailer/src/SMTP.php';
+require_once __DIR__ . '/../../phpmailer/phpmailer/src/PHPMailer.php';
+require_once __DIR__ . '/../../phpmailer/phpmailer/src/SMTP.php';
+require_once __DIR__ . '/../../phpmailer/phpmailer/src/Exception.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
