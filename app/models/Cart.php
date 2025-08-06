@@ -7,22 +7,24 @@ class Cart
     {
 
     }
-    function getProductCart($userID)//hàm lấy tất cả sản phẩm trong giỏ hàng của người dùng
+    function getProductCart($userID)
     {
         $cartID = $this->getCartID($userID);
         $handleData = new HandleData();
-        $sql = "SELECT p.*, ci.*, c.*, pi.*, s.*
-                FROM Product p
-                     JOIN CartItem ci ON ci.ProductID = p.ProductID
-                     JOIN Cart c ON c.CartID = ci.CartID
-                     LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID
-                     JOIN Shop s ON p.ShopID = s.ShopID
-                WHERE (pi.IsThumbnail = 1 OR pi.IsThumbnail IS NULL) AND ci.CartID = :cartID AND c.UserID = :userID;";
+
+        $sql = "SELECT p.*, ci.*, c.*, pi.ImageID, pi.ImageURL, pi.IsThumbnail, s.*
+            FROM Product p
+                 JOIN CartItem ci ON ci.ProductID = p.ProductID AND ci.ShopID = p.ShopID
+                 JOIN Cart c ON c.CartID = ci.CartID
+                 LEFT JOIN ProductImage pi ON p.ProductID = pi.ProductID AND p.ShopID = pi.ShopID AND pi.IsThumbnail = 1
+                 JOIN Shop s ON p.ShopID = s.ShopID
+            WHERE ci.CartID = :cartID AND c.UserID = :userID;";
+
         $params = ['cartID' => $cartID, 'userID' => $userID];
         $result = $handleData->getDataWithParams($sql, $params);
         return $result;
-
     }
+
     function getCartID($userID)//hàm lấy CartID của người dùng
     {
         $handleData = new HandleData();

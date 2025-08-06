@@ -37,13 +37,21 @@ class CartController
             header('Location: /electromart/public/account/signin');
             exit;
         } else {
-            $cartModels = new Cart();
-            $cardId = $cartModels->getCartID($userId);
-            $shopId = $cartModels->getShopID($productId);
-            $cartModels->addProductCart($cardId, $productId, $quantity, $shopId);
-
-            header('Location: /electromart/public/cart');
-            exit;
+            if (!$productId || !$quantity) {
+                // Xử lý lỗi nếu không có productId hoặc quantity
+                $_SESSION['message'] = "Không tìm thấy mã sản phẩm.";
+                $_SESSION['status_type'] = "error";
+                return;
+            }
+            else {
+                $cartModels = new Cart();
+                $cardId = $cartModels->getCartID($userId);
+                $shopId = $cartModels->getShopID($productId);
+                $cartModels->addProductCart($cardId, $productId, $quantity, $shopId);
+                $_SESSION['message'] = "Thêm sản phẩm vào giỏ hàng thành công.";
+                $_SESSION['status_type'] = "success";
+                header('Location: /electromart/public');
+            }
         }
     }
     public function deleteFromCart()// Hàm xóa sản phẩm khỏi giỏ hàng
@@ -54,11 +62,14 @@ class CartController
         if ($cartItemId && $productId) {
             $cartModels = new Cart();
             $cartModels->removeProductCart($cartItemId, $productId);
+            $_SESSION['message'] = "Xóa sản phẩm khỏi giỏ hàng thành công.";
+            $_SESSION['status_type'] = "success";
             header('Location: /electromart/public/cart');
             exit;
         } else {
             // Xử lý lỗi nếu không có cartItemId hoặc productId
-            echo "Vui lòng cung cấp đầy đủ thông tin để xóa sản phẩm.";
+            $_SESSION['message'] = "Thiếu thông tin để xóa sản phẩm.";
+            $_SESSION['status_type'] = "error";
         }
     }
     public function updateQuantityFromCart()// Hàm cập nhật số lượng sản phẩm trong giỏ hàng
