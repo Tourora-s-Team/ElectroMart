@@ -115,6 +115,8 @@ class ShopOrderController extends BaseShopController
         } else {
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.';
         }
+        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/orders");
+        exit();
     }
 
 }
