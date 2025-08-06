@@ -63,17 +63,20 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                 <?php endif; ?>
                             </div>
                         </a>
-
-                        <div class="product-actions">
-                            <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
-                                <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
-                            </button>
-                            <button type="button" class="add-to-wishlist-btn" title="Thêm vào danh sách yêu thích"
-                                data-id="<?= $product['ProductID'] ?>"
-                                onclick="addToWishList(<?php echo $product['ProductID']; ?>)">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        </div>
+                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
+                            <div class="product-actions">
+                                <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button class="add-to-cart-btn" data-product-id="<?php echo $product['ProductID']; ?>">
+                                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ
+                                </button>
+                                <button type="button" class="add-to-wishlist-btn" title="Thêm vào danh sách yêu thích"
+                                    data-id="<?= $product['ProductID'] ?>"
+                                    onclick="addToWishList(<?php echo $product['ProductID']; ?>)">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
