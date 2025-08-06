@@ -287,4 +287,4 @@
         </form>
     </div>
 </div>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/adminJs/Products.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/AdminJs/Products.js"></script>
