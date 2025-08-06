@@ -39,8 +39,8 @@ abstract class BaseAdminController
     protected function loadAdminView($viewFile, $data = [])
     {
         extract($data);
-        include '../app/views/layouts/AdminHeader.php';
+        include '../app/views/layouts/admin_header.php';
         include $viewFile;
-        include '../app/views/layouts/AdminFooter.php';
+        include '../app/views/layouts/admin_footer.php';
     }
 }

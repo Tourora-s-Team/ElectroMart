@@ -4,7 +4,7 @@ $pageTitle = "Quản lý đơn hàng";
 $pageSubtitle = "Quản lý và theo dõi đơn hàng của bạn";
 $activeTab = "orders";
 $todayOrderCount = isset($orders) ? count($orders) : 0;
-include(__DIR__ . '/../layouts/AdminHeader.php');
+include(__DIR__ . '/../layouts/admin_header.php');
 ?>
 
 <!-- Filter Section -->
@@ -107,46 +107,46 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
                 </thead>
                 <tbody id="ordersTableBody">
                     <?php if (isset($orders) && !empty($orders)): ?>
-                        <?php foreach ($orders as $order): ?>
-                            <tr class="order-row" data-order-id="<?php echo htmlspecialchars($order['OrderID']); ?>">
-                                <td class="order-id">
-                                    <span class="font-medium"><?php echo htmlspecialchars($order['OrderID']); ?></span>
-                                </td>
-                                <td class="order-date">
-                                    <span class="timestamp" data-date="<?php echo $order['OrderDate']; ?>">
-                                        <?php echo date('d/m/Y', strtotime($order['OrderDate'])); ?>
-                                    </span>
-                                </td>
-                                <td class="order-status">
-                                    <span class="status-badge status-<?php echo strtolower($order['Status']); ?>">
-                                        <?php echo htmlspecialchars($order['Status']); ?>
-                                    </span>
-                                </td>
-                                <td class="shipping-fee">
-                                    <span class="currency"><?php echo number_format($order['ShippingFee'], 0, ',', '.'); ?>
-                                        ₫</span>
-                                </td>
-                                <td class="total-amount">
-                                    <span
-                                        class="currency font-semibold"><?php echo number_format($order['TotalAmount'], 0, ',', '.'); ?>
-                                        ₫</span>
-                                </td>
-                                <td class="user-id">
-                                    <span><?php echo htmlspecialchars($order['UserID']); ?></span>
-                                </td>
+                            <?php foreach ($orders as $order): ?>
+                                    <tr class="order-row" data-order-id="<?php echo htmlspecialchars($order['OrderID']); ?>">
+                                        <td class="order-id">
+                                            <span class="font-medium"><?php echo htmlspecialchars($order['OrderID']); ?></span>
+                                        </td>
+                                        <td class="order-date">
+                                            <span class="timestamp" data-date="<?php echo $order['OrderDate']; ?>">
+                                                <?php echo date('d/m/Y', strtotime($order['OrderDate'])); ?>
+                                            </span>
+                                        </td>
+                                        <td class="order-status">
+                                            <span class="status-badge status-<?php echo strtolower($order['Status']); ?>">
+                                                <?php echo htmlspecialchars($order['Status']); ?>
+                                            </span>
+                                        </td>
+                                        <td class="shipping-fee">
+                                            <span class="currency"><?php echo number_format($order['ShippingFee'], 0, ',', '.'); ?>
+                                                ₫</span>
+                                        </td>
+                                        <td class="total-amount">
+                                            <span
+                                                class="currency font-semibold"><?php echo number_format($order['TotalAmount'], 0, ',', '.'); ?>
+                                                ₫</span>
+                                        </td>
+                                        <td class="user-id">
+                                            <span><?php echo htmlspecialchars($order['UserID']); ?></span>
+                                        </td>
 
-                            </tr>
-                        <?php endforeach; ?>
+                                    </tr>
+                            <?php endforeach; ?>
                     <?php else: ?>
-                        <tr class="no-data">
-                            <td colspan="7" class="text-center">
-                                <div class="no-data-content">
-                                    <i class="fas fa-shopping-cart no-data-icon"></i>
-                                    <p class="no-data-text">Không tìm thấy đơn hàng nào</p>
-                                    <p class="no-data-subtext">Thử điều chỉnh bộ lọc để xem thêm kết quả</p>
-                                </div>
-                            </td>
-                        </tr>
+                            <tr class="no-data">
+                                <td colspan="7" class="text-center">
+                                    <div class="no-data-content">
+                                        <i class="fas fa-shopping-cart no-data-icon"></i>
+                                        <p class="no-data-text">Không tìm thấy đơn hàng nào</p>
+                                        <p class="no-data-subtext">Thử điều chỉnh bộ lọc để xem thêm kết quả</p>
+                                    </div>
+                                </td>
+                            </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
@@ -249,4 +249,4 @@ include(__DIR__ . '/../layouts/AdminHeader.php');
 <script src="/public/js/AdminJs/Orders.js"></script>
 
 
-<?php include(__DIR__ . '/../layouts/AdminFooter.php'); ?>
+<?php include(__DIR__ . '/../layouts/admin_footer.php'); ?>
