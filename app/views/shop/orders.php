@@ -143,7 +143,8 @@
                                             <div class="font-medium"><?php echo htmlspecialchars($order['CustomerName']); ?>
                                             </div>
                                             <div style="font-size: 0.75rem; color: var(--text-secondary);">ID:
-                                                <?php echo $order['UserID']; ?></div>
+                                                <?php echo $order['UserID']; ?>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
@@ -247,12 +248,12 @@
     function searchOrders() {
         const searchInput = document.getElementById('orderSearch');
         if (searchInput && searchInput.value.trim()) {
-            window.location.href = `/electromart/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+            window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
         }
     }
 
     function viewOrderDetail(orderId) {
-        window.location.href = `/electromart/public/shop/orders/view/${orderId}`;
+        window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
     }
 
     function updateOrderStatus(orderId, currentStatus) {
@@ -278,20 +279,20 @@
 
         // Update form action
         const form = document.getElementById('statusUpdateForm');
-        form.action = `/electromart/public/shop/orders/update-status/${orderId}`;
+        form.action = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/update-status/${orderId}`;
         openModal('statusUpdateModal');
     }
 
     function resetFilters() {
-        window.location.href = '/electromart/public/shop/orders';
+        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders';
     }
 
     // Auto-refresh orders every 2 minutes
     let refreshInterval;
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Start auto-refresh
-        refreshInterval = setInterval(function() {
+        refreshInterval = setInterval(function () {
             refreshOrderList();
         }, 120000); // 2 minutes
 
@@ -305,10 +306,10 @@
         if (!openModal) {
             const currentUrl = window.location.href;
             fetch(currentUrl, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
                 .then(response => response.text())
                 .then(html => {
                     // Update the orders table
@@ -345,7 +346,7 @@
     }
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.ctrlKey || e.metaKey) {
             switch (e.key) {
                 case 'f':
@@ -363,7 +364,7 @@
 
 
     // Cleanup on page unload
-    window.addEventListener('beforeunload', function() {
+    window.addEventListener('beforeunload', function () {
         if (refreshInterval) {
             clearInterval(refreshInterval);
         }

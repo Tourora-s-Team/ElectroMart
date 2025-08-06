@@ -35,7 +35,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                 <div class="item-price"><?php echo number_format($item['Price'], 0, ',', '.'); ?>đ</div>
                             </div>
                             <form id="form_update_quantity_<?php echo $item['ProductID']; ?>"
-                                action="/electromart/public/cart/update" method="POST">
+                                action="https://electromart-t8ou8.ondigitalocean.app/public/cart/update" method="POST">
                                 <input type="hidden" name="cart_id" value="<?php echo $item['CartID']; ?>">
                                 <input type="hidden" name="product_id" value="<?php echo $item['ProductID']; ?>">
                                 <div class="item-quantity">
@@ -55,7 +55,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                             <button form="form_update_quantity_<?php echo $item['ProductID']; ?>" type="submit"
                                 class="update-btn"><i class="fa-solid fa-pen"></i></button>
 
-                            <form action="/electromart/public/cart/remove" method="POST">
+                            <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/remove" method="POST">
                                 <div class="item-actions">
                                     <input type="hidden" name="cart_id" value="<?php echo $item['CartID']; ?>">
                                     <input type="hidden" name="product_id" value="<?php echo $item['ProductID']; ?>">
@@ -172,7 +172,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             total: total
         });
         // Gửi dữ liệu qua fetch tới server (payment.php)
-        fetch('/electromart/public/payment', {
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -186,7 +186,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             .then(data => {
                 console.log(data);
                 if (data.status === 'success') {
-                    window.location.href = '/electromart/public/payment';
+                    window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/payment';
                 }
             })
             .catch(error => {

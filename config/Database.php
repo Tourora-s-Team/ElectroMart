@@ -19,7 +19,7 @@ class Database
         $this->port = 25060;
     }
 
-    protected function connectDB()
+    public function connectDB()
     {
         // Nếu đã có kết nối thì dùng lại
         if (self::$connection !== null) {

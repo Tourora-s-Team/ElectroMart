@@ -56,6 +56,7 @@
         color: #0369A1;
         cursor: pointer;
     }
+
     @media (max-width: 768px) {
         #receiver-list {
             display: flex;
@@ -84,7 +85,8 @@
                 style="color: #007BFF"></i></button>
     </div>
     <?php if (!$receiver->getIsDefault()): ?>
-        <form method="POST" action="/electromart/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
+        <form method="POST"
+            action="https://electromart-t8ou8.ondigitalocean.app/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
             style="display: inline;">
             <button type="submit" class="set-default-address">Đặt làm địa chỉ mặc định</button>
         </form>

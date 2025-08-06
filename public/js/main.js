@@ -231,7 +231,7 @@ function togglePassword(inputId) {
 function addToWishList(productId) {
     const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
     btn.disabled = true;
-    fetch(`/electromart/public/account/wish-list-add/${productId}`, {
+    fetch(`https://electromart-t8ou8.ondigitalocean.app/public/account/wish-list-add/${productId}`, {
         method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest'

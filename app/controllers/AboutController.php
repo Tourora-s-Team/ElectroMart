@@ -43,7 +43,7 @@ class AboutController
                 $_SESSION['status_type'] = 'success';
             }
 
-            header('Location: /electromart/public/about/contact');
+            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/about/contact');
             exit;
         }
     }

@@ -24,7 +24,7 @@ abstract class BaseAdminController
             }
 
             // Nếu là HTTP request thường, redirect
-            header("Location: /electromart/public/account/signin");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin");
             exit();
         }
     }

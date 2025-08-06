@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/electromart/public/css/admin/StyleFinancial.css">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/admin/StyleFinancial.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/public/js/AdminJs/Financial.js" defer></script>
 <div class="financial-management-page">

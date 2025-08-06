@@ -8,7 +8,8 @@
             <p class="page-description">Quản lý danh sách sản phẩm của shop</p>
         </div>
         <div class="header-actions">
-            <a href="/electromart/public/shop/products/add" type="button" class="btn btn-primary">
+            <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add" type="button"
+                class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Thêm sản phẩm
             </a>
@@ -74,7 +75,7 @@
                         <i class="fas fa-search"></i>
                         Tìm kiếm
                     </button>
-                    <a href="/electromart/public/shop/products" class="btn btn-outline">
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products" class="btn btn-outline">
                         <i class="fas fa-refresh"></i>
                         Làm mới
                     </a>
@@ -161,7 +162,7 @@
                                             <?php if (!empty($product['ImageURL'])): ?>
                                                 <script>
                                                     console.log('Image URL:', '<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>');
-                                                    </script>
+                                                </script>
                                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>"
                                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.375rem; border: 1px solid var(--border-color);">
@@ -312,16 +313,17 @@
                             <div class="pagination">
                                 <?php if ($pagination['current_page'] > 1): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] - 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                                                                                        return $k !== 'page';
-                                                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                             return $k !== 'page';
+                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
+                                        class="pagination-btn">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 <?php endif; ?>
 
                                 <?php for ($i = max(1, $pagination['current_page'] - 2); $i <= min($pagination['total_pages'], $pagination['current_page'] + 2); $i++): ?>
                                     <a href="?page=<?php echo $i; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                                                        return $k !== 'page';
-                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
+                                           return $k !== 'page';
+                                       }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
                                         class="pagination-btn <?php echo ($i == $pagination['current_page']) ? 'active' : ''; ?>">
                                         <?php echo $i; ?>
                                     </a>
@@ -329,8 +331,9 @@
 
                                 <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] + 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
-                                                                                                        return $k !== 'page';
-                                                                                                    }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
+                                             return $k !== 'page';
+                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
+                                        class="pagination-btn">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 <?php endif; ?>
@@ -343,7 +346,8 @@
                     <i class="fas fa-box-open"></i>
                     <h3>Chưa có sản phẩm nào</h3>
                     <p>Hãy thêm sản phẩm đầu tiên cho shop của bạn</p>
-                    <a href="/electromart/public/shop/products/add" type="button" class="btn btn-primary">
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add" type="button"
+                        class="btn btn-primary">
                         <i class="fas fa-plus"></i>
                         Thêm sản phẩm
                     </a>
@@ -467,14 +471,14 @@
     // Helper function to convert database image path to web URL
     function getImageUrl(imagePath) {
         if (!imagePath) {
-            return '/electromart/public/images/no-image.jpg';
+            return 'https://electromart-t8ou8.ondigitalocean.app/public/images/no-image.jpg';
         }
 
         // Remove './' prefix if exists
         const cleanPath = imagePath.replace(/^\.\//, '');
 
         // Add web prefix
-        return '/electromart/' + cleanPath;
+        return 'https://electromart-t8ou8.ondigitalocean.app/' + cleanPath;
     }
 
     let currentView = 'table';
@@ -505,11 +509,11 @@
 
     function editProduct(productId) {
         // Load product data via AJAX
-        fetch(`/electromart/public/shop/products/update/${productId}`, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            })
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/update/${productId}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 403) {
@@ -572,22 +576,22 @@
     }
 
     function viewProduct(productId) {
-        window.open(`/electromart/public/product-detail/${productId}`, '_blank');
+        window.open(`https://electromart-t8ou8.ondigitalocean.app/public/product-detail/${productId}`, '_blank');
     }
 
 
 
     function toggleProductStatus(productId, isActive) {
-        fetch(`/electromart/public/shop/products/toggle-status/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-                body: JSON.stringify({
-                    is_active: isActive
-                })
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/toggle-status/${productId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({
+                is_active: isActive
             })
+        })
             .then(response => {
                 if (!response.ok) {
                     if (response.status === 403) {
@@ -630,9 +634,9 @@
 
     function removeExistingImage(imageId) {
         if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
-            fetch(`/electromart/public/shop/products/delete-image/${imageId}`, {
-                    method: 'POST'
-                })
+            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/delete-image/${imageId}`, {
+                method: 'POST'
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -650,14 +654,14 @@
     }
 
     // Form submission
-    document.getElementById('productForm').addEventListener('submit', function(e) {
+    document.getElementById('productForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
         const formData = new FormData(this);
         const productId = document.getElementById('productId').value;
         const url = productId ?
-            `/electromart/public/shop/products/update/${productId}` :
-            '/electromart/public/shop/products/add';
+            `https://electromart-t8ou8.ondigitalocean.app/public/shop/products/update/${productId}` :
+            'https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add';
 
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
@@ -667,9 +671,9 @@
         submitBtn.disabled = true;
 
         fetch(url, {
-                method: 'POST',
-                body: formData,
-            })
+            method: 'POST',
+            body: formData,
+        })
             .then(response => {
                 const contentType = response.headers.get("content-type");
                 if (contentType && contentType.includes("application/json")) {
@@ -694,7 +698,7 @@
 
                     // Tự reload trang
                     setTimeout(() => {
-                        window.location.href = "/electromart/public/shop/products";
+                        window.location.href = "https://electromart-t8ou8.ondigitalocean.app/public/shop/products";
                     }, 1000);
                 } else {
                     showToast(data.message || 'Có lỗi xảy ra', 'error');
@@ -712,7 +716,7 @@
 
 
     // Load saved view preference
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const savedView = localStorage.getItem('productsView');
         if (savedView === 'grid') {
             toggleView();

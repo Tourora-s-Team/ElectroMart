@@ -340,7 +340,8 @@
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        <form id="editBankAccountForm" method="POST" action="/electromart/public/shop/finance/update-bank-account/">
+        <form id="editBankAccountForm" method="POST"
+            action="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/">
             <input type="hidden" name="action" value="update">
             <input type="hidden" id="editBankAccountId" name="bank_account_id" value="">
             <div class="modal-body">
@@ -476,204 +477,204 @@
 <script>
     const bankAccounts = {
         <?php foreach ($bankAccounts as $account): ?>
-                            <?php echo $account['BankAccountID']; ?>: <?php echo json_encode($account); ?>,
+                                <?php echo $account['BankAccountID']; ?>: <?php echo json_encode($account); ?>,
         <?php endforeach; ?>
     };
     let revenueChart = null;
 
 
     // Initialize Revenue Chart
-function initRevenueChart() {
-    const canvas = document.getElementById('revenueChart');
-    const ctx = canvas.getContext('2d');
+    function initRevenueChart() {
+        const canvas = document.getElementById('revenueChart');
+        const ctx = canvas.getContext('2d');
 
-    // ✅ Destroy existing chart if it exists
-    if (revenueChart) {
-        revenueChart.destroy();
-        revenueChart = null;
-    }
+        // ✅ Destroy existing chart if it exists
+        if (revenueChart) {
+            revenueChart.destroy();
+            revenueChart = null;
+        }
 
-    // Alternative method: Check for chart instance on canvas
-    const existingChart = Chart.getChart(canvas);
-    if (existingChart) {
-        existingChart.destroy();
-    }
+        // Alternative method: Check for chart instance on canvas
+        const existingChart = Chart.getChart(canvas);
+        if (existingChart) {
+            existingChart.destroy();
+        }
 
-    // Get chart data
-    fetch('/electromart/public/shop/finance/revenue-chart?period=30')
-        .then(response => response.json())
-        .then(data => {
-            revenueChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.labels || [],
-                    datasets: [{
-                        label: 'Doanh thu',
-                        data: data.values || [],
-                        borderColor: '#FF6D30',
-                        backgroundColor: '#FF6D30',
-                        borderWidth: 3,
-                        fill: false,
-                        tension: 0.4,
-                        pointBackgroundColor: '#FF6D30',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(255,109,48,0.8)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
+        // Get chart data
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=30')
+            .then(response => response.json())
+            .then(data => {
+                revenueChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels || [],
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: data.values || [],
                             borderColor: '#FF6D30',
-                            borderWidth: 1,
-                            callbacks: {
-                                label: function (context) {
-                                    return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
-                                }
-                            }
-                        }
+                            backgroundColor: '#FF6D30',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#FF6D30',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
                     },
-                    scales: {
-                        x: {
-                            grid: {
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
                                 display: false
                             },
-                            ticks: {
-                                color: 'var(--text-secondary)'
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: 'rgba(0,0,0,0.1)'
-                            },
-                            ticks: {
-                                color: 'var(--text-secondary)',
-                                callback: function (value) {
-                                    return new Intl.NumberFormat('vi-VN', {
-                                        notation: 'compact',
-                                        compactDisplay: 'short'
-                                    }).format(value) + '₫';
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(255,109,48,0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#FF6D30',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function (context) {
+                                        return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
+                                    }
                                 }
                             }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: 'var(--text-secondary)'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: 'var(--text-secondary)',
+                                    callback: function (value) {
+                                        return new Intl.NumberFormat('vi-VN', {
+                                            notation: 'compact',
+                                            compactDisplay: 'short'
+                                        }).format(value) + '₫';
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
                         }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
                     }
-                }
+                });
+            })
+            .catch(error => {
+                console.error('Error loading chart data:', error);
             });
-        })
-        .catch(error => {
-            console.error('Error loading chart data:', error);
-        });
-}
+    }
 
     function updateRevenueChart() {
-    const period = document.getElementById('chartPeriod').value;
+        const period = document.getElementById('chartPeriod').value;
 
-    // Destroy existing chart before creating new one
-    if (revenueChart) {
-        revenueChart.destroy();
-        revenueChart = null;
-    }
+        // Destroy existing chart before creating new one
+        if (revenueChart) {
+            revenueChart.destroy();
+            revenueChart = null;
+        }
 
-    // Re-initialize chart with new period
-    fetch(`/electromart/public/shop/finance/revenue-chart?period=${period}`)
-        .then(response => response.json())
-        .then(data => {
-            const canvas = document.getElementById('revenueChart');
-            const ctx = canvas.getContext('2d');
-            
-            revenueChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: data.labels || [],
-                    datasets: [{
-                        label: 'Doanh thu',
-                        data: data.values || [],
-                        borderColor: '#FF6D30',
-                        backgroundColor: '#FF6D30',
-                        borderWidth: 3,
-                        fill: false,
-                        tension: 0.4,
-                        pointBackgroundColor: '#FF6D30',
-                        pointBorderColor: '#fff',
-                        pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 7
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            backgroundColor: 'rgba(255,109,48,0.8)',
-                            titleColor: '#fff',
-                            bodyColor: '#fff',
+        // Re-initialize chart with new period
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=${period}`)
+            .then(response => response.json())
+            .then(data => {
+                const canvas = document.getElementById('revenueChart');
+                const ctx = canvas.getContext('2d');
+
+                revenueChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.labels || [],
+                        datasets: [{
+                            label: 'Doanh thu',
+                            data: data.values || [],
                             borderColor: '#FF6D30',
-                            borderWidth: 1,
-                            callbacks: {
-                                label: function (context) {
-                                    return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
-                                }
-                            }
-                        }
+                            backgroundColor: '#FF6D30',
+                            borderWidth: 3,
+                            fill: false,
+                            tension: 0.4,
+                            pointBackgroundColor: '#FF6D30',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        }]
                     },
-                    scales: {
-                        x: {
-                            grid: {
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
                                 display: false
                             },
-                            ticks: {
-                                color: 'var(--text-secondary)'
-                            }
-                        },
-                        y: {
-                            grid: {
-                                color: 'rgba(0,0,0,0.1)'
-                            },
-                            ticks: {
-                                color: 'var(--text-secondary)',
-                                callback: function (value) {
-                                    return new Intl.NumberFormat('vi-VN', {
-                                        notation: 'compact',
-                                        compactDisplay: 'short'
-                                    }).format(value) + '₫';
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(255,109,48,0.8)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#FF6D30',
+                                borderWidth: 1,
+                                callbacks: {
+                                    label: function (context) {
+                                        return 'Doanh thu: ' + new Intl.NumberFormat('vi-VN').format(context.parsed.y) + '₫';
+                                    }
                                 }
                             }
+                        },
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: 'var(--text-secondary)'
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    color: 'rgba(0,0,0,0.1)'
+                                },
+                                ticks: {
+                                    color: 'var(--text-secondary)',
+                                    callback: function (value) {
+                                        return new Intl.NumberFormat('vi-VN', {
+                                            notation: 'compact',
+                                            compactDisplay: 'short'
+                                        }).format(value) + '₫';
+                                    }
+                                }
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
                         }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
                     }
-                }
+                });
+            })
+            .catch(error => {
+                console.error('Error updating chart:', error);
             });
-        })
-        .catch(error => {
-            console.error('Error updating chart:', error);
-        });
-}
+    }
 
     function openBankAccountModal() {
         document.getElementById('bankAccountModalTitle').textContent = 'Thêm tài khoản ngân hàng';
@@ -697,13 +698,13 @@ function initRevenueChart() {
 
         // Cập nhật action của form
         const form = document.getElementById('editBankAccountForm');
-        form.action = '/electromart/public/shop/finance/update-bank-account/' + accountId;
+        form.action = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/' + accountId;
     }
 
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
-            fetch(`/electromart/public/shop/finance/delete-bank-account/${accountId}`, {
+            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/delete-bank-account/${accountId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -731,7 +732,7 @@ function initRevenueChart() {
     }
 
     function viewAllProducts() {
-        window.location.href = '/electromart/public/shop/products';
+        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products';
     }
 
     function viewTransactionHistory() {
@@ -749,8 +750,8 @@ function initRevenueChart() {
         const formData = new FormData(this);
         const accountId = document.getElementById('bankAccountId').value;
         const url = accountId ?
-            `/electromart/public/shop/finance/update-bank-account/${accountId}` :
-            '/electromart/public/shop/finance/add-bank-account';
+            `https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/${accountId}` :
+            'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/add-bank-account';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -806,7 +807,7 @@ function initRevenueChart() {
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
         submitBtn.disabled = true;
 
-        fetch('/electromart/public/shop/finance/request-payout', {
+        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/request-payout', {
             method: 'POST',
             body: formData
         })

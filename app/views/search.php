@@ -63,7 +63,8 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                 <?php endif; ?>
                             </div>
                         </a>
-                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
+                        <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add" method="POST"
+                            class="add-to-cart-form">
                             <div class="product-actions">
                                 <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
                                 <input type="hidden" name="quantity" value="1">

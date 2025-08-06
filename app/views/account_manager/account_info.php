@@ -9,12 +9,14 @@ require_once __DIR__ . "/./account_navbar.php";
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Thông tin tài khoản</h1>
-        <button id="edit-info-btn" class="subheader__btn-edit btn-account"><i class="fa-regular fa-pen-to-square"></i>Chỉnh
+        <button id="edit-info-btn" class="subheader__btn-edit btn-account"><i
+                class="fa-regular fa-pen-to-square"></i>Chỉnh
             sửa</button>
     </div>
 
     <div class="account-details">
-        <form id="form-info" action="/electromart/public/account/update-info" method="post" class="container-form">
+        <form id="form-info" action="https://electromart-t8ou8.ondigitalocean.app/public/account/update-info"
+            method="post" class="container-form">
             <fieldset disabled>
                 <div class="layout-form">
                     <div class="input-group ">
@@ -44,7 +46,7 @@ require_once __DIR__ . "/./account_navbar.php";
                         <input type="text" id="date-of-birth" name="date-of-birth">
                     </div>
                 </div>
-                
+
                 <div class="form-actions">
                     <button type="submit" class="hidden btn-account" id="submit-info">Lưu</button>
                 </div>

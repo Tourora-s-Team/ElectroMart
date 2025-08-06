@@ -17,9 +17,9 @@ unset($_SESSION['status_type']); ?>
 <section class="promotion-header">
     <div class="container">
         <div class="breadcrumb">
-            <a href="/electromart/public/">Trang chủ</a>
+            <a href="https://electromart-t8ou8.ondigitalocean.app/public/">Trang chủ</a>
             <span>/</span>
-            <a href="/electromart/public/promotions">Khuyến mãi</a>
+            <a href="https://electromart-t8ou8.ondigitalocean.app/public/promotions">Khuyến mãi</a>
             <span>/</span>
             <span><?= htmlspecialchars($promotion['Title']) ?></span>
         </div>
@@ -86,7 +86,8 @@ unset($_SESSION['status_type']); ?>
                             -<?= $promotion['DiscountPercent'] ?>%
                         </div>
 
-                        <a href="/electromart/public/product-detail/<?= $product['ProductID'] ?>">
+                        <a
+                            href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
@@ -100,7 +101,8 @@ unset($_SESSION['status_type']); ?>
                                     <div class="original-price"><?php echo number_format($product['Price'], 0, ',', '.'); ?>đ
                                     </div>
                                     <div class="discounted-price">
-                                        <?php echo number_format($product['DiscountedPrice'], 0, ',', '.'); ?>đ</div>
+                                        <?php echo number_format($product['DiscountedPrice'], 0, ',', '.'); ?>đ
+                                    </div>
                                     <div class="savings">Tiết kiệm:
                                         <?php echo number_format($product['Price'] - $product['DiscountedPrice'], 0, ',', '.'); ?>đ
                                     </div>
@@ -122,7 +124,8 @@ unset($_SESSION['status_type']); ?>
                             </div>
                         </a>
 
-                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
+                        <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add" method="POST"
+                            class="add-to-cart-form">
                             <div class="product-actions">
                                 <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
                                 <input type="hidden" name="quantity" value="1">
@@ -142,7 +145,8 @@ unset($_SESSION['status_type']); ?>
                 <div class="no-products">
                     <i class="fas fa-box-open"></i>
                     <p>Chưa có sản phẩm nào trong chương trình khuyến mãi này.</p>
-                    <a href="/electromart/public/promotions" class="btn btn-primary">Xem khuyến mãi khác</a>
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/promotions" class="btn btn-primary">Xem
+                        khuyến mãi khác</a>
                 </div>
             <?php endif; ?>
         </div>
@@ -155,7 +159,7 @@ unset($_SESSION['status_type']); ?>
     function addToWishList(productId) {
         const btn = document.querySelector(`.add-to-wishlist-btn[data-id='${productId}']`);
         btn.disabled = true;
-        fetch(`/electromart/public/account/wish-list-add/${productId}`, {
+        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/account/wish-list-add/${productId}`, {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'

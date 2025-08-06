@@ -17,9 +17,9 @@ unset($_SESSION['status_type']); ?>
 <section class="category-header">
     <div class="container">
         <div class="breadcrumb">
-            <a href="/electromart/public/">Trang chủ</a>
+            <a href="https://electromart-t8ou8.ondigitalocean.app/public/">Trang chủ</a>
             <span>/</span>
-            <a href="/electromart/public/categories">Danh mục</a>
+            <a href="https://electromart-t8ou8.ondigitalocean.app/public/categories">Danh mục</a>
             <span>/</span>
             <span><?= htmlspecialchars($category['CategoryName']) ?></span>
         </div>
@@ -54,7 +54,8 @@ unset($_SESSION['status_type']); ?>
             <?php if (!empty($products)): ?>
                 <?php foreach ($products as $product): ?>
                     <div class="product-card">
-                        <a href="/electromart/public/product-detail/<?= $product['ProductID'] ?>">
+                        <a
+                            href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
                             <div class="product-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                     alt="<?php echo htmlspecialchars($product['ProductName']); ?>">
@@ -78,7 +79,8 @@ unset($_SESSION['status_type']); ?>
                                 </div>
                             </div>
                         </a>
-                        <form action="/electromart/public/cart/add" method="POST" class="add-to-cart-form">
+                        <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add" method="POST"
+                            class="add-to-cart-form">
                             <div class="product-actions">
                                 <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
                                 <input type="hidden" name="quantity" value="1">
@@ -98,7 +100,8 @@ unset($_SESSION['status_type']); ?>
                 <div class="no-products">
                     <i class="fas fa-box-open"></i>
                     <p>Chưa có sản phẩm nào trong danh mục này.</p>
-                    <a href="/electromart/public/categories" class="btn btn-primary">Xem danh mục khác</a>
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/categories" class="btn btn-primary">Xem
+                        danh mục khác</a>
                 </div>
             <?php endif; ?>
         </div>

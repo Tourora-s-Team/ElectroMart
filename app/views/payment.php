@@ -1,6 +1,6 @@
 <?php include ROOT_PATH . '/app/views/layouts/header.php'; ?>
 
-<link rel="stylesheet" href="/electromart/public/css/components/payment.css">
+<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/payment.css">
 
 <div class="payment-container">
     <!-- Địa chỉ giao hàng -->
@@ -51,7 +51,7 @@
 
 
     <!-- Sản phẩm -->
-    <form method="post" action="/electromart/public/payment/order">
+    <form method="post" action="https://electromart-t8ou8.ondigitalocean.app/public/payment/order">
         <div class="products-section">
             <?php
             $currentShop = null;
@@ -159,7 +159,7 @@
             <button class="place-order-btn" type="submit">Đặt hàng</button>
     </form>
 </div>
-<script src="/electromart/vnpay_php/assets/jquery-1.11.3.min.js"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/vnpay_php/assets/jquery-1.11.3.min.js"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -183,9 +183,9 @@
 
             // Cập nhật action nếu cần
             if (paymentMethod === 'cod') {
-                this.action = '/electromart/public/payment/cod';
+                this.action = 'https://electromart-t8ou8.ondigitalocean.app/public/payment/cod';
             } else if (paymentMethod === 'vnpay') {
-                this.action = '/electromart/public/payment_vnpay';
+                this.action = 'https://electromart-t8ou8.ondigitalocean.app/public/payment_vnpay';
             }
         });
     });

@@ -49,7 +49,7 @@ class AdminProductsController extends BaseAdminController
         } else {
             echo "Failed to delete";
         }
-        header('Location: /electromart/public/admin/products'); // Quay lại danh sách sản phẩm
+        header('Location: https://electromart-t8ou8.ondigitalocean.app/public/admin/products'); // Quay lại danh sách sản phẩm
         exit;
     }
 
@@ -192,7 +192,7 @@ class AdminProductsController extends BaseAdminController
         // 2. Kiểm tra yêu cầu Ajax và dữ liệu hợp lệ
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($productID)) {
             $input = json_decode(file_get_contents('php://input'), true);
-            $isActive = isset($input['is_active']) ? (int)$input['is_active'] : null;
+            $isActive = isset($input['is_active']) ? (int) $input['is_active'] : null;
 
             if (!in_array($isActive, [0, 1])) {
                 echo json_encode([

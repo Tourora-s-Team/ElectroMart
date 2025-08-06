@@ -35,7 +35,7 @@ class ShopOrderController extends BaseShopController
             'title' => 'Quản lý đơn hàng',
             'currentPage' => 'orders',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart/public/shop'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
                 ['text' => 'Quản lý đơn hàng']
             ]
         ]);
@@ -52,7 +52,7 @@ class ShopOrderController extends BaseShopController
 
         if (!$orderDetail || !$this->shopOrderModel->checkOrderBelongsToShop($orderID, $this->shopID)) {
             $_SESSION['error_message'] = 'Không tìm thấy đơn hàng hoặc bạn không có quyền truy cập.';
-            header("Location: /electromart/public/shop/orders");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/orders");
             exit();
         }
 
@@ -61,8 +61,8 @@ class ShopOrderController extends BaseShopController
             'title' => 'Chi tiết đơn hàng #' . $orderID,
             'currentPage' => 'orders',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart/public/shop'],
-                ['text' => 'Quản lý đơn hàng', 'url' => '/electromart/public/shop/orders'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+                ['text' => 'Quản lý đơn hàng', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders'],
                 ['text' => 'Chi tiết đơn hàng #' . $orderID]
             ]
         ]);
@@ -73,7 +73,7 @@ class ShopOrderController extends BaseShopController
     {
         $orderID = $_GET['q'] ?? '';
         if (empty($orderID)) {
-            header("Location: /electromart/public/shop/orders");
+            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/orders");
             exit();
         }
 
@@ -91,8 +91,8 @@ class ShopOrderController extends BaseShopController
             'title' => 'Kết quả tìm kiếm: ' . $orderID,
             'currentPage' => 'orders',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => '/electromart/public/shop'],
-                ['text' => 'Quản lý đơn hàng', 'url' => '/electromart/public/shop/orders'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+                ['text' => 'Quản lý đơn hàng', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders'],
                 ['text' => 'Kết quả tìm kiếm']
             ]
         ]);
@@ -116,5 +116,5 @@ class ShopOrderController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật trạng thái đơn hàng.';
         }
     }
-    
+
 }

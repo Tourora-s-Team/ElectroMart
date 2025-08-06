@@ -52,7 +52,7 @@ unset($_SESSION['status_type']); ?>
                             </div>
 
                             <div class="promotion-actions">
-                                <a href="/electromart/public/promotions/<?= $promotion['PromotionID'] ?>"
+                                <a href="https://electromart-t8ou8.ondigitalocean.app/public/promotions/<?= $promotion['PromotionID'] ?>"
                                     class="btn btn-primary">
                                     <i class="fas fa-shopping-bag"></i>
                                     Xem sản phẩm
@@ -65,7 +65,7 @@ unset($_SESSION['status_type']); ?>
                 <div class="no-promotions">
                     <i class="fas fa-tags"></i>
                     <p>Hiện tại chưa có chương trình khuyến mãi nào.</p>
-                    <a href="/electromart/public/" class="btn btn-primary">Về trang chủ</a>
+                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/" class="btn btn-primary">Về trang chủ</a>
                 </div>
             <?php endif; ?>
         </div>
