@@ -71,5 +71,5 @@
 </main>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
-<script src="<?= getenv('SCRIPT_PATH') . 'main.js' ?>"></script>
-<script src="<?= getenv('SCRIPT_PATH') . 'auth.js' ?>"></script>
+<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js
+<script src=" https://electromart-t8ou8.ondigitalocean.app/public/js/auth.js"></script>
