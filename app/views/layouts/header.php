@@ -16,18 +16,28 @@ if (!empty($_SESSION['customer'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title ?? 'ElectroMart'; ?></title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://electromart-t8ou8.ondigitalocean.app/public/images/electromart-icon.ico"
+    <link rel="shortcut icon" href="https://electromart.online/public/images/electromart-icon.ico"
+
         type="image/x-icon">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/base.css">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/header.css">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/footer.css">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/home.css">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/cart.css">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/search.css">
+    <link rel="stylesheet" href="https://electromart.online/public/css/base.css">
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/header.css">
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/footer.css">
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/home.css">
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/cart.css">
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/search.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js" defer></script>
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/productdetail.css">
-    <base href="https://electromart-t8ou8.ondigitalocean.app/">
+    <script src="https://electromart.online/public/js/main.js" defer></script>
+
+    <link rel="stylesheet" href="https://electromart.online/public/css/components/productdetail.css">
+
+    <base href="https://electromart.online/">
+
 </head>
 
 <body>
@@ -126,7 +136,8 @@ if (!empty($_SESSION['customer'])) {
     });
     //đếm số sản phẩm trong giỏ hàng và hiển thị lên biểu tượng giỏ hàng (góc phải của header)
     document.addEventListener("DOMContentLoaded", function () {
-        fetch("https://electromart-t8ou8.ondigitalocean.app/public/api/cartCount")
+        fetch("https://electromart.online/public/api/cartCount")
+
             .then(response => response.json())
             .then(data => {
                 const countElement = document.querySelector('.cart-count');

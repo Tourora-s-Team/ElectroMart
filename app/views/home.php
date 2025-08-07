@@ -23,7 +23,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             <?php if (!empty($categories)): ?>
                 <?php foreach ($categories as $category): ?>
                     <div class="category-card">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/categories/<?= $category['CategoryID'] ?>">
+                        <a href="https://electromart.online/public/categories/<?= $category['CategoryID'] ?>">
                             <div class="category-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($category['ImageURL'] ?? '/public/images/default-category.jpg'); ?>"
                                     alt="<?php echo htmlspecialchars($category['CategoryName']); ?>">
@@ -39,7 +39,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
         </div>
 
         <div class="view-all-categories">
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/categories" class="btn btn-outline">Xem tất cả
+            <a href="https://electromart.online/public/categories" class="btn btn-outline">Xem tất cả
                 danh mục</a>
         </div>
     </div>
@@ -72,7 +72,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                 <small>Đến: <?= date('d/m/Y', strtotime($promotion['EndDate'])) ?></small>
                             </div>
 
-                            <a href="https://electromart-t8ou8.ondigitalocean.app/public/promotions/<?= $promotion['PromotionID'] ?>"
+                            <a href="https://electromart.online/public/promotions/<?= $promotion['PromotionID'] ?>"
                                 class="promotion-btn">
                                 Xem chi tiết
                             </a>
@@ -83,7 +83,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
         </div>
 
         <div class="view-all-promotions">
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/promotions" class="btn btn-primary">Xem tất cả
+            <a href="https://electromart.online/public/promotions" class="btn btn-primary">Xem tất cả
                 khuyến mãi</a>
         </div>
     </div>
@@ -123,8 +123,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                                 </div>
                             </div>
                         </a>
-                        <form action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add" method="POST"
-                            class="add-to-cart-form">
+                        <form action="https://electromart.online/public/cart/add" method="POST" class="add-to-cart-form">
 
                             <div class="product-actions">
                                 <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">

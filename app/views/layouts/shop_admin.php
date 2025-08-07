@@ -7,20 +7,21 @@
     <title><?php echo $title ?? 'Quản lý Shop'; ?> - ElectroMart</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://electromart-t8ou8.ondigitalocean.app/public/images/electromart-icon.ico"
+    <link rel="shortcut icon" href="https://electromart.online/public/images/electromart-icon.ico"
         type="image/x-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://electromart.online/public/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://electromart.online/public/fontawesome/css/all.min.css">
 
     <!-- Base CSS -->
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/base.css">
+    <link rel="stylesheet" href="https://electromart.online/public/css/base.css">
 
     <!-- Shop Admin CSS -->
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/shop/shop-admin.css">
+    <link rel="stylesheet" href="https://electromart.online/public/css/shop/shop-admin.css">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -77,7 +78,7 @@
         <nav class="sidebar-nav">
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/dashboard"
+                    <a href="https://electromart.online/public/shop/dashboard"
                         class="nav-link <?php echo ($currentPage ?? '') === 'dashboard' ? 'active' : ''; ?>">
                         <i class="fas fa-tachometer-alt nav-icon"></i>
                         <span class="nav-text">Dashboard</span>
@@ -85,7 +86,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/info"
+                    <a href="https://electromart.online/public/shop/info"
                         class="nav-link <?php echo ($currentPage ?? '') === 'shop-info' ? 'active' : ''; ?>">
                         <i class="fas fa-store nav-icon"></i>
                         <span class="nav-text">Thông tin Shop</span>
@@ -93,7 +94,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders"
+                    <a href="https://electromart.online/public/shop/orders"
                         class="nav-link <?php echo ($currentPage ?? '') === 'orders' ? 'active' : ''; ?>">
                         <i class="fas fa-shopping-cart nav-icon"></i>
                         <span class="nav-text">Quản lý đơn hàng</span>
@@ -104,7 +105,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products"
+                    <a href="https://electromart.online/public/shop/products"
                         class="nav-link <?php echo ($currentPage ?? '') === 'products' ? 'active' : ''; ?>">
                         <i class="fas fa-box nav-icon"></i>
                         <span class="nav-text">Quản lý sản phẩm</span>
@@ -112,7 +113,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance"
+                    <a href="https://electromart.online/public/shop/finance"
                         class="nav-link <?php echo ($currentPage ?? '') === 'finance' ? 'active' : ''; ?>">
                         <i class="fas fa-chart-line nav-icon"></i>
                         <span class="nav-text">Quản lý tài chính</span>
@@ -122,21 +123,21 @@
                 <li class="nav-divider"></li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/" class="nav-link">
+                    <a href="https://electromart.online/public/" class="nav-link">
                         <i class="fas fa-home nav-icon"></i>
                         <span class="nav-text">Trang chủ</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/info" class="nav-link">
+                    <a href="https://electromart.online/public/account/info" class="nav-link">
                         <i class="fas fa-user nav-icon"></i>
                         <span class="nav-text">Tài khoản</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signout" class="nav-link">
+                    <a href="https://electromart.online/public/account/signout" class="nav-link">
                         <i class="fas fa-sign-out-alt nav-icon"></i>
                         <span class="nav-text">Đăng xuất</span>
                     </a>
@@ -224,7 +225,7 @@
                             <?php endif; ?>
                         </div>
                         <div class="dropdown-footer">
-                            <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/notifications"
+                            <a href="https://electromart.online/public/shop/notifications"
                                 class="view-all-link">Xem tất cả</a>
                         </div>
                     </div>
@@ -261,11 +262,11 @@
                     <p>&copy; <?php echo date('Y'); ?> ElectroMart. Tất cả quyền được bảo lưu.</p>
                 </div>
                 <div class="footer-right">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/terms" class="footer-link">Điều
+                    <a href="https://electromart.online/public/terms" class="footer-link">Điều
                         khoản</a>
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/privacy" class="footer-link">Quyền
+                    <a href="https://electromart.online/public/privacy" class="footer-link">Quyền
                         riêng tư</a>
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/support" class="footer-link">Hỗ trợ</a>
+                    <a href="https://electromart.online/public/support" class="footer-link">Hỗ trợ</a>
                 </div>
             </div>
         </footer>
@@ -275,7 +276,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <!-- Scripts -->
-    <script src="https://electromart-t8ou8.ondigitalocean.app/public/js/shop/shop-admin.js"></script>
+    <script src="https://electromart.online/public/js/shop/shop-admin.js"></script>
 
     <!-- Page specific scripts -->
     <?php if (isset($additionalJS)): ?>
@@ -308,7 +309,7 @@
 
         // Refresh notifications function
         function refreshNotifications() {
-            fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/api/notifications', {
+            fetch('https://electromart.online/public/shop/api/notifications', {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
@@ -405,7 +406,7 @@
                 .replace(/'/g, "&#039;");
         }
     </script>
-    <script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
+    <script src="https://electromart.online/public/js/main.js"></script>
 </body>
 
 </html>

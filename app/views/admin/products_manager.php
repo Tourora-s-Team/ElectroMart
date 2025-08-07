@@ -1,5 +1,5 @@
 <?php require_once ROOT_PATH . '/core/ImageHelper.php'; ?>
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/admin/StyleProducs.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/admin/StyleProducs.css">
 <div class="products-management-page">
     <!-- Search and Sort Section -->
 
@@ -66,7 +66,7 @@
                             <?php if (!empty($product['ImageURL'])): ?>
                                 <img src="<?= ImageHelper::getImageUrlWithFallback($product['ImageURL']) ?>"
                                     alt="<?= htmlspecialchars($product['ProductName']) ?>"
-                                    onerror="this.src='https://electromart-t8ou8.ondigitalocean.app/public/images/no-image.jpg'">
+                                    onerror="this.src='https://electromart.online/public/images/no-image.jpg'">
                             <?php else: ?>
                                 <div class="no-image">Không có ảnh</div>
                             <?php endif; ?>
@@ -287,4 +287,4 @@
         </form>
     </div>
 </div>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/AdminJs/Products.js"></script>
+<script src="https://electromart.online/public/js/AdminJs/Products.js"></script>

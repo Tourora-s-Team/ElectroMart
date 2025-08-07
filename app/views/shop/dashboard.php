@@ -49,8 +49,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Đơn hàng gần đây</h3>
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders"
-                    class="btn btn-outline btn-sm">
+                <a href="https://electromart.online/public/shop/orders" class="btn btn-outline btn-sm">
                     Xem tất cả
                 </a>
             </div>
@@ -98,8 +97,7 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Sản phẩm bán chạy</h3>
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products"
-                    class="btn btn-outline btn-sm">
+                <a href="https://electromart.online/public/shop/products" class="btn btn-outline btn-sm">
                     Xem tất cả
                 </a>
             </div>
@@ -154,22 +152,22 @@
         </div>
         <div class="card-body">
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add" class="btn btn-primary">
+                <a href="https://electromart.online/public/shop/products/add" class="btn btn-primary">
                     <i class="fas fa-plus"></i>
                     Thêm sản phẩm mới
                 </a>
 
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders" class="btn btn-outline">
+                <a href="https://electromart.online/public/shop/orders" class="btn btn-outline">
                     <i class="fas fa-eye"></i>
                     Xem đơn hàng
                 </a>
 
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance" class="btn btn-outline">
+                <a href="https://electromart.online/public/shop/finance" class="btn btn-outline">
                     <i class="fas fa-chart-line"></i>
                     Xem báo cáo
                 </a>
 
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/info" class="btn btn-outline">
+                <a href="https://electromart.online/public/shop/info" class="btn btn-outline">
                     <i class="fas fa-edit"></i>
                     Cập nhật thông tin
                 </a>
@@ -189,7 +187,7 @@
 
     function refreshDashboardStats() {
         // Implementation for refreshing dashboard stats via AJAX
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/dashboard/refresh-stats')
+        fetch('https://electromart.online/public/shop/dashboard/refresh-stats')
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -210,6 +208,6 @@
     }
 
     function viewOrderDetail(orderId) {
-        window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
+        window.location.href = `https://electromart.online/public/shop/orders/view/${orderId}`;
     }
 </script>

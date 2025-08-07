@@ -15,7 +15,7 @@ class CartController
         // Kiểm tra xem người dùng đã đăng nhập và có giỏ hàng hay chưa
         if (!isset($userID)) {
             // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin');
+            header('Location: https://electromart.online/public/account/signin');
             exit;
         } else {
             // đăng nhập rồi thì hiển thị danh sách sản phẩm trong giỏ hàng
@@ -34,7 +34,7 @@ class CartController
 
         if (!isset($userId)) {
             // chưa đăng nhập thì chuyển hướng đến trang đăng nhập
-            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin');
+            header('Location: https://electromart.online/public/account/signin');
             exit;
         } else {
             if (!$productId || !$quantity) {
@@ -49,7 +49,7 @@ class CartController
                 $cartModels->addProductCart($cardId, $productId, $quantity, $shopId);
                 $_SESSION['message'] = "Thêm sản phẩm vào giỏ hàng thành công.";
                 $_SESSION['status_type'] = "success";
-                header('Location: https://electromart-t8ou8.ondigitalocean.app/public');
+                header('Location: https://electromart.online/public');
             }
         }
     }
@@ -63,7 +63,7 @@ class CartController
             $cartModels->removeProductCart($cartItemId, $productId);
             $_SESSION['message'] = "Xóa sản phẩm khỏi giỏ hàng thành công.";
             $_SESSION['status_type'] = "success";
-            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/cart');
+            header('Location: https://electromart.online/public/cart');
             exit;
         } else {
             // Xử lý lỗi nếu không có cartItemId hoặc productId
@@ -79,7 +79,7 @@ class CartController
         if ($cartItemId && $productId && $quantity) {
             $cartModels = new Cart();
             $cartModels->updateQuantityCart($cartItemId, $productId, $quantity);
-            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/cart');
+            header('Location: https://electromart.online/public/cart');
             exit;
         } else {
             // Xử lý lỗi nếu không có cartItemId, productId hoặc quantity

@@ -1,15 +1,14 @@
 <?php
 require_once __DIR__ . "/./account_navbar.php";
 ?>
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/account_manager/security.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/account_manager/security.css">
 <!-- File css: account_info.css -->
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Cài đặt bảo mật</h1>
     </div>
     <div class="account-details">
-        <form id="form-change-password"
-            action="https://electromart-t8ou8.ondigitalocean.app/public/account/change-password" method="post"
+        <form id="form-change-password" action="https://electromart.online/public/account/change-password" method="post"
             class="security-form">
             <input type="text" id="UserId" name="UserId" value="<?= $_SESSION['user'][0]['UserID'] ?>" hidden>
             <div class="form-group">

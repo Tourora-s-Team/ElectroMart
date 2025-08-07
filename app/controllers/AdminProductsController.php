@@ -49,7 +49,7 @@ class AdminProductsController extends BaseAdminController
         } else {
             echo "Failed to delete";
         }
-        header('Location: https://electromart-t8ou8.ondigitalocean.app/public/admin/products'); // Quay lại danh sách sản phẩm
+        header('Location: https://electromart.online/public/admin/products'); // Quay lại danh sách sản phẩm
         exit;
     }
 

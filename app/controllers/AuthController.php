@@ -36,24 +36,24 @@ class AuthController
             if ($userData) {
                 if ($userData[0]['IsActive'] == 0) {
                     $_SESSION['login_error'] = 'Tài khoản của bạn đã bị khóa.';
-                    header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin");
+                    header("Location: https://electromart.online/public/account/signin");
                     exit();
                 } else {
                     $_SESSION['user'] = $userData;
                     $_SESSION['login_success'] = "Đăng nhập thành công.";
                     if (in_array('Admin', $roles)) {
-                        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/admin/orders");
+                        header("Location: https://electromart.online/public/admin/orders");
                     } elseif (in_array('Customer', $roles) || in_array('Seller', $roles)) {
                         $customerModel = new Customer();
                         $customerData = $customerModel->getCustomerById($userData[0]['UserID']);
                         $_SESSION['customer'] = $customerData;
-                        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/home");
+                        header("Location: https://electromart.online/public/home");
                     }
                     exit();
                 }
             } else {
                 $_SESSION['login_error'] = 'Thông tin đăng nhập không chính xác.';
-                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin");
+                header("Location: https://electromart.online/public/account/signin");
             }
         }
     }
@@ -70,7 +70,7 @@ class AuthController
             // Kiểm tra xem email hoặc số điện thoại đã được sử dụng chưa
             if ($this->userModel->isUserExists($email, $phone)) {
                 $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng. Vui lòng chọn thông tin khác.';
-                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+                header("Location: https://electromart.online/public/account/signup");
                 exit();
             }
 
@@ -104,21 +104,21 @@ class AuthController
         // Kiểm tra mã xác minh có hợp lệ không
         if (empty($code)) {
             $_SESSION['verification_error'] = 'Mã xác minh không hợp lệ.';
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+            header("Location: https://electromart.online/public/account/signup");
             exit();
         }
 
         // Kiểm tra session có dữ liệu xác minh không
         if (!isset($_SESSION['verification_code']) || !isset($_SESSION['pending_user_data'])) {
             $_SESSION['verification_error'] = 'Phiên xác minh đã hết hạn. Vui lòng đăng ký lại.';
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+            header("Location: https://electromart.online/public/account/signup");
             exit();
         }
 
         // So sánh mã xác minh
         if ($_SESSION['verification_code'] !== $code) {
             $_SESSION['verification_error'] = 'Mã xác minh không chính xác.';
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+            header("Location: https://electromart.online/public/account/signup");
             exit();
         }
 
@@ -165,17 +165,17 @@ class AuthController
                 unset($_SESSION['verification_code']);
                 unset($_SESSION['pending_user_data']);
 
-                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/");
+                header("Location: https://electromart.online/public/");
                 exit();
             } else {
                 $_SESSION['signup_error'] = 'Có lỗi xảy ra trong quá trình tạo tài khoản. Vui lòng thử lại.';
-                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+                header("Location: https://electromart.online/public/account/signup");
                 exit();
             }
         } catch (Exception $e) {
             echo 'Có lỗi xảy ra: ' . $e->getMessage();
             // $_SESSION['signup_error'] = 'Email hoặc số điện thoại đã được sử dụng.';
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signup");
+            header("Location: https://electromart.online/public/account/signup");
             exit();
         }
     }
@@ -213,7 +213,7 @@ class AuthController
         session_destroy();
 
         // Chuyển về trang chủ
-        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/home");
+        header("Location: https://electromart.online/public/home");
         exit();
     }
 

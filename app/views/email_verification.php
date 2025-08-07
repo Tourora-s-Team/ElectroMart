@@ -2,7 +2,7 @@
 $title = "Xác minh email - ElectroMart";
 ?>
 
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/auth.css">
 
 <!-- Main Content -->
 <main class="main-content">
@@ -64,7 +64,7 @@ $title = "Xác minh email - ElectroMart";
                         </div>
 
                         <div class="back-to-login">
-                            <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signin" class="link">
+                            <a href="https://electromart.online/public/account/signin" class="link">
                                 <i class="fa-solid fa-arrow-left"></i>
                                 Quay lại đăng nhập
                             </a>
@@ -232,7 +232,7 @@ $title = "Xác minh email - ElectroMart";
         btn.disabled = true;
 
         // Gửi request đến server để gửi lại email
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/account/resend-verification', {
+        fetch('https://electromart.online/public/account/resend-verification', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

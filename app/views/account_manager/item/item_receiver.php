@@ -86,7 +86,7 @@
     </div>
     <?php if (!$receiver->getIsDefault()): ?>
         <form method="POST"
-            action="https://electromart-t8ou8.ondigitalocean.app/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
+            action="https://electromart.online/public/account/set-default-receiver/<?= $receiver->getReceiverID() ?>"
             style="display: inline;">
             <button type="submit" class="set-default-address">Đặt làm địa chỉ mặc định</button>
         </form>

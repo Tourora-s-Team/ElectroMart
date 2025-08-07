@@ -8,8 +8,7 @@
             <p class="page-description">Quản lý danh sách sản phẩm của shop</p>
         </div>
         <div class="header-actions">
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add" type="button"
-                class="btn btn-primary">
+            <a href="https://electromart.online/public/shop/products/add" type="button" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Thêm sản phẩm
             </a>
@@ -75,7 +74,7 @@
                         <i class="fas fa-search"></i>
                         Tìm kiếm
                     </button>
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products" class="btn btn-outline">
+                    <a href="https://electromart.online/public/shop/products" class="btn btn-outline">
                         <i class="fas fa-refresh"></i>
                         Làm mới
                     </a>
@@ -314,8 +313,7 @@
                                 <?php if ($pagination['current_page'] > 1): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] - 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
                                              return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
-                                        class="pagination-btn">
+                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
                                         <i class="fas fa-chevron-left"></i>
                                     </a>
                                 <?php endif; ?>
@@ -332,8 +330,7 @@
                                 <?php if ($pagination['current_page'] < $pagination['total_pages']): ?>
                                     <a href="?page=<?php echo $pagination['current_page'] + 1; ?><?php echo !empty($_GET) ? '&' . http_build_query(array_filter($_GET, function ($k) {
                                              return $k !== 'page';
-                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>"
-                                        class="pagination-btn">
+                                         }, ARRAY_FILTER_USE_KEY)) : ''; ?>" class="pagination-btn">
                                         <i class="fas fa-chevron-right"></i>
                                     </a>
                                 <?php endif; ?>
@@ -346,8 +343,7 @@
                     <i class="fas fa-box-open"></i>
                     <h3>Chưa có sản phẩm nào</h3>
                     <p>Hãy thêm sản phẩm đầu tiên cho shop của bạn</p>
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add" type="button"
-                        class="btn btn-primary">
+                    <a href="https://electromart.online/public/shop/products/add" type="button" class="btn btn-primary">
                         <i class="fas fa-plus"></i>
                         Thêm sản phẩm
                     </a>
@@ -471,14 +467,14 @@
     // Helper function to convert database image path to web URL
     function getImageUrl(imagePath) {
         if (!imagePath) {
-            return 'https://electromart-t8ou8.ondigitalocean.app/public/images/no-image.jpg';
+            return 'https://electromart.online/public/images/no-image.jpg';
         }
 
         // Remove './' prefix if exists
         const cleanPath = imagePath.replace(/^\.\//, '');
 
         // Add web prefix
-        return 'https://electromart-t8ou8.ondigitalocean.app/' + cleanPath;
+        return 'https://electromart.online/' + cleanPath;
     }
 
     let currentView = 'table';
@@ -509,7 +505,7 @@
 
     function editProduct(productId) {
         // Load product data via AJAX
-        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/update/${productId}`, {
+        fetch(`https://electromart.online/public/shop/products/update/${productId}`, {
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             }
@@ -576,13 +572,13 @@
     }
 
     function viewProduct(productId) {
-        window.open(`https://electromart-t8ou8.ondigitalocean.app/public/product-detail/${productId}`, '_blank');
+        window.open(`https://electromart.online/public/product-detail/${productId}`, '_blank');
     }
 
 
 
     function toggleProductStatus(productId, isActive) {
-        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/toggle-status/${productId}`, {
+        fetch(`https://electromart.online/public/shop/products/toggle-status/${productId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -634,7 +630,7 @@
 
     function removeExistingImage(imageId) {
         if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
-            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/delete-image/${imageId}`, {
+            fetch(`https://electromart.online/public/shop/products/delete-image/${imageId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -660,8 +656,8 @@
         const formData = new FormData(this);
         const productId = document.getElementById('productId').value;
         const url = productId ?
-            `https://electromart-t8ou8.ondigitalocean.app/public/shop/products/update/${productId}` :
-            'https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add';
+            `https://electromart.online/public/shop/products/update/${productId}` :
+            'https://electromart.online/public/shop/products/add';
 
         const submitBtn = this.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
@@ -698,7 +694,7 @@
 
                     // Tự reload trang
                     setTimeout(() => {
-                        window.location.href = "https://electromart-t8ou8.ondigitalocean.app/public/shop/products";
+                        window.location.href = "https://electromart.online/public/shop/products";
                     }, 1000);
                 } else {
                     showToast(data.message || 'Có lỗi xảy ra', 'error');

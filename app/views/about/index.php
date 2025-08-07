@@ -51,8 +51,7 @@ unset($_SESSION['status_type']); ?>
             </div>
 
             <div class="story-image">
-                <img src="https://electromart-t8ou8.ondigitalocean.app/public/images/logo-main.png"
-                    alt="Về ElectroMart">
+                <img src="https://electromart.online/public/images/logo-main.png" alt="Về ElectroMart">
             </div>
         </div>
     </div>
@@ -101,7 +100,7 @@ unset($_SESSION['status_type']); ?>
         <div class="team-grid">
             <div class="team-member">
                 <div class="member-image">
-                    <img src="https://electromart-t8ou8.ondigitalocean.app/public/images/member.png" alt="CEO">
+                    <img src="https://electromart.online/public/images/member.png" alt="CEO">
                 </div>
                 <div class="member-info">
                     <h4>Lâm Triệu Thiên</h4>
@@ -114,7 +113,7 @@ unset($_SESSION['status_type']); ?>
 
             <div class="team-member">
                 <div class="member-image">
-                    <img src="https://electromart-t8ou8.ondigitalocean.app/public/images/member.png" alt="CTO">
+                    <img src="https://electromart.online/public/images/member.png" alt="CTO">
                 </div>
                 <div class="member-info">
                     <h4>Lê Công Bằng</h4>
@@ -126,8 +125,7 @@ unset($_SESSION['status_type']); ?>
 
             <div class="team-member">
                 <div class="member-image">
-                    <img src="https://electromart-t8ou8.ondigitalocean.app/public/images/member.png"
-                        alt="Sales Manager">
+                    <img src="https://electromart.online/public/images/member.png" alt="Sales Manager">
                 </div>
                 <div class="member-info">
                     <h4>Đỗ Thành Đạt</h4>
@@ -204,7 +202,7 @@ unset($_SESSION['status_type']); ?>
             <h2>Bạn có câu hỏi nào không?</h2>
             <p>Đội ngũ của chúng tôi luôn sẵn sàng hỗ trợ bạn</p>
             <div class="cta-buttons">
-                <a href="https://electromart-t8ou8.ondigitalocean.app/public/about/contact" class="btn btn-primary">Liên
+                <a href="https://electromart.online/public/about/contact" class="btn btn-primary">Liên
                     hệ ngay</a>
                 <a href="tel:+84123456789" class="btn btn-outline">Gọi hotline</a>
             </div>

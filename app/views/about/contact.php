@@ -16,9 +16,9 @@ unset($_SESSION['status_type']); ?>
 <section class="contact-hero">
     <div class="container">
         <div class="breadcrumb">
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/">Trang chủ</a>
+            <a href="https://electromart.online/public/">Trang chủ</a>
             <span>/</span>
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/about">Về chúng tôi</a>
+            <a href="https://electromart.online/public/about">Về chúng tôi</a>
             <span>/</span>
             <span>Liên hệ</span>
         </div>
@@ -75,7 +75,7 @@ unset($_SESSION['status_type']); ?>
                 <p>Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, hãy điền vào form bên dưới và chúng tôi sẽ phản hồi sớm
                     nhất có thể.</p>
 
-                <form action="https://electromart-t8ou8.ondigitalocean.app/public/about/submit-contact" method="POST"
+                <form action="https://electromart.online/public/about/submit-contact" method="POST"
                     class="contact-form">
                     <div class="form-row">
                         <div class="form-group">

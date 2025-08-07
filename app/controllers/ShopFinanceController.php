@@ -43,7 +43,7 @@ class ShopFinanceController extends BaseShopController
             'title' => 'Quản lý tài chính',
             'currentPage' => 'finance',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart.online/public/shop'],
                 ['text' => 'Quản lý tài chính']
             ]
         ]);
@@ -77,8 +77,8 @@ class ShopFinanceController extends BaseShopController
             'title' => 'Quản lý tài khoản ngân hàng',
             'currentPage' => 'finance',
             'breadcrumb' => [
-                ['text' => 'Dashboard', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop'],
-                ['text' => 'Quản lý tài chính', 'url' => 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance'],
+                ['text' => 'Dashboard', 'url' => 'https://electromart.online/public/shop'],
+                ['text' => 'Quản lý tài chính', 'url' => 'https://electromart.online/public/shop/finance'],
                 ['text' => 'Tài khoản ngân hàng']
             ]
         ]);
@@ -164,7 +164,7 @@ class ShopFinanceController extends BaseShopController
 
             if ($result) {
                 // Chuyển hướng thành công
-                header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance");
+                header("Location: https://electromart.online/public/shop/finance");
                 $_SESSION['success_message'] = 'Cập nhật tài khoản ngân hàng thành công!';
                 exit;
             } else {
@@ -238,7 +238,7 @@ class ShopFinanceController extends BaseShopController
             $_SESSION['error_message'] = 'Có lỗi xảy ra khi cập nhật tài khoản mặc định.';
         }
 
-        header("Location: https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/bank-accounts");
+        header("Location: https://electromart.online/public/shop/finance/bank-accounts");
         exit();
     }
 }

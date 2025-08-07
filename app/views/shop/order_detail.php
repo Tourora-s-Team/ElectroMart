@@ -3,7 +3,7 @@
 <div class="order-detail">
     <!-- Back Button -->
     <div style="margin-bottom: 1.5rem;">
-        <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/orders" class="btn btn-outline">
+        <a href="https://electromart.online/public/shop/orders" class="btn btn-outline">
             <i class="fas fa-arrow-left"></i>
             Quay lại danh sách
         </a>

@@ -9,7 +9,7 @@ include(__DIR__ . '/../layouts/admin_header.php');
     <div class="admin-container">
         <section class="filter-section">
             <form id="orderFilterForm" class="filter-form" method="GET"
-                action="https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager">
+                action="https://electromart.online/public/admin/user_manager">
                 <div class="filter-grid">
                     <!-- Status Filter -->
                     <div class="filter-group">
@@ -107,7 +107,7 @@ include(__DIR__ . '/../layouts/admin_header.php');
                                         <td>
                                             <?php if ($user['IsActive'] == 1): ?>
                                                 <a style="color : red"
-                                                    href="https://electromart-t8ou8.ondigitalocean.app/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
+                                                    href="https://electromart.online/public/admin/users/deactivate?id=<?= $user['UserID'] ?>"
                                                     onclick="return confirm('Bạn có chắc muốn khóa tài khoản này?');">
                                                     Khóa
                                                 </a>
@@ -115,7 +115,7 @@ include(__DIR__ . '/../layouts/admin_header.php');
                                                 Đã khóa
                                             <?php endif; ?>
                                             <?php if ($user['IsActive'] == 0): ?>
-                                                <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/users/open?id=<?= $user['UserID'] ?>"
+                                                <a href="https://electromart.online/public/admin/users/open?id=<?= $user['UserID'] ?>"
                                                     onclick="return confirm('Bạn có chắc muốn mở khóa tài khoản này?');">
                                                     Mở Khóa
                                                 </a>

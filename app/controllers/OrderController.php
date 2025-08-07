@@ -96,7 +96,7 @@ class OrderController
         $vnp_TmnCode = "50PNFZGW"; //Mã định danh merchant kết nối (Terminal Id)
         $vnp_HashSecret = "JT7NJO4J3MZWICBAZZE5NUK56EWS8BTR"; //Secret key
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://localhosthttps://electromart-t8ou8.ondigitalocean.app/public/vnpay-return"; //URL trả về sau khi thanh toán thành công
+        $vnp_Returnurl = "http://localhosthttps://electromart.online/public/vnpay-return"; //URL trả về sau khi thanh toán thành công
         $vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
         $apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
         //Config input format
@@ -230,7 +230,7 @@ class OrderController
             $paymentModel = new Payment();
             $paymentModel->savePaymentCod($CodData);
 
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/account/order-history");
+            header("Location: https://electromart.online/public/account/order-history");
             exit;
         } elseif ($method == 'vnpay') {
             $_SESSION['vnpay_payment'] = [
@@ -238,7 +238,7 @@ class OrderController
                 'language' => $_POST['language'] ?? 'vn',
                 'bankCode' => $_POST['bankCode'] ?? '',
             ];
-            header("Location: https://electromart-t8ou8.ondigitalocean.app/public/payment_vnpay");
+            header("Location: https://electromart.online/public/payment_vnpay");
             exit;
         } else {
             echo "Phương thức thanh toán không hợp lệ!";

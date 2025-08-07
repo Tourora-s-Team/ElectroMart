@@ -56,7 +56,7 @@ class PaymentController
     {
         $userId = $_SESSION['user'][0]['UserID'] ?? null;
         if (!$userId) {
-            header('Location: https://electromart-t8ou8.ondigitalocean.app/public/account/signin');
+            header('Location: https://electromart.online/public/account/signin');
             exit;
         }
         $receiverModel = new Receiver();

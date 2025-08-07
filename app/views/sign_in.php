@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/auth.css">
 
 <main class="main-content">
     <div class="container">
@@ -19,8 +19,7 @@
                     <p>Chào mừng bạn quay trở lại ElectroMart</p>
                 </div>
 
-                <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/signin" method="POST"
-                    class="auth-form">
+                <form action="https://electromart.online/public/account/signin" method="POST" class="auth-form">
                     <div class="form-group">
                         <label for="loginInfo">Email hoặc Số điện thoại</label>
                         <div class="input-wrapper">
@@ -71,5 +70,5 @@
 </main>
 
 <?php include ROOT_PATH . '/app/views/layouts/footer.php'; ?>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/auth.js"></script>
+<script src="https://electromart.online/public/js/main.js"></script>
+<script src="https://electromart.online/public/js/auth.js"></script>

@@ -9,8 +9,7 @@ include(__DIR__ . '/../layouts/admin_header.php');
 
 <!-- Filter Section -->
 <section class="filter-section">
-    <form id="orderFilterForm" class="filter-form" method="GET"
-        action="https://electromart-t8ou8.ondigitalocean.app/public/admin/orders">
+    <form id="orderFilterForm" class="filter-form" method="GET" action="https://electromart.online/public/admin/orders">
         <div class="filter-grid">
             <!-- Status Filter -->
             <div class="filter-group">

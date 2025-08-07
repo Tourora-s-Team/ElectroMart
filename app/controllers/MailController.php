@@ -43,7 +43,7 @@ class MailController
             $this->mailer->addAddress($toEmail, $toName);
             $this->mailer->Subject = 'Xác minh địa chỉ email của bạn';
 
-            $verificationLink = "http://localhosthttps://electromart-t8ou8.ondigitalocean.app/public/account/verify-email/" . urlencode($verificationCode);
+            $verificationLink = "http://localhosthttps://electromart.online/public/account/verify-email/" . urlencode($verificationCode);
 
             $this->mailer->Body = "
             <h2>Xin chào $toName,</h2>

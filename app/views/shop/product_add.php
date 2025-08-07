@@ -7,7 +7,7 @@
             <p class="page-description">Thêm sản phẩm mới vào shop của bạn</p>
         </div>
         <div class="header-actions">
-            <a href="https://electromart-t8ou8.ondigitalocean.app/public/shop/products" class="btn btn-outline">
+            <a href="https://electromart.online/public/shop/products" class="btn btn-outline">
                 <i class="fas fa-arrow-left"></i>
                 Quay lại
             </a>
@@ -17,8 +17,7 @@
     <!-- Add Product Form -->
     <div class="card">
         <div class="card-body">
-            <form id="addProductForm" method="POST"
-                action="https://electromart-t8ou8.ondigitalocean.app/public/shop/products/add"
+            <form id="addProductForm" method="POST" action="https://electromart.online/public/shop/products/add"
                 enctype="multipart/form-data" data-async>
                 <!-- Basic Information -->
                 <div class="form-section">
@@ -148,7 +147,7 @@
                 <!-- Form Actions -->
                 <div class="form-actions">
                     <button type="button" class="btn btn-outline"
-                        onclick="window.location.href='https://electromart-t8ou8.ondigitalocean.app/public/shop/products'">
+                        onclick="window.location.href='https://electromart.online/public/shop/products'">
                         <i class="fas fa-times"></i>
                         Hủy
                     </button>

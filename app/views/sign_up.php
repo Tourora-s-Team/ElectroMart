@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/auth.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/auth.css">
 <!-- Thư viện định dạng ngày tháng -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -31,8 +31,7 @@
                     <p>Tạo tài khoản mới để mua sắm tại ElectroMart</p>
                 </div>
 
-                <form action="https://electromart-t8ou8.ondigitalocean.app/public/account/signup" method="POST"
-                    class="auth-form">
+                <form action="https://electromart.online/public/account/signup" method="POST" class="auth-form">
                     <div class="form-group">
                         <label for="registerName">Họ và tên *</label>
                         <div class="input-wrapper">
@@ -113,5 +112,5 @@
         dateFormat: "d/m/Y", // định dạng hiển thị
     });
 </script>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/main.js"></script>
-<script src="https://electromart-t8ou8.ondigitalocean.app/public/js/auth.js"></script>
+<script src="https://electromart.online/public/js/main.js"></script>
+<script src="https://electromart.online/public/js/auth.js"></script>

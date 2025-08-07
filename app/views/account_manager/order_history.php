@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/./account_navbar.php";
 ?>
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/account_manager/order_history.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/account_manager/order_history.css">
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Lịch sử mua hàng</h1>

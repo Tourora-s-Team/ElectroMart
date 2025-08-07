@@ -341,7 +341,7 @@
             </button>
         </div>
         <form id="editBankAccountForm" method="POST"
-            action="https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/">
+            action="https://electromart.online/public/shop/finance/update-bank-account/">
             <input type="hidden" name="action" value="update">
             <input type="hidden" id="editBankAccountId" name="bank_account_id" value="">
             <div class="modal-body">
@@ -477,7 +477,7 @@
 <script>
     const bankAccounts = {
         <?php foreach ($bankAccounts as $account): ?>
-                                <?php echo $account['BankAccountID']; ?>: <?php echo json_encode($account); ?>,
+                                    <?php echo $account['BankAccountID']; ?>: <?php echo json_encode($account); ?>,
         <?php endforeach; ?>
     };
     let revenueChart = null;
@@ -501,7 +501,7 @@
         }
 
         // Get chart data
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=30')
+        fetch('https://electromart.online/public/shop/finance/revenue-chart?period=30')
             .then(response => response.json())
             .then(data => {
                 revenueChart = new Chart(ctx, {
@@ -592,7 +592,7 @@
         }
 
         // Re-initialize chart with new period
-        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/revenue-chart?period=${period}`)
+        fetch(`https://electromart.online/public/shop/finance/revenue-chart?period=${period}`)
             .then(response => response.json())
             .then(data => {
                 const canvas = document.getElementById('revenueChart');
@@ -698,13 +698,13 @@
 
         // Cập nhật action của form
         const form = document.getElementById('editBankAccountForm');
-        form.action = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/' + accountId;
+        form.action = 'https://electromart.online/public/shop/finance/update-bank-account/' + accountId;
     }
 
 
     function deleteBankAccount(accountId) {
         if (confirm('Bạn có chắc chắn muốn xóa tài khoản ngân hàng này?')) {
-            fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/delete-bank-account/${accountId}`, {
+            fetch(`https://electromart.online/public/shop/finance/delete-bank-account/${accountId}`, {
                 method: 'POST'
             })
                 .then(response => response.json())
@@ -732,7 +732,7 @@
     }
 
     function viewAllProducts() {
-        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products';
+        window.location.href = 'https://electromart.online/public/shop/products';
     }
 
     function viewTransactionHistory() {
@@ -750,8 +750,8 @@
         const formData = new FormData(this);
         const accountId = document.getElementById('bankAccountId').value;
         const url = accountId ?
-            `https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/update-bank-account/${accountId}` :
-            'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/add-bank-account';
+            `https://electromart.online/public/shop/finance/update-bank-account/${accountId}` :
+            'https://electromart.online/public/shop/finance/add-bank-account';
 
         // Show loading
         const submitBtn = this.querySelector('button[type="submit"]');
@@ -807,7 +807,7 @@
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Đang xử lý...';
         submitBtn.disabled = true;
 
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/request-payout', {
+        fetch('https://electromart.online/public/shop/finance/request-payout', {
             method: 'POST',
             body: formData
         })

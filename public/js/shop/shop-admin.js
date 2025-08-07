@@ -3,14 +3,14 @@
 // Helper function to convert database image path to web URL
 function getImageUrl(imagePath) {
     if (!imagePath) {
-        return 'https://electromart-t8ou8.ondigitalocean.app/public/images/no-image.jpg';
+        return 'https://electromart.online/public/images/no-image.jpg';
     }
 
     // Remove './' prefix if exists
     const cleanPath = imagePath.replace(/^\.\//, '');
 
     // Add web prefix
-    return 'https://electromart-t8ou8.ondigitalocean.app/' + cleanPath;
+    return 'https://electromart.online/' + cleanPath;
 }
 
 // Global variables
@@ -62,7 +62,7 @@ function initializeNotifications() {
     if (markAllReadBtn) {
         markAllReadBtn.addEventListener('click', function () {
             // Mark all notifications as read
-            fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/api/notifications/mark-all-read', {
+            fetch('https://electromart.online/public/shop/api/notifications/mark-all-read', {
                 method: 'POST',
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest'
@@ -286,7 +286,7 @@ function closeModal(modal) {
 // Product management functions
 function editProduct(productId) {
     // Load product data via AJAX
-    fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/edit/${productId}`, {
+    fetch(`https://electromart.online/public/shop/products/edit/${productId}`, {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         }
@@ -404,7 +404,7 @@ function addProduct() {
 
 function removeExistingImage(imageId) {
     if (confirm('Bạn có chắc chắn muốn xóa hình ảnh này?')) {
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/products/remove-image', {
+        fetch('https://electromart.online/public/shop/products/remove-image', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -459,7 +459,7 @@ function toggleProductStatus(productId, currentStatus) {
     if (confirm(`Bạn có chắc chắn muốn ${statusText} sản phẩm này?`)) {
         showLoading();
 
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/shop/products/toggle-status', {
+        fetch('https://electromart.online/public/shop/products/toggle-status', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -514,7 +514,7 @@ function deleteProduct(productId, productName) {
 
     showLoading();
 
-    fetch(`https://electromart-t8ou8.ondigitalocean.app/public/shop/products/delete/${productId}`, {
+    fetch(`https://electromart.online/public/shop/products/delete/${productId}`, {
         method: 'POST',
         headers: {
             'X-Requested-With': 'XMLHttpRequest' // Để PHP phân biệt là AJAX
@@ -559,7 +559,7 @@ function setDefaultBankAccount(accountId) {
 
 // Order functions
 function viewOrderDetail(orderId) {
-    window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
+    window.location.href = `https://electromart.online/public/shop/orders/view/${orderId}`;
 }
 
 
@@ -567,7 +567,7 @@ function viewOrderDetail(orderId) {
 function searchOrders() {
     const searchInput = document.getElementById('orderSearch');
     if (searchInput && searchInput.value.trim()) {
-        window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+        window.location.href = `https://electromart.online/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
     }
 }
 
@@ -575,7 +575,7 @@ function searchProducts() {
     const searchInput = document.getElementById('productSearch');
     const statusFilter = document.getElementById('statusFilter');
 
-    let url = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products?';
+    let url = 'https://electromart.online/public/shop/products?';
     const params = [];
 
     if (searchInput && searchInput.value.trim()) {
@@ -669,13 +669,13 @@ function exportData(type) {
     let url = '';
     switch (type) {
         case 'orders':
-            url = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/export';
+            url = 'https://electromart.online/public/shop/orders/export';
             break;
         case 'products':
-            url = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/products/export';
+            url = 'https://electromart.online/public/shop/products/export';
             break;
         case 'revenue':
-            url = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/finance/export';
+            url = 'https://electromart.online/public/shop/finance/export';
             break;
     }
 

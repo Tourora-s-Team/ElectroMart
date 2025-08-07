@@ -27,7 +27,7 @@ unset($_SESSION['status_type']); ?>
             <?php if (!empty($categories)): ?>
                 <?php foreach ($categories as $category): ?>
                     <div class="category-card">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/categories/<?= $category['CategoryID'] ?>">
+                        <a href="https://electromart.online/public/categories/<?= $category['CategoryID'] ?>">
                             <div class="category-image">
                                 <img src="<?php echo ImageHelper::getImageUrlWithFallback($category['ImageURL'] ?? '/public/images/default-category.jpg'); ?>"
                                     alt="<?php echo htmlspecialchars($category['CategoryName']); ?>">

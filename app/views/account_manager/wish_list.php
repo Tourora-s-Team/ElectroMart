@@ -3,7 +3,7 @@ require_once __DIR__ . "/./account_navbar.php";
 require_once ROOT_PATH . '/core/ImageHelper.php';
 ?>
 
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/account_manager/wish_list.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/account_manager/wish_list.css">
 <div class="account-info">
     <div class="subheader flex-row-sb">
         <h1 class="subheader__title">Danh sách yêu thích</h1>
@@ -18,7 +18,7 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
         <div class="product-grid">
             <?php foreach ($favoriteProducts as $product): ?>
                 <div class="product-card">
-                    <a href="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/<?= $product['ProductID'] ?>">
+                    <a href="https://electromart.online/public/product-detail/<?= $product['ProductID'] ?>">
                         <div class="product-image">
                             <img src="<?php echo ImageHelper::getImageUrlWithFallback($product['ImageURL']); ?>"
                                 alt="<?= htmlspecialchars($product['ProductName']) ?>">
@@ -40,8 +40,7 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
                             </div>
                         </div>
                     </a>
-                    <form
-                        action="https://electromart-t8ou8.ondigitalocean.app/public/account/wish-list-remove/<?= $product['ProductID'] ?>"
+                    <form action="https://electromart.online/public/account/wish-list-remove/<?= $product['ProductID'] ?>"
                         method="POST" class="remove-from-wishlist-form">
                         <button type="button" class="remove-from-wishlist-btn"><i class="fas fa-heart"></i></button>
                     </form>

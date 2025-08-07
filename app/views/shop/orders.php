@@ -248,12 +248,12 @@
     function searchOrders() {
         const searchInput = document.getElementById('orderSearch');
         if (searchInput && searchInput.value.trim()) {
-            window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+            window.location.href = `https://electromart.online/public/shop/orders/search?q=${encodeURIComponent(searchInput.value.trim())}`;
         }
     }
 
     function viewOrderDetail(orderId) {
-        window.location.href = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/view/${orderId}`;
+        window.location.href = `https://electromart.online/public/shop/orders/view/${orderId}`;
     }
 
     function updateOrderStatus(orderId, currentStatus) {
@@ -279,12 +279,12 @@
 
         // Update form action
         const form = document.getElementById('statusUpdateForm');
-        form.action = `https://electromart-t8ou8.ondigitalocean.app/public/shop/orders/update-status/${orderId}`;
+        form.action = `https://electromart.online/public/shop/orders/update-status/${orderId}`;
         openModal('statusUpdateModal');
     }
 
     function resetFilters() {
-        window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/shop/orders';
+        window.location.href = 'https://electromart.online/public/shop/orders';
     }
 
     // Auto-refresh orders every 2 minutes

@@ -8,13 +8,13 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="https://electromart-t8ou8.ondigitalocean.app/public/images/electromart-icon.ico"
+    <link rel="shortcut icon" href="https://electromart.online/public/images/electromart-icon.ico"
         type="image/x-icon">
     <title><?php echo isset($title) ? $title : 'ElectroMart - Quản lý bán hàng'; ?></title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/admin/StyleOrders.css">
-    <script src="https://electromart-t8ou8.ondigitalocean.app/public/js/AdminJs/Header.js"></script>
+    <link rel="stylesheet" href="https://electromart.online/public/css/admin/StyleOrders.css">
+    <script src="https://electromart.online/public/js/AdminJs/Header.js"></script>
     <script src="https://kit.fontawesome.com/f6aadf5dfa.js" crossorigin="anonymous"></script>
 </head>
 
@@ -36,34 +36,34 @@ $email = isset($_SESSION['user'][0]['Email']) ? $_SESSION['user'][0]['Email'] : 
             <nav class="sidebar-nav">
                 <ul>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'orders') ? 'active' : ''; ?>">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/orders" class="nav-link">
+                        <a href="https://electromart.online/public/admin/orders" class="nav-link">
                             <i class="fas fa-shopping-cart"></i>
                             <span>Quản lý đơn hàng</span>
                         </a>
                     </li>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'products') ? 'active' : ''; ?>">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/products" class="nav-link">
+                        <a href="https://electromart.online/public/admin/products" class="nav-link">
                             <i class="fas fa-box"></i>
                             <span>Quản lý sản phẩm</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'finance') ? 'active' : ''; ?>">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/finance" class="nav-link">
+                        <a href="https://electromart.online/public/admin/finance" class="nav-link">
                             <i class="fas fa-dollar-sign"></i>
                             <span>Quản lý tài chính</span>
                         </a>
                     </li>
                     <li
                         class="nav-item <?php echo (isset($activeTab) && $activeTab === 'user_manager') ? 'active' : ''; ?>">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/admin/user_manager"
+                        <a href="https://electromart.online/public/admin/user_manager"
                             class="nav-link">
                             <i class="fas fa-chart-bar"></i>
                             <span>Quản lý người dùng</span>
                         </a>
                     </li>
                     <li class="nav-item <?php echo (isset($activeTab) && $activeTab === 'signout') ? 'active' : ''; ?>">
-                        <a href="https://electromart-t8ou8.ondigitalocean.app/public/account/signout" class="nav-link">
+                        <a href="https://electromart.online/public/account/signout" class="nav-link">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Đăng xuất</span>
                         </a>

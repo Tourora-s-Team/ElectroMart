@@ -24,7 +24,7 @@ function sortProducts() {
 }
 
 function exportProducts() {
-    window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/admin/products/export-txt';
+    window.location.href = 'https://electromart.online/public/admin/products/export-txt';
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.getElementById("addProductForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const formData = new FormData(this);
-    fetch("https://electromart-t8ou8.ondigitalocean.app/public/admin/products/save", {
+    fetch("https://electromart.online/public/admin/products/save", {
         method: "POST",
         body: formData
     }).then(() => location.reload());
@@ -88,7 +88,7 @@ window.addEventListener("DOMContentLoaded", function () {
         e.preventDefault();
 
         const formData = new FormData(form);
-        fetch("https://electromart-t8ou8.ondigitalocean.app/public/admin/products/update", {
+        fetch("https://electromart.online/public/admin/products/update", {
             method: "POST",
             body: formData,
         })
@@ -105,7 +105,7 @@ document.getElementById("addProductForm").addEventListener("submit", function (e
     e.preventDefault();
 
     const formData = new FormData(this);
-    fetch("https://electromart-t8ou8.ondigitalocean.app/public/admin/products/update", {
+    fetch("https://electromart.online/public/admin/products/update", {
         method: "POST",
         body: formData
     })
@@ -121,7 +121,7 @@ document.getElementById("addProductForm").addEventListener("submit", function (e
 });
 function deleteProduct(id) {
     if (confirm("Bạn có chắc chắn muốn xoá sản phẩm này?")) {
-        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/admin/products/delete/${id}`, {
+        fetch(`https://electromart.online/public/admin/products/delete/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -159,7 +159,7 @@ function showEditProductModal(product) {
 
 function lockProduct(productId) {
     if (confirm("Bạn có muốn khoá sản phẩm không?")) {
-        fetch(`https://electromart-t8ou8.ondigitalocean.app/public/admin/products/lock?id=${productId}`, {
+        fetch(`https://electromart.online/public/admin/products/lock?id=${productId}`, {
             method: 'POST'
         })
             .then(response => {
@@ -184,7 +184,7 @@ document.getElementById("editProductForm").addEventListener("submit", function (
         console.log(`${key}: ${value}`);
     }
 
-    fetch("https://electromart-t8ou8.ondigitalocean.app/public/admin/products/update", {
+    fetch("https://electromart.online/public/admin/products/update", {
         method: "POST",
         body: formData,
     })
@@ -216,7 +216,7 @@ function toggleProductStatus(productID, isChecked) {
 
     const status = isChecked ? 1 : 0;
 
-    fetch('https://electromart-t8ou8.ondigitalocean.app/public/admin/products/toggle-status/' + productID, {
+    fetch('https://electromart.online/public/admin/products/toggle-status/' + productID, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

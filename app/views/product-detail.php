@@ -3,7 +3,7 @@ require_once ROOT_PATH . '/core/ImageHelper.php';
 include ROOT_PATH . '/app/views/layouts/header.php';
 ?>
 
-<link rel="stylesheet" href="https://electromart-t8ou8.ondigitalocean.app/public/css/components/productdetail.css">
+<link rel="stylesheet" href="https://electromart.online/public/css/components/productdetail.css">
 
 <section class="product-detail">
     <div class="container">
@@ -85,8 +85,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 </div>
 
                 <div class="product-actions">
-                    <form id="addToCartForm" action="https://electromart-t8ou8.ondigitalocean.app/public/cart/add"
-                        method="POST">
+                    <form id="addToCartForm" action="https://electromart.online/public/cart/add" method="POST">
                         <input type="hidden" name="product_id" value="<?php echo $product['ProductID']; ?>">
                         <input type="hidden" name="quantity" id="hidden_quantity">
                         <button type="submit" class="btn btn-cart">
@@ -259,7 +258,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             </div>
         </div>
         <!-- thêm đánh giá -->
-        <form action="https://electromart-t8ou8.ondigitalocean.app/public/product-detail/review" method="POST"
+        <form action="https://electromart.online/public/product-detail/review" method="POST"
             class="review-form product-reviews ">
             <h2 class="review-form__title ">Gửi đánh giá của bạn</h2>
             <!-- Chọn sao -->
@@ -401,7 +400,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 showNotification('Có lỗi xảy ra!', 'error');
             });
     }
-    //nút mua ngay chuyển đến trang thanh toán "https://electromart-t8ou8.ondigitalocean.app/public/payment"
+    //nút mua ngay chuyển đến trang thanh toán "https://electromart.online/public/payment"
     document.getElementById('buyNowBtn').addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -427,7 +426,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             total: subtotal
         };
 
-        fetch('https://electromart-t8ou8.ondigitalocean.app/public/payment', {
+        fetch('https://electromart.online/public/payment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -438,7 +437,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
             .then(data => {
                 console.log(data);
                 if (data.status === 'success') {
-                    window.location.href = 'https://electromart-t8ou8.ondigitalocean.app/public/payment';
+                    window.location.href = 'https://electromart.online/public/payment';
                 } else {
                     alert('Không thể xử lý thanh toán. Vui lòng thử lại.');
                 }
