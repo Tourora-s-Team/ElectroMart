@@ -1,6 +1,6 @@
 <?php
 // Import PHPMailer (chú ý dùng đúng đường dẫn)
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once dirname(__DIR__, 2) . '/vendor/autoload.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -43,7 +43,7 @@ class MailController
             $this->mailer->addAddress($toEmail, $toName);
             $this->mailer->Subject = 'Xác minh địa chỉ email của bạn';
 
-            $verificationLink = "http://localhosthttps://electromart.online/public/account/verify-email/" . urlencode($verificationCode);
+            $verificationLink = "https://electromart.online/public/account/verify-email/" . urlencode($verificationCode);
 
             $this->mailer->Body = "
             <h2>Xin chào $toName,</h2>
