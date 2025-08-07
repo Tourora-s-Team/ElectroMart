@@ -19,7 +19,7 @@ class Database
         $this->port = 25060;
     }
 
-    protected function connectDB()
+    public function connectDB()
     {
         // Nếu đã có kết nối thì dùng lại
         if (self::$connection !== null) {
@@ -46,4 +46,25 @@ class Database
             exit;
         }
     }
+
+    // Hàm kết nối CSDL mặc định (dùng trong XAMPP).
+    // function connectDB()
+    // {
+    //     $host = '127.0.0.1';        // hoặc 'localhost'
+    //     $dbname = 'your_database';  // ← Thay bằng tên CSDL của bạn
+    //     $username = 'root';         // ← Mặc định XAMPP dùng root
+    //     $password = '';             // ← Mặc định XAMPP không có mật khẩu
+
+    //     try {
+    //         $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+    //         $pdo = new PDO($dsn, $username, $password, [
+    //             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, // Bắt lỗi dạng exception
+    //             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC // Trả về mảng kết quả dạng key => value
+    //         ]);
+    //         return $pdo;
+    //     } catch (PDOException $e) {
+    //         die("Kết nối CSDL thất bại: " . $e->getMessage());
+    //     }
+    // }
+
 }
