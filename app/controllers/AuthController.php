@@ -34,6 +34,8 @@ class AuthController
             $roles = explode(',', $userData[0]['Role']);
 
             if ($userData) {
+                // Cập nhật thời gian đăng nhập cuối cùng
+                $this->userModel->setLastLogin($userData[0]['UserID']);
                 if ($userData[0]['IsActive'] == 0) {
                     $_SESSION['login_error'] = 'Tài khoản của bạn đã bị khóa.';
                     header("Location: https://electromart.online/public/account/signin");

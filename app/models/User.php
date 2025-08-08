@@ -99,6 +99,16 @@ class User
         return $data;
     }
 
+    public function setLastLogin($userId)
+    {
+        $sql = "UPDATE Users SET LastLogin = NOW() WHERE UserID = :userId";
+        $handleData = new HandleData();
+        $params = [
+            ':userId' => $userId
+        ];
+        return $handleData->execDataWithParams($sql, $params);
+    }
+
     public function isUserExists($email, $phone)
     {
         $sql = "SELECT * FROM Users WHERE Email = :email OR PhoneNumber = :phone";
