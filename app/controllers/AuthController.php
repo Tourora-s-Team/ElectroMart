@@ -110,7 +110,7 @@ class AuthController
 
         // Kiểm tra session có dữ liệu xác minh không
         if (!isset($_SESSION['verification_code']) || !isset($_SESSION['pending_user_data'])) {
-            $_SESSION['verification_error'] = 'Phiên xác minh đã hết hạn. Vui lòng đăng ký lại.';
+            $_SESSION['verification_error'] = 'Phiên xác minh đã hết hạn. Vui lòng đăng ký lại. Hoặc sử dụng email trên cùng thiết bị đăng ký.';
             header("Location: https://electromart.online/public/account/signup");
             exit();
         }
