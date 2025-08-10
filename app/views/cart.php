@@ -86,7 +86,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
 
                         <div class="summary-row total">
                             <span>Tổng cộng:</span>
-                            <span class="total-amount"><?php echo number_format($total, 0, ',', '.'); ?>đ</span>
+                            <span class="total-amount">0đ</span>
                         </div>
 
                         <div class="checkout-actions">
@@ -111,6 +111,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
 </section>
 
 <script>
+
     function changeQuantity(button, delta) {
         const quantityInput = button.closest('.item-quantity').querySelector('.quantity-input'); //Từ nút bạn click, tìm tới <div> .item-quantity chứa nó, sau đó tìm ô nhập số lượng (input) bên trong khối đó.
         const currentValue = parseInt(quantityInput.value) || 1;
@@ -193,6 +194,48 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 console.error('Lỗi khi gửi dữ liệu thanh toán:', error);
             });
     });
+    function formatCurrency(number) {
+        return number.toLocaleString('vi-VN') + 'đ';
+    }
+
+    function updateTotalAmount() {
+        let total = 0;
+        document.querySelectorAll('.cart-item').forEach(item => {
+            const checkbox = item.querySelector('.item-checkbox');
+            if (checkbox.checked) {
+                const price = parseFloat(item.dataset.price);
+                const quantity = parseInt(item.querySelector('.quantity-input').value);
+                total += price * quantity;
+            }
+        });
+        document.querySelector('.total-amount').textContent = formatCurrency(total);
+    }
+
+    // Lắng nghe khi checkbox thay đổi
+    document.querySelectorAll('.item-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            updateTotalAmount();
+        });
+    });
+
+    // Lắng nghe khi số lượng thay đổi
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        input.addEventListener('input', () => {
+            const min = parseInt(input.min) || 1;
+            const max = parseInt(input.max) || 9999;
+            let val = parseInt(input.value) || min;
+            if (val < min) val = min;
+            if (val > max) val = max;
+            input.value = val;
+
+            updateTotalAmount();
+        });
+    });
+
+    // KHÔNG tự động chọn checkbox nào khi load trang
+    // document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = true);
+    // updateTotalAmount();
+
 </script>
 
 
