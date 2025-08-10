@@ -217,7 +217,7 @@ class OrderController
             }
         }
         // Sau khi tạo đơn hàng thành công, chuyển hướng về trang chủ hoặc trang cảm ơn
-        $method = $_POST['paymentMethodFinal'] ?? 'cod';
+        $method = $_POST['paymentMethodFinal'] ?? 'COD';
         if ($method == 'cod') {
             // Gán vào mảng $vnpayData để truyền sang Payment::savePayment()
             $CodData = [
@@ -229,7 +229,8 @@ class OrderController
             // exit;
             $paymentModel = new Payment();
             $paymentModel->savePaymentCod($CodData);
-
+            $productModel = new Product();
+            $productModel->minusStockProduct($item['ProductID'], $item['Quantity']);
             header("Location: https://electromart.online/public/account/order-history");
             exit;
         } elseif ($method == 'vnpay') {
