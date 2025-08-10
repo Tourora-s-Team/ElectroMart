@@ -87,6 +87,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                         <div class="summary-row total">
                             <span>Tổng cộng:</span>
                             <span class="total-amount">0đ</span>
+                            <span class="total-amount">0đ</span>
                         </div>
 
                         <div class="checkout-actions">
@@ -111,6 +112,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
 </section>
 
 <script>
+
     function changeQuantity(button, delta) {
         const quantityInput = button.closest('.item-quantity').querySelector('.quantity-input'); //Từ nút bạn click, tìm tới <div> .item-quantity chứa nó, sau đó tìm ô nhập số lượng (input) bên trong khối đó.
         const currentValue = parseInt(quantityInput.value) || 1;
