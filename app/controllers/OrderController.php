@@ -1,6 +1,7 @@
 <?php
 require_once ROOT_PATH . '/app/models/Order.php';
 require_once ROOT_PATH . '/app/models/Payment.php';
+require_once ROOT_PATH . '/app/models/Product.php';
 
 class OrderController
 {
@@ -229,6 +230,8 @@ class OrderController
             // exit;
             $paymentModel = new Payment();
             $paymentModel->savePaymentCod($CodData);
+            $productModel = new Product();
+            $productModel->minusStockProduct($item['ProductID'], $item['Quantity']);
 
             header("Location: /electromart/public/account/order-history");
             exit;

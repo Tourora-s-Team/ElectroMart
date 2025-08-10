@@ -196,6 +196,16 @@ class Product
         return $handleData->getDataWithParams($sql, $productIDs);
     }
 
+    public function minusStockProduct($productId, $quantity)
+    {
+        $handleData = new HandleData();
+        $sql = "UPDATE Product SET StockQuantity = StockQuantity - :quantity WHERE ProductID = :productId";
+        $params = [
+            ':quantity' => $quantity,
+            ':productId' => $productId,
+        ];
+        $handleData->execDataWithParams($sql, $params);
+    }
 
 }
 ?>
