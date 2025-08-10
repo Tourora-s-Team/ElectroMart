@@ -75,7 +75,7 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                         <h3>Tóm tắt đơn hàng</h3>
 
                         <div class="summary-row">
-                            <span>Tạm tính:</span>
+                            <span>Tạm tính tổng giỏ hàng:</span>
                             <span class="subtotal"><?php echo number_format($total, 0, ',', '.'); ?>đ</span>
                         </div>
 
@@ -86,7 +86,6 @@ include ROOT_PATH . '/app/views/layouts/header.php';
 
                         <div class="summary-row total">
                             <span>Tổng cộng:</span>
-                            <span class="total-amount">0đ</span>
                             <span class="total-amount">0đ</span>
                         </div>
 
