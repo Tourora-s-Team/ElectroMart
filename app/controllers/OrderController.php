@@ -185,7 +185,7 @@ class OrderController
         }
 
         $orderModel = new Order();
-        $orderId = $orderModel->createOrder($status, $shippingFee, $totalAmount, $userId);
+        $orderId = $orderModel->createOrder($status, $shippingFee, $totalAmount + $shippingFee, $userId);
         $_SESSION['order_id'] = $orderId;
 
         var_dump($orderId);
