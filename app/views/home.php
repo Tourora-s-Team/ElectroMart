@@ -55,7 +55,8 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                 <?php foreach ($promotions as $promotion): ?>
                     <div class="promotion-card">
                         <div class="promotion-badge">
-                            <span>-<?= $promotion['DiscountPercent'] ?>%</span>
+                            <span>Giảm ngay <?= number_format($promotion['DiscountValue'], 0, ',', '.') ?>đ</span>
+
                         </div>
 
                         <div class="promotion-image">
@@ -64,8 +65,8 @@ include ROOT_PATH . '/app/views/layouts/header.php';
                         </div>
 
                         <div class="promotion-content">
-                            <h3><?= htmlspecialchars($promotion['Title']) ?></h3>
-                            <p><?= htmlspecialchars(substr($promotion['Description'], 0, 100)) ?>...</p>
+                            <h3><?= htmlspecialchars($promotion['PromotionName']) ?></h3>
+                            <!-- <p><?= htmlspecialchars(substr($promotion['Description'], 0, 100)) ?>...</p> -->
 
                             <div class="promotion-dates">
                                 <small>Đến: <?= date('d/m/Y', strtotime($promotion['EndDate'])) ?></small>
